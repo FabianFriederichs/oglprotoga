@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <stdio.h>
 #include <stdlib.h>
+#include "Shader.h"
 #include "MainGame.h"
 using namespace std;
 
