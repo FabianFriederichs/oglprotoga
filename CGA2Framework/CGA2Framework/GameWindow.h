@@ -7,7 +7,7 @@
 class GameWindow : public GLFWHandler
 {
 public:
-	GameWindow(const GLint sizex, const GLint sizey, const GLboolean uselatestglver, const GLint cvmaj, const GLint cvmin, const std::string& title);
+	GameWindow(const GLint sizex, const GLint sizey, const GLint cvmaj, const GLint cvmin, const std::string& title, const GLboolean uselatestglver);
 	virtual ~GameWindow();
 	//initialize glew and glfw window
 	
@@ -17,8 +17,8 @@ public:
 	GLvoid quit();
 
 
-	virtual GLvoid update(GLdouble time, GLdouble deltatime) = 0;
-	virtual GLvoid render(GLdouble time, GLdouble deltatime) = 0;
+	virtual GLvoid update(GLdouble time) = 0;
+	virtual GLvoid render(GLdouble time) = 0;
 private:
 	GLint m_sizex;
 	GLint m_sizey;

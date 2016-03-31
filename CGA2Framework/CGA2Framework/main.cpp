@@ -9,7 +9,8 @@ using namespace std;
 
 int main(void)
 {
-	MainGame mg(800, 600, false, 4, 0, "TESTGAMECLASS");
+	MainGame mg(800, 600, 4, 0, "TESTGAME", false);
+	mg.setCursorVisble(false);
 	mg.run();
 	//GLFWwindow* window;
 

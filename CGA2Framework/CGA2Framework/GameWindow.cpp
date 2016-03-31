@@ -1,7 +1,7 @@
 #include "GameWindow.h"
 
 
-GameWindow::GameWindow(const GLint sizex, const GLint sizey, const GLboolean uselatestglver, const GLint cvmaj, const GLint cvmin, const std::string& title)
+GameWindow::GameWindow(const GLint sizex, const GLint sizey, const GLint cvmaj, const GLint cvmin, const std::string& title, const GLboolean uselatestglver)
 {
 	this->m_sizex = sizex;
 	this->m_sizey = sizey;
@@ -99,11 +99,20 @@ void GameWindow::mscrcallback(double xoffset, double yoffset)
 
 GLvoid GameWindow::run()
 {
+	GLdouble timeDelta = 1000 / 60;
+	GLdouble timeAccumulator = 0;
+	GLdouble startTime;
 	while (!glfwWindowShouldClose(this->m_window))
-	{	
-		render(0.0f, 0.0f);
-		update(0.0f, 0.0f);
+	{
+		startTime = glfwGetTime();
 		glfwPollEvents();
+		while (timeAccumulator >= timeDelta)
+		{
+			update(timeAccumulator);
+			timeAccumulator -= timeDelta;
+		}
+		render(timeAccumulator);
+		timeAccumulator += glfwGetTime() - startTime;
 	}
 	glfwTerminate();
 }

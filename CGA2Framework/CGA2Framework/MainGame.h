@@ -3,11 +3,11 @@
 class MainGame : public GameWindow
 {
 public:
-	MainGame(const GLint sizex, const GLint sizey, const GLboolean uselatestglver, const GLint cvmaj, const GLint cvmin, const std::string& title);		
+	MainGame::MainGame(const GLint sizex, const GLint sizey, const GLint cvmaj, const GLint cvmin, const std::string& title, const GLboolean uselatestglver);
 	virtual ~MainGame();
 
-	virtual GLvoid update(GLdouble time, GLdouble deltatime);
-	virtual GLvoid render(GLdouble time, GLdouble deltatime);
+	virtual GLvoid update(GLdouble time);
+	virtual GLvoid render(GLdouble time);
 
 	virtual void keycallback(int key, int scancode, int action, int mods);
 	virtual void mmcallback(double xpos, double ypos);
