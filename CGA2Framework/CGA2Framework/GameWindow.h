@@ -1,28 +1,42 @@
-#include <GL\glew.h>
-#include <glfw3.h>
-#include <string>
-
 #pragma once
+#include "headers.h"
+#include "GLFWHandler.h"
 
-//callbackthingy
-//void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-typedef void(*keycallback)(GLFWwindow*, int, int, int, int);
-//static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
-typedef void(*mmcallback)(GLFWwindow*, double, double);
-//void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
-typedef void(*mbcallback)(GLFWwindow*, int, int, int);
-//void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
-typedef void(*msccallback)(GLFWwindow*, double, double);
 
-class GameWindow
+
+class GameWindow : public GLFWHandler
 {
 public:
-	GameWindow();
-	~GameWindow();
+	GameWindow(const GLint sizex, const GLint sizey, const GLboolean uselatestglver, const GLint cvmaj, const GLint cvmin, const std::string& title);
+	virtual ~GameWindow();
+	//initialize glew and glfw window
+	
+	GLvoid setCursorVisble(GLboolean visible);
+	//gameloop
+	GLvoid run();
+	GLvoid quit();
 
-	bool initialize(const GLuint _contextmaj, const GLuint _contextmin, const GLuint _sizex, const GLuint _sizey, const std::string& _title);
 
-
+	virtual GLvoid update(GLdouble time, GLdouble deltatime) = 0;
+	virtual GLvoid render(GLdouble time, GLdouble deltatime) = 0;
 private:
+	GLint m_sizex;
+	GLint m_sizey;
+	std::string m_title;
+
+	//glfw callbacks
+	virtual void keycallback(int key, int scancode, int action, int mods);
+	virtual void mmcallback(double xpos, double ypos);
+	virtual void mbcallback(int button, int action, int mods);
+	virtual void mscrcallback(double xoffset, double yoffset);
+
+	//context config
+	GLboolean initialize();
+	GLboolean m_uselatestglcontext;
+	GLint m_cvmaj;
+	GLint m_cvmin;
+
+protected:
 	GLFWwindow* m_window;
 };
+

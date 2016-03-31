@@ -30,9 +30,6 @@
     <ClCompile Include="Shader.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="GameWindow.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -54,6 +51,15 @@
     <ClCompile Include="Light.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="GameWindow.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="GLFWHandler.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="MainGame.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\glm\glm\glm.hpp">
@@ -66,9 +72,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="GameWindow.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
@@ -90,6 +93,18 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Light.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWindow.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="GLFWHandler.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="MainGame.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="headers.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
