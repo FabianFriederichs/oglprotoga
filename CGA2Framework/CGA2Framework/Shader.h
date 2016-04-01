@@ -151,13 +151,13 @@ void Shader::setUniform(const std::string name, std::vector<GLfloat> &values)
 	switch (size)
 	{
 		case 2:
-			glUniform2fv(loc, 1, values.data());
+			glUniform1fv(loc, 2, values.data());
 			break;
 		case 3:
-			glUniform3fv(loc, 1, values.data());
+			glUniform1fv(loc, 3, values.data());
 			break;
 		case 4:
-			glUniform4fv(loc, 1, values.data());
+			glUniform1fv(loc, 4, values.data());
 			break;
 		default:
 			std::cout << "VECTOR TOO LARGE OR < 2 VALUES";
