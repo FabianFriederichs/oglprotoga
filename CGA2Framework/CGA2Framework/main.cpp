@@ -11,7 +11,8 @@ using namespace std;
 int main(void)
 {
 	MainGame mg(800, 600, 4, 0, "TESTGAME", false);
-	mg.setCursorVisble(false);
+	Shader testShader("Sample.vs", "Sample.fs");
+	mg.setCursorVisble(true);
 	mg.run();
 	//GLFWwindow* window;
 
