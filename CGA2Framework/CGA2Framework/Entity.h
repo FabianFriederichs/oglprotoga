@@ -4,7 +4,6 @@ class Entity
 private:
 	
 public:
-	Entity();
-	~Entity();
+	virtual void Draw() = 0;
 };
 
