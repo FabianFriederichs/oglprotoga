@@ -99,7 +99,7 @@ void GameWindow::mscrcallback(double xoffset, double yoffset)
 
 GLvoid GameWindow::run()
 {
-	GLdouble timeDelta = 1000 / 60;
+	GLdouble timeDelta = 1.0f / 60.0f;
 	GLdouble timeAccumulator = 0;
 	GLdouble startTime;
 	while (!glfwWindowShouldClose(this->m_window))
