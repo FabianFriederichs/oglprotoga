@@ -3,7 +3,6 @@
 #include <glm/glm.hpp>
 #include <stdio.h>
 #include <stdlib.h>
-#include "Shader.h"
 #include "MainGame.h"
 using namespace std;
 
@@ -11,7 +10,7 @@ using namespace std;
 int main(void)
 {
 	MainGame mg(800, 600, 4, 0, "TESTGAME", false);
-	Shader testShader("Sample.vs", "Sample.fs");
+
 	mg.setCursorVisble(true);
 	mg.run();
 	//GLFWwindow* window;

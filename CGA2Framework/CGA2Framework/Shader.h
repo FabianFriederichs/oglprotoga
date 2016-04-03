@@ -1,3 +1,5 @@
+#ifndef _SHADER_H
+#define _SHADER_H
 #pragma once
 #include "headers.h"
 #include <string>
@@ -117,9 +119,9 @@ private:
 	}
 public:
 	template<class T> 
-	void setUniform(const std::string name, T& stuff);
+	inline void setUniform(const std::string name, T& stuff);
 	template<class T>
-	void setUniform(const std::string name, T& stuff, const GLboolean transpose);
+	inline void setUniform(const std::string name, T& stuff, const GLboolean transpose);
 };
 
 
@@ -132,7 +134,7 @@ public:
 //}
 
 template<>
-void Shader::setUniform(const std::string name, GLfloat &value)
+inline void Shader::setUniform(const std::string name, GLfloat &value)
 {
 	GLint loc = getUniformLocation(name);
 	if (!isActive())
@@ -142,7 +144,7 @@ void Shader::setUniform(const std::string name, GLfloat &value)
 }
 
 template<> 
-void Shader::setUniform(const std::string name, std::vector<GLfloat> &values)
+inline void Shader::setUniform(const std::string name, std::vector<GLfloat> &values)
 {
 	GLint loc = getUniformLocation(name);
 	if (!isActive())
@@ -165,7 +167,7 @@ void Shader::setUniform(const std::string name, std::vector<GLfloat> &values)
 }
 
 template<>
-void Shader::setUniform(const std::string name, GLint &value)
+inline void Shader::setUniform(const std::string name, GLint &value)
 {
 	GLint loc = getUniformLocation(name);
 	if (!isActive())
@@ -174,10 +176,11 @@ void Shader::setUniform(const std::string name, GLint &value)
 }
 
 template<>
-void Shader::setUniform(const std::string name, glm::mat4 &value, const GLboolean transpose)
+inline void Shader::setUniform(const std::string name, glm::mat4 &value, const GLboolean transpose)
 {
 	GLint loc = getUniformLocation(name);
 	if (!isActive())
 		glUseProgram(this->Program);
-	glUniformMatrix4fv(loc, 1, transpose, glm::value_ptr(value));
+	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(value));
 }
+#endif

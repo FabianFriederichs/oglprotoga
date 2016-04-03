@@ -19,6 +19,9 @@ public:
 
 	virtual GLvoid update(GLdouble time) = 0;
 	virtual GLvoid render(GLdouble time) = 0;
+
+	GLint WIDTH();
+	GLint HEIGHT();
 private:
 	GLint m_sizex;
 	GLint m_sizey;

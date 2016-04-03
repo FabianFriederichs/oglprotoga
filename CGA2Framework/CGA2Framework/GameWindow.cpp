@@ -99,7 +99,11 @@ void GameWindow::mscrcallback(double xoffset, double yoffset)
 
 GLvoid GameWindow::run()
 {
-	GLdouble timeDelta = 1000 / 60;
+
+
+	glEnable(GL_DEPTH_TEST);
+
+	GLdouble timeDelta = 1.0f/60.0f;
 	GLdouble timeAccumulator = 0;
 	GLdouble startTime;
 	while (!glfwWindowShouldClose(this->m_window))
@@ -120,4 +124,12 @@ GLvoid GameWindow::run()
 GLvoid GameWindow::quit()
 {
 	glfwSetWindowShouldClose(m_window, GL_TRUE);
+}
+
+GLint GameWindow::HEIGHT(){
+	return this->m_sizey;
+}
+
+GLint GameWindow::WIDTH(){
+	return this->m_sizex;
 }

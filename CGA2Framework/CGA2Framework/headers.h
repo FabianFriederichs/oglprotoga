@@ -1,3 +1,5 @@
+#ifndef _HEADERS_H
+#define _HEADERS_H
 #pragma once
 #include <GL\glew.h>
 #include <glfw3.h>
@@ -13,3 +15,4 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#endif

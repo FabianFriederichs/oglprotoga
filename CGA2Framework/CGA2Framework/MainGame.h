@@ -1,7 +1,12 @@
 #pragma once
 #include "GameWindow.h"
+#include "Camera.h"
+#include "Shader.h"
 class MainGame : public GameWindow
 {
+
+	const static GLfloat vertices[];
+
 public:
 	MainGame::MainGame(const GLint sizex, const GLint sizey, const GLint cvmaj, const GLint cvmin, const std::string& title, const GLboolean uselatestglver);
 	virtual ~MainGame();
@@ -13,5 +18,11 @@ public:
 	virtual void mmcallback(double xpos, double ypos);
 	virtual void mbcallback(int button, int action, int mods);
 	virtual void mscrcallback(double xoffset, double yoffset);
+
+	bool keys[1024];
+
+	GLuint VBO, VAO;
+	Camera *cam;
+	Shader *shader;
 };
 
