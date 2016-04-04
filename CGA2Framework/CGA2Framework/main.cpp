@@ -12,7 +12,7 @@ int main(void)
 {
 	MainGame mg(800, 600, 4, 0, "TESTGAME", false);
 	Shader testShader("Sample.vs", "Sample.fs");
-	mg.setCursorVisble(true);
+	mg.setCursorVisble(false);
 	mg.run();
 	//GLFWwindow* window;
 
