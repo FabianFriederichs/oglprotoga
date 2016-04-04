@@ -4,5 +4,5 @@ out vec4 outcol;
 
 void main()
 {
-    outcol = vec4(sin(gl_FragCoord.x), 0.5f, 0.5f, 1);
+    outcol = vec4(sin(gl_FragCoord.x), 0.9f, 0.5f, 1);
 } 
