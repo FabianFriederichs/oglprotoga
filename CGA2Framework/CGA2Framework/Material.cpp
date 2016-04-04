@@ -91,9 +91,9 @@ GLint Material::getTextureCount()
 
 Texture& Material::getTexture(const int& _id)
 {
-	for (auto it = m_textures.begin(); it != m_textures.end; it++)
+	for (std::vector<Texture>::iterator it = m_textures.begin(); it < m_textures.end(); it++)
 	{
-		if ((*it)->getID() == _id)
+		if (it->getID() == _id)
 			return (*it);
 	}
 }
