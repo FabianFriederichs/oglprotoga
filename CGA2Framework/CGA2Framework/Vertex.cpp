@@ -1,14 +1,5 @@
 #include "Vertex.h"
 
-//Vertex();
-//Vertex(const Vertex& _other);
-//Vertex(const glm::vec3& _position,
-//	const glm::vec2& _uv = glm::vec2(0.0f, 0.0f),
-//	const glm::vec3& _normal = glm::vec3(0.0f, 0.0f, 0.0f),
-//	const glm::vec3& _tangent = glm::vec3(0.0f, 0.0f, 0.0f),
-//	const glm::vec3& _bitangent = glm::vec3(0.0f, 0.0f, 0.0f));
-//~Vertex();
-
 Vertex::Vertex()
 {
 	m_position = glm::vec3(0.0f, 0.0f, 0.0f);
