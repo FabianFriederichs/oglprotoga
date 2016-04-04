@@ -38,20 +38,21 @@ public:
 	void setName(const std::string& _name) { m_name = _name; }
 	void setAmbientColor(const glm::vec4& _ambientcolor) { m_ambientcolor = _ambientcolor; }
 	void setDiffuseColor(const glm::vec4& _diffusecolor) { m_diffusecolor = _diffusecolor; }
-	void setSpecularColr(const glm::vec4& _specularcolor) { m_specularcolor = _specularcolor; }
+	void setSpecularColor(const glm::vec4& _specularcolor) { m_specularcolor = _specularcolor; }
 	void setShininess(const GLfloat _shininess) { m_shininess = _shininess; }
 	void setAlpha(const GLfloat _alpha) { m_alpha = _alpha; }
 
 	//Textures
 	void removeTexture(const GLint _id);
 	void addTexture(const Texture& _texture);
+	void addTexture(const Texture&& _texture);
 	GLint getTextureCount();
 	Texture& getTexture(const int& _id);
 
 private:
 	GLint m_id;							//each material has a unique id
 	std::string m_name;
-	std::vector<std::unique_ptr<Texture>> m_textures;
+	std::vector<Texture> m_textures;
 	//standard phong stuff
 	glm::vec4 m_ambientcolor;
 	glm::vec4 m_diffusecolor;

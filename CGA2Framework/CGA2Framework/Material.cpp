@@ -71,17 +71,22 @@ Material::~Material()
 
 void Material::addTexture(const Texture& _texture)
 {
-	m_textures.push_back(std::unique_ptr<Texture>(new Texture(_texture)));
+	m_textures.push_back(Texture(_texture));
+}
+
+void Material::addTexture(const Texture&& _texture)
+{
+	m_textures.push_back(_texture);
 }
 
 void Material::removeTexture(const GLint _id)
 {
-
+	m_textures.erase(std::remove_if(m_textures.begin(), m_textures.end(), [&_id](Texture x){return x.getID() == _id; }), m_textures.end());
 }
 
 GLint Material::getTextureCount()
 {
-
+	return m_textures.size();
 }
 
 Texture& Material::getTexture(const int& _id)
@@ -89,6 +94,6 @@ Texture& Material::getTexture(const int& _id)
 	for (auto it = m_textures.begin(); it != m_textures.end; it++)
 	{
 		if ((*it)->getID() == _id)
-			return (*(*it));
+			return (*it);
 	}
 }
