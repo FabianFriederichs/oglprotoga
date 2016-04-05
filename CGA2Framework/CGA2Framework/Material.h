@@ -22,7 +22,7 @@ public:
 		const GLfloat _shininess,
 		const GLfloat _alpha);
 
-	Material(const Material& _other);
+	Material(const Material& _other);	//copy
 
 	~Material();
 
@@ -45,7 +45,6 @@ public:
 	//Textures
 	void removeTexture(const GLint _id);
 	void addTexture(const Texture& _texture);
-	void addTexture(const Texture&& _texture);
 	GLint getTextureCount();
 	Texture& getTexture(const int& _id);
 

@@ -12,6 +12,8 @@ public:
 		const glm::vec3& _bitangent = glm::vec3(0.0f, 0.0f, 0.0f));
 	~Vertex();
 
+	bool operator==(const Vertex& _other);
+
 	//getters / setters
 	const glm::vec3& getPosition() const { return m_position; }
 	const glm::vec3& getNormal() const { return m_normal; }

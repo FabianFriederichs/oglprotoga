@@ -50,7 +50,7 @@ Material::Material(const std::string& _name,
 {
 	
 }
-
+//copy constructor
 Material::Material(const Material& _other) : //member initializers
 	m_id(IDProvider::getInstance().createID()),
 	m_ambientcolor(_other.m_ambientcolor),
@@ -64,17 +64,14 @@ Material::Material(const Material& _other) : //member initializers
 	
 }
 
+
+
 Material::~Material()
 {
 
 }
 
 void Material::addTexture(const Texture& _texture)
-{
-	m_textures.push_back(Texture(_texture));
-}
-
-void Material::addTexture(const Texture&& _texture)
 {
 	m_textures.push_back(_texture);
 }
@@ -91,7 +88,7 @@ GLint Material::getTextureCount()
 
 Texture& Material::getTexture(const int& _id)
 {
-	for (std::vector<Texture>::iterator it = m_textures.begin(); it < m_textures.end(); it++)
+	for (std::vector<Texture>::iterator it = m_textures.begin(); it != m_textures.end(); it++)
 	{
 		if (it->getID() == _id)
 			return (*it);

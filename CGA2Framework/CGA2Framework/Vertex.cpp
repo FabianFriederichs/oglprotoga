@@ -35,3 +35,19 @@ Vertex::~Vertex()
 {
 
 }
+
+bool Vertex::operator==(const Vertex& _other)
+{
+	if (glm::all(glm::equal(m_position, _other.m_position)) &&
+		glm::all(glm::equal(m_uv, _other.m_uv)) &&
+		glm::all(glm::equal(m_normal, _other.m_normal)) &&
+		glm::all(glm::equal(m_tangent, _other.m_tangent)) &&
+		glm::all(glm::equal(m_bitangent, _other.m_bitangent)))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
