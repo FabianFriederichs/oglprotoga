@@ -24,7 +24,7 @@ Mesh::Mesh(const Mesh& _other) :
 	
 }
 
-Mesh::Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLint>& _indices, const Material& _material) :
+Mesh::Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLint>& _indices, const Material& _material, const bool _calcBoundingBox) :
 	m_id(IDProvider::getInstance().createID()),
 	m_hasBoundingBox(false),
 	m_vertices(_vertices),
@@ -33,7 +33,8 @@ Mesh::Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLint>& _indi
 	m_boundingboxindices(),
 	m_material(_material)
 {
-	
+	if (_calcBoundingBox)
+		generateBoundingBox();
 }
 
 Mesh::~Mesh()
@@ -53,12 +54,12 @@ void Mesh::addIndex(const GLint _index)
 
 void Mesh::removeVertex(const Vertex& _vertex)
 {
-	m_vertices.erase(std::remove_if(m_vertices.begin(), m_vertices.end(), [&_vertex](Vertex x){return (x == _vertex); }), m_vertices.end());
+	m_vertices.erase(std::remove_if(m_vertices.begin(), m_vertices.end(), [&_vertex](const Vertex& x){return (x == _vertex); }), m_vertices.end());
 }
 
 void Mesh::removeIndex(const GLint _index)
 {
-	m_indices.erase(std::remove_if(m_indices.begin(), m_indices.end(), [_index](GLint x){return (x == _index); }), m_indices.end());
+	m_indices.erase(std::remove_if(m_indices.begin(), m_indices.end(), [_index](const GLint x){return (x == _index); }), m_indices.end());
 }
 
 void Mesh::setupVAOs()

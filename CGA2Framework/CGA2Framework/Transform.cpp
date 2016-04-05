@@ -1,31 +1,34 @@
 #include "Transform.h"
 //TODO:	Implement quaternions and think of returning references instead of copies
 
-Transform::Transform(const glm::vec3& _translate, const glm::vec3& _rotate, const glm::vec3& _scale)
+Transform::Transform(const glm::vec3& _translate, const glm::vec3& _rotate, const glm::vec3& _scale) :
+	m_translate(_translate),
+	m_rotate(_rotate),
+	m_scale(_scale),
+	m_transformMat(1.0f),
+	m_matdirty(false)
 {
-	this->m_translate = _translate;
-	this->m_rotate = _rotate;
-	this->m_scale = _scale;
-	this->m_transformMat = glm::mat4(1.0f);
-	m_matdirty = false;
+	
 }
 
-Transform::Transform(const Transform& _other)
+Transform::Transform(const Transform& _other) :
+	m_translate(_other.m_translate),
+	m_rotate(_other.m_rotate),
+	m_scale(_other.m_scale),
+	m_transformMat(_other.m_transformMat),
+	m_matdirty(true)
 {
-	this->m_translate = _other.m_translate;
-	this->m_rotate = _other.m_rotate;
-	this->m_scale = _other.m_scale;
-	this->m_transformMat = _other.m_transformMat;
-	m_matdirty = true;
+	
 }
 
-Transform::Transform()
+Transform::Transform() :
+	m_translate(0.0f, 0.0f, 0.0f),
+	m_rotate(0.0f, 0.0f, 0.0f),
+	m_scale(1.0f, 1.0f, 1.0f),
+	m_transformMat(1.0f),
+	m_matdirty(false)
 {
-	this->m_translate = glm::vec3(0.0f, 0.0f, 0.0f);
-	this->m_rotate = glm::vec3(0.0f, 0.0f, 0.0f);
-	this->m_scale = glm::vec3(1.0f, 1.0f, 1.0f);
-	this->m_transformMat = glm::mat4(1.0f);
-	m_matdirty = false;
+	
 }
 
 
@@ -70,7 +73,9 @@ void Transform::updateTransformMat()
 {
 	m_transformMat = glm::mat4(1.0f);
 	m_transformMat = glm::translate(m_transformMat, m_translate);
-	m_transformMat = glm::rotate(m_transformMat, m_rotate.x, glm::vec3(1.0f, 0.0f, 0.0f)) * glm::rotate(m_transformMat, m_rotate.y, glm::vec3(0.0f, 1.0f, 0.0f)) * glm::rotate(m_transformMat, m_rotate.z, glm::vec3(0.0f, 0.0f, 1.0f));
+	m_transformMat = glm::rotate(m_transformMat, m_rotate.x, glm::vec3(1.0f, 0.0f, 0.0f)) *
+		glm::rotate(m_transformMat, m_rotate.y, glm::vec3(0.0f, 1.0f, 0.0f)) *
+		glm::rotate(m_transformMat, m_rotate.z, glm::vec3(0.0f, 0.0f, 1.0f));
 	m_transformMat = glm::scale(m_transformMat, m_scale);
 	m_matdirty = false;
 }

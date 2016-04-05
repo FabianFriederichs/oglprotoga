@@ -5,7 +5,6 @@ class IDProvider
 private:
 	IDProvider();
 	IDProvider(const IDProvider&);
-	IDProvider& operator=(const IDProvider&);
 	~IDProvider();
 	GLint m_lastid;
 public:	

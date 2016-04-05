@@ -12,7 +12,8 @@ public:
 		const glm::vec3& _bitangent = glm::vec3(0.0f, 0.0f, 0.0f));
 	~Vertex();
 
-	bool operator==(const Vertex& _other);
+	//declare equalityoperator as friend for access to private members
+	friend inline bool operator==(const Vertex& _v1, const Vertex& _v2);
 
 	//getters / setters
 	const glm::vec3& getPosition() const { return m_position; }
@@ -34,4 +35,21 @@ private:
 	glm::vec3 m_tangent;
 	glm::vec3 m_bitangent; //no need for bitangent in shader later, bitangent equals normal cross tangent!
 };
+
+//global equality operator
+inline bool operator==(const Vertex& _v1, const Vertex& _v2)
+{
+	if (glm::all(glm::equal(_v1.m_position, _v2.m_position)) &&
+		glm::all(glm::equal(_v1.m_uv, _v2.m_uv)) &&
+		glm::all(glm::equal(_v1.m_normal, _v2.m_normal)) &&
+		glm::all(glm::equal(_v1.m_tangent, _v2.m_tangent)) &&
+		glm::all(glm::equal(_v1.m_bitangent, _v2.m_bitangent)))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 

@@ -78,7 +78,7 @@ void Material::addTexture(const Texture& _texture)
 
 void Material::removeTexture(const GLint _id)
 {
-	m_textures.erase(std::remove_if(m_textures.begin(), m_textures.end(), [&_id](Texture x){return x.getID() == _id; }), m_textures.end());
+	m_textures.erase(std::remove_if(m_textures.begin(), m_textures.end(), [&_id](const Texture& x){return x.getID() == _id; }), m_textures.end());
 }
 
 GLint Material::getTextureCount()

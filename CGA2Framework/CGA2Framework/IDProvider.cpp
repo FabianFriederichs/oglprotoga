@@ -1,9 +1,10 @@
 #include "IDProvider.h"
 
 
-IDProvider::IDProvider()
+IDProvider::IDProvider() :
+	m_lastid(0)
 {
-	m_lastid = 0;
+	
 }
 
 
@@ -13,11 +14,6 @@ IDProvider::~IDProvider()
 }
 
 IDProvider::IDProvider(const IDProvider& _prov)
-{
-
-}
-
-IDProvider& IDProvider::operator=(const IDProvider& _prov)
 {
 
 }
