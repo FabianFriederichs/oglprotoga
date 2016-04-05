@@ -37,10 +37,12 @@ public:
 	void setMaterial(const Material& _material);
 
 	//drawing
-	void setupVAOs();
+	void setupVAO();
+	void setupBBVAO();
 	void drawBoundingBox();
 	void drawMesh();
 	void freeGLData();
+	void freeBBGLData();
 private:
 	GLint m_id;
 	bool m_hasBoundingBox;
@@ -55,6 +57,7 @@ private:
 	//bounding box bounds
 	glm::vec3 m_bbcenter;
 	glm::vec3 m_bbsize;
+	GLfloat m_bbradius;
 
 	//GL stuff
 	GLint m_vbo;

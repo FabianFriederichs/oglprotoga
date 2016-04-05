@@ -62,7 +62,12 @@ void Mesh::removeIndex(const GLint _index)
 	m_indices.erase(std::remove_if(m_indices.begin(), m_indices.end(), [_index](const GLint x){return (x == _index); }), m_indices.end());
 }
 
-void Mesh::setupVAOs()
+void Mesh::setupVAO()
+{
+
+}
+
+void Mesh::setupBBVAO()
 {
 
 }
@@ -82,9 +87,50 @@ void Mesh::freeGLData()
 
 }
 
-void Mesh::generateBoundingBox()
+void Mesh::freeBBGLData()
 {
 
+}
+
+void Mesh::generateBoundingBox()
+{
+	//TODO: improve later to fit bb closely to mesh via appropriate rotation
+	//calc bounds
+	float xMax = std::numeric_limits<float>::min();
+	float yMax = std::numeric_limits<float>::min();
+	float zMax = std::numeric_limits<float>::min();
+	float xMin = std::numeric_limits<float>::max();
+	float yMin = std::numeric_limits<float>::max();
+	float zMin = std::numeric_limits<float>::max();
+	float x = 0.0f;
+	float y = 0.0f;
+	float z = 0.0f;
+	int numVerts = m_vertices.size();
+	for (int i = 0; i < numVerts; ++i)
+	{
+		x = m_vertices[i].getPosition().x;
+		y = m_vertices[i].getPosition().y;
+		z = m_vertices[i].getPosition().z;
+		if (x < xMin) xMin = x;
+		if (x > xMax) xMax = x;
+		if (y < yMin) yMin = y;
+		if (y > yMax) yMax = y;
+		if (z < zMin) zMin = z;
+		if (z > zMax) zMax = z;
+	}
+	m_bbcenter = glm::vec3(((xMin + xMax) / 2.0f), ((yMin + yMax) / 2.0f), ((zMin + zMax) / 2.0f));
+	m_bbsize = glm::vec3(xMax - xMin, yMax - yMin, zMax - zMin);
+	m_bbradius = std::max(std::max(m_bbsize.x, m_bbsize.y), m_bbsize.z);
+
+	//calc vertices/indices for drawing
+	Vertex blb(m_bbcenter + glm::vec3(-(m_bbsize.x / 2.0f), -(m_bbsize.y / 2.0f), (m_bbsize.z / 2.0f)));	//bottom-left-back
+	Vertex brb();	//bottom-right-back
+	Vertex blf();	//bottom-left-front
+	Vertex brf();	//bottom-right-front
+	Vertex tlb();	//top-left-back
+	Vertex trb();	//top-right-back
+	Vertex tlf();	//top-left-front
+	Vertex trf();	//top-right-front
 }
 
 
