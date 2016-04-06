@@ -51,12 +51,12 @@ public:
 private:
 	GLint m_id;							//each material has a unique id
 	std::string m_name;
-	std::vector<Texture> m_textures;
+	std::vector<Texture> m_textures;  //i.e. <diffuse_map, specular_map, normal_map, height_map> -> holds all data for standard shading, normal mapping, bump mapping, parallax mapping (normalmap + heightmap), displacement mapping
 	//standard phong stuff
-	glm::vec4 m_ambientcolor;
-	glm::vec4 m_diffusecolor;
-	glm::vec4 m_specularcolor;
-	GLfloat m_shininess;
-	GLfloat m_alpha;
+	glm::vec4 m_ambientcolor;			//if no diffuse_map given
+	glm::vec4 m_diffusecolor;			//if no diffuse_map given
+	glm::vec4 m_specularcolor;			//if no specular_map given
+	GLfloat m_shininess;				//for phong shading, range [0.0, 1.0], higher values -> smaller specular
+	GLfloat m_alpha;					//some value from obj, don't know what this is
 };
 

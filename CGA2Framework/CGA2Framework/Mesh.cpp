@@ -62,15 +62,23 @@ void Mesh::removeIndex(const GLint _index)
 	m_indices.erase(std::remove_if(m_indices.begin(), m_indices.end(), [_index](const GLint x){return (x == _index); }), m_indices.end());
 }
 
-void Mesh::setupVAO()
+void Mesh::setupVAOs()
 {
-	if (!m_glinited)
-	{
+	if (m_vao == 0)
+		glCreateVertexArrays(1, &m_vao);
+	glBindVertexArray(m_vao);
 
-	}
+	//create vbo
+	//bind vbo
+	//arttribute pointer
+	//create ibo
+	//bind ibo
+
+	glBindVertexArray(0);
+}
 }
 
-void Mesh::setupBBVAO()
+void Mesh::setupBBVAOs()
 {
 	if (!m_glinited)
 	{

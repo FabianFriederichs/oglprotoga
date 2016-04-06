@@ -37,8 +37,8 @@ public:
 	void setMaterial(const Material& _material);
 
 	//drawing
-	void setupVAO();
-	void setupBBVAO();
+	void setupVAOs();
+	void setupBBVAOs();
 	void drawBoundingBox();
 	void drawMesh();
 	void freeGLData();
@@ -60,10 +60,16 @@ private:
 	GLfloat m_bbradius;
 
 	//GL stuff
-	GLint m_vbo;
+	GLint m_posvbo;
+	GLint m_normvbo;
+	GLint m_uvvbo;
+	GLint m_tanvbo;
+	GLint m_bitanvbo;
 	GLint m_ibo;
-	GLint m_vboBoundingBox;
+	
+	GLint m_vboBoundingBoxPos;
 	GLint m_iboBoundingBox;
+	
 	GLint m_vao;
 	GLint m_vaoBoundingBox;
 };
