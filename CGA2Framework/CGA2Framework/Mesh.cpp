@@ -64,32 +64,50 @@ void Mesh::removeIndex(const GLint _index)
 
 void Mesh::setupVAO()
 {
+	if (!m_glinited)
+	{
 
+	}
 }
 
 void Mesh::setupBBVAO()
 {
+	if (!m_glinited)
+	{
 
+	}
 }
 
 void Mesh::drawBoundingBox()
 {
+	if (m_glinited && m_hasBoundingBox)
+	{
 
+	}
 }
 
 void Mesh::drawMesh()
 {
+	if (m_glinited)
+	{
 
+	}
 }
 
 void Mesh::freeGLData()
 {
+	if (m_glinited)
+	{
 
+	}
 }
 
 void Mesh::freeBBGLData()
 {
+	if (m_glinited)
+	{
 
+	}
 }
 
 void Mesh::generateBoundingBox()
@@ -120,17 +138,46 @@ void Mesh::generateBoundingBox()
 	}
 	m_bbcenter = glm::vec3(((xMin + xMax) / 2.0f), ((yMin + yMax) / 2.0f), ((zMin + zMax) / 2.0f));
 	m_bbsize = glm::vec3(xMax - xMin, yMax - yMin, zMax - zMin);
-	m_bbradius = std::max(std::max(m_bbsize.x, m_bbsize.y), m_bbsize.z);
+	m_bbradius = std::max(std::max(m_bbsize.x, m_bbsize.y), m_bbsize.z) / 2.0f;
 
 	//calc vertices/indices for drawing
-	Vertex blb(m_bbcenter + glm::vec3(-(m_bbsize.x / 2.0f), -(m_bbsize.y / 2.0f), (m_bbsize.z / 2.0f)));	//bottom-left-back
-	Vertex brb();	//bottom-right-back
-	Vertex blf();	//bottom-left-front
-	Vertex brf();	//bottom-right-front
-	Vertex tlb();	//top-left-back
-	Vertex trb();	//top-right-back
-	Vertex tlf();	//top-left-front
-	Vertex trf();	//top-right-front
+	Vertex blb(m_bbcenter + glm::vec3(-(m_bbsize.x / 2.0f), -(m_bbsize.y / 2.0f), -(m_bbsize.z / 2.0f)));	//0	//bottom-left-back
+	Vertex brb(m_bbcenter + glm::vec3((m_bbsize.x / 2.0f), -(m_bbsize.y / 2.0f), -(m_bbsize.z / 2.0f)));	//1	//bottom-right-back
+	Vertex blf(m_bbcenter + glm::vec3(-(m_bbsize.x / 2.0f), -(m_bbsize.y / 2.0f), (m_bbsize.z / 2.0f)));	//2	//bottom-left-front
+	Vertex brf(m_bbcenter + glm::vec3((m_bbsize.x / 2.0f), -(m_bbsize.y / 2.0f), (m_bbsize.z / 2.0f)));		//3	//bottom-right-front
+	Vertex tlb(m_bbcenter + glm::vec3(-(m_bbsize.x / 2.0f), (m_bbsize.y / 2.0f), -(m_bbsize.z / 2.0f)));	//4	//top-left-back
+	Vertex trb(m_bbcenter + glm::vec3((m_bbsize.x / 2.0f), (m_bbsize.y / 2.0f), -(m_bbsize.z / 2.0f)));		//5	//top-right-back
+	Vertex tlf(m_bbcenter + glm::vec3(-(m_bbsize.x / 2.0f), (m_bbsize.y / 2.0f), -(m_bbsize.z / 2.0f)));	//6	//top-left-front
+	Vertex trf(m_bbcenter + glm::vec3((m_bbsize.x / 2.0f), (m_bbsize.y / 2.0f), -(m_bbsize.z / 2.0f)));		//7	//top-right-front
+
+	m_boundingboxvertices.push_back(blb);
+	m_boundingboxvertices.push_back(brb);
+	m_boundingboxvertices.push_back(blf);
+	m_boundingboxvertices.push_back(brf);
+	m_boundingboxvertices.push_back(tlb);
+	m_boundingboxvertices.push_back(trb);
+	m_boundingboxvertices.push_back(tlf);
+	m_boundingboxvertices.push_back(trf);
+
+	//setup indices	
+	int indic[] = { 1, 3, 2,
+					2, 0, 1,
+					1, 0, 4,
+					4, 5, 1,
+					4, 0, 6,
+					6, 0, 2,
+					1, 5, 3,
+					3, 5, 7,
+					6, 5, 4,
+					7, 5, 6,
+					7, 6, 2,
+					2, 3, 7 };
+
+	//clear and push to vertex list / index list
+	m_boundingboxindices.clear();
+	m_boundingboxindices.insert(m_boundingboxindices.begin(), indic, indic + 36);
+
+	m_hasBoundingBox = true;
 }
 
 
