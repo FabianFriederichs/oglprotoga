@@ -76,46 +76,31 @@ void Mesh::setupVAOs()
 
 	glBindVertexArray(0);
 }
-}
+
 
 void Mesh::setupBBVAOs()
 {
-	if (!m_glinited)
-	{
 
-	}
 }
 
 void Mesh::drawBoundingBox()
 {
-	if (m_glinited && m_hasBoundingBox)
-	{
-
-	}
+	
 }
 
 void Mesh::drawMesh()
 {
-	if (m_glinited)
-	{
-
-	}
+	
 }
 
 void Mesh::freeGLData()
 {
-	if (m_glinited)
-	{
-
-	}
+	
 }
 
 void Mesh::freeBBGLData()
 {
-	if (m_glinited)
-	{
-
-	}
+	
 }
 
 void Mesh::generateBoundingBox()

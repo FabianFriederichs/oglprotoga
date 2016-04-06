@@ -22,9 +22,13 @@ public:
 
 	//getters / setters
 	const GLint getID() const { return m_id; }
-	const GLint getVBOVertices() const { return m_vbo; }
+	const GLint getPosVBOVertices() const { return m_posvbo; }
+	const GLint getUVVBOVertices() const { return m_uvvbo; }
+	const GLint getNormVBOVertices() const { return m_normvbo; }
+	const GLint getTanVBOVertices() const { return m_tanvbo; }
+	const GLint getBitanVBOVertices() const { return m_bitanvbo; }
 	const GLint getIBOIndices() const { return m_ibo; }
-	const GLint getVBOBoundingBox() const { return m_vboBoundingBox; }
+	const GLint getVBOBoundingBox() const { return m_vboBoundingBoxPos; }
 	const GLint getIBOBoundingBox() const { return m_iboBoundingBox; }
 	const GLint getVAOVertices() const { return m_vao; }
 	const GLint getVAOBoundingBox() const { return m_vaoBoundingBox; }
@@ -60,17 +64,17 @@ private:
 	GLfloat m_bbradius;
 
 	//GL stuff
-	GLint m_posvbo;
-	GLint m_normvbo;
-	GLint m_uvvbo;
-	GLint m_tanvbo;
-	GLint m_bitanvbo;
-	GLint m_ibo;
+	GLuint m_posvbo;
+	GLuint m_normvbo;
+	GLuint m_uvvbo;
+	GLuint m_tanvbo;
+	GLuint m_bitanvbo;
+	GLuint m_ibo;
 	
-	GLint m_vboBoundingBoxPos;
-	GLint m_iboBoundingBox;
+	GLuint m_vboBoundingBoxPos;
+	GLuint m_iboBoundingBox;
 	
-	GLint m_vao;
-	GLint m_vaoBoundingBox;
+	GLuint m_vao;
+	GLuint m_vaoBoundingBox;
 };
 
