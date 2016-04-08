@@ -14,6 +14,9 @@ public:
 
 	void generateBoundingBox();
 	const bool hasBoundingBox() const { return m_hasBoundingBox; }
+	const bool hasNormals() const { return m_hasNormals; }
+	const bool hasTexCoords() const { return m_hasTexCoords; }
+	const bool hasTangents() const { return m_hasTangents; }
 
 	void addVertex(const Vertex& _vertex);
 	void removeVertex(const Vertex& _vertex);
@@ -50,6 +53,10 @@ public:
 private:
 	GLint m_id;
 	bool m_hasBoundingBox;
+	bool m_hasNormals;
+	bool m_hasPositions;
+	bool m_hasTexCoords;
+	bool m_hasTangents;
 	bool m_glinited;
 
 	std::vector<Vertex> m_vertices;
@@ -68,7 +75,6 @@ private:
 	GLuint m_normvbo;
 	GLuint m_uvvbo;
 	GLuint m_tanvbo;
-	GLuint m_bitanvbo;
 	GLuint m_ibo;
 	
 	GLuint m_vboBoundingBoxPos;

@@ -68,6 +68,29 @@ void Mesh::setupVAOs()
 		glCreateVertexArrays(1, &m_vao);
 	glBindVertexArray(m_vao);
 
+	if (m_hasPositions)
+	{
+		glGenBuffers(1, &m_posvbo);
+		glBindBuffer(GL_VERTEX_ARRAY, m_posvbo);
+
+
+	}
+
+	if (m_hasNormals)
+	{
+		glGenBuffers(1, &m_normvbo);
+	}
+
+	if (m_hasTexCoords)
+	{
+		glGenBuffers(1, &m_uvvbo);
+	}
+
+	if (m_hasTangents)
+	{
+		glGenBuffers(1, &m_tanvbo);
+	}
+
 	//create vbo
 	//bind vbo
 	//arttribute pointer
@@ -80,27 +103,68 @@ void Mesh::setupVAOs()
 
 void Mesh::setupBBVAOs()
 {
-
+	if (m_hasBoundingBox)
+	{
+	
+	}
 }
 
 void Mesh::drawBoundingBox()
 {
-	
+	if (m_hasBoundingBox)
+	{
+
+	}
 }
 
 void Mesh::drawMesh()
 {
+	if (m_vao != 0)
+	{
 	
+	}
 }
 
 void Mesh::freeGLData()
 {
-	
+	if (m_vao != 0)
+	{
+		if (m_posvbo != 0)
+		{
+		
+		}
+		if (m_tanvbo != 0)
+		{
+
+		}
+		if (m_bitanvbo != 0)
+		{
+
+		}
+		if (m_uvvbo != 0)
+		{
+
+		}
+		if (m_ibo != 0)
+		{
+
+		}		
+	}	
 }
 
 void Mesh::freeBBGLData()
 {
-	
+	if (m_vaoBoundingBox != 0)
+	{
+		if (m_vboBoundingBoxPos != 0)
+		{
+
+		}
+		if (m_iboBoundingBox != 0)
+		{
+
+		}
+	}
 }
 
 void Mesh::generateBoundingBox()
