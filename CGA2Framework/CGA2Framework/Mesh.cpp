@@ -47,7 +47,7 @@ void Mesh::addVertex(const Vertex& _vertex)
 	m_vertices.push_back(_vertex);
 }
 
-void Mesh::addIndex(const GLint _index)
+void Mesh::addIndex(const GLuint _index)
 {
 	m_indices.push_back(_index);
 }
@@ -57,45 +57,57 @@ void Mesh::removeVertex(const Vertex& _vertex)
 	m_vertices.erase(std::remove_if(m_vertices.begin(), m_vertices.end(), [&_vertex](const Vertex& x){return (x == _vertex); }), m_vertices.end());
 }
 
-void Mesh::removeIndex(const GLint _index)
+void Mesh::removeIndex(const GLuint _index)
 {
 	m_indices.erase(std::remove_if(m_indices.begin(), m_indices.end(), [_index](const GLint x){return (x == _index); }), m_indices.end());
 }
 
 void Mesh::setupVAOs()
 {
+	//caching vertex data as plain float vector
+	std::vector<GLfloat> buf;
+	buf.reserve(m_vertices.size() * FLOATS_PER_VERTEX);
+	for (auto it = m_vertices.begin(); it != m_vertices.end(); it++)
+	{
+		buf.push_back(it->getPosition().x);		//postition floats
+		buf.push_back(it->getPosition().y);
+		buf.push_back(it->getPosition().z);
+
+		buf.push_back(it->getUV().x);			//uv floats
+		buf.push_back(it->getUV().y);
+
+		buf.push_back(it->getNormal().x);		//normal floats
+		buf.push_back(it->getNormal().y);
+		buf.push_back(it->getNormal().z);
+
+		buf.push_back(it->getTangent().x);		//tangent floats	(bitangents not cached here because they can be easily calculated as tangent cross normal)
+		buf.push_back(it->getTangent().y);
+		buf.push_back(it->getTangent().z);
+	}
+
+	//glstuff
+
 	if (m_vao == 0)
 		glCreateVertexArrays(1, &m_vao);
 	glBindVertexArray(m_vao);
+	
+	glGenBuffers(1, &m_vbo);
+	glGenBuffers(1, &m_ibo);
+	
+	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+	glBufferData(GL_ARRAY_BUFFER, m_vertices.size() * FLOATS_PER_VERTEX * sizeof(GLfloat), buf.data(), GL_STATIC_DRAW);
 
-	if (m_hasPositions)
-	{
-		glGenBuffers(1, &m_posvbo);
-		glBindBuffer(GL_VERTEX_ARRAY, m_posvbo);
-
-
-	}
-
-	if (m_hasNormals)
-	{
-		glGenBuffers(1, &m_normvbo);
-	}
-
-	if (m_hasTexCoords)
-	{
-		glGenBuffers(1, &m_uvvbo);
-	}
-
-	if (m_hasTangents)
-	{
-		glGenBuffers(1, &m_tanvbo);
-	}
-
-	//create vbo
-	//bind vbo
-	//arttribute pointer
-	//create ibo
-	//bind ibo
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(GLuint), m_indices.data(), GL_STATIC_DRAW);
+	
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(0)); //position format
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(5 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(3);
+	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(8 * sizeof(GLfloat)));	
 
 	glBindVertexArray(0);
 }
@@ -105,7 +117,52 @@ void Mesh::setupBBVAOs()
 {
 	if (m_hasBoundingBox)
 	{
-	
+		//caching vertex data as plain float vector
+		std::vector<GLfloat> buf;
+		buf.reserve(m_boundingboxvertices.size() * FLOATS_PER_VERTEX);
+		for (auto it = m_boundingboxvertices.begin(); it != m_boundingboxvertices.end(); it++)
+		{
+			buf.push_back(it->getPosition().x);		//postition floats
+			buf.push_back(it->getPosition().y);
+			buf.push_back(it->getPosition().z);
+
+			buf.push_back(it->getUV().x);			//uv floats
+			buf.push_back(it->getUV().y);
+
+			buf.push_back(it->getNormal().x);		//normal floats
+			buf.push_back(it->getNormal().y);
+			buf.push_back(it->getNormal().z);
+
+			buf.push_back(it->getTangent().x);		//tangent floats	(bitangents not cached here because they can be easily calculated as tangent cross normal)
+			buf.push_back(it->getTangent().y);
+			buf.push_back(it->getTangent().z);
+		}
+
+		//glstuff
+		if (m_bbvao == 0)
+			glCreateVertexArrays(1, &m_bbvao);
+		glBindVertexArray(m_bbvao);
+
+		glGenBuffers(1, &m_bbvbo);
+		glGenBuffers(1, &m_bbibo);
+
+		glBindBuffer(GL_ARRAY_BUFFER, m_bbvbo);
+		glBufferData(GL_ARRAY_BUFFER, m_boundingboxvertices.size() * FLOATS_PER_VERTEX * sizeof(GLfloat), buf.data(), GL_STATIC_DRAW); //vertices
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_bbibo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_boundingboxindices.size() * sizeof(GLuint), m_boundingboxindices.data(), GL_STATIC_DRAW);//indices
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(0));
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(3 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(5 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(3);
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(8 * sizeof(GLfloat)));
+
+		glBindVertexArray(0);
+		
 	}
 }
 
@@ -129,41 +186,15 @@ void Mesh::freeGLData()
 {
 	if (m_vao != 0)
 	{
-		if (m_posvbo != 0)
-		{
 		
-		}
-		if (m_tanvbo != 0)
-		{
-
-		}
-		if (m_bitanvbo != 0)
-		{
-
-		}
-		if (m_uvvbo != 0)
-		{
-
-		}
-		if (m_ibo != 0)
-		{
-
-		}		
 	}	
 }
 
 void Mesh::freeBBGLData()
 {
-	if (m_vaoBoundingBox != 0)
+	if (m_bbvao != 0)
 	{
-		if (m_vboBoundingBoxPos != 0)
-		{
-
-		}
-		if (m_iboBoundingBox != 0)
-		{
-
-		}
+		
 	}
 }
 

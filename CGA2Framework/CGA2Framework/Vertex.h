@@ -1,5 +1,6 @@
 #pragma once
 #include "headers.h"
+#define FLOATS_PER_VERTEX 11
 class Vertex
 {
 public:
@@ -29,11 +30,11 @@ public:
 	void setBitangent(const glm::vec3& _bitangent) { m_bitangent = _bitangent; }
 
 private:
-	glm::vec3 m_position;
-	glm::vec3 m_normal;
-	glm::vec2 m_uv;
-	glm::vec3 m_tangent;
-	glm::vec3 m_bitangent; //no need for bitangent in shader later, bitangent equals normal cross tangent!
+	glm::vec3 m_position;	//3f	
+	glm::vec3 m_normal;		//3f		11 floats per vertex
+	glm::vec2 m_uv;			//2f	
+	glm::vec3 m_tangent;	//3f	
+	glm::vec3 m_bitangent;	//no need for bitangent in shader later, bitangent equals normal cross tangent!
 };
 
 //global equality operator

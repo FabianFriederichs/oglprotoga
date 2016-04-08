@@ -20,26 +20,22 @@ public:
 
 	void addVertex(const Vertex& _vertex);
 	void removeVertex(const Vertex& _vertex);
-	void addIndex(const GLint _index);
-	void removeIndex(const GLint _index);
+	void addIndex(const GLuint _index);
+	void removeIndex(const GLuint _index);
 
 	//getters / setters
 	const GLint getID() const { return m_id; }
-	const GLint getPosVBOVertices() const { return m_posvbo; }
-	const GLint getUVVBOVertices() const { return m_uvvbo; }
-	const GLint getNormVBOVertices() const { return m_normvbo; }
-	const GLint getTanVBOVertices() const { return m_tanvbo; }
-	const GLint getBitanVBOVertices() const { return m_bitanvbo; }
-	const GLint getIBOIndices() const { return m_ibo; }
-	const GLint getVBOBoundingBox() const { return m_vboBoundingBoxPos; }
-	const GLint getIBOBoundingBox() const { return m_iboBoundingBox; }
+	const GLint getVBO() const { return m_vbo; }
+	const GLint getIBO() const { return m_ibo; }
+	const GLint getVBOBoundingBox() const { return m_bbvbo; }
+	const GLint getIBOBoundingBox() const { return m_bbibo; }
 	const GLint getVAOVertices() const { return m_vao; }
-	const GLint getVAOBoundingBox() const { return m_vaoBoundingBox; }
+	const GLint getVAOBoundingBox() const { return m_bbvao; }
 	const Material& getMaterial() const { return m_material; }
 	std::vector<Vertex>& getVertices() { return m_vertices; }
 	std::vector<Vertex>& getBoundingBoxVertices() { return m_boundingboxvertices; }
-	std::vector<GLint>& getIndices() { return m_indices; }
-	std::vector<GLint>& getBoundingBoxIndices() { return m_boundingboxindices; }
+	std::vector<GLuint>& getIndices() { return m_indices; }
+	std::vector<GLuint>& getBoundingBoxIndices() { return m_boundingboxindices; }
 
 	void setMaterial(const Material& _material);
 
@@ -61,8 +57,8 @@ private:
 
 	std::vector<Vertex> m_vertices;
 	std::vector<Vertex> m_boundingboxvertices;
-	std::vector<GLint> m_indices;
-	std::vector<GLint> m_boundingboxindices;
+	std::vector<GLuint> m_indices;
+	std::vector<GLuint> m_boundingboxindices;
 	Material m_material;
 
 	//bounding box bounds
@@ -71,16 +67,14 @@ private:
 	GLfloat m_bbradius;
 
 	//GL stuff
-	GLuint m_posvbo;
-	GLuint m_normvbo;
-	GLuint m_uvvbo;
+	GLuint m_vbo;
 	GLuint m_tanvbo;
 	GLuint m_ibo;
 	
-	GLuint m_vboBoundingBoxPos;
-	GLuint m_iboBoundingBox;
+	GLuint m_bbvbo;
+	GLuint m_bbibo;
 	
 	GLuint m_vao;
-	GLuint m_vaoBoundingBox;
+	GLuint m_bbvao;
 };
 
