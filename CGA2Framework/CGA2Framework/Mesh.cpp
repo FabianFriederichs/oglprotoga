@@ -24,7 +24,7 @@ Mesh::Mesh(const Mesh& _other) :
 	
 }
 
-Mesh::Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLint>& _indices, const Material& _material, const bool _calcBoundingBox) :
+Mesh::Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLuint>& _indices, const Material& _material, const bool _calcBoundingBox) :
 	m_id(IDProvider::getInstance().createID()),
 	m_hasBoundingBox(false),
 	m_vertices(_vertices),
@@ -40,6 +40,11 @@ Mesh::Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLint>& _indi
 Mesh::~Mesh()
 {
 	freeGLData();
+}
+
+void Mesh::setMaterial(const Material& _mat)
+{
+	m_material = _mat;
 }
 
 void Mesh::addVertex(const Vertex& _vertex)
@@ -168,9 +173,12 @@ void Mesh::setupBBVAOs()
 
 void Mesh::drawBoundingBox()
 {
-	if (m_hasBoundingBox)
+	if (m_bbvao != 0)
 	{
-
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glBindVertexArray(m_bbvao);
+		glDrawElements(GL_TRIANGLES, m_boundingboxindices.size(), GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
 	}
 }
 
@@ -178,23 +186,48 @@ void Mesh::drawMesh()
 {
 	if (m_vao != 0)
 	{
-	
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glBindVertexArray(m_vao);
+		glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
 	}
 }
 
 void Mesh::freeGLData()
 {
+	
+
+	if (m_vbo != 0)
+	{
+		glDeleteBuffers(1, &m_vbo);
+	}
+
+	if (m_ibo != 0)
+	{
+		glDeleteBuffers(1, &m_ibo);
+	}
+
 	if (m_vao != 0)
 	{
-		
-	}	
+		glDeleteVertexArrays(1, &m_vao);
+	}
 }
 
 void Mesh::freeBBGLData()
 {
+	if (m_bbvbo != 0)
+	{
+		glDeleteBuffers(1, &m_bbvbo);
+	}
+
+	if (m_bbibo != 0)
+	{
+		glDeleteBuffers(1, &m_bbibo);
+	}
+
 	if (m_bbvao != 0)
 	{
-		
+		glDeleteVertexArrays(1, &m_bbvao);
 	}
 }
 
@@ -267,5 +300,7 @@ void Mesh::generateBoundingBox()
 
 	m_hasBoundingBox = true;
 }
+
+
 
 

@@ -2,6 +2,7 @@
 #include "headers.h"
 #include "Texture.h"
 #include "IDProvider.h"
+#include "Shader.h"
 class Material
 {
 public:
@@ -25,6 +26,9 @@ public:
 	Material(const Material& _other);	//copy
 
 	~Material();
+
+
+	void applyMaterialUniforms(Shader& _shader);
 
 	//getters / setters
 	const GLint getID() const {return m_id;}

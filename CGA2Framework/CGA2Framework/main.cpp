@@ -5,11 +5,15 @@
 #include <stdlib.h>
 #include "Shader.h"
 #include "MainGame.h"
+#include "GameObject.h"
+#include "ResourceLoader.h"
 using namespace std;
 
 
 int main(void)
 {
+	GameObject tmp = ResourceLoader::loadOBJ("E:\\Benutzer\\Fabian\\Desktop\\test.obj");
+
 	MainGame mg(800, 600, 4, 0, "TESTGAME", false);
 	Shader testShader("Sample.vs", "Sample.fs");
 	mg.setCursorVisble(false);

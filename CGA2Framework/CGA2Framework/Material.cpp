@@ -93,4 +93,10 @@ Texture& Material::getTexture(const int& _id)
 		if (it->getID() == _id)
 			return (*it);
 	}
+	return Texture(); //dummy
+}
+
+void Material::applyMaterialUniforms(Shader& _shader)
+{
+	
 }

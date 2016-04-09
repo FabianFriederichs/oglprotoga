@@ -8,11 +8,13 @@ class Mesh
 {
 public:
 	Mesh();
-	Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLint>& _indices, const Material& _material, const bool _calcBoundingBox = false);
+	Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLuint>& _indices, const Material& _material, const bool _calcBoundingBox = false);
 	Mesh(const Mesh& _other);
 	~Mesh();
 
 	void generateBoundingBox();
+	
+	const bool hasPositions() const { return m_hasPositions; }
 	const bool hasBoundingBox() const { return m_hasBoundingBox; }
 	const bool hasNormals() const { return m_hasNormals; }
 	const bool hasTexCoords() const { return m_hasTexCoords; }
@@ -21,16 +23,16 @@ public:
 	void addVertex(const Vertex& _vertex);
 	void removeVertex(const Vertex& _vertex);
 	void addIndex(const GLuint _index);
-	void removeIndex(const GLuint _index);
+	void removeIndex(const GLuint _index);	
 
 	//getters / setters
-	const GLint getID() const { return m_id; }
-	const GLint getVBO() const { return m_vbo; }
-	const GLint getIBO() const { return m_ibo; }
-	const GLint getVBOBoundingBox() const { return m_bbvbo; }
-	const GLint getIBOBoundingBox() const { return m_bbibo; }
-	const GLint getVAOVertices() const { return m_vao; }
-	const GLint getVAOBoundingBox() const { return m_bbvao; }
+	const GLuint getID() const { return m_id; }
+	const GLuint getVBO() const { return m_vbo; }
+	const GLuint getIBO() const { return m_ibo; }
+	const GLuint getVBOBoundingBox() const { return m_bbvbo; }
+	const GLuint getIBOBoundingBox() const { return m_bbibo; }
+	const GLuint getVAOVertices() const { return m_vao; }
+	const GLuint getVAOBoundingBox() const { return m_bbvao; }
 	const Material& getMaterial() const { return m_material; }
 	std::vector<Vertex>& getVertices() { return m_vertices; }
 	std::vector<Vertex>& getBoundingBoxVertices() { return m_boundingboxvertices; }
