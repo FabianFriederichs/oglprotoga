@@ -5,6 +5,7 @@
 #include "Texture.h"
 #include "Material.h"
 #include "GameObject.h"
+#include "util.h"
 class ResourceLoader
 {
 public:
@@ -15,10 +16,16 @@ public:
 								const std::string& _filepath_negy,
 								const std::string& _filepath_posz,
 								const std::string& _filepath_negz);
-	static GameObject loadOBJ(const std::string& _filepath);
 
+	//Reads an obj file and creates GameObjects with meshes. Material information is ignored.
+	//For each "g" command in obj there will be created a new mesh,
+	//for each "o" command a new GameObject which contains the subsequent meshes.
+	//Meshes contain positions, uvs and normals as given in the file.
+	static std::vector<GameObject> loadOBJ(const std::string& _filepath);
 private:
 	ResourceLoader();
 	~ResourceLoader();
+
+	
 };
 

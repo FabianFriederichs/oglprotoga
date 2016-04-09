@@ -25,14 +25,17 @@ GLuint ResourceLoader::loadCubeMap(const std::string& _filepath_posx,
 	return 0;		//will be implemented later
 }
 
-GameObject ResourceLoader::loadOBJ(const std::string& _filepath)
+std::vector<GameObject> ResourceLoader::loadOBJ(const std::string& _filepath)
 {
+	std::vector<GameObject> gameobjects;
+
 	std::vector<glm::vec3> poss;
 	std::vector<glm::vec2> uvs;
 	std::vector<glm::vec3> norms;
 	std::vector<GLuint> indices;
 	std::vector<std::string> faceslines;
 
+	//read all mesh data from file
 	std::ifstream objfs(_filepath.c_str());
 	if (objfs.is_open())
 	{
@@ -66,14 +69,33 @@ GameObject ResourceLoader::loadOBJ(const std::string& _filepath)
 			{
 				std::string facestring;
 				std::getline(linestream, facestring);
+				trimstr(facestring);
 				faceslines.push_back(facestring);
+			}
+			else if (label == "g")
+			{
+
+			}
+			else if (label == "o")
+			{
+
 			}
 			else
 			{
 				continue;
 			}
 		}
+		objfs.close();		
 	}
-	int dummy = 0;
-	return GameObject();
+	else
+	{
+		std::cerr << "OBJ file could not be opened.";
+		return gameobjects;
+	}
+
+	//now process face strings
+	
+	
 }
+
+
