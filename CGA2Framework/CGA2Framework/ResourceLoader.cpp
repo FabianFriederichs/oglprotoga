@@ -272,9 +272,9 @@ std::vector<GameObject> ResourceLoader::loadOBJ(const std::string& _filepath)
 		}
 		return gameobjects;
 	}
-	catch (...)
+	catch (std::exception& ex)
 	{
-		std::cerr << "An error occured while processing obj file.";
+		std::cerr << "An error occured while processing obj file.\r\n" << ex.what() << std::endl;
 		return std::vector<GameObject>();
 	}
 }
