@@ -54,3 +54,8 @@ inline bool operator==(const Vertex& _v1, const Vertex& _v2)
 	}
 }
 
+inline bool operator!=(const Vertex& _v1, const Vertex& _v2)
+{
+	return !(_v1 == _v2);
+}
+

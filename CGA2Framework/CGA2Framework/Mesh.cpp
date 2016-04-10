@@ -52,6 +52,29 @@ void Mesh::addVertex(const Vertex& _vertex)
 	m_vertices.push_back(_vertex);
 }
 
+void Mesh::addIndicedVertex(const Vertex& _vertex)
+{
+	int index = -1;
+	for (int i = 0; i < m_vertices.size(); i++)
+	{
+		if (m_vertices[i] == _vertex)
+		{
+			index = i;
+			break;
+		}
+	}
+
+	if (index > -1)	//vertex already exists
+	{
+		m_indices.push_back(index);
+	}
+	else
+	{
+		m_vertices.push_back(_vertex);			//add vertex
+		m_indices.push_back(m_vertices.size() - 1);	//add index of last added vertex
+	}
+}
+
 void Mesh::addIndex(const GLuint _index)
 {
 	m_indices.push_back(_index);

@@ -6,6 +6,10 @@
 #include "Material.h"
 #include "GameObject.h"
 #include "util.h"
+
+//helper structs for obj loading
+
+
 class ResourceLoader
 {
 public:
@@ -26,6 +30,16 @@ private:
 	ResourceLoader();
 	~ResourceLoader();
 
-	
+	static const std::regex facef_v;
+	static const std::regex facef_vvt;
+	static const std::regex facef_vvn;
+	static const std::regex facef_vvtvn;
+
+	struct oface
+	{
+		int oid;
+		int gid;
+		std::string face;
+	};	
 };
 

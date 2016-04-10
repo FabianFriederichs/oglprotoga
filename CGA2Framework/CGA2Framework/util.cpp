@@ -14,3 +14,28 @@ void trimstr(std::string& _string)
 	ltrimstr(_string);
 	rtrimstr(_string);
 }
+
+std::vector<int> extractInts(const std::string& _s, char _d)
+{
+	std::stringstream strm(_s);
+	std::vector<int> result;
+	std::vector<std::string> buf;
+	std::string tmp;
+	int itmp;
+	while (std::getline(strm, tmp, _d))
+	{
+		trimstr(tmp);
+		buf.push_back(tmp);
+	}
+	strm.clear();
+	for (int i = 0; i < buf.size(); i++)
+	{
+		strm << buf[i] << " ";
+	}
+	strm.seekg(0, strm.beg);
+	while (strm >> itmp)
+	{
+		result.push_back(itmp);
+	}
+	return result;
+}
