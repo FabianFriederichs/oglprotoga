@@ -110,8 +110,8 @@ std::vector<GameObject> ResourceLoader::loadOBJ(const std::string& _filepath)
 		}
 
 		//now process face strings
-		objectid = (objectid > 0 ? 1 : 0);
-		groupid = (groupid > 0 ? 1 : 0);
+		//objectid = (objectid > 0 ? 1 : 0);
+		//groupid = (groupid > 0 ? 1 : 0);
 
 		std::vector<Mesh> meshes;
 		GameObject gameobj;
@@ -131,6 +131,13 @@ std::vector<GameObject> ResourceLoader::loadOBJ(const std::string& _filepath)
 		if (norms.size() > 0)
 		{
 			foundnorms = true;
+		}
+		//hi
+		for (int o = 0; o < objectid; o++)
+		{
+			for (int g = 0; g < groupid; g++)
+			{
+			}
 		}
 
 		for (std::vector<ResourceLoader::oface>::iterator it = faceslines.begin(); it != faceslines.end(); it++)
