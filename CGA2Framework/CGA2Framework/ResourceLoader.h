@@ -35,6 +35,8 @@ private:
 	static const std::regex facef_vvn;
 	static const std::regex facef_vvtvn;
 
+	static bool parseFaceStringToMesh(std::string& _face, Mesh& _mesh);
+
 	struct oface
 	{
 		int oid;

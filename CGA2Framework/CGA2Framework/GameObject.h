@@ -8,12 +8,15 @@ public:
 	GameObject();
 	~GameObject();
 
-	void addMesh(const Mesh& _mesh);
+	void addMesh(const Mesh& _mesh);	
 	void addMeshes(const std::vector<Mesh>& _meshes);
 	void removeMesh(const Mesh& _mesh);
 
 	void draw();
 	void drawBoundingBoxes();
+
+	//getters / setters
+	std::vector<Mesh>& getMeshes() { return m_meshes; }
 
 private:
 	bool m_active;

@@ -35,11 +35,14 @@ std::vector<GameObject> ResourceLoader::loadOBJ(const std::string& _filepath)
 	try
 	{
 		std::vector<GameObject> gameobjects;
-
 		std::vector<glm::vec3> poss;
 		std::vector<glm::vec2> uvs;
 		std::vector<glm::vec3> norms;
-		std::vector<ResourceLoader::oface> faceslines;
+		//std::vector<ResourceLoader::oface> faceslines;
+		//objects  //meshes(groups) //faces
+		std::vector<std::vector<std::vector<std::string>>> rawfaces;		
+		rawfaces.push_back(std::vector<std::vector<std::string>>());		//instantiate at least 1 object
+		rawfaces[0].push_back(std::vector<std::string>());					//instantiate at least 1 mesh/group
 
 		int objectid = 0;
 		int groupid = 0;
@@ -63,38 +66,54 @@ std::vector<GameObject> ResourceLoader::loadOBJ(const std::string& _filepath)
 				if (label == "v")
 				{
 					glm::vec3 pos;
-					linestream >> pos.x >> pos.y >> pos.z;
-					poss.push_back(pos);
+					if(linestream >> pos.x >> pos.y >> pos.z)
+						poss.push_back(pos);
+					else
+					{
+						std::cerr << "Wrong vertex format.";
+						return std::vector<GameObject>();
+					}
 				}
 				else if (label == "vt")
 				{
 					glm::vec2 uv;
-					linestream >> uv.x >> uv.y;
-					uvs.push_back(uv);
+					if(linestream >> uv.x >> uv.y)
+						uvs.push_back(uv);
+					else
+					{
+						std::cerr << "Wrong texture coordinate format.";
+						return std::vector<GameObject>();
+					}
 				}
 				else if (label == "vn")
 				{
 					glm::vec3 norm;
-					linestream >> norm.x >> norm.y >> norm.z;
-					norms.push_back(norm);
+					if(linestream >> norm.x >> norm.y >> norm.z)
+						norms.push_back(norm);
+					else
+					{
+						std::cerr << "Wrong normal format.";
+						return std::vector<GameObject>();
+					}
 				}
 				else if (label == "f")
 				{
-					ResourceLoader::oface face;
-					std::getline(linestream, face.face);
-					trimstr(face.face);
-					face.oid = objectid;
-					face.gid = groupid;
-					faceslines.push_back(face);
+					std::string face;
+					std::getline(linestream, face);
+					trimstr(face);
+					rawfaces[objectid][groupid].push_back(face);
 				}
 				else if (label == "g")
 				{
 					groupid++;
+					rawfaces[objectid].push_back(std::vector<std::string>());
 				}
 				else if (label == "o")
 				{
 					groupid = 0;
 					objectid++;
+					rawfaces.push_back(std::vector<std::vector<std::string>>());
+					rawfaces[rawfaces.size() - 1].push_back(std::vector<std::string>());
 				}
 				else
 				{
@@ -109,175 +128,150 @@ std::vector<GameObject> ResourceLoader::loadOBJ(const std::string& _filepath)
 			return gameobjects; //return empty vector
 		}
 
-		//now process face strings
-		//objectid = (objectid > 0 ? 1 : 0);
-		//groupid = (groupid > 0 ? 1 : 0);
+		if (poss.size() > 0)
+			foundposs = true;
+		if (uvs.size() > 0)
+			founduvs = true;
+		if (norms.size() > 0)
+			foundnorms = true;
 
+		//now process face strings
+		
 		std::vector<Mesh> meshes;
 		GameObject gameobj;
 		Mesh mesh;
 		GLuint index = 0;
-
-		if (poss.size() > 0)
+		
+		for (auto o = rawfaces.begin(); o != rawfaces.end(); o++)		//iterate objects
 		{
-			foundposs = true;
-		}
-
-		if (uvs.size() > 0)
-		{
-			founduvs = true;
-		}
-
-		if (norms.size() > 0)
-		{
-			foundnorms = true;
-		}
-		//hi
-		for (int o = 0; o < objectid; o++)
-		{
-			for (int g = 0; g < groupid; g++)
+			gameobj = GameObject();
+			for (auto g = o->begin(); g != o->end(); g++)				//iterate meshes / groups
 			{
+				mesh = Mesh();	//new empty mesh
+				for (auto f = g->begin(); f != g->end(); f++)			//iterate faces
+				{
+					std::istringstream facestream(*f);
+					std::string f1, f2, f3;
+					if (facestream >> f1 >> f2 >> f3)
+					{
+						Vertex v1;
+						Vertex v2;
+						Vertex v3;
+
+						std::vector<int> nums;
+
+						//vertex1
+						if ((foundposs) && std::regex_match(f1, facef_v))										//		v
+						{
+							nums = extractInts(f1, '//');
+							v1.setPosition(poss[nums[0] - 1]);
+						}
+						else if ((foundposs && founduvs) && std::regex_match(f1, facef_vvt))					//		v/vt
+						{
+							nums = extractInts(f1, '//');
+							v1.setPosition(poss[nums[0] - 1]);
+							v1.setUV(uvs[nums[1] - 1]);
+						}
+						else if ((foundposs && foundnorms) && std::regex_match(f1, facef_vvn))					//		v//vn
+						{
+							nums = extractInts(f1, '//');
+							v1.setPosition(poss[nums[0] - 1]);
+							v1.setNormal(norms[nums[1] - 1]);
+						}
+						else if ((foundposs && founduvs && foundnorms) && std::regex_match(f1, facef_vvtvn))	//		v/vt/vn
+						{
+							nums = extractInts(f1, '//');
+							v1.setPosition(poss[nums[0] - 1]);
+							v1.setUV(uvs[nums[1] - 1]);
+							v1.setNormal(norms[nums[2] - 1]);
+						}
+						else
+						{
+							std::cerr << "Wrong face format.";
+							return std::vector<GameObject>();
+						}
+
+						//vertex2
+						if ((foundposs) && std::regex_match(f1, facef_v))										//		v
+						{
+							nums = extractInts(f2, '//');
+							v2.setPosition(poss[nums[0] - 1]);
+						}
+						else if ((foundposs && founduvs) && std::regex_match(f1, facef_vvt))					//		v/vt
+						{
+							nums = extractInts(f2, '//');
+							v2.setPosition(poss[nums[0] - 1]);
+							v2.setUV(uvs[nums[1] - 1]);
+						}
+						else if ((foundposs && foundnorms) && std::regex_match(f1, facef_vvn))					//		v//vn
+						{
+							nums = extractInts(f2, '//');
+							v2.setPosition(poss[nums[0] - 1]);
+							v2.setNormal(norms[nums[1] - 1]);
+						}
+						else if ((foundposs && founduvs && foundnorms) && std::regex_match(f1, facef_vvtvn))	//		v/vt/vn
+						{
+							nums = extractInts(f2, '//');
+							v2.setPosition(poss[nums[0] - 1]);
+							v2.setUV(uvs[nums[1] - 1]);
+							v2.setNormal(norms[nums[2] - 1]);
+						}
+						else
+						{
+							std::cerr << "Wrong face format.";
+							return std::vector<GameObject>();
+						}
+
+						//vertex3
+						if ((foundposs) && std::regex_match(f1, facef_v))										//		v
+						{
+							nums = extractInts(f3, '//');
+							v3.setPosition(poss[nums[0] - 1]);
+						}
+						else if ((foundposs && founduvs) && std::regex_match(f1, facef_vvt))					//		v/vt
+						{
+							nums = extractInts(f3, '//');
+							v3.setPosition(poss[nums[0] - 1]);
+							v3.setUV(uvs[nums[1] - 1]);
+						}
+						else if ((foundposs && foundnorms) && std::regex_match(f1, facef_vvn))					//		v//vn
+						{
+							nums = extractInts(f3, '//');
+							v3.setPosition(poss[nums[0] - 1]);
+							v3.setNormal(norms[nums[1] - 1]);
+						}
+						else if ((foundposs && founduvs && foundnorms) && std::regex_match(f1, facef_vvtvn))	//		v/vt/vn
+						{
+							nums = extractInts(f3, '//');
+							v3.setPosition(poss[nums[0] - 1]);
+							v3.setUV(uvs[nums[1] - 1]);
+							v3.setNormal(norms[nums[2] - 1]);
+						}
+						else
+						{
+							std::cerr << "Wrong face format.";
+							return std::vector<GameObject>();
+						}
+
+						//Add unqiue vertices and corresponding indices to mesh //extremely bad performance. Consider a hashtable cache
+						mesh.addIndicedVertex(v1);
+						mesh.addIndicedVertex(v2);
+						mesh.addIndicedVertex(v3);
+					}
+					else
+					{
+						//face not defined as triangle
+						std::cerr << "Wrong face format.";
+						return std::vector<GameObject>(); //return empty vector
+					}
+				}
+				if (mesh.getVertices().size() > 0)
+					gameobj.addMesh(mesh);
 			}
+			if (gameobj.getMeshes().size() > 0)
+				gameobjects.push_back(gameobj);			
 		}
-
-		for (std::vector<ResourceLoader::oface>::iterator it = faceslines.begin(); it != faceslines.end(); it++)
-		{
-			if (it->oid != objectid)								//if no objects exist no gameobject is created. FIX THIS
-			{
-				objectid = it->oid;
-				groupid = 0;
-				//save collected meshes into new gameobject
-				gameobj.addMeshes(meshes);
-				gameobjects.push_back(gameobj);
-				gameobj = GameObject();
-				meshes.clear();	//clear temporary mesh vector
-			}
-
-			if (it->gid != groupid)									//same for meshes and groups
-			{
-				groupid = it->gid;
-				//save mesh into current gameobject
-				meshes.push_back(mesh); //save mesh
-				mesh = Mesh();			//make new emtpy mesh
-				index = 0;
-			}
-
-			std::istringstream facestream(it->face);
-			std::string f1, f2, f3;
-			if (facestream >> f1 >> f2 >> f3)
-			{
-				Vertex v1;
-				Vertex v2;
-				Vertex v3;
-
-				std::vector<int> nums;
-
-				//vertex1
-				if ((foundposs) && std::regex_match(f1, facef_v))										//		v
-				{
-					nums = extractInts(f1, '//');
-					v1.setPosition(poss[nums[0] - 1]);
-				}
-				else if ((foundposs && founduvs) && std::regex_match(f1, facef_vvt))					//		v/vt
-				{
-					nums = extractInts(f1, '//');
-					v1.setPosition(poss[nums[0] - 1]);
-					v1.setUV(uvs[nums[1] - 1]);
-				}
-				else if ((foundposs && foundnorms) && std::regex_match(f1, facef_vvn))					//		v//vn
-				{
-					nums = extractInts(f1, '//');
-					v1.setPosition(poss[nums[0] - 1]);
-					v1.setNormal(norms[nums[1] - 1]);
-				}
-				else if ((foundposs && founduvs && foundnorms) && std::regex_match(f1, facef_vvtvn))	//		v/vt/vn
-				{
-					nums = extractInts(f1, '//');
-					v1.setPosition(poss[nums[0] - 1]);
-					v1.setUV(uvs[nums[1] - 1]);
-					v1.setNormal(norms[nums[2] - 1]);
-				}
-				else
-				{
-					std::cerr << "Wrong face format.";
-					return std::vector<GameObject>();
-				}
-
-				//vertex2
-				if ((foundposs) && std::regex_match(f1, facef_v))										//		v
-				{
-					nums = extractInts(f2, '//');
-					v2.setPosition(poss[nums[0] - 1]);
-				}
-				else if ((foundposs && founduvs) && std::regex_match(f1, facef_vvt))					//		v/vt
-				{
-					nums = extractInts(f2, '//');
-					v2.setPosition(poss[nums[0] - 1]);
-					v2.setUV(uvs[nums[1] - 1]);
-				}
-				else if ((foundposs && foundnorms) && std::regex_match(f1, facef_vvn))					//		v//vn
-				{
-					nums = extractInts(f2, '//');
-					v2.setPosition(poss[nums[0] - 1]);
-					v2.setNormal(norms[nums[1] - 1]);
-				}
-				else if ((foundposs && founduvs && foundnorms) && std::regex_match(f1, facef_vvtvn))	//		v/vt/vn
-				{
-					nums = extractInts(f2, '//');
-					v2.setPosition(poss[nums[0] - 1]);
-					v2.setUV(uvs[nums[1] - 1]);
-					v2.setNormal(norms[nums[2] - 1]);
-				}
-				else
-				{
-					std::cerr << "Wrong face format.";
-					return std::vector<GameObject>();
-				}
-
-				//vertex3
-				if ((foundposs) && std::regex_match(f1, facef_v))										//		v
-				{
-					nums = extractInts(f3, '//');
-					v3.setPosition(poss[nums[0] - 1]);
-				}
-				else if ((foundposs && founduvs) && std::regex_match(f1, facef_vvt))					//		v/vt
-				{
-					nums = extractInts(f3, '//');
-					v3.setPosition(poss[nums[0] - 1]);
-					v3.setUV(uvs[nums[1] - 1]);
-				}
-				else if ((foundposs && foundnorms) && std::regex_match(f1, facef_vvn))					//		v//vn
-				{
-					nums = extractInts(f3, '//');
-					v3.setPosition(poss[nums[0] - 1]);
-					v3.setNormal(norms[nums[1] - 1]);
-				}
-				else if ((foundposs && founduvs && foundnorms) && std::regex_match(f1, facef_vvtvn))	//		v/vt/vn
-				{
-					nums = extractInts(f3, '//');
-					v3.setPosition(poss[nums[0] - 1]);
-					v3.setUV(uvs[nums[1] - 1]);
-					v3.setNormal(norms[nums[2] - 1]);
-				}
-				else
-				{
-					std::cerr << "Wrong face format.";
-					return std::vector<GameObject>();
-				}
-
-				//Add unqiue vertices and corresponding indices to mesh
-				mesh.addIndicedVertex(v1);
-				mesh.addIndicedVertex(v2);
-				mesh.addIndicedVertex(v3);
-			}
-			else
-			{
-				//face not defined as triangle
-				std::cerr << "Wrong face format.";
-				return std::vector<GameObject>(); //return empty vector
-			}
-		}
-		return gameobjects;
+		return gameobjects;				
 	}
 	catch (std::exception& ex)
 	{
