@@ -38,14 +38,10 @@ std::vector<GameObject> ResourceLoader::loadOBJ(const std::string& _filepath)
 		std::vector<glm::vec3> poss;
 		std::vector<glm::vec2> uvs;
 		std::vector<glm::vec3> norms;
-		//std::vector<ResourceLoader::oface> faceslines;
-		//objects  //meshes(groups) //faces
 		std::vector<std::vector<std::vector<std::string>>> rawfaces;		
-		rawfaces.push_back(std::vector<std::vector<std::string>>());		//instantiate at least 1 object
-		rawfaces[0].push_back(std::vector<std::string>());					//instantiate at least 1 mesh/group
 
-		int objectid = 0;
-		int groupid = 0;
+		int objectid = -1;
+		int groupid = -1;
 
 		bool foundposs = false;
 		bool founduvs = false;
@@ -101,19 +97,26 @@ std::vector<GameObject> ResourceLoader::loadOBJ(const std::string& _filepath)
 					std::string face;
 					std::getline(linestream, face);
 					trimstr(face);
+					if (rawfaces.size() == 0 || objectid >= rawfaces.size() || objectid ==  -1)
+					{
+						if (objectid == -1) objectid++;
+						rawfaces.push_back(std::vector<std::vector<std::string>>());
+					}
+					if (rawfaces[objectid].size() == 0 || groupid >= rawfaces[objectid].size() || groupid == -1)
+					{
+						if (groupid == -1) groupid++;
+						rawfaces[objectid].push_back(std::vector<std::string>());
+					}
 					rawfaces[objectid][groupid].push_back(face);
 				}
 				else if (label == "g")
 				{
 					groupid++;
-					rawfaces[objectid].push_back(std::vector<std::string>());
 				}
 				else if (label == "o")
 				{
 					groupid = 0;
 					objectid++;
-					rawfaces.push_back(std::vector<std::vector<std::string>>());
-					rawfaces[rawfaces.size() - 1].push_back(std::vector<std::string>());
 				}
 				else
 				{
