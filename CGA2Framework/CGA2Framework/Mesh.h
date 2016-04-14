@@ -24,7 +24,11 @@ public:
 	void addIndicedVertex(const Vertex& _vertex);
 	void removeVertex(const Vertex& _vertex);
 	void addIndex(const GLuint _index);
-	void removeIndex(const GLuint _index);	
+	void removeIndex(const GLuint _index);
+
+	void generateTangents();
+	void generateNormals(bool _smooth);
+	void reverseWinding();
 
 	//getters / setters
 	const GLuint getID() const { return m_id; }
@@ -51,6 +55,7 @@ public:
 	void freeBBGLData();
 private:
 	GLint m_id;
+	bool m_active;
 	bool m_hasBoundingBox;
 	bool m_hasNormals;
 	bool m_hasPositions;

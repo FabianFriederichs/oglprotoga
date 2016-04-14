@@ -12,6 +12,7 @@ public:
 
 	//load / unload texture to ogl
 	void loadGLTexture();
+	void bindToTextureUnit(GLuint _unit);
 	void deleteGLTexture();
 
 	//getters / setters

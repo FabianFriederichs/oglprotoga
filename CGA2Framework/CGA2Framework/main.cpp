@@ -18,8 +18,8 @@ int main(void)
 	
 	MainGame mg(800, 600, 4, 0, "TESTGAME", false);
 	//obj test stuff
-	std::vector<GameObject> objs = ResourceLoader::loadOBJ("E:\\Benutzer\\Fabian\\Desktop\\testovska.obj");
-	int dummy = 0;
+	//std::vector<GameObject> objs = ResourceLoader::loadOBJ("E:\\Benutzer\\Fabian\\Desktop\\testovska.obj");
+	//int dummy = 0;
 	Shader testShader("Sample.vs", "Sample.fs");
 	mg.setCursorVisble(true);
 	mg.run();

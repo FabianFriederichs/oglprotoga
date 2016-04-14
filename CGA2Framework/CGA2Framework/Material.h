@@ -28,7 +28,7 @@ public:
 	~Material();
 
 
-	void applyMaterialUniforms(Shader& _shader);
+	bool applyMaterialUniforms(Shader& _shader);
 
 	//getters / setters
 	const GLint getID() const {return m_id;}
