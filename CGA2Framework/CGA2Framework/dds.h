@@ -7,13 +7,38 @@
 #define FOURCC_DXT5 0x35545844 // Equivalent to "DXT5" in ASCII
 #define DDS 0x20534444
 
+//pixelformat dwFlags (ddpf.dwFlags)
 #define DDPF_ALPHAPIXELS 0x1
 #define DDPF_ALPHA 0x2
 #define DDPF_FOURCC 0x4
 #define DDPF_RGB 0x40
 #define DDPF_YUV 0x200
 #define DDPF_LUMINANCE 0x20000
-#define DX10 
+
+//dwFlags
+#define DDSD_CAPS 0x1
+#define DDSD_HEIGHT 0x2
+#define DDSD_WIDTH 0x4
+#define DDSD_PITCH 0x8
+#define DDSD_PIXELFORMAT 0x1000
+#define DDSD_MIPMAPCOUNT 0x20000
+#define DDSD_LINEARSIZE 0x80000
+#define DDSD_DEPTH 0x800000
+
+//dwCaps
+#define DDSCAPS_COMPLEX 0x8
+#define DDSCAPS_MIPMAP 0x400000
+#define DDSCAPS_TEXTURE 0x1000
+
+//dwCaps2
+#define DDSCAPS2_CUBEMAP 0x200
+#define DDSCAPS2_CUBEMAP_POSITIVEX 0x400
+#define DDSCAPS2_CUBEMAP_NEGATIVEX 0x800
+#define DDSCAPS2_CUBEMAP_POSITIVEY 0x1000
+#define DDSCAPS2_CUBEMAP_NEGATIVEY 0x2000
+#define DDSCAPS2_CUBEMAP_POSITIVEZ 0x4000
+#define DDSCAPS2_CUBEMAP_NEGATIVEZ 0x8000
+#define DDSCAPS2_VOLUME 0x200000
 
 typedef enum D3D10_RESOURCE_DIMENSION {
 	D3D10_RESOURCE_DIMENSION_UNKNOWN = 0,
@@ -169,13 +194,13 @@ typedef struct {
 	DWORD           dwPitchOrLinearSize;
 	DWORD           dwDepth;
 	DWORD           dwMipMapCount;
-	DWORD           dwReserved1[11];
+	DWORD           dwReserved1[11];	//unused
 	DDS_PIXELFORMAT ddspf;
 	DWORD           dwCaps;
 	DWORD           dwCaps2;
-	DWORD           dwCaps3;
-	DWORD           dwCaps4;
-	DWORD           dwReserved2;
+	DWORD           dwCaps3;		//unused
+	DWORD           dwCaps4;		//unused
+	DWORD           dwReserved2;	//unused
 } DDS_HEADER;
 
 typedef struct {

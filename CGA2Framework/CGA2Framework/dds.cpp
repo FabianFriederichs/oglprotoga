@@ -80,7 +80,7 @@ bool extractDDSHeader(std::ifstream& _file, DDS_HEADER& _header, DDS_HEADER_DXT1
 	return success;
 }
 
-GLuint loadDDSTexture2D(const std::string& _filepath)
+GLuint loadDDSTex2D(const std::string& _filepath)
 {
 	std::ifstream file(_filepath.c_str(), std::ifstream::binary);
 	DDS_HEADER _header;
@@ -98,7 +98,7 @@ GLuint loadDDSTexture2D(const std::string& _filepath)
 		//byte size of each level for compressed textures (DXT 1 - 5) := max(1, ( (width + 3) / 4 ) ) x max(1, ( (height + 3) / 4 ) ) x 8(DXT1) or 16(DXT2-5)
 		if (dx10ExtHeaderFound)
 		{
-
+			//this extension is only required for texture arrays
 		}
 		else
 		{
