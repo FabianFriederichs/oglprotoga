@@ -6,14 +6,12 @@
 #include "Material.h"
 #include "GameObject.h"
 #include "util.h"
-
-//helper structs for obj loading
-
+#include "dds.h"
 
 class ResourceLoader
 {
 public:
-	static GLuint loadTexture2D(const std::string& _filepath);
+	static GLuint loadDDSTexture2D(const std::string& _filepath);
 	static GLuint loadCubeMap(	const std::string& _filepath_posx,
 								const std::string& _filepath_negx,
 								const std::string& _filepath_posy,

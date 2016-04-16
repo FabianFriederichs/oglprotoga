@@ -13,16 +13,16 @@ using namespace std;
 
 int main(void)
 {
+	GLuint dds = ResourceLoader::loadDDSTexture2D("E:\\Benutzer\\Fabian\\Desktop\\TextureStuff\\Testtextures\\testdds.DDS");
 	
 	
-	
-	MainGame mg(800, 600, 4, 0, "TESTGAME", false);
-	//obj test stuff
-	//std::vector<GameObject> objs = ResourceLoader::loadOBJ("E:\\Benutzer\\Fabian\\Desktop\\testovska.obj");
-	//int dummy = 0;
-	Shader testShader("Sample.vs", "Sample.fs");
-	mg.setCursorVisble(true);
-	mg.run();
+	//MainGame mg(800, 600, 4, 0, "TESTGAME", false);
+	////obj test stuff
+	////std::vector<GameObject> objs = ResourceLoader::loadOBJ("E:\\Benutzer\\Fabian\\Desktop\\testovska.obj");
+	////int dummy = 0;
+	//Shader testShader("Sample.vs", "Sample.fs");
+	//mg.setCursorVisble(true);
+	//mg.run();
 
 	
 }

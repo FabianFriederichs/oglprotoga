@@ -1,4 +1,5 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 #include <GL\glew.h>
 #include <glfw3.h>
 #include <glm/glm.hpp>
