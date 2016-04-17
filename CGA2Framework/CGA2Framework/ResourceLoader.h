@@ -11,7 +11,7 @@
 class ResourceLoader
 {
 public:
-	static GLuint loadDDSTexture2D(const std::string& _filepath);
+	static Texture loadDDS(const std::string& _filepath);
 	static GLuint loadCubeMap(	const std::string& _filepath_posx,
 								const std::string& _filepath_negx,
 								const std::string& _filepath_posy,

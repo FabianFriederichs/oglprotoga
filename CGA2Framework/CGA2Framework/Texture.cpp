@@ -44,3 +44,8 @@ void Texture::loadGLTexture()
 void Texture::deleteGLTexture()
 {
 }
+
+//Texture Texture::loadTexFromDDS(const std::string& _filepath)
+//{
+//	return loadDDSTex(_filepath);
+//}

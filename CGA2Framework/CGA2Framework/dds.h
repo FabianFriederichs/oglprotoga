@@ -1,5 +1,6 @@
 #pragma once
 #include "headers.h"
+#include "Texture.h"
 
 //DDS Stuff
 #define FOURCC_DXT1 0x31545844 // Equivalent to "DXT1" in ASCII
@@ -214,4 +215,4 @@ typedef struct {
 //functions
 
 bool extractDDSHeader(std::ifstream& _file, DDS_HEADER& _header, DDS_HEADER_DXT10& _dx10ExtHeader, bool& _foundDDSHeader, bool& _foundDX10ExtHeader);
-GLuint loadDDSTex2D(const std::string& _filepath);
+Texture loadDDSTex(const std::string& _filepath);

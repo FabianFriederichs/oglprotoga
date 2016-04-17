@@ -8,12 +8,13 @@
 #include "GameObject.h"
 #include "ResourceLoader.h"
 #include "util.h"
+#include "dds.h"
 using namespace std;
 
 
 int main(void)
 {
-	GLuint dds = ResourceLoader::loadDDSTexture2D("E:\\Benutzer\\Fabian\\Desktop\\TextureStuff\\Testtextures\\testdds.DDS");
+	//Texture dds = loadDDSTex("E:\\Benutzer\\Fabian\\Desktop\\TextureStuff\\Testtextures\\testdds.DDS");
 	
 	
 	//MainGame mg(800, 600, 4, 0, "TESTGAME", false);
