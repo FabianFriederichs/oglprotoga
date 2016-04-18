@@ -134,7 +134,7 @@ Texture loadDDSTex(const std::string& _filepath)
 						break;
 					default:
 						file.close();
-						std::cerr << "Only DXT1, DXT3 and DXT5 compressed textures are supported." << std::endl;
+						std::cerr << "DDS loader: Only DXT1, DXT3 and DXT5 compressed textures are supported." << std::endl;
 						return tex;
 						break;
 				}
@@ -153,7 +153,7 @@ Texture loadDDSTex(const std::string& _filepath)
 
 						if (!file.read((char*)&buffer[0], bufsize))
 						{
-							std::cerr << "An error occured while reading DDS data." << std::endl;
+							std::cerr << "DDS loader: An error occured while reading DDS data." << std::endl;
 							file.close();
 							return tex;
 						}
@@ -180,7 +180,7 @@ Texture loadDDSTex(const std::string& _filepath)
 					buffer.resize(bufsize);
 					if (!file.read((char*)&buffer[0], bufsize))
 					{
-						std::cerr << "An error occured while reading DDS data." << std::endl;
+						std::cerr << "DDS loader: An error occured while reading DDS data." << std::endl;
 						file.close();
 						return tex;
 					}
@@ -201,7 +201,7 @@ Texture loadDDSTex(const std::string& _filepath)
 			else //uncompressed texture
 			{
 				file.close();
-				std::cerr << "Uncompressed textures are not supported yet." << std::endl;
+				std::cerr << "DDS loader: Uncompressed textures are not supported yet." << std::endl;
 				return tex;
 			}
 
@@ -209,30 +209,36 @@ Texture loadDDSTex(const std::string& _filepath)
 
 			break;
 		case TEX_CUBEMAP:
+			file.close();
+			std::cerr << "DDS loader: Cubemaps are not supported yet." << std::endl;
+			return tex;
 			break;
 		case TEX_3D:
+			file.close();
+			std::cerr << "DDS loader: Volume textures are not supported yet." << std::endl;
+			return tex;
 			break;
 		//Not supported for now:
 		case TEX_ARRAY:
 			file.close();
-			std::cerr << "DDS DX10 extension is not supported yet." << std::endl;
+			std::cerr << "DDS loader: DDS DX10 extension is not supported yet." << std::endl;
 			return tex;
 			break;		
 		case TEX_DX10_CUBEMAP:
 			file.close();
-			std::cerr << "DDS DX10 extension is not supported yet." << std::endl;
+			std::cerr << "DDS loader: DDS DX10 extension is not supported yet." << std::endl;
 			return tex;
 			break;
 		default:
 			file.close();
-			std::cerr << "Wrong textype parameter." << std::endl;
+			std::cerr << "DDS loader: Wrong textype parameter." << std::endl;
 			return tex;
 			break;
 		}
 	}
 	else
 	{
-		std::cerr << "DDS file is corrupted." << std::endl;
+		std::cerr << "DDS loader: DDS file is corrupted." << std::endl;
 		file.close();
 		return tex;
 	}

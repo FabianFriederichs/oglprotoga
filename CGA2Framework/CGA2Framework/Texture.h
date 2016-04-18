@@ -1,6 +1,7 @@
 #pragma once
 #include "headers.h"
 #include "IDProvider.h"
+#include "dds.h"
 
 typedef enum {
 	TEX_2D = 0,
@@ -18,8 +19,7 @@ public:
 	Texture(const std::string& _filepath, const std::string& _name); //single texture
 	~Texture();
 
-	//factory method
-	//static Texture loadTexFromDDS(const std::string& _filepath);
+	bool load();
 
 	//load / unload texture to ogl
 	void loadGLTexture();
@@ -32,12 +32,14 @@ public:
 
 	const TEXTYPE getType() const { return m_type; }
 	const DWORD getFormat() const { return m_format; }
+	const DWORD getComponents() const { return m_components; }
 	const GLfloat getSizeX() const { return m_sizex; }
 	const GLfloat getSizeY() const { return m_sizey; }
 
 	void setSize(GLfloat _x, GLfloat _y) { this->m_sizex = _x; this->m_sizey = _y; }
 	void setType(TEXTYPE _type) { this->m_type = _type; }
 	void setFormat(DWORD _format) { this->m_format = _format; }
+	void setComponents(DWORD _components) { this->m_components = _components; }
 	std::vector<std::vector<std::vector<unsigned char>>>& getData() { return m_data; }
 	void setData(std::vector<std::vector<std::vector<unsigned char>>>& _data) { m_data.clear(); m_data = _data; }
 
@@ -52,5 +54,6 @@ private:
 
 	TEXTYPE m_type;
 	DWORD m_format;
+	DWORD m_components;
 	std::vector<std::vector<std::vector<unsigned char>>> m_data;	//surface -> mipmap -> mipmapdata
 };

@@ -6,7 +6,10 @@ Texture::Texture() :
 	m_name(),
 	m_sizex(0.0f),
 	m_sizey(0.0f),
-	m_id(IDProvider::getInstance().createID())
+	m_id(IDProvider::getInstance().createID()),
+	m_components(0),
+	m_format(0),
+	m_data(std::vector<std::vector<std::vector<unsigned char>>>())
 {
 	
 }
@@ -17,7 +20,10 @@ Texture::Texture(const Texture& _other) :
 	m_name(_other.m_name),
 	m_sizex(_other.m_sizex),
 	m_sizey(_other.m_sizey),
-	m_id(IDProvider::getInstance().createID())
+	m_id(IDProvider::getInstance().createID()),
+	m_components(_other.m_components),
+	m_format(_other.m_format),
+	m_data(_other.m_data)
 {
 
 }
@@ -28,12 +34,17 @@ Texture::Texture(const std::string& _filepath, const std::string& _name) :
 	m_name(_name),
 	m_sizex(0.0f),
 	m_sizey(0.0f),
-	m_id(IDProvider::getInstance().createID())
+	m_id(IDProvider::getInstance().createID()),
+	m_components(0),
+	m_format(0),
+	m_data(std::vector<std::vector<std::vector<unsigned char>>>())
 {
+
 }
 
 Texture::~Texture()
 {
+
 }
 
 void Texture::loadGLTexture()
@@ -43,9 +54,7 @@ void Texture::loadGLTexture()
 
 void Texture::deleteGLTexture()
 {
+
 }
 
-//Texture Texture::loadTexFromDDS(const std::string& _filepath)
-//{
-//	return loadDDSTex(_filepath);
-//}
+
