@@ -216,3 +216,4 @@ typedef struct {
 
 bool extractDDSHeader(std::ifstream& _file, DDS_HEADER& _header, DDS_HEADER_DXT10& _dx10ExtHeader, bool& _foundDDSHeader, bool& _foundDX10ExtHeader);
 Texture loadDDSTex(const std::string& _filepath);
+bool loadDDSTex(const std::string& _filepath, Texture& _texture);

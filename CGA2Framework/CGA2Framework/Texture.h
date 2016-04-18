@@ -16,15 +16,17 @@ class Texture
 public:
 	Texture();
 	Texture(const Texture& _other);
+	Texture(const std::string& _filepath); //single texture
 	Texture(const std::string& _filepath, const std::string& _name); //single texture
 	~Texture();
 
-	bool load();
+	bool loadData();
+	bool unloadData();
 
 	//load / unload texture to ogl
-	void loadGLTexture();
-	void bindToTextureUnit(GLuint _unit);
-	void deleteGLTexture();
+	bool loadGLTexture();
+	bool bindToTextureUnit(GLuint _unit);
+	bool deleteGLTexture();
 
 	//getters / setters
 	const GLint getID() const { return m_id; }
