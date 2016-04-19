@@ -33,17 +33,11 @@ public:
 	const GLuint getGLTexture() const { return m_texture; }
 
 	const TEXTYPE getType() const { return m_type; }
-	const DWORD getFormat() const { return m_format; }
-	const DWORD getComponents() const { return m_components; }
 	const GLfloat getSizeX() const { return m_sizex; }
 	const GLfloat getSizeY() const { return m_sizey; }
 
 	void setSize(GLfloat _x, GLfloat _y) { this->m_sizex = _x; this->m_sizey = _y; }
 	void setType(TEXTYPE _type) { this->m_type = _type; }
-	void setFormat(DWORD _format) { this->m_format = _format; }
-	void setComponents(DWORD _components) { this->m_components = _components; }
-	std::vector<std::vector<std::vector<unsigned char>>>& getData() { return m_data; }
-	void setData(std::vector<std::vector<std::vector<unsigned char>>>& _data) { m_data.clear(); m_data = _data; }
 
 private:
 	GLint m_id;
@@ -55,7 +49,4 @@ private:
 	GLfloat m_sizey;
 
 	TEXTYPE m_type;
-	DWORD m_format;
-	DWORD m_components;
-	std::vector<std::vector<std::vector<unsigned char>>> m_data;	//surface -> mipmap -> mipmapdata
 };
