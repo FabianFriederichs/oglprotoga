@@ -2,6 +2,7 @@
 #include "headers.h"
 #include "IDProvider.h"
 #include "dds.h"
+#include "Image2D.h";
 
 typedef enum {
 	TEX_2D = 0,
@@ -47,6 +48,7 @@ private:
 	std::string m_name;
 	GLfloat m_sizex;
 	GLfloat m_sizey;
+	std::vector<std::vector<Image2D>> m_data; //faces->mipmaps of face->image data in Image2D
 
 	TEXTYPE m_type;
 };
