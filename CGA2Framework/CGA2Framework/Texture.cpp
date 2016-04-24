@@ -6,10 +6,7 @@ Texture::Texture() :
 	m_name(""),
 	m_sizex(0.0f),
 	m_sizey(0.0f),
-	m_id(IDProvider::getInstance().createID()),
-	//m_components(0),
-	//m_format(0),
-	//m_data(std::vector<std::vector<std::vector<unsigned char>>>())
+	m_id(IDProvider::getInstance().createID())	
 {
 	
 }
@@ -20,10 +17,7 @@ Texture::Texture(const Texture& _other) :
 	m_name(_other.m_name),
 	m_sizex(_other.m_sizex),
 	m_sizey(_other.m_sizey),
-	m_id(IDProvider::getInstance().createID()),
-	//m_components(_other.m_components),
-	//m_format(_other.m_format),
-	//m_data(_other.m_data)
+	m_id(IDProvider::getInstance().createID())
 {
 
 }
@@ -34,10 +28,7 @@ Texture::Texture(const std::string& _filepath) :
 	m_name(""),
 	m_sizex(0.0f),
 	m_sizey(0.0f),
-	m_id(IDProvider::getInstance().createID()),
-	//m_components(0),
-	//m_format(0),
-	//m_data(std::vector<std::vector<std::vector<unsigned char>>>())
+	m_id(IDProvider::getInstance().createID())
 {
 
 }
@@ -48,23 +39,20 @@ Texture::Texture(const std::string& _filepath, const std::string& _name) :
 	m_name(_name),
 	m_sizex(0.0f),
 	m_sizey(0.0f),
-	m_id(IDProvider::getInstance().createID()),
-	//m_components(0),
-	//m_format(0),
-	//m_data(std::vector<std::vector<std::vector<unsigned char>>>())
+	m_id(IDProvider::getInstance().createID())
 {
 
 }
 
 Texture::~Texture()
 {
-	//m_data.clear();
+	m_data.clear();
 	deleteGLTexture();
 }
 
 bool Texture::loadData()
 {
-	//m_data.clear();
+	m_data.clear();
 	if (loadDDSTex(m_filepath, *this))
 	{
 		std::cerr << "Texture loading was successful." << std::endl;
@@ -77,7 +65,7 @@ bool Texture::loadData()
 
 bool Texture::unloadData()
 {
-	//m_data.clear();
+	m_data.clear();
 }
 
 bool Texture::loadGLTexture()

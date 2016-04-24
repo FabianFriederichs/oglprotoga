@@ -13,13 +13,13 @@ public:
 	const DWORD getComponents() const { return m_components; }
 	const GLsizei getSizeX() const { return m_sizex; }
 	const GLsizei getSizeY() const { return m_sizey; }
-	const std::vector<unsigned char>& getData();
+	const std::vector<unsigned char>& getData() { return m_data; }
 
-	void setFormat(const DWORD _format);
-	void setComponents(const DWORD _components);
-	void setSize(const GLsizei _width, const GLsizei _height);
-	void setLevel(const GLuint _level);
-	void setData(const std::vector<unsigned char>& _data);
+	void setFormat(const DWORD _format) { m_format = _format; }
+	void setComponents(const DWORD _components) { m_components = _components; }
+	void setSize(const GLsizei _width, const GLsizei _height) { m_sizex = _width; m_sizey = _height; }
+	void setLevel(const GLuint _level) { m_level = _level; }
+	void setData(const std::vector<unsigned char>& _data) { m_data = _data; }
 
 private:	
 	std::vector<unsigned char> m_data;
