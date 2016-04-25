@@ -1,6 +1,7 @@
 #pragma once
 #include "headers.h"
 #include "Texture.h"
+#include "Image2D.h"
 
 //DDS Stuff
 #define FOURCC_DXT1 0x31545844 // Equivalent to "DXT1" in ASCII
