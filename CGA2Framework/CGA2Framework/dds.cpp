@@ -306,7 +306,7 @@ bool loadDDSTex(const std::string& _filepath, Texture& tex)
 					unsigned long bufsize = 0;
 					unsigned long curw = _header.dwWidth;
 					unsigned long curh = _header.dwHeight;
-					std::vector<std::vector<unsigned char>> data;
+					std::vector<Image2D> data;
 					for (int i = 0; i < _header.dwMipMapCount; i++)
 					{
 						bufsize = std::max(1UL, ((curw + 3) / 4)) * std::max(1UL, ((curh + 3) / 4)) * (_header.ddspf.dwFourCC == FOURCC_DXT1 ? 8 : 16);
@@ -321,19 +321,19 @@ bool loadDDSTex(const std::string& _filepath, Texture& tex)
 						}
 						else
 						{
-							data.push_back(buffer);
+							Image2D im(format, components, curw, curh, i, buffer);
+							data.push_back(im);
 						}
 
 						curw = (curw > 1 ? curw / 2 : 1);
 						curh = (curh > 1 ? curh / 2 : 1);
 					}
 					file.close();
-					std::vector<std::vector<std::vector<unsigned char>>> _data;
+					std::vector<std::vector<Image2D>> _data;
 					_data.push_back(data);
-					tex.setData(_data);
-					tex.setType(type);
-					tex.setFormat(format);
+					tex.getDataRef().push_back(_data);
 					tex.setSize(_header.dwWidth, _header.dwHeight);
+					tex.setType(type);
 					return true;
 				}
 				else if (_header.dwMipMapCount == 0) //no mipmaps
@@ -351,12 +351,11 @@ bool loadDDSTex(const std::string& _filepath, Texture& tex)
 					{
 						file.close();
 						//process data
-						std::vector<std::vector<std::vector<unsigned char>>> _data;
-						_data.push_back(std::vector<std::vector<unsigned char>>());
-						_data[0].push_back(buffer);
-						tex.setData(_data);
+						Image2D im(format, components, _header.dwWidth, _header.dwHeight, 0, buffer);
+						std::vector<Image2D> imvec;
+						imvec.push_back(im);
+						tex.getDataRef().push_back(imvec);
 						tex.setType(type);
-						tex.setFormat(format);
 						tex.setSize(_header.dwWidth, _header.dwHeight);
 						return true;
 					}

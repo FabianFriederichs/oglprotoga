@@ -40,6 +40,15 @@ public:
 	void setSize(GLfloat _x, GLfloat _y) { this->m_sizex = _x; this->m_sizey = _y; }
 	void setType(TEXTYPE _type) { this->m_type = _type; }
 
+	std::vector<std::vector<Image2D>>& getDataRef() { return m_data; }
+
+	//surfaces and mipmaps
+	void addSurface(const std::vector<Image2D>& _mipmappedimg) { m_data.push_back(_mipmappedimg); }
+	void addMipMap(const int _surfaceindex, const Image2D& _image);
+
+	int getSurfaceCount() { return m_data.size; }
+	int getMipMapCount(int _surfaceindex) { try { return m_data[_surfaceindex].size; } catch (std::exception) { return -1; } }
+
 private:
 	GLint m_id;
 	
