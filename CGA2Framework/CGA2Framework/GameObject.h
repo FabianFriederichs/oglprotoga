@@ -13,8 +13,8 @@ public:
 	void addMeshes(const std::vector<Mesh>& _meshes);
 	void removeMesh(const GLint _id);
 
-	void draw();
-	void drawBoundingBoxes();
+	void draw(Shader& _shader);
+	void drawBoundingBoxes(Shader& _shader);
 
 	//getters / setters
 	std::vector<Mesh>& getMeshes() { return m_meshes; }

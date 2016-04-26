@@ -42,26 +42,26 @@ void GameObject::removeMesh(const GLint _id)
 	m_meshes.erase(std::remove_if(m_meshes.begin(), m_meshes.end(), [_id](const Mesh& x){ return x.getID() == _id; }), m_meshes.end());
 }
 
-void GameObject::draw()
+void GameObject::draw(Shader& _shader)
 {
 	//draw all meshes
 	if (m_active)
 	{
 		for (auto mesh = m_meshes.begin(); mesh != m_meshes.end(); mesh++)
 		{
-			mesh->drawMesh();
+			mesh->drawMesh(_shader);
 		}
 	}
 }
 
-void GameObject::drawBoundingBoxes()
+void GameObject::drawBoundingBoxes(Shader& _shader)
 {
 	//draw all boundingboxes
 	if (m_active)
 	{
 		for (auto mesh = m_meshes.begin(); mesh != m_meshes.end(); mesh++)
 		{
-			mesh->drawBoundingBox();
+			mesh->drawBoundingBox(_shader);
 		}
 	}
 }

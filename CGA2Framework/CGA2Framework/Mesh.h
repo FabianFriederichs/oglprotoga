@@ -49,8 +49,8 @@ public:
 	//drawing
 	void setupVAOs();
 	void setupBBVAOs();
-	void drawBoundingBox();
-	void drawMesh();
+	void drawBoundingBox(Shader& _shader);
+	void drawMesh(Shader& _shader);
 	void freeGLData();
 	void freeBBGLData();
 private:

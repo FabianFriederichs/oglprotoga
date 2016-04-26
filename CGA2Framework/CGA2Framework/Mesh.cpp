@@ -194,10 +194,12 @@ void Mesh::setupBBVAOs()
 	}
 }
 
-void Mesh::drawBoundingBox()
+void Mesh::drawBoundingBox(Shader& _shader)
 {
 	if (m_bbvao != 0)
 	{
+		_shader.Use();
+
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glBindVertexArray(m_bbvao);
 		glDrawElements(GL_TRIANGLES, m_boundingboxindices.size(), GL_UNSIGNED_INT, 0);
@@ -205,10 +207,13 @@ void Mesh::drawBoundingBox()
 	}
 }
 
-void Mesh::drawMesh()
+void Mesh::drawMesh(Shader& _shader)
 {
 	if (m_vao != 0)
 	{
+		m_material.applyMaterialUniforms(_shader);
+		_shader.Use();
+
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glBindVertexArray(m_vao);
 		glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0);
@@ -322,6 +327,21 @@ void Mesh::generateBoundingBox()
 	m_boundingboxindices.insert(m_boundingboxindices.begin(), indic, indic + 36);
 
 	m_hasBoundingBox = true;
+}
+
+void Mesh::generateNormals(bool _smooth)
+{
+
+}
+
+void Mesh::generateTangents()
+{
+
+}
+
+void Mesh::reverseWinding()
+{
+
 }
 
 

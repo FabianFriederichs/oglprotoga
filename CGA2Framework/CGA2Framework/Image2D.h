@@ -11,6 +11,7 @@ public:
 
 	const DWORD getFormat() const { return m_format; }
 	const DWORD getComponents() const { return m_components; }
+	const GLint getLevel() const { return m_level; }
 	const GLsizei getSizeX() const { return m_sizex; }
 	const GLsizei getSizeY() const { return m_sizey; }
 	const std::vector<unsigned char>& getData() { return m_data; }
