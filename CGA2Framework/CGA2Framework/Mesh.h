@@ -27,7 +27,7 @@ public:
 	void removeIndex(const GLuint _index);
 
 	void generateTangents();
-	void generateNormals(bool _smooth);
+	void generateNormals();
 	void reverseWinding();
 
 	//getters / setters

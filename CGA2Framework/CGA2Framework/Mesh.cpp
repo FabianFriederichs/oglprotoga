@@ -329,7 +329,7 @@ void Mesh::generateBoundingBox()
 	m_hasBoundingBox = true;
 }
 
-void Mesh::generateNormals(bool _smooth)
+void Mesh::generateNormals()
 {
 	for (int i = 0; i < m_vertices.size(); i++) //initialize all vertex normals with nullvectors
 	{
