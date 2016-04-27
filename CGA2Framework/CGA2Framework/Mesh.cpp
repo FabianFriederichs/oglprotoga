@@ -331,12 +331,38 @@ void Mesh::generateBoundingBox()
 
 void Mesh::generateNormals(bool _smooth)
 {
+	for (int i = 0; i < m_vertices.size(); i++) //initialize all vertex normals with nullvectors
+	{
+		m_vertices[i].setNormal(glm::vec3(0.0f, 0.0f, 0.0f))
+	}
 
+	for (int i = 0; i < m_indices.size(); i += 3)
+	{
+		glm::vec3 v1 = m_vertices[m_indices[i]].getPosition();
+		glm::vec3 v2 = m_vertices[m_indices[i + 1]].getPosition();
+		glm::vec3 v3 = m_vertices[m_indices[i + 2]].getPosition();
+
+		//counter clockwise winding
+		glm::vec3 edge1 = v2 - v1;
+		glm::vec3 edge2 = v3 - v1;
+
+		glm::vec3 normal = glm::cross(edge1, edge2);
+
+		//for each vertex all corresponing normals are added. The result is a non unit length vector wich is the average direction of all assigned normals.
+		m_vertices[m_indices[i]].m_normal += normal;
+		m_vertices[m_indices[i + 1]].m_normal += normal;
+		m_vertices[m_indices[i + 2]].m_normal += normal;
+	}
+
+	for (int i = 0; i < m_vertices.size(); i++)	//normalize all normals calculated in the previous step
+	{
+		m_vertices[i].m_normal = glm::normalize(m_vertices[i].m_normal);
+	}
 }
 
 void Mesh::generateTangents()
 {
-
+	
 }
 
 void Mesh::reverseWinding()

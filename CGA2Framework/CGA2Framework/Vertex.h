@@ -29,7 +29,7 @@ public:
 	void setTangent(const glm::vec3& _tangent) { m_tangent = _tangent; }
 	void setBitangent(const glm::vec3& _bitangent) { m_bitangent = _bitangent; }
 
-private:
+//private:
 	glm::vec3 m_position;	//3f	
 	glm::vec3 m_normal;		//3f		11 floats per vertex
 	glm::vec2 m_uv;			//2f	
