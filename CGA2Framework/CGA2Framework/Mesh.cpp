@@ -333,7 +333,7 @@ void Mesh::generateNormals()
 {
 	for (int i = 0; i < m_vertices.size(); i++) //initialize all vertex normals with nullvectors
 	{
-		m_vertices[i].setNormal(glm::vec3(0.0f, 0.0f, 0.0f))
+		m_vertices[i].setNormal(glm::vec3(0.0f, 0.0f, 0.0f));
 	}
 
 	for (int i = 0; i < m_indices.size(); i += 3)
