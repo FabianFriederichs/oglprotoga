@@ -362,7 +362,31 @@ void Mesh::generateNormals()
 
 void Mesh::generateTangents()
 {
-	
+	if (m_hasTexCoords)
+	{
+		for (int i = 0; i < m_vertices.size(); i++)
+		{
+			m_vertices[i].m_tangent = glm::vec3(0.0f, 0.0f, 0.0f);
+			m_vertices[i].m_bitangent = glm::vec3(0.0f, 0.0f, 0.0f);
+		}
+
+		for (int i = 0; i < m_indices.size(); i += 3)
+		{
+			//3 vertices of a triangle
+			glm::vec3 v1 = m_vertices[m_indices[i]].getPosition();			
+			glm::vec3 v2 = m_vertices[m_indices[i + 1]].getPosition();			
+			glm::vec3 v3 = m_vertices[m_indices[i + 2]].getPosition();
+
+			//uvs
+			glm::vec2 uv1 = m_vertices[m_indices[i]].getUV();
+			glm::vec2 uv2 = m_vertices[m_indices[i + 1]].getUV();
+			glm::vec2 uv3 = m_vertices[m_indices[i + 2]].getUV();
+
+			//calculate edges in counter clockwise winding order
+			glm::vec3 edge1 = v2 - v1;
+			glm::vec3 edge2 = v3 - v1;
+		}
+	}
 }
 
 void Mesh::reverseWinding()
