@@ -1,7 +1,6 @@
 #pragma once
-#include "headers.h"
-#include "Texture.h"
-#include "Image2D.h"
+
+//this header contains structs and constants as defined in "MSDN DDS Programming Guide"
 
 //DDS Stuff
 #define FOURCC_DXT1 0x31545844 // Equivalent to "DXT1" in ASCII
@@ -212,8 +211,3 @@ typedef struct {
 	UINT                     arraySize;
 	UINT                     miscFlags2;
 } DDS_HEADER_DXT10;
-
-//functions
-
-//bool extractDDSHeader(std::ifstream& _file, DDS_HEADER& _header, DDS_HEADER_DXT10& _dx10ExtHeader, bool& _foundDDSHeader, bool& _foundDX10ExtHeader);
-//bool loadDDSTex(const std::string& _filepath, Texture& _texture);

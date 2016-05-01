@@ -168,13 +168,13 @@ void ModelOBJ::setupGLBoundingBox() {
   float width, height, length, radius;
   bounds(center, width, height, length, radius);
 
-  float lx = center[0] - (m_width * 0.5);
+  float lx = center[0] - (m_width * 0.5f);
   float ux = lx  + width;
 
-  float ly = center[1] - (height * 0.5);
+  float ly = center[1] - (height * 0.5f);
   float uy = ly  + height;
 
-  float lz = center[2] - (length * 0.5);
+  float lz = center[2] - (length * 0.5f);
   float uz = lz  + length;
 
   GLfloat bbVertices[24] = {

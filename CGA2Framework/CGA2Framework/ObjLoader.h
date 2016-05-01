@@ -1,19 +1,25 @@
-#ifndef __OBJ_LOADER__
-#define __OBJ_LOADER__
-
-#include <map>
+#pragma once
 #include "headers.h"
+#include "GameObject.h"
+class OBJLoader
+{
+public:
+	OBJLoader();
+	~OBJLoader();
 
-#include "MeshObj.h"
+	static std::vector<GameObject> loadOBJ(const std::string& _filepath);
 
-class ObjLoader {
-  public:
-    ObjLoader();
-    ~ObjLoader();
-    MeshObj* loadObjFile(std::string fileName, std::string ID = "");
-    MeshObj* getMeshObj(std::string ID);
-  private:
-    std::map<std::string, MeshObj*> mMeshMap;
+private:
+	static const std::regex facef_v;
+	static const std::regex facef_vvt;
+	static const std::regex facef_vvn;
+	static const std::regex facef_vvtvn;
+
+	struct oface
+	{
+		int oid;
+		int gid;
+		std::string face;
+	};
 };
 
-#endif

@@ -358,18 +358,27 @@ void Mesh::generateNormals()
 	{
 		m_vertices[i].m_normal = glm::normalize(m_vertices[i].m_normal);
 	}
+
+	m_hasNormals = true;
 }
 
 void Mesh::generateTangents()
 {
 	if (m_hasTexCoords)
 	{
+		//initialize tangents and bitangents with nullvecs
 		for (int i = 0; i < m_vertices.size(); i++)
 		{
 			m_vertices[i].m_tangent = glm::vec3(0.0f, 0.0f, 0.0f);
 			m_vertices[i].m_bitangent = glm::vec3(0.0f, 0.0f, 0.0f);
 		}
 
+		float det;
+		glm::vec3 tangent;
+		glm::vec3 bitangent;
+		glm::vec3 normal;
+
+		//calculate and average tangents and bitangents just as we did when calculating the normals
 		for (int i = 0; i < m_indices.size(); i += 3)
 		{
 			//3 vertices of a triangle
@@ -387,6 +396,42 @@ void Mesh::generateTangents()
 			glm::vec3 edge2 = v3 - v1;
 
 			//deltaus and deltavs
+			glm::vec2 duv1 = uv2 - uv1;
+			glm::vec2 duv2 = uv3 - uv1;
+
+			det = duv1.x * duv2.y - duv2.x * duv1.y;
+
+			if (fabs(det) < 1e-6f)		//if delta stuff is close to nothing ignore it
+			{
+				tangent = glm::vec3(1.0f, 0.0f, 0.0f);
+				bitangent = glm::vec3(0.0f, 1.0f, 0.0f);
+			}
+			else
+			{
+				det = 1.0f / det;
+
+				tangent.x = det * (duv2.y * edge1.x - duv1.y * edge2.x);
+				tangent.y = det * (duv2.y * edge1.y - duv1.y * edge2.y);
+				tangent.z = det * (duv2.y * edge1.z - duv1.y * edge2.z);
+
+				bitangent.x = det * (-duv2.x * edge1.x + duv1.x * edge2.x);
+				bitangent.y = det * (-duv2.x * edge1.y + duv1.x * edge2.y);
+				bitangent.z = det * (-duv2.x * edge1.z + duv1.x * edge2.z);
+			}
+
+			m_vertices[m_indices[i]].m_tangent += tangent;
+			m_vertices[m_indices[i]].m_bitangent += bitangent;
+
+			m_vertices[m_indices[i + 1]].m_tangent += tangent;
+			m_vertices[m_indices[i + 1]].m_bitangent += bitangent;
+
+			m_vertices[m_indices[i + 2]].m_tangent += tangent;
+			m_vertices[m_indices[i + 2]].m_bitangent += bitangent;
+		}
+
+		//orthogonalize and normalize tangents and bitangents
+		for (int i = 0; i < m_vertices.size(); i++)
+		{
 
 		}
 	}

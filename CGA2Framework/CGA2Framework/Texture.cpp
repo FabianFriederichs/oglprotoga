@@ -4,8 +4,8 @@ Texture::Texture() :
 	m_filepath(),
 	m_texture(0),
 	m_name(""),
-	m_sizex(0.0f),
-	m_sizey(0.0f),
+	m_sizex(0),
+	m_sizey(0),
 	m_id(IDProvider::getInstance().createID())	
 {
 	
@@ -26,8 +26,8 @@ Texture::Texture(const std::string& _filepath) :
 	m_filepath(_filepath),
 	m_texture(0),
 	m_name(""),
-	m_sizex(0.0f),
-	m_sizey(0.0f),
+	m_sizex(0),
+	m_sizey(0),
 	m_id(IDProvider::getInstance().createID())
 {
 
@@ -37,8 +37,8 @@ Texture::Texture(const std::string& _filepath, const std::string& _name) :
 	m_filepath(_filepath),
 	m_texture(0),
 	m_name(_name),
-	m_sizex(0.0f),
-	m_sizey(0.0f),
+	m_sizex(0),
+	m_sizey(0),
 	m_id(IDProvider::getInstance().createID())
 {
 
@@ -53,7 +53,7 @@ Texture::~Texture()
 bool Texture::loadData()
 {
 	m_data.clear();
-	if (loadDDSTex(m_filepath, *this))
+	if (DDSLoader::loadDDSTex(m_filepath, *this))
 	{
 		std::cerr << "Texture loading was successful." << std::endl;
 		return true;
@@ -63,6 +63,7 @@ bool Texture::loadData()
 		std::cerr << "Texture could not be loaded." << std::endl;
 		return false;
 	}
+	return true;
 }
 
 bool Texture::unloadData()
@@ -151,7 +152,7 @@ bool Texture::loadGLTexture()
 
 bool Texture::deleteGLTexture()
 {
-
+	return true;
 }
 
 bool Texture::bindToTextureUnit(GLuint _unit)

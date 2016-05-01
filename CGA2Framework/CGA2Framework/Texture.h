@@ -2,7 +2,7 @@
 #include "headers.h"
 #include "Image2D.h"
 #include "IDProvider.h"
-#include "dds.h"
+#include "DDSLoader.h"
 
 typedef enum {
 	TEX_2D = 0,
@@ -34,10 +34,10 @@ public:
 	const GLuint getGLTexture() const { return m_texture; }
 
 	const TEXTYPE getType() const { return m_type; }
-	const GLfloat getSizeX() const { return m_sizex; }
-	const GLfloat getSizeY() const { return m_sizey; }
+	const GLuint getSizeX() const { return m_sizex; }
+	const GLuint getSizeY() const { return m_sizey; }
 
-	void setSize(GLfloat _x, GLfloat _y) { this->m_sizex = _x; this->m_sizey = _y; }
+	void setSize(GLuint _x, GLuint _y) { this->m_sizex = _x; this->m_sizey = _y; }
 	void setType(TEXTYPE _type) { this->m_type = _type; }
 
 	std::vector<std::vector<Image2D>>& getDataRef() { return m_data; }
@@ -55,8 +55,8 @@ private:
 	GLuint m_texture;
 	std::string m_filepath;
 	std::string m_name;
-	GLfloat m_sizex;
-	GLfloat m_sizey;
+	GLuint m_sizex;
+	GLuint m_sizey;
 	std::vector<std::vector<Image2D>> m_data; //faces->mipmaps of face->image data in Image2D
 
 	TEXTYPE m_type;
