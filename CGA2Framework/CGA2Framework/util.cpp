@@ -28,7 +28,7 @@ std::vector<int> extractInts(const std::string& _s, char _d)
 		buf.push_back(tmp);
 	}
 	strm.clear();
-	for (int i = 0; i < buf.size(); i++)
+	for (unsigned int i = 0; i < buf.size(); i++)
 	{
 		strm << buf[i] << " ";
 	}

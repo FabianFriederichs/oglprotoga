@@ -11,19 +11,16 @@
 class ResourceLoader
 {
 public:
-	static Texture loadDDS(const std::string& _filepath);
-	static GLuint loadCubeMap(	const std::string& _filepath_posx,
-								const std::string& _filepath_negx,
-								const std::string& _filepath_posy,
-								const std::string& _filepath_negy,
-								const std::string& _filepath_posz,
-								const std::string& _filepath_negz);
+	
 
 	//Reads an obj file and creates GameObjects with meshes. Material information is ignored.
 	//For each "g" command in obj there will be created a new mesh,
 	//for each "o" command a new GameObject which contains the subsequent meshes.
 	//Meshes contain positions, uvs and normals as given in the file.
 	static std::vector<GameObject> loadOBJ(const std::string& _filepath);
+	bool extractDDSHeader(std::ifstream& _file, DDS_HEADER& _header, DDS_HEADER_DXT10& _dx10ExtHeader, bool& _foundDDSHeader, bool& _foundDX10ExtHeader);
+	bool loadDDSTex(const std::string& _filepath, Texture& _texture);
+
 private:
 	ResourceLoader();
 	~ResourceLoader();

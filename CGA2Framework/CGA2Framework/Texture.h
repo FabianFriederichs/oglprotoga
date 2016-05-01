@@ -1,8 +1,8 @@
 #pragma once
 #include "headers.h"
+#include "Image2D.h"
 #include "IDProvider.h"
 #include "dds.h"
-#include "Image2D.h";
 
 typedef enum {
 	TEX_2D = 0,
@@ -46,8 +46,8 @@ public:
 	void addSurface(const std::vector<Image2D>& _mipmappedimg) { m_data.push_back(_mipmappedimg); }
 	void addMipMap(const int _surfaceindex, const Image2D& _image);
 
-	int getSurfaceCount() { return m_data.size; }
-	int getMipMapCount(int _surfaceindex) { try { return m_data[_surfaceindex].size; } catch (std::exception) { return -1; } }
+	const int getSurfaceCount() const { return m_data.size(); }
+	const int getMipMapCount(int _surfaceindex) const { try { return m_data[_surfaceindex].size(); } catch (std::exception) { return -1; } }
 
 private:
 	GLint m_id;

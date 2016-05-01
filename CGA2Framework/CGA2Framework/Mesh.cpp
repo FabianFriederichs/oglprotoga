@@ -385,6 +385,9 @@ void Mesh::generateTangents()
 			//calculate edges in counter clockwise winding order
 			glm::vec3 edge1 = v2 - v1;
 			glm::vec3 edge2 = v3 - v1;
+
+			//deltaus and deltavs
+
 		}
 	}
 }

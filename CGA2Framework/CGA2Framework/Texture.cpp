@@ -78,9 +78,9 @@ bool Texture::loadGLTexture()
 		case TEX_2D:
 			if (m_texture == 0)
 			{
-				if (m_data.size == 1)	//1 face for 2D texture
+				if (m_data.size() == 1)	//1 face for 2D texture
 				{
-					if (m_data[0].size > 0)	//at least one mipmap level
+					if (m_data[0].size() > 0)	//at least one mipmap level
 					{
 						glGenTextures(1, &m_texture);
 						if (m_texture == 0)
@@ -96,7 +96,7 @@ bool Texture::loadGLTexture()
 							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-							for (int i = 0; i < m_data[0].size; i++)
+							for (int i = 0; i < m_data[0].size(); i++)
 							{
 								glCompressedTexImage2D(GL_TEXTURE_2D, m_data[0][i].getLevel(), m_data[0][i].getFormat(), m_data[0][i].getSizeX(), m_data[0][i].getSizeY(), 0, m_data[0][i].getData().size(), m_data[0][i].getData().data());
 							}
