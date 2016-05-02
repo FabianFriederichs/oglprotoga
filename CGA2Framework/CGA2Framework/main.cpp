@@ -6,7 +6,6 @@
 #include "Shader.h"
 #include "MainGame.h"
 #include "GameObject.h"
-#include "ResourceLoader.h"
 #include "util.h"
 #include "dds.h"
 using namespace std;

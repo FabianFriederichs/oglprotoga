@@ -370,12 +370,12 @@ void Mesh::generateTangents()
 		for (int i = 0; i < m_vertices.size(); i++)
 		{
 			m_vertices[i].m_tangent = glm::vec3(0.0f, 0.0f, 0.0f);
-			m_vertices[i].m_bitangent = glm::vec3(0.0f, 0.0f, 0.0f);
+			//m_vertices[i].m_bitangent = glm::vec3(0.0f, 0.0f, 0.0f);
 		}
 
 		float det;
 		glm::vec3 tangent;
-		glm::vec3 bitangent;
+		//glm::vec3 bitangent;
 		glm::vec3 normal;
 
 		//calculate and average tangents and bitangents just as we did when calculating the normals
@@ -404,7 +404,7 @@ void Mesh::generateTangents()
 			if (fabs(det) < 1e-6f)		//if delta stuff is close to nothing ignore it
 			{
 				tangent = glm::vec3(1.0f, 0.0f, 0.0f);
-				bitangent = glm::vec3(0.0f, 1.0f, 0.0f);
+				//bitangent = glm::vec3(0.0f, 1.0f, 0.0f);
 			}
 			else
 			{
@@ -414,32 +414,45 @@ void Mesh::generateTangents()
 				tangent.y = det * (duv2.y * edge1.y - duv1.y * edge2.y);
 				tangent.z = det * (duv2.y * edge1.z - duv1.y * edge2.z);
 
-				bitangent.x = det * (-duv2.x * edge1.x + duv1.x * edge2.x);
-				bitangent.y = det * (-duv2.x * edge1.y + duv1.x * edge2.y);
-				bitangent.z = det * (-duv2.x * edge1.z + duv1.x * edge2.z);
+				//bitangent.x = det * (-duv2.x * edge1.x + duv1.x * edge2.x);
+				//bitangent.y = det * (-duv2.x * edge1.y + duv1.x * edge2.y);
+				//bitangent.z = det * (-duv2.x * edge1.z + duv1.x * edge2.z);
 			}
 
 			m_vertices[m_indices[i]].m_tangent += tangent;
-			m_vertices[m_indices[i]].m_bitangent += bitangent;
+			//m_vertices[m_indices[i]].m_bitangent += bitangent;
 
 			m_vertices[m_indices[i + 1]].m_tangent += tangent;
-			m_vertices[m_indices[i + 1]].m_bitangent += bitangent;
+			//m_vertices[m_indices[i + 1]].m_bitangent += bitangent;
 
 			m_vertices[m_indices[i + 2]].m_tangent += tangent;
-			m_vertices[m_indices[i + 2]].m_bitangent += bitangent;
+			//m_vertices[m_indices[i + 2]].m_bitangent += bitangent;
 		}
 
-		//orthogonalize and normalize tangents and bitangents
+		//orthogonalize and normalize tangents
 		for (int i = 0; i < m_vertices.size(); i++)
 		{
+			Vertex* pv = &m_vertices[i];
 
+			//normalize the stuff from before
+			pv->m_normal = glm::normalize(pv->m_normal);
+			pv->m_tangent = glm::normalize(pv->m_tangent);
+			
+			//gram schmidt reorthogonalize normal-tangent-bitangent system
+			pv->m_tangent = glm::normalize(pv->m_tangent - (glm::dot(pv->m_normal, pv->m_tangent) * pv->m_normal));
 		}
+		m_hasTangents = true;
 	}
 }
 
 void Mesh::reverseWinding()
 {
-
+	for (int i = 0; i < m_indices.size(); i+=3)
+	{
+		GLuint tmp = m_indices[i + 1];
+		m_indices[i + 1] = m_indices[i + 2];
+		m_indices[i + 2] = tmp;
+	}
 }
 
 
