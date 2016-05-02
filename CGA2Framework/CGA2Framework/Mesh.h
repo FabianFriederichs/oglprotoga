@@ -21,11 +21,13 @@ public:
 	const bool hasTangents() const { return m_hasTangents; }
 
 	void addVertex(const Vertex& _vertex);
+	//adds index AND vertex! if vertex already exists, no vertex but only an index is added.
 	void addIndicedVertex(const Vertex& _vertex);
 	void removeVertex(const Vertex& _vertex);
 	void addIndex(const GLuint _index);
 	void removeIndex(const GLuint _index);
 
+	//stuff
 	void generateTangents();
 	void generateNormals();
 	void reverseWinding();

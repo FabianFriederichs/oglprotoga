@@ -1,5 +1,6 @@
 #pragma once
-class PointLight
+#include "Light.h"
+class PointLight : public Light
 {
 public:
 	PointLight();

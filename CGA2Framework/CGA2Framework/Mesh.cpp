@@ -445,7 +445,7 @@ void Mesh::generateTangents()
 	}
 }
 
-void Mesh::reverseWinding()
+void Mesh::reverseWinding()	//swaps two indices of a triangle to reverse winding order
 {
 	for (int i = 0; i < m_indices.size(); i+=3)
 	{
