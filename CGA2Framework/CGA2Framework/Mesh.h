@@ -8,7 +8,7 @@ class Mesh
 {
 public:
 	Mesh();
-	Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLuint>& _indices, const Material& _material, const bool _calcBoundingBox = false);
+	Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLuint>& _indices, const Material& _material, const bool _calcBoundingBox = false, Shader* _shader = 0);
 	Mesh(const Mesh& _other);
 	~Mesh();
 
@@ -45,14 +45,16 @@ public:
 	std::vector<Vertex>& getBoundingBoxVertices() { return m_boundingboxvertices; }
 	std::vector<GLuint>& getIndices() { return m_indices; }
 	std::vector<GLuint>& getBoundingBoxIndices() { return m_boundingboxindices; }
+	const Shader* getShader() const { return m_shader; }
+	void setShader(Shader* _shader) { m_shader = _shader; }
 
 	void setMaterial(const Material& _material);
 
 	//drawing
 	void setupVAOs();
 	void setupBBVAOs();
-	void drawBoundingBox(Shader& _shader);
-	void drawMesh(Shader& _shader);
+	void drawBoundingBox();
+	void drawMesh();
 	void freeGLData();
 	void freeBBGLData();
 private:
@@ -64,6 +66,7 @@ private:
 	bool m_hasTexCoords;
 	bool m_hasTangents;
 	bool m_glinited;
+	Shader* m_shader; //shader wich will be used to render the mesh
 
 	std::vector<Vertex> m_vertices;
 	std::vector<Vertex> m_boundingboxvertices;

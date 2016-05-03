@@ -24,7 +24,7 @@ Mesh::Mesh(const Mesh& _other) :
 	
 }
 
-Mesh::Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLuint>& _indices, const Material& _material, const bool _calcBoundingBox) :
+Mesh::Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLuint>& _indices, const Material& _material, const bool _calcBoundingBox, Shader* _shader) :
 	m_id(IDProvider::getInstance().createID()),
 	m_hasBoundingBox(false),
 	m_vertices(_vertices),
@@ -194,12 +194,10 @@ void Mesh::setupBBVAOs()
 	}
 }
 
-void Mesh::drawBoundingBox(Shader& _shader)
+void Mesh::drawBoundingBox()
 {
 	if (m_bbvao != 0)
 	{
-		_shader.Use();
-
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glBindVertexArray(m_bbvao);
 		glDrawElements(GL_TRIANGLES, m_boundingboxindices.size(), GL_UNSIGNED_INT, 0);
@@ -207,13 +205,10 @@ void Mesh::drawBoundingBox(Shader& _shader)
 	}
 }
 
-void Mesh::drawMesh(Shader& _shader)
+void Mesh::drawMesh()
 {
 	if (m_vao != 0)
 	{
-		m_material.applyMaterialUniforms(_shader);
-		_shader.Use();
-
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glBindVertexArray(m_vao);
 		glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0);
@@ -438,7 +433,7 @@ void Mesh::generateTangents()
 			pv->m_normal = glm::normalize(pv->m_normal);
 			pv->m_tangent = glm::normalize(pv->m_tangent);
 			
-			//gram schmidt reorthogonalize normal-tangent-bitangent system
+			//gram schmidt reorthogonalize normal-tangent system
 			pv->m_tangent = glm::normalize(pv->m_tangent - (glm::dot(pv->m_normal, pv->m_tangent) * pv->m_normal));
 		}
 		m_hasTangents = true;
