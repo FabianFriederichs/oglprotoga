@@ -72,7 +72,7 @@ bool Texture::unloadData()
 	return true;
 }
 
-bool Texture::loadGLTexture()
+bool Texture::loadGLTexture(GLenum _wrapmodes, GLenum _wrapmodet, GLenum _minfilter, GLenum _magfilter)
 {
 	switch (m_type)
 	{
@@ -94,8 +94,8 @@ bool Texture::loadGLTexture()
 							glBindTexture(GL_TEXTURE_2D, m_texture);
 							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _minfilter);
+							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _magfilter);
 
 							for (int i = 0; i < m_data[0].size(); i++)
 							{

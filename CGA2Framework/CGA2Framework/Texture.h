@@ -25,7 +25,7 @@ public:
 	bool unloadData();
 
 	//load / unload texture to ogl
-	bool loadGLTexture();
+	bool loadGLTexture(GLenum _wrapmodes, GLenum _wrapmodet, GLenum _minfilter, GLenum _magfilter);
 	bool bindToTextureUnit(GLuint _unit);
 	bool deleteGLTexture();
 

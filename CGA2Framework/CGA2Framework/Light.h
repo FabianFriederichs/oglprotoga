@@ -16,7 +16,7 @@ public:
 	glm::vec4 m_lightcolor;
 	glm::vec4 m_fadeoutcolor;
 
-private:
+protected:
 	Transform m_transform;
 };
 
