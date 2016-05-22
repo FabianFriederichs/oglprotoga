@@ -44,6 +44,8 @@ const GLfloat MainGame::vertices[] = {
 	-0.5f, 0.5f, -0.5f, 0.0f, 1.0f
 };
 
+quat modelOrientation(vec3(0.0f,0,0));
+
 MainGame::MainGame(const GLint sizex, const GLint sizey, const GLint cvmaj, const GLint cvmin, const std::string& title, const GLboolean uselatestglver)
 	: GameWindow(sizex, sizey, cvmaj, cvmin, title, uselatestglver)
 {
@@ -67,6 +69,7 @@ MainGame::MainGame(const GLint sizex, const GLint sizey, const GLint cvmaj, cons
 	cam = new Camera();
 	shader = new Shader("Sample.vs", "Sample.fs");
 	shader->Use();
+	for(auto begin = std::begin(keys), end = std::end(keys); begin!=end; ++begin) *begin = false;
 }
 
 
@@ -113,7 +116,26 @@ GLvoid MainGame::update(GLdouble time)
 		md.Left = 2.0f;
 	if (keys[GLFW_KEY_D])
 		md.Right = 2.0f;
+	if (keys[GLFW_KEY_SPACE])
+		modelOrientation = quat(vec3(0,0,0));
+	if(keys[GLFW_KEY_RIGHT])
+	{
+		vec3 EulerAngles(0, 0.02f, 0);
+		modelOrientation *= quat(EulerAngles);
+	}
+	if(keys[GLFW_KEY_LEFT])
+	{
+		vec3 EulerAngles(0.02f, 0, 0);
+		modelOrientation *= quat(EulerAngles);
+	}
+	if(keys[GLFW_KEY_UP])
+	{
+		vec3 EulerAngles(0, 0, 0.02f);
+		modelOrientation *= quat(EulerAngles);
+	}
+	
 	cam->Move(md);
+	cam->Rotate(modelOrientation);
 }
 
 GLvoid MainGame::render(GLdouble time)
@@ -123,9 +145,12 @@ GLvoid MainGame::render(GLdouble time)
 
 	glm::mat4 view;
 	glm::mat4 projection;
+
 	view = cam->GetViewMatrix();
 	//projection = glm::perspective(45.0f, (GLfloat)this->WIDTH() / (GLfloat)this->HEIGHT(), 0.1f, 100.0f);
 	//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+	mat4 RotationMatrix = glm::mat4_cast(modelOrientation);
+	
 	projection = glm::perspective(45.0f, (GLfloat)this->WIDTH() / (GLfloat)this->HEIGHT(), 0.1f, 100.0f);
 	shader->setUniform("view", view, false);
 	shader->setUniform("projection", projection, false);
@@ -134,7 +159,9 @@ GLvoid MainGame::render(GLdouble time)
 
 	glm::mat4 model;
 	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-	model = glm::rotate(model, 20.0f, glm::vec3(1.0f, 0.3f, 0.5f));
+	//model *= RotationMatrix;
+	//model = glm::rotate(model, 20.0f, glm::vec3(1.0f, 0.3f, 0.5f));
+
 	shader->setUniform("model", model, false);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 

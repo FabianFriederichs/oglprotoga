@@ -16,7 +16,7 @@ Direction value has to be the negative of the direction the camera points at
 
 
 
-class Camera: Rotatable, Moveable
+class Camera: Moveable
 {
 public:
 	Camera(const vec3 position = vec3(0.0f, 0.0f, 3.0f), const vec3 up = vec3(0.0f, 1.0f, 0.0f), const vec3 target = vec3(0.0f, 0.0f, 0.0f))
@@ -48,14 +48,15 @@ public:
 		this->Position += normalize(cross(this->Direction, Up)) * (movedata.Speed*movedata.Right);
 	}
 
-	void Rotate(const RotateData &rotatedata)
+	void Rotate(const quat &orientation)
 	{
-		glm::vec3 target;
+		///somehow make it work with quats
+		/*glm::vec3 target;
 		target.x = cos(radians(rotatedata.Pitch)) * cos(radians(rotatedata.Yaw));
 		target.y = sin(radians(rotatedata.Pitch));
-		target.z = cos(radians(rotatedata.Pitch)) * sin(radians(rotatedata.Yaw));
+		target.z = cos(radians(rotatedata.Pitch)) * sin(radians(rotatedata.Yaw));*/
 		
-		this->Direction = normalize(target);
+		this->Direction = normalize(orientation*this->Direction);
 		// Also re-calculate the Right and Up vector
 		this->Right = normalize(glm::cross(this->Direction, this->WorldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
 		this->Up = normalize(glm::cross(this->Right, this->Direction));

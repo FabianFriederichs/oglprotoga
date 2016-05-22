@@ -4,7 +4,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <IncludePath>$(ProjectDir)libs/include/;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)libs/lib;$(ProjectDir)libs/lib/glfw13;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)libs/lib;$(ProjectDir)libs/lib/glfw12;$(LibraryPath)</LibraryPath>
     <_PropertySheetDisplayName>GlewGlfwMSVC13</_PropertySheetDisplayName>
   </PropertyGroup>
   <ItemDefinitionGroup>
