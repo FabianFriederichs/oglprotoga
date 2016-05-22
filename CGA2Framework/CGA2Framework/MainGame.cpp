@@ -45,7 +45,9 @@ const GLfloat MainGame::vertices[] = {
 };
 
 quat modelOrientation(vec3(0.0f,0,0));
-
+vec2 mpos(400,300);
+vec2 delta(0,0);
+bool discall=false;
 MainGame::MainGame(const GLint sizex, const GLint sizey, const GLint cvmaj, const GLint cvmin, const std::string& title, const GLboolean uselatestglver)
 	: GameWindow(sizex, sizey, cvmaj, cvmin, title, uselatestglver)
 {
@@ -91,6 +93,10 @@ void MainGame::keycallback(int key, int scancode, int action, int mods)
 
 void MainGame::mmcallback(double xpos, double ypos)
 {
+	vec2 test = mpos - vec2(xpos, ypos);
+	mpos = vec2(xpos, ypos);
+	delta = delta + (mpos - mpos=vec2(xpos, ypos));
+
 	//fprintf(stderr, "Mousepos: X: %.0f Y: %.0f\n", xpos, ypos);
 }
 void MainGame::mbcallback(int button, int action, int mods)
@@ -105,17 +111,17 @@ void MainGame::mscrcallback(double xoffset, double yoffset)
 
 GLvoid MainGame::update(GLdouble time)
 {
-	MoveData md = { 0, 0, 0, 0, 0 };
+	MoveData md = { 0, 0, 0, 0 };
 	
 	md.Speed = 0.01f;
 	if (keys[GLFW_KEY_W])
 		md.Forward = 2.0f;
 	if (keys[GLFW_KEY_S])
-		md.Backward = 2.0f;
+		md.Forward = -2.0f;
 	if (keys[GLFW_KEY_A])
-		md.Left = 2.0f;
-	if (keys[GLFW_KEY_D])
 		md.Right = 2.0f;
+	if (keys[GLFW_KEY_D])
+		md.Right = -2.0f;
 	if (keys[GLFW_KEY_SPACE])
 		modelOrientation = quat(vec3(0,0,0));
 	if(keys[GLFW_KEY_RIGHT])
@@ -134,8 +140,15 @@ GLvoid MainGame::update(GLdouble time)
 		modelOrientation *= quat(EulerAngles);
 	}
 	
-	cam->Move(md);
-	cam->Rotate(modelOrientation);
+	if(md.asVec3()!=vec3(0,0,0))
+		cam->Move(md);
+	if(delta!=vec2(0,0))
+	{vec3 EulerAngles(delta.x, delta.y, 0);
+	cam->Rotate(modelOrientation*quat(EulerAngles));}
+	delta = vec2(0,0);
+	mpos=vec2(400,300);
+	glfwSetCursorPos(this->m_window, 800/2, 600/2);
+	//cam->Rotate(modelOrientation);
 }
 
 GLvoid MainGame::render(GLdouble time)
@@ -145,21 +158,21 @@ GLvoid MainGame::render(GLdouble time)
 
 	glm::mat4 view;
 	glm::mat4 projection;
-
+	mat4 rot = glm::mat4_cast(modelOrientation);
 	view = cam->GetViewMatrix();
 	//projection = glm::perspective(45.0f, (GLfloat)this->WIDTH() / (GLfloat)this->HEIGHT(), 0.1f, 100.0f);
 	//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-	mat4 RotationMatrix = glm::mat4_cast(modelOrientation);
+	
 	
 	projection = glm::perspective(45.0f, (GLfloat)this->WIDTH() / (GLfloat)this->HEIGHT(), 0.1f, 100.0f);
+	
 	shader->setUniform("view", view, false);
 	shader->setUniform("projection", projection, false);
-
 	glBindVertexArray(VAO);
 
 	glm::mat4 model;
 	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-	//model *= RotationMatrix;
+	model *= rot;
 	//model = glm::rotate(model, 20.0f, glm::vec3(1.0f, 0.3f, 0.5f));
 
 	shader->setUniform("model", model, false);
