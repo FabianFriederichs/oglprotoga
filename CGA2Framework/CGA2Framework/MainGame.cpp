@@ -46,7 +46,6 @@ const GLfloat MainGame::vertices[] = {
 
 quat modelOrientation(vec3(0.0f,0,0));
 vec2 mpos(400,300);
-vec2 delta(0,0);
 bool discall=false;
 MainGame::MainGame(const GLint sizex, const GLint sizey, const GLint cvmaj, const GLint cvmin, const std::string& title, const GLboolean uselatestglver)
 	: GameWindow(sizex, sizey, cvmaj, cvmin, title, uselatestglver)
@@ -93,9 +92,7 @@ void MainGame::keycallback(int key, int scancode, int action, int mods)
 
 void MainGame::mmcallback(double xpos, double ypos)
 {
-	vec2 test = mpos - vec2(xpos, ypos);
 	mpos = vec2(xpos, ypos);
-	delta = delta + (mpos - mpos=vec2(xpos, ypos));
 
 	//fprintf(stderr, "Mousepos: X: %.0f Y: %.0f\n", xpos, ypos);
 }
@@ -142,6 +139,8 @@ GLvoid MainGame::update(GLdouble time)
 	
 	if(md.asVec3()!=vec3(0,0,0))
 		cam->Move(md);
+	vec2 delta(mpos-vec2(400,300));
+	delta = delta/600.0f;
 	if(delta!=vec2(0,0))
 	{vec3 EulerAngles(delta.x, delta.y, 0);
 	cam->Rotate(modelOrientation*quat(EulerAngles));}
