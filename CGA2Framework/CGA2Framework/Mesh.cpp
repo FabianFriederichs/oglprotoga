@@ -42,7 +42,7 @@ Mesh::~Mesh()
 	freeGLData();
 }
 
-void Mesh::setMaterial(const Material& _mat)
+void Mesh::setMaterial(const GLint _mat)
 {
 	m_material = _mat;
 }

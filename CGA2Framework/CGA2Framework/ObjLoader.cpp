@@ -15,11 +15,11 @@ OBJLoader::~OBJLoader()
 {
 }
 
-std::vector<GameObject> OBJLoader::loadOBJ(const std::string& _filepath)
+std::vector<Model> OBJLoader::loadOBJ(const std::string& _filepath)
 {
 	try
 	{
-		std::vector<GameObject> gameobjects;
+		std::vector<Model> Models;
 		std::vector<glm::vec3> poss;
 		std::vector<glm::vec2> uvs;
 		std::vector<glm::vec3> norms;
@@ -52,7 +52,7 @@ std::vector<GameObject> OBJLoader::loadOBJ(const std::string& _filepath)
 					else
 					{
 						std::cerr << "Wrong vertex format.";
-						return std::vector<GameObject>();
+						return std::vector<Model>();
 					}
 				}
 				else if (label == "vt")
@@ -63,7 +63,7 @@ std::vector<GameObject> OBJLoader::loadOBJ(const std::string& _filepath)
 					else
 					{
 						std::cerr << "Wrong texture coordinate format.";
-						return std::vector<GameObject>();
+						return std::vector<Model>();
 					}
 				}
 				else if (label == "vn")
@@ -74,7 +74,7 @@ std::vector<GameObject> OBJLoader::loadOBJ(const std::string& _filepath)
 					else
 					{
 						std::cerr << "Wrong normal format.";
-						return std::vector<GameObject>();
+						return std::vector<Model>();
 					}
 				}
 				else if (label == "f")
@@ -113,7 +113,7 @@ std::vector<GameObject> OBJLoader::loadOBJ(const std::string& _filepath)
 		else
 		{
 			std::cerr << "OBJ file could not be opened.";
-			return gameobjects; //return empty vector
+			return Models; //return empty vector
 		}
 
 		if (poss.size() > 0)
@@ -126,13 +126,13 @@ std::vector<GameObject> OBJLoader::loadOBJ(const std::string& _filepath)
 		//now process face strings
 
 		std::vector<Mesh> meshes;
-		GameObject gameobj;
+		Model gameobj;
 		Mesh mesh;
 		GLuint index = 0;
 
 		for (auto o = rawfaces.begin(); o != rawfaces.end(); o++)		//iterate objects
 		{
-			gameobj = GameObject();
+			gameobj = Model();
 			for (auto g = o->begin(); g != o->end(); g++)				//iterate meshes / groups
 			{
 				mesh = Mesh();	//new empty mesh
@@ -176,7 +176,7 @@ std::vector<GameObject> OBJLoader::loadOBJ(const std::string& _filepath)
 						else
 						{
 							std::cerr << "Wrong face format.";
-							return std::vector<GameObject>();
+							return std::vector<Model>();
 						}
 
 						//vertex2
@@ -207,7 +207,7 @@ std::vector<GameObject> OBJLoader::loadOBJ(const std::string& _filepath)
 						else
 						{
 							std::cerr << "Wrong face format.";
-							return std::vector<GameObject>();
+							return std::vector<Model>();
 						}
 
 						//vertex3
@@ -238,7 +238,7 @@ std::vector<GameObject> OBJLoader::loadOBJ(const std::string& _filepath)
 						else
 						{
 							std::cerr << "Wrong face format.";
-							return std::vector<GameObject>();
+							return std::vector<Model>();
 						}
 
 						//Add unqiue vertices and corresponding indices to mesh //extremely bad performance. Consider a hashtable cache
@@ -250,20 +250,20 @@ std::vector<GameObject> OBJLoader::loadOBJ(const std::string& _filepath)
 					{
 						//face not defined as triangle
 						std::cerr << "Wrong face format.";
-						return std::vector<GameObject>(); //return empty vector
+						return std::vector<Model>(); //return empty vector
 					}
 				}
 				if (mesh.getVertices().size() > 0)
 					gameobj.addMesh(mesh);
 			}
 			if (gameobj.getMeshes().size() > 0)
-				gameobjects.push_back(gameobj);
+				Models.push_back(gameobj);
 		}
-		return gameobjects;
+		return Models;
 	}
 	catch (std::exception& ex)
 	{
 		std::cerr << "An error occured while processing obj file.\r\n" << ex.what() << std::endl;
-		return std::vector<GameObject>();
+		return std::vector<Model>();
 	}
 }
