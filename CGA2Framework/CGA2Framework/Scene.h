@@ -22,17 +22,16 @@ public:
 	Scene();
 	~Scene();
 
-	virtual void render() = 0;
 	void save(const std::string& _filepath);
 	void load(const std::string& _filepath);
 
 protected:
 	std::vector<GameObject> m_gameobjects;
-	std::vector<Shader> m_shaders;
-	std::vector<DirectionalLight> m_directionallights;
-	std::vector<PointLight> m_pointlights;
-	std::vector<SpotLight> m_spotlights;
-	std::vector<Material> m_materials;
-	std::vector<Camera> m_cameras;
+	std::unordered_map<GLint, Shader> m_shaders;
+	std::unordered_map<GLint, DirectionalLight> m_directionallights;
+	std::unordered_map<GLint, PointLight> m_pointlights;
+	std::unordered_map<GLint, SpotLight> m_spotlights;
+	std::unordered_map<GLint, Material> m_materials;
+	std::unordered_map<GLint, Camera> m_cameras;
 };
 

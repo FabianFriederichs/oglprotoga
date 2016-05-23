@@ -1,13 +1,13 @@
 #pragma once
 #include "headers.h"
-#include "GameObject.h"
+#include "Model.h"
 class OBJLoader
 {
 public:
 	OBJLoader();
 	~OBJLoader();
 
-	static std::vector<GameObject> loadOBJ(const std::string& _filepath);
+	static std::vector<Model> loadOBJ(const std::string& _filepath);
 
 private:
 	static const std::regex facef_v;

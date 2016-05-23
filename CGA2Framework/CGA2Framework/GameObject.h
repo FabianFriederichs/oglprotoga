@@ -9,15 +9,7 @@ public:
 	GameObject(const GameObject& _other);
 	~GameObject();
 
-	void addMesh(const Mesh& _mesh);	
-	void addMeshes(const std::vector<Mesh>& _meshes);
-	void removeMesh(const GLint _id);
-
-	//void draw(Shader& _shader);
-	//void drawBoundingBoxes(Shader& _shader);
-
 	//getters / setters
-	std::vector<Mesh>& getMeshes() { return m_meshes; }
 	const bool isActive() const { return m_active; }
 	const std::string& getName() const { return m_name; }
 	const GLint getID() const { return m_id; }
