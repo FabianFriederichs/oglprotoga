@@ -16,7 +16,7 @@ public:
 		const GLfloat _alpha);
 
 	Material(const std::string& _name,
-		const std::vector<GLint>& _textures,
+		const std::vector<Texture*>& _textures,
 		const glm::vec4& _ambientcolor,
 		const glm::vec4& _diffusecolor,
 		const glm::vec4& _specularcolor,
@@ -45,14 +45,15 @@ public:
 
 	//Textures
 	void removeTexture(const GLint _id);
-	void addTexture(const GLint _texture);
+	void addTexture(Texture* _texture);
+	std::vector<Texture*>& getTextures() { return m_textures; }
 	GLint getTextureCount();
-	GLint getTexture(const int _id);
+	Texture* getTexture(const int _id);
 
 private:
 	GLint m_id;							//each material has a unique id
 	std::string m_name;
-	std::vector<GLint> m_textures;  //i.e. <diffuse_map, specular_map, normal_map, height_map> -> holds all data for standard shading, normal mapping, bump mapping, parallax mapping (normalmap + heightmap), displacement mapping
+	std::vector<Texture*> m_textures;  //i.e. <diffuse_map, specular_map, normal_map, height_map> -> holds all data for standard shading, normal mapping, bump mapping, parallax mapping (normalmap + heightmap), displacement mapping
 	//standard phong stuff
 	glm::vec4 m_ambientcolor;			//if no diffuse_map given
 	glm::vec4 m_diffusecolor;			//if no diffuse_map given

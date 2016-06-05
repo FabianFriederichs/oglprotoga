@@ -33,7 +33,7 @@ Material::Material(const std::string& _name,
 }
 
 Material::Material(const std::string& _name,
-	const std::vector<GLint>& _textures,
+	const std::vector<Texture*>& _textures,
 	const glm::vec4& _ambientcolor,
 	const glm::vec4& _diffusecolor,
 	const glm::vec4& _specularcolor,
@@ -71,14 +71,14 @@ Material::~Material()
 
 }
 
-void Material::addTexture(const GLint _texture)
+void Material::addTexture(Texture* _texture)
 {
 	m_textures.push_back(_texture);
 }
 
 void Material::removeTexture(const GLint _id)
 {
-	m_textures.erase(std::remove_if(m_textures.begin(), m_textures.end(), [_id](const GLint x){return x == _id; }), m_textures.end());
+	m_textures.erase(std::remove_if(m_textures.begin(), m_textures.end(), [_id](const Texture* x){return x->getID() == _id; }), m_textures.end());
 }
 
 GLint Material::getTextureCount()
@@ -86,7 +86,7 @@ GLint Material::getTextureCount()
 	return m_textures.size();
 }
 
-GLint Material::getTexture(const GLint _index)
+Texture* Material::getTexture(const GLint _index)
 {
 	return m_textures[_index];
 	//for (std::vector<GLint>::iterator it = m_textures.begin(); it != m_textures.end(); it++)

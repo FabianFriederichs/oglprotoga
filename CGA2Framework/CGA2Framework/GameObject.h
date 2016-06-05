@@ -20,7 +20,6 @@ public:
 
 private:
 	bool m_active;
-	std::vector<Mesh> m_meshes;
 	std::string m_name;
 	GLint m_id;
 	Transform m_transform;
