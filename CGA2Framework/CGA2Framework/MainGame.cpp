@@ -142,8 +142,11 @@ GLvoid MainGame::update(GLdouble time)
 	vec2 delta(mpos-vec2(400,300));
 	delta = delta/600.0f;
 	if(delta!=vec2(0,0))
-	{vec3 EulerAngles(delta.x, delta.y, 0);
-	cam->Rotate(modelOrientation*quat(EulerAngles));}
+	{
+		vec3 EulerAngles(delta.y, delta.x, 0);
+		modelOrientation*=quat(EulerAngles);
+		cam->Rotate(modelOrientation);
+	}
 	delta = vec2(0,0);
 	mpos=vec2(400,300);
 	glfwSetCursorPos(this->m_window, 800/2, 600/2);
