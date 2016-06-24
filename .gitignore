@@ -16,3 +16,4 @@ CGA2Framework/Debug/
 CGA2Framework/CGA2Framework/Release/
 *.user
 *.suo
+CGA2Framework/ipch/*

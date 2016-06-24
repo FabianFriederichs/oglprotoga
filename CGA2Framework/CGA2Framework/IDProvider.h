@@ -3,17 +3,8 @@
 class IDProvider
 {
 private:
-	IDProvider();
-	IDProvider(const IDProvider&);
-	~IDProvider();
-	GLint m_lastid;
-public:	
-	static IDProvider& getInstance()
-	{
-		static IDProvider provider;
-		return provider;
-	}
-
-	GLint createID();
+	static GLint m_lastid;
+public:
+	static GLint createID();
 };
 

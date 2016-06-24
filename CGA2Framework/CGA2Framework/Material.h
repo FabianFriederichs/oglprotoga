@@ -50,6 +50,8 @@ public:
 	GLint getTextureCount();
 	Texture* getTexture(const int _id);
 
+	void fillShaderUniforms(Shader* _shader);
+
 private:
 	GLint m_id;							//each material has a unique id
 	std::string m_name;

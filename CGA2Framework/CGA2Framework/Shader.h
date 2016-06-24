@@ -4,21 +4,34 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include "IDProvider.h"
+#include "Texture.h"
 
 enum UniformType {UniTf, UniTi, UniTui, UniTfv, UniTiv, UniTuiv, UniTmfv};
 
 class Shader
 {
 public:
-	~Shader()
+	Shader()
+	{
+
+	}
+
+	virtual ~Shader()
 	{
 		glDeleteProgram(this->Program);
 	}
 
+	//virtual functions to set pass-specific states while Rendering
+	virtual void preRenderActions() {};
+	virtual void postRenderActions() {};
+
+	virtual void setOutput(bool totexture, std::vector<Texture*>* = nullptr) {};
+
 	// The program ID
 	GLuint Program;
 
-	Shader(const GLchar* vertexPath, const GLchar* fragmentPath)
+	Shader(const GLchar* vertexPath, const GLchar* fragmentPath) : m_id(IDProvider::createID())
 	{
 		// 1. Retrieve the vertex/fragment source code from filePath
 		std::string vertexCode;
@@ -115,11 +128,14 @@ private:
 	{
 		return glGetUniformLocation(this->Program, name.c_str());
 	}
+	GLint m_id;
 public:
 	template<class T> 
-	inline void setUniform(const std::string name, T& stuff);
+	inline void setUniform(const std::string name, T stuff);
 	template<class T>
-	inline void setUniform(const std::string name, T& stuff, const GLboolean transpose);
+	inline void setUniform(const std::string name, T stuff, const GLboolean transpose);
+
+	GLint getID() { return m_id; }
 };
 
 
@@ -132,7 +148,7 @@ public:
 //}
 
 template<>
-inline void Shader::setUniform(const std::string name, GLfloat &value)
+inline void Shader::setUniform(const std::string name, const GLfloat value)
 {
 	GLint loc = getUniformLocation(name);
 	if (!isActive())
@@ -165,7 +181,7 @@ inline void Shader::setUniform(const std::string name, std::vector<GLfloat> &val
 }
 
 template<>
-inline void Shader::setUniform(const std::string name, GLint &value)
+inline void Shader::setUniform(const std::string name, const GLint value)
 {
 	GLint loc = getUniformLocation(name);
 	if (!isActive())

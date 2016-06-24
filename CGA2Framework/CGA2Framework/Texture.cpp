@@ -6,7 +6,7 @@ Texture::Texture() :
 	m_name(""),
 	m_sizex(0),
 	m_sizey(0),
-	m_id(IDProvider::getInstance().createID())	
+	m_id(IDProvider::createID())	
 {
 	
 }
@@ -17,7 +17,7 @@ Texture::Texture(const Texture& _other) :
 	m_name(_other.m_name),
 	m_sizex(_other.m_sizex),
 	m_sizey(_other.m_sizey),
-	m_id(IDProvider::getInstance().createID())
+	m_id(IDProvider::createID())
 {
 
 }
@@ -28,7 +28,7 @@ Texture::Texture(const std::string& _filepath) :
 	m_name(""),
 	m_sizex(0),
 	m_sizey(0),
-	m_id(IDProvider::getInstance().createID())
+	m_id(IDProvider::createID())
 {
 
 }
@@ -39,7 +39,7 @@ Texture::Texture(const std::string& _filepath, const std::string& _name) :
 	m_name(_name),
 	m_sizex(0),
 	m_sizey(0),
-	m_id(IDProvider::getInstance().createID())
+	m_id(IDProvider::createID())
 {
 
 }
@@ -191,6 +191,7 @@ bool Texture::bindToTextureUnit(GLuint _unit)
 			break;
 		}
 	}
+	return false;
 }
 
 

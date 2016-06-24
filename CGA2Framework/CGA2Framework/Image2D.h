@@ -1,5 +1,6 @@
 #pragma once
 #include "headers.h"
+#include "dds.h"
 
 class Image2D
 {

@@ -14,7 +14,6 @@ public:
 	void setTransform(const Transform& _transform) { m_transform = _transform; }
 
 	glm::vec4 m_lightcolor;
-	glm::vec4 m_fadeoutcolor;
 
 protected:
 	Transform m_transform;

@@ -3,8 +3,11 @@
 #include "PointLight.h"
 #include "SpotLight.h"
 #include "GameObject.h"
+#include "RenderableGameObject.h"
 #include "Model.h"
 #include "Camera.h"
+#include "Renderer.h"
+#include <boost/heap/fibonacci_heap.hpp>
 /*
 	Keep track of Entity-Shader relations (Map with shader ID as key?)
 	=> Mesh now has a Shader pointer
@@ -17,23 +20,55 @@
 
 	#morestufftodo
 */
+
+
+// Sorting meshes by shader:
+//sort completely via heapsort (just at the beginning, nlogn is guaranteed)
+//later sort by insertion via insertionsort. (for pre-sorted list the runtime is O(n) in best case)
+
 class Scene
 {
 public:
 	Scene();
 	~Scene();
 
-	void save(const std::string& _filepath);
-	void load(const std::string& _filepath);
-
+	void save();
+	void load();
+	void render();
 protected:
-	std::unordered_map<GLint, Model> m_gameobjects;
-	std::unordered_map<GLint, Shader> m_shaders;
-	std::unordered_map<GLint, Texture> m_textures;
-	std::unordered_map<GLint, DirectionalLight> m_directionallights;
-	std::unordered_map<GLint, PointLight> m_pointlights;
-	std::unordered_map<GLint, SpotLight> m_spotlights;
-	std::unordered_map<GLint, Material> m_materials;
-	std::unordered_map<GLint, Camera> m_cameras;
+	//scene data
+	std::list<RenderableGameObject> m_gameobjects;	
+	RenderList m_renderList;
+	void addRenderable(RenderableGameObject& _renderable);
+	void removeRenderable(GLint id);
+	RenderList& getRenderList() { return m_renderList; };
+	void createRenderList();
+
+
+	std::list<Model> m_models;
+	void addModel(Model& _model);
+	/*std::list<Shader> m_shaders;
+	void addShader(Shader& _shader);*/
+	std::list<Texture> m_textures;
+	void addTexture(Texture& _texture);
+	std::list<DirectionalLight> m_directionallights;
+	void addDirectionalLight(DirectionalLight& _directionallight);
+	std::list<PointLight> m_pointlights;
+	void addPointLight(PointLight& _pointlight);
+	std::list<SpotLight> m_spotlights;
+	void addSpotLight(SpotLight& _spotlight);
+	std::list<Material> m_materials;
+	void addMaterial(Material& _material);
+	std::list<Camera> m_cameras;
+	void addCamera(Camera& _camera);
+
+	Renderer m_renderer;
+	//inout
+
+
+private:
+	bool m_renderlistdirty;
+
+	
 };
 

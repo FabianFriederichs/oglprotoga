@@ -1,6 +1,7 @@
 #pragma once
 #include "Texture.h"
 #include "Image2D.h"
+#include "dds.h"
 
 class Texture;
 class DDSLoader

@@ -1,5 +1,6 @@
 #pragma once
 #include "headers.h"
+#include "util.h"
 #include "Model.h"
 class OBJLoader
 {

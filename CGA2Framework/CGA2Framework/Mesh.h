@@ -8,7 +8,7 @@ class Mesh
 {
 public:
 	Mesh();
-	Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLuint>& _indices, const Material& _material, const bool _calcBoundingBox = false, Shader* _shader = 0);
+	Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLuint>& _indices, Material* _material, const bool _calcBoundingBox = false, Shader* _shader = 0);
 	Mesh(const Mesh& _other);
 	~Mesh();
 
@@ -40,15 +40,15 @@ public:
 	const GLuint getIBOBoundingBox() const { return m_bbibo; }
 	const GLuint getVAOVertices() const { return m_vao; }
 	const GLuint getVAOBoundingBox() const { return m_bbvao; }
-	const GLint getMaterial() const { return m_material; }
+	Material* getMaterial() { return m_material; }
 	std::vector<Vertex>& getVertices() { return m_vertices; }
 	std::vector<Vertex>& getBoundingBoxVertices() { return m_boundingboxvertices; }
 	std::vector<GLuint>& getIndices() { return m_indices; }
 	std::vector<GLuint>& getBoundingBoxIndices() { return m_boundingboxindices; }
-	const GLint getShader() const { return m_shader; }
-	void setShader(GLint _shader) { m_shader = _shader; }
+	Shader* getShader() const { return m_shader; }
+	void setShader(Shader* _shader) { m_shader = _shader; }
 
-	void setMaterial(const GLint _material);
+	void setMaterial(Material* _material);
 
 	//drawing
 	void setupVAOs();
@@ -66,13 +66,13 @@ private:
 	bool m_hasTexCoords;
 	bool m_hasTangents;
 	bool m_glinited;
-	GLint m_shader; //shader wich will be used to render the mesh
+	Shader* m_shader; //shader wich will be used to render the mesh
 
 	std::vector<Vertex> m_vertices;
 	std::vector<Vertex> m_boundingboxvertices;
 	std::vector<GLuint> m_indices;
 	std::vector<GLuint> m_boundingboxindices;
-	GLint m_material;
+	Material* m_material;
 
 	//bounding box bounds
 	glm::vec3 m_bbcenter;

@@ -2,36 +2,39 @@
 
 
 Mesh::Mesh() :
-	m_id(IDProvider::getInstance().createID()),
+	m_id(IDProvider::createID()),
 	m_hasBoundingBox(false),
 	m_vertices(),
 	m_boundingboxvertices(),
 	m_indices(),
 	m_boundingboxindices(),
-	m_material()
+	m_material(),
+	m_shader()
 {
 }
 
 Mesh::Mesh(const Mesh& _other) :
-	m_id(IDProvider::getInstance().createID()),
+	m_id(IDProvider::createID()),
 	m_hasBoundingBox(_other.m_hasBoundingBox),
 	m_vertices(_other.m_vertices),
 	m_boundingboxvertices(_other.m_boundingboxvertices),
 	m_indices(_other.m_indices),
 	m_boundingboxindices(_other.m_boundingboxindices),
-	m_material(_other.m_material)
+	m_material(_other.m_material),
+	m_shader(_other.m_shader)
 {
 	
 }
 
-Mesh::Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLuint>& _indices, const Material& _material, const bool _calcBoundingBox, Shader* _shader) :
-	m_id(IDProvider::getInstance().createID()),
+Mesh::Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLuint>& _indices, Material* _material, const bool _calcBoundingBox, Shader* _shader) :
+	m_id(IDProvider::createID()),
 	m_hasBoundingBox(false),
 	m_vertices(_vertices),
 	m_boundingboxvertices(),
 	m_indices(_indices),
 	m_boundingboxindices(),
-	m_material(_material)
+	m_material(_material),
+	m_shader(_shader)
 {
 	if (_calcBoundingBox)
 		generateBoundingBox();
@@ -42,7 +45,7 @@ Mesh::~Mesh()
 	freeGLData();
 }
 
-void Mesh::setMaterial(const GLint _mat)
+void Mesh::setMaterial(Material* _mat)
 {
 	m_material = _mat;
 }
