@@ -21,7 +21,8 @@ public:
 		const glm::vec4& _diffusecolor,
 		const glm::vec4& _specularcolor,
 		const GLfloat _shininess,
-		const GLfloat _alpha);
+		const GLfloat _alpha,
+		Shader* _shader);
 
 	Material(const Material& _other);	//copy
 
@@ -43,6 +44,9 @@ public:
 	void setShininess(const GLfloat _shininess) { m_shininess = _shininess; }
 	void setAlpha(const GLfloat _alpha) { m_alpha = _alpha; }
 
+	Shader* getShader() const { return m_shader; }
+	void setShader(Shader* _shader) { m_shader = _shader; }
+
 	//Textures
 	void removeTexture(const GLint _id);
 	void addTexture(Texture* _texture);
@@ -50,7 +54,7 @@ public:
 	GLint getTextureCount();
 	Texture* getTexture(const int _id);
 
-	void fillShaderUniforms(Shader* _shader);
+	void setMaterialUniforms();
 
 private:
 	GLint m_id;							//each material has a unique id
@@ -62,5 +66,6 @@ private:
 	glm::vec4 m_specularcolor;			//if no specular_map given
 	GLfloat m_shininess;				//for phong shading, range [0.0, 1.0], higher values -> smaller specular
 	GLfloat m_alpha;					//some value from obj, don't know what this is
+	Shader* m_shader;
 };
 

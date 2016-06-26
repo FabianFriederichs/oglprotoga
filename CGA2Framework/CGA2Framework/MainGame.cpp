@@ -19,7 +19,7 @@ void MainGame::keycallback(int key, int scancode, int action, int mods)
 
 void MainGame::mmcallback(double xpos, double ypos)
 {
-	fprintf(stderr, "Mousepos: X: %.0f Y: %.0f\n", xpos, ypos);
+	//fprintf(stderr, "Mousepos: X: %.0f Y: %.0f\n", xpos, ypos);
 }
 void MainGame::mbcallback(int button, int action, int mods)
 {
@@ -33,12 +33,22 @@ void MainGame::mscrcallback(double xoffset, double yoffset)
 
 GLvoid MainGame::update(GLdouble time)
 {
-
+	
 }
 
 GLvoid MainGame::render(GLdouble time)
-{
-	glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
+{	
+	m_scene->render();
 	glfwSwapBuffers(this->m_window);
+}
+
+void MainGame::init()
+{
+	m_scene = new Scene(m_sizex, m_sizey);
+	m_scene->load();
+}
+
+void MainGame::shutdown()
+{
+
 }

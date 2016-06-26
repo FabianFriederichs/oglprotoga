@@ -19,7 +19,9 @@ public:
 
 	virtual GLvoid update(GLdouble time) = 0;
 	virtual GLvoid render(GLdouble time) = 0;
-private:
+	virtual GLvoid init() = 0;
+	virtual GLvoid shutdown() = 0;
+protected:
 	GLint m_sizex;
 	GLint m_sizey;
 	std::string m_title;

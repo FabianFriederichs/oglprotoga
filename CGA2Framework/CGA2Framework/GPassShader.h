@@ -7,7 +7,7 @@ public:
 	GPassShader();
 	~GPassShader();
 
-	virtual void preRenderActions();
-	virtual void postRenderActions();
+	virtual void preRenderActions() {};
+	virtual void postRenderActions() {};
 };
 

@@ -71,7 +71,7 @@ public:
 
 	glm::mat4 getProjectionMatrix()
 	{
-		glm::perspective(fov, (GLfloat)width / (GLfloat)height, znear, zfar);
+		return glm::perspective(fov, (GLfloat)width / (GLfloat)height, znear, zfar);
 	}
 };
 

@@ -6,7 +6,11 @@ Texture::Texture() :
 	m_name(""),
 	m_sizex(0),
 	m_sizey(0),
-	m_id(IDProvider::createID())	
+	m_id(IDProvider::createID()),
+	m_isloaded(false),
+	m_isbound(false),
+	m_isbuffered(false),
+	m_isrendertarget(false)
 {
 	
 }
@@ -17,7 +21,11 @@ Texture::Texture(const Texture& _other) :
 	m_name(_other.m_name),
 	m_sizex(_other.m_sizex),
 	m_sizey(_other.m_sizey),
-	m_id(IDProvider::createID())
+	m_id(IDProvider::createID()),
+	m_isloaded(_other.m_isloaded),
+	m_isbound(_other.m_isbound),
+	m_isbuffered(_other.m_isbuffered),
+	m_isrendertarget(_other.m_isrendertarget)
 {
 
 }
@@ -28,7 +36,11 @@ Texture::Texture(const std::string& _filepath) :
 	m_name(""),
 	m_sizex(0),
 	m_sizey(0),
-	m_id(IDProvider::createID())
+	m_id(IDProvider::createID()),
+	m_isloaded(false),
+	m_isbound(false),
+	m_isbuffered(false),
+	m_isrendertarget(false)
 {
 
 }
@@ -39,7 +51,41 @@ Texture::Texture(const std::string& _filepath, const std::string& _name) :
 	m_name(_name),
 	m_sizex(0),
 	m_sizey(0),
-	m_id(IDProvider::createID())
+	m_id(IDProvider::createID()),
+	m_isloaded(false),
+	m_isbound(false),
+	m_isbuffered(false),
+	m_isrendertarget(false)
+{
+
+}
+
+Texture::Texture(const bool isRenderTarget, GLsizei _width, GLsizei _height) :
+	m_filepath(""),
+	m_texture(0),
+	m_name(""),
+	m_sizex(_width),
+	m_sizey(_height),
+	m_id(IDProvider::createID()),
+	m_isloaded(true),
+	m_isbound(false),
+	m_isbuffered(false),
+	m_isrendertarget(true)
+{
+
+}
+
+Texture::Texture(const bool isRenderTarget, GLsizei _width, GLsizei _height, const std::string& _name) :
+m_filepath(""),
+m_texture(0),
+m_name(_name),
+m_sizex(_width),
+m_sizey(_height),
+m_id(IDProvider::createID()),
+m_isloaded(true),
+m_isbound(false),
+m_isbuffered(false),
+m_isrendertarget(true)
 {
 
 }
@@ -47,7 +93,7 @@ Texture::Texture(const std::string& _filepath, const std::string& _name) :
 Texture::~Texture()
 {
 	m_data.clear();
-	deleteGLTexture();
+	freeGLTexture();
 }
 
 bool Texture::loadData()
@@ -56,19 +102,39 @@ bool Texture::loadData()
 	if (DDSLoader::loadDDSTex(m_filepath, *this))
 	{
 		std::cerr << "Texture loading was successful." << std::endl;
+		m_isloaded = true;
 		return true;
 	}
 	else
 	{
 		std::cerr << "Texture could not be loaded." << std::endl;
+		m_isloaded = false;
 		return false;
 	}
-	return true;
+	m_isloaded = false;
+	return false;
 }
 
 bool Texture::unloadData()
 {
 	m_data.clear();
+	m_isloaded = false;
+	return true;
+}
+
+bool Texture::prepareAsRenderTarget(GLsizei _width, GLsizei _height, GLenum _internalformat, GLenum _format)
+{
+	m_data.clear();
+	m_isloaded = false;
+	m_isbound = false;
+	m_isbuffered = false;
+	m_texture = 0;
+
+	m_rtinternalformat = _internalformat;
+	m_rtformat = _format;
+
+	m_isrendertarget = true;
+	m_type = TEXTYPE::TEX_2D;
 	return true;
 }
 
@@ -79,79 +145,145 @@ bool Texture::loadGLTexture(GLenum _wrapmodes, GLenum _wrapmodet, GLenum _minfil
 		case TEX_2D:
 			if (m_texture == 0)
 			{
-				if (m_data.size() == 1)	//1 face for 2D texture
+				if (!m_isrendertarget)
 				{
-					if (m_data[0].size() > 0)	//at least one mipmap level
+					if (m_data.size() == 1)	//1 face for 2D texture
 					{
-						glGenTextures(1, &m_texture);
-						if (m_texture == 0)
+						if (m_data[0].size() > 0)	//at least one mipmap level
 						{
-							std::cerr << "gl texture object creation failed." << std::endl;
-							return false;
+							glGenTextures(1, &m_texture);
+							if (m_texture == 0)
+							{
+								std::cerr << "gl texture object creation failed." << std::endl;
+								m_isbuffered = false;
+								return false;
+							}
+							else
+							{
+								glBindTexture(GL_TEXTURE_2D, m_texture);
+								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, _wrapmodes);
+								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _wrapmodet);
+								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _minfilter);
+								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _magfilter);
+
+								for (size_t i = 0; i < m_data[0].size(); i++)
+								{
+									glCompressedTexImage2D(
+										GL_TEXTURE_2D,
+										m_data[0][i].getLevel(),
+										m_data[0][i].getFormat(),
+										m_data[0][i].getSizeX(),
+										m_data[0][i].getSizeY(),
+										0, m_data[0][i].getData().size(),
+										m_data[0][i].getData().data()
+										);
+								}
+								glBindTexture(GL_TEXTURE_2D, 0);
+
+								
+								if (glGetError() == GL_NO_ERROR)
+								{
+									m_isbuffered = true;
+									return true;
+								}
+								else
+								{
+									
+									m_isbuffered = false;
+									return false;
+								}
+							}
 						}
 						else
 						{
-							glBindTexture(GL_TEXTURE_2D, m_texture);
-							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _minfilter);
-							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _magfilter);
-
-							for (int i = 0; i < m_data[0].size(); i++)
-							{
-								glCompressedTexImage2D(GL_TEXTURE_2D, m_data[0][i].getLevel(), m_data[0][i].getFormat(), m_data[0][i].getSizeX(), m_data[0][i].getSizeY(), 0, m_data[0][i].getData().size(), m_data[0][i].getData().data());
-							}
-							glBindTexture(GL_TEXTURE_2D, 0);
-
-							if (glGetError() == GL_NO_ERROR)
-								return true;
-							else
-								return false;
+							std::cerr << "No texture data available." << std::endl;
+							m_isbuffered = false;
+							return false;
 						}
 					}
 					else
 					{
-						std::cerr << "No texture data available." << std::endl;
+						std::cerr << "Wrong face count for 2D texture." << std::endl;
+						m_isbuffered = false;
 						return false;
 					}
 				}
 				else
 				{
-					std::cerr << "Wrong face count for 2D texture." << std::endl;
-					return false;
-				}				
+
+					glGenTextures(1, &m_texture);
+					if (m_texture == 0)
+					{
+						std::cerr << "gl texture object creation failed." << std::endl;
+						m_isbuffered = false;
+						return false;
+					}
+					else
+					{
+						glBindTexture(GL_TEXTURE_2D, m_texture);
+						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, _wrapmodes);
+						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _wrapmodet);
+						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _minfilter);
+						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _magfilter);
+
+						glTexImage2D(GL_TEXTURE_2D, 0, m_rtinternalformat, m_sizex, m_sizey, 0, m_rtformat, GL_FLOAT, NULL);
+
+						glBindTexture(GL_TEXTURE_2D, 0);
+
+						if (glGetError() == GL_NO_ERROR)
+						{
+							m_isbuffered = true;
+							return true;
+						}
+						else
+						{
+							m_isbuffered = false;
+							return false;
+						}
+					}
+				}
+					
 			}
 			else
 			{
 				std::cerr << "The texture is already bound to opengl. Call unloadGLTexture to unbind it first!" << std::endl;
+				m_isbuffered = false;
 				return false;
 			}
 			break;
 		case TEX_3D:
 			std::cerr << "Error. 3D textures are not supported yet." << std::endl;
+			m_isbuffered = false;
 			break;
 		case TEX_CUBEMAP:
 			std::cerr << "Error. Cubemap textures are not supported yet." << std::endl;
+			m_isbuffered = false;
 			return false;
 			break;
 		case TEX_ARRAY:
 			std::cerr << "Error. Array textures are not supported yet." << std::endl;
+			m_isbuffered = false;
 			return false;
 			break;
 		case TEX_DX10_CUBEMAP:
 			std::cerr << "Error. DX10 cubemap textures are not supported yet." << std::endl;
+			m_isbuffered = false;
 			return false;
 			break;
 		default:
 			std::cerr << "Error. Invalid texture type." << std::endl;
+			m_isbuffered = false;
 			return false;
 			break;
 	}
+	m_isbuffered = false;
 	return false;
 }
 
-bool Texture::deleteGLTexture()
+bool Texture::freeGLTexture()
 {
+	glDeleteTextures(1, &m_texture);
+	m_isbuffered = false;
 	return true;
 }
 
@@ -165,32 +297,44 @@ bool Texture::bindToTextureUnit(GLuint _unit)
 			glActiveTexture(_unit);
 			glBindTexture(GL_TEXTURE_2D, m_texture);
 			if (glGetError() == GL_NO_ERROR)
+			{
+				m_isbound = true;
 				return true;
+			}
 			else
+			{
+				m_isbound = false;
 				return false;
+			}
 			break;
 		case TEX_3D:
 			std::cerr << "Error. 3D textures are not supported yet." << std::endl;
+			m_isbound = false;
 			return false;
 			break;
 		case TEX_ARRAY:
 			std::cerr << "Error. Array textures are not supported yet." << std::endl;
+			m_isbound = false;
 			return false;
 			break;
 		case TEX_CUBEMAP:
 			std::cerr << "Error. Cubemap textures are not supported yet." << std::endl;
+			m_isbound = false;
 			return false;
 			break;
 		case TEX_DX10_CUBEMAP:
 			std::cerr << "Error. DX10 cubemap textures are not supported yet." << std::endl;
+			m_isbound = false;
 			return false;
 			break;
 		default:
 			std::cerr << "Error. Invalid texture type." << std::endl;
+			m_isbound = false;
 			return false;
 			break;
 		}
 	}
+	m_isbound = false;
 	return false;
 }
 

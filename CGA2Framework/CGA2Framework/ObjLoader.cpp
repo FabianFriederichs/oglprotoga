@@ -15,11 +15,11 @@ OBJLoader::~OBJLoader()
 {
 }
 
-std::vector<Model> OBJLoader::loadOBJ(const std::string& _filepath)
+std::list<Model*> OBJLoader::loadOBJ(const std::string& _filepath)
 {
 	try
 	{
-		std::vector<Model> Models;
+		std::list<Model*> Models;
 		std::vector<glm::vec3> poss;
 		std::vector<glm::vec2> uvs;
 		std::vector<glm::vec3> norms;
@@ -52,7 +52,7 @@ std::vector<Model> OBJLoader::loadOBJ(const std::string& _filepath)
 					else
 					{
 						std::cerr << "Wrong vertex format.";
-						return std::vector<Model>();
+						return std::list<Model*>();
 					}
 				}
 				else if (label == "vt")
@@ -63,7 +63,7 @@ std::vector<Model> OBJLoader::loadOBJ(const std::string& _filepath)
 					else
 					{
 						std::cerr << "Wrong texture coordinate format.";
-						return std::vector<Model>();
+						return std::list<Model*>();
 					}
 				}
 				else if (label == "vn")
@@ -74,7 +74,7 @@ std::vector<Model> OBJLoader::loadOBJ(const std::string& _filepath)
 					else
 					{
 						std::cerr << "Wrong normal format.";
-						return std::vector<Model>();
+						return std::list<Model*>();
 					}
 				}
 				else if (label == "f")
@@ -100,7 +100,7 @@ std::vector<Model> OBJLoader::loadOBJ(const std::string& _filepath)
 				}
 				else if (label == "o")
 				{
-					groupid = 0;
+					groupid = -1;
 					objectid++;
 				}
 				else
@@ -112,7 +112,7 @@ std::vector<Model> OBJLoader::loadOBJ(const std::string& _filepath)
 		}
 		else
 		{
-			std::cerr << "OBJ file could not be opened.";
+			std::cerr << "OBJ file could not be opened.\n" << strerror(errno);
 			return Models; //return empty vector
 		}
 
@@ -126,16 +126,16 @@ std::vector<Model> OBJLoader::loadOBJ(const std::string& _filepath)
 		//now process face strings
 
 		std::vector<Mesh> meshes;
-		Model gameobj;
-		Mesh mesh;
+		Model* gameobj;
+		Mesh* mesh;
 		GLuint index = 0;
 
 		for (auto o = rawfaces.begin(); o != rawfaces.end(); o++)		//iterate objects
 		{
-			gameobj = Model();
+			gameobj = new Model();
 			for (auto g = o->begin(); g != o->end(); g++)				//iterate meshes / groups
 			{
-				mesh = Mesh();	//new empty mesh
+				mesh = new Mesh();	//new empty mesh
 				for (auto f = g->begin(); f != g->end(); f++)			//iterate faces
 				{
 					std::istringstream facestream(*f);
@@ -176,7 +176,7 @@ std::vector<Model> OBJLoader::loadOBJ(const std::string& _filepath)
 						else
 						{
 							std::cerr << "Wrong face format.";
-							return std::vector<Model>();
+							return std::list<Model*>();
 						}
 
 						//vertex2
@@ -207,7 +207,7 @@ std::vector<Model> OBJLoader::loadOBJ(const std::string& _filepath)
 						else
 						{
 							std::cerr << "Wrong face format.";
-							return std::vector<Model>();
+							return std::list<Model*>();
 						}
 
 						//vertex3
@@ -238,25 +238,25 @@ std::vector<Model> OBJLoader::loadOBJ(const std::string& _filepath)
 						else
 						{
 							std::cerr << "Wrong face format.";
-							return std::vector<Model>();
+							return std::list<Model*>();
 						}
 
 						//Add unqiue vertices and corresponding indices to mesh //extremely bad performance. Consider a hashtable cache
-						mesh.addIndicedVertex(v1);
-						mesh.addIndicedVertex(v2);
-						mesh.addIndicedVertex(v3);
+						mesh->addIndicedVertex(v1);
+						mesh->addIndicedVertex(v2);
+						mesh->addIndicedVertex(v3);
 					}
 					else
 					{
 						//face not defined as triangle
 						std::cerr << "Wrong face format.";
-						return std::vector<Model>(); //return empty vector
+						return std::list<Model*>(); //return empty vector
 					}
 				}
-				if (mesh.getVertices().size() > 0)
-					gameobj.addMesh(mesh);
+				if (mesh->getVertices().size() > 0)
+					gameobj->addMesh(mesh);
 			}
-			if (gameobj.getMeshes().size() > 0)
+			if (gameobj->getMeshes().size() > 0)
 				Models.push_back(gameobj);
 		}
 		return Models;
@@ -264,6 +264,6 @@ std::vector<Model> OBJLoader::loadOBJ(const std::string& _filepath)
 	catch (std::exception& ex)
 	{
 		std::cerr << "An error occured while processing obj file.\r\n" << ex.what() << std::endl;
-		return std::vector<Model>();
+		return std::list<Model*>();
 	}
 }

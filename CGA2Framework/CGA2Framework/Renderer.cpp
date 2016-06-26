@@ -12,44 +12,58 @@ Renderer::~Renderer()
 
 void Renderer::renderforward(RenderList& _renderlist,
 	Camera* _camera,
-	std::vector<DirectionalLight*>* _dirlights,
-	std::vector<PointLight*>* _pointlights,
-	std::vector<SpotLight*>* _spotlights)
+	const std::list<DirectionalLight*>& _dirlights,
+	const std::list<PointLight*>& _pointlights,
+	const std::list<SpotLight*>& _spotlights)
 {
-	Shader* curShader = nullptr;
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+
+
+	ForwardShader* curShader = nullptr;
 	RenderableGameObject* curGO = nullptr;
-	for (std::list<RenderPair>::iterator iterator = _renderlist.begin(), end = _renderlist.end(); iterator != end; ++iterator)
+	for (std::list<RenderPair>::const_iterator iterator = _renderlist.begin(), end = _renderlist.end(); iterator != end; ++iterator)
 	{
-		if ((curShader == nullptr) || curShader->getID() != iterator->first->getShader()->getID())
+		if ((curShader == nullptr) || curShader->getID() != iterator->first->getMaterial()->getShader()->getID())
 		{
-			curShader = iterator->first->getShader();
-			curGO = nullptr;
-			curShader->Use();
-			curShader->setUniform("view", _camera->GetViewMatrix());
-			curShader->setUniform("projection", _camera->getProjectionMatrix());
-			//lights
+			if (curShader = dynamic_cast<ForwardShader*>(iterator->first->getMaterial()->getShader())) //ignore meshes without forward shader
+			{
+				curGO = nullptr;
+				curShader->Use();
+				curShader->setViewMatrix(_camera->GetViewMatrix());
+				curShader->setProjectionMatrix(_camera->getProjectionMatrix());
+				//lights
+				curShader->setLights(_dirlights, _pointlights, _spotlights);
+			}
+			else
+			{
+				continue;
+			}
 		}
 
 
 		if ((curGO == nullptr) || curGO->getID() != iterator->second->getID())
 		{
 			curGO = iterator->second;
-			curShader->setUniform("model", curGO->getTransform().getTransformMat());
+			curShader->setModelMatrix(curGO->getTransform().getTransformMat());
 			//more uniforms 
 		}
 
-
-		//iterator->first->getMaterial()->fillShaderUniforms(curShader);
+		//set material uniforms
+		iterator->first->getMaterial()->setMaterialUniforms();
 		curShader->preRenderActions();
 		iterator->first->drawMesh();
 		curShader->postRenderActions();
 	}
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Renderer::rendermultipass(RenderList& _renderlist,
-	std::vector<DirectionalLight*>* _dirlights,
-	std::vector<PointLight*>* _pointlights,
-	std::vector<SpotLight*>* _spotlights)
+	Camera* _camera,
+	const std::list<DirectionalLight*>& _dirlights,
+	const std::list<PointLight*>& _pointlights,
+	const std::list<SpotLight*>& _spotlights)
 {
 
 }

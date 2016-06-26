@@ -6,6 +6,7 @@
 #include <iostream>
 #include "IDProvider.h"
 #include "Texture.h"
+#include "FrameBuffer.h"
 
 enum UniformType {UniTf, UniTi, UniTui, UniTfv, UniTiv, UniTuiv, UniTmfv};
 
@@ -26,12 +27,34 @@ public:
 	virtual void preRenderActions() {};
 	virtual void postRenderActions() {};
 
-	virtual void setOutput(bool totexture, std::vector<Texture*>* = nullptr) {};
+	virtual bool setOutput(FrameBuffer* _buf = nullptr)
+	{
+		if (_buf == nullptr)
+		{
+			_target = nullptr;
+			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+				return false;
+			else
+				return true;
+		}
+		else
+		{
+			_target = _buf;
+			return _buf->bind();
+		}
+	}
 
 	// The program ID
 	GLuint Program;
+	FrameBuffer* _target;
 
 	Shader(const GLchar* vertexPath, const GLchar* fragmentPath) : m_id(IDProvider::createID())
+	{
+		load(vertexPath, fragmentPath);
+	}
+
+	void Shader::load(const GLchar* vertexPath, const GLchar* fragmentPath)
 	{
 		// 1. Retrieve the vertex/fragment source code from filePath
 		std::string vertexCode;
@@ -106,7 +129,6 @@ public:
 		glDetachShader(this->Program, fragment);
 		glDeleteShader(vertex);
 		glDeleteShader(fragment);
-
 	}
 	// Uses the current shader
 	void Use()
@@ -158,7 +180,7 @@ inline void Shader::setUniform(const std::string name, const GLfloat value)
 }
 
 template<> 
-inline void Shader::setUniform(const std::string name, std::vector<GLfloat> &values)
+inline void Shader::setUniform(const std::string name, std::vector<GLfloat> values)
 {
 	GLint loc = getUniformLocation(name);
 	if (!isActive())
@@ -181,6 +203,36 @@ inline void Shader::setUniform(const std::string name, std::vector<GLfloat> &val
 }
 
 template<>
+inline void Shader::setUniform(const std::string name,glm::vec2 values)
+{
+	GLint loc = getUniformLocation(name);
+	if (!isActive())
+		glUseProgram(this->Program);	
+
+	glUniform1fv(loc, 2, glm::value_ptr(values));
+}
+
+template<>
+inline void Shader::setUniform(const std::string name, glm::vec3 values)
+{
+	GLint loc = getUniformLocation(name);
+	if (!isActive())
+		glUseProgram(this->Program);
+
+	glUniform1fv(loc, 3, glm::value_ptr(values));
+}
+
+template<>
+inline void Shader::setUniform(const std::string name, glm::vec4 values)
+{
+	GLint loc = getUniformLocation(name);
+	if (!isActive())
+		glUseProgram(this->Program);
+	
+	glUniform1fv(loc, 4, glm::value_ptr(values));
+}
+
+template<>
 inline void Shader::setUniform(const std::string name, const GLint value)
 {
 	GLint loc = getUniformLocation(name);
@@ -190,7 +242,16 @@ inline void Shader::setUniform(const std::string name, const GLint value)
 }
 
 template<>
-inline void Shader::setUniform(const std::string name, glm::mat4 &value, const GLboolean transpose)
+inline void Shader::setUniform(const std::string name, const GLuint value)
+{
+	GLint loc = getUniformLocation(name);
+	if (!isActive())
+		glUseProgram(this->Program);
+	glUniform1ui(loc, value);
+}
+
+template<>
+inline void Shader::setUniform(const std::string name, glm::mat4 value, const GLboolean transpose)
 {
 	GLint loc = getUniformLocation(name);
 	if (!isActive())

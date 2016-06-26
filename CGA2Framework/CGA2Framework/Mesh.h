@@ -45,8 +45,8 @@ public:
 	std::vector<Vertex>& getBoundingBoxVertices() { return m_boundingboxvertices; }
 	std::vector<GLuint>& getIndices() { return m_indices; }
 	std::vector<GLuint>& getBoundingBoxIndices() { return m_boundingboxindices; }
-	Shader* getShader() const { return m_shader; }
-	void setShader(Shader* _shader) { m_shader = _shader; }
+	/*Shader* getShader() const { return m_shader; }
+	void setShader(Shader* _shader) { m_shader = _shader; }*/
 
 	void setMaterial(Material* _material);
 
@@ -66,7 +66,7 @@ private:
 	bool m_hasTexCoords;
 	bool m_hasTangents;
 	bool m_glinited;
-	Shader* m_shader; //shader wich will be used to render the mesh
+	//Shader* m_shader; //shader wich will be used to render the mesh
 
 	std::vector<Vertex> m_vertices;
 	std::vector<Vertex> m_boundingboxvertices;

@@ -7,9 +7,9 @@ public:
 	~PointLight();
 
 	//attentuation
+	GLfloat m_constant;
 	GLfloat m_linear;
 	GLfloat m_quadratic;
-	GLfloat m_cubic;
 
 	GLfloat m_radius;
 };

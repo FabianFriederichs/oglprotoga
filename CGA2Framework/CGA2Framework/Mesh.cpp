@@ -8,8 +8,7 @@ Mesh::Mesh() :
 	m_boundingboxvertices(),
 	m_indices(),
 	m_boundingboxindices(),
-	m_material(),
-	m_shader()
+	m_material()
 {
 }
 
@@ -20,8 +19,7 @@ Mesh::Mesh(const Mesh& _other) :
 	m_boundingboxvertices(_other.m_boundingboxvertices),
 	m_indices(_other.m_indices),
 	m_boundingboxindices(_other.m_boundingboxindices),
-	m_material(_other.m_material),
-	m_shader(_other.m_shader)
+	m_material(_other.m_material)
 {
 	
 }
@@ -33,8 +31,7 @@ Mesh::Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLuint>& _ind
 	m_boundingboxvertices(),
 	m_indices(_indices),
 	m_boundingboxindices(),
-	m_material(_material),
-	m_shader(_shader)
+	m_material(_material)
 {
 	if (_calcBoundingBox)
 		generateBoundingBox();
@@ -58,7 +55,7 @@ void Mesh::addVertex(const Vertex& _vertex)
 void Mesh::addIndicedVertex(const Vertex& _vertex)
 {
 	int index = -1;
-	for (int i = 0; i < m_vertices.size(); i++)
+	for (size_t i = 0; i < m_vertices.size(); i++)
 	{
 		if (m_vertices[i] == _vertex)
 		{
@@ -217,6 +214,10 @@ void Mesh::drawMesh()
 		glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
+	else
+	{
+
+	}
 }
 
 void Mesh::freeGLData()
@@ -329,12 +330,12 @@ void Mesh::generateBoundingBox()
 
 void Mesh::generateNormals()
 {
-	for (int i = 0; i < m_vertices.size(); i++) //initialize all vertex normals with nullvectors
+	for (size_t i = 0; i < m_vertices.size(); i++) //initialize all vertex normals with nullvectors
 	{
 		m_vertices[i].setNormal(glm::vec3(0.0f, 0.0f, 0.0f));
 	}
 
-	for (int i = 0; i < m_indices.size(); i += 3)
+	for (size_t i = 0; i < m_indices.size(); i += 3)
 	{
 		glm::vec3 v1 = m_vertices[m_indices[i]].getPosition();
 		glm::vec3 v2 = m_vertices[m_indices[i + 1]].getPosition();
@@ -352,7 +353,7 @@ void Mesh::generateNormals()
 		m_vertices[m_indices[i + 2]].m_normal += normal;
 	}
 
-	for (int i = 0; i < m_vertices.size(); i++)	//normalize all normals calculated in the previous step
+	for (size_t i = 0; i < m_vertices.size(); i++)	//normalize all normals calculated in the previous step
 	{
 		m_vertices[i].m_normal = glm::normalize(m_vertices[i].m_normal);
 	}
@@ -365,7 +366,7 @@ void Mesh::generateTangents()
 	if (m_hasTexCoords)
 	{
 		//initialize tangents and bitangents with nullvecs
-		for (int i = 0; i < m_vertices.size(); i++)
+		for (size_t i = 0; i < m_vertices.size(); i++)
 		{
 			m_vertices[i].m_tangent = glm::vec3(0.0f, 0.0f, 0.0f);
 			//m_vertices[i].m_bitangent = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -377,7 +378,7 @@ void Mesh::generateTangents()
 		glm::vec3 normal;
 
 		//calculate and average tangents and bitangents just as we did when calculating the normals
-		for (int i = 0; i < m_indices.size(); i += 3)
+		for (size_t i = 0; i < m_indices.size(); i += 3)
 		{
 			//3 vertices of a triangle
 			glm::vec3 v1 = m_vertices[m_indices[i]].getPosition();			
@@ -428,7 +429,7 @@ void Mesh::generateTangents()
 		}
 
 		//orthogonalize and normalize tangents
-		for (int i = 0; i < m_vertices.size(); i++)
+		for (size_t i = 0; i < m_vertices.size(); i++)
 		{
 			Vertex* pv = &m_vertices[i];
 
@@ -445,7 +446,7 @@ void Mesh::generateTangents()
 
 void Mesh::reverseWinding()	//swaps two indices of a triangle to reverse winding order
 {
-	for (int i = 0; i < m_indices.size(); i+=3)
+	for (size_t i = 0; i < m_indices.size(); i += 3)
 	{
 		GLuint tmp = m_indices[i + 1];
 		m_indices[i + 1] = m_indices[i + 2];

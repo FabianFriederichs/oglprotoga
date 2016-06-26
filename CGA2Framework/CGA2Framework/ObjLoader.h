@@ -8,7 +8,7 @@ public:
 	OBJLoader();
 	~OBJLoader();
 
-	static std::vector<Model> loadOBJ(const std::string& _filepath);
+	static std::list<Model*> loadOBJ(const std::string& _filepath);
 
 private:
 	static const std::regex facef_v;

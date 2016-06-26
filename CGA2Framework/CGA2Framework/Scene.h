@@ -7,7 +7,11 @@
 #include "Model.h"
 #include "Camera.h"
 #include "Renderer.h"
-#include <boost/heap/fibonacci_heap.hpp>
+#include "ForwardShader.h"
+#include "GPassShader.h"
+#include "NthPassShader.h"
+#include "OBJLoader.h"
+#include "DDSLoader.h"
 /*
 	Keep track of Entity-Shader relations (Map with shader ID as key?)
 	=> Mesh now has a Shader pointer
@@ -21,15 +25,11 @@
 	#morestufftodo
 */
 
-
-// Sorting meshes by shader:
-//sort completely via heapsort (just at the beginning, nlogn is guaranteed)
-//later sort by insertion via insertionsort. (for pre-sorted list the runtime is O(n) in best case)
-
 class Scene
 {
 public:
 	Scene();
+	Scene(GLint width, GLint height);
 	~Scene();
 
 	void save();
@@ -37,37 +37,51 @@ public:
 	void render();
 protected:
 	//scene data
-	std::list<RenderableGameObject> m_gameobjects;	
+	std::list<RenderableGameObject*> m_gameobjects;	
 	RenderList m_renderList;
-	void addRenderable(RenderableGameObject& _renderable);
+
+	void addRenderable(RenderableGameObject* _renderable);
 	void removeRenderable(GLint id);
 	RenderList& getRenderList() { return m_renderList; };
 	void createRenderList();
 
 
-	std::list<Model> m_models;
-	void addModel(Model& _model);
-	/*std::list<Shader> m_shaders;
-	void addShader(Shader& _shader);*/
-	std::list<Texture> m_textures;
-	void addTexture(Texture& _texture);
-	std::list<DirectionalLight> m_directionallights;
-	void addDirectionalLight(DirectionalLight& _directionallight);
-	std::list<PointLight> m_pointlights;
-	void addPointLight(PointLight& _pointlight);
-	std::list<SpotLight> m_spotlights;
-	void addSpotLight(SpotLight& _spotlight);
-	std::list<Material> m_materials;
-	void addMaterial(Material& _material);
-	std::list<Camera> m_cameras;
-	void addCamera(Camera& _camera);
+	std::list<Model*> m_models;
+	void addModel(Model* _model);
+
+	std::list<Texture*> m_textures;
+	void addTexture(Texture* _texture);
+
+	std::list<DirectionalLight*> m_directionallights;
+	void addDirectionalLight(DirectionalLight* _directionallight);
+
+	std::list<PointLight*> m_pointlights;
+	void addPointLight(PointLight* _pointlight);
+
+	std::list<SpotLight*> m_spotlights;
+	void addSpotLight(SpotLight* _spotlight);
+
+	std::list<Material*> m_materials;
+	void addMaterial(Material* _material);
+	
+	Camera m_camera;
+
+	ForwardShader m_forwardShader;
+	GPassShader m_gpassShader;
+	NthPassShader m_nthpassShader1;
+	NthPassShader m_nthpassShader2;
+	NthPassShader m_nthPassSHader3;
+	
 
 	Renderer m_renderer;
+
 	//inout
 
 
 private:
 	bool m_renderlistdirty;
+	GLint m_width;
+	GLint m_height;
 
 	
 };

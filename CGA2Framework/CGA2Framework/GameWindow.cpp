@@ -56,6 +56,7 @@ GLboolean GameWindow::initialize()
 		glfwTerminate();
 		return false;
 	}
+	err = glGetError();
 	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 
 	glfwSetInputMode(this->m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
@@ -99,6 +100,7 @@ void GameWindow::mscrcallback(double xoffset, double yoffset)
 
 GLvoid GameWindow::run()
 {
+	init();
 	GLdouble timeDelta = 1.0f / 60.0f;
 	GLdouble timeAccumulator = 0;
 	GLdouble startTime;
@@ -114,7 +116,9 @@ GLvoid GameWindow::run()
 		render(timeAccumulator);
 		timeAccumulator += glfwGetTime() - startTime;
 	}
-	glfwTerminate();
+	shutdown();
+	glfwTerminate();	
+	delete m_window;
 }
 
 GLvoid GameWindow::quit()

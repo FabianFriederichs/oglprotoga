@@ -6,11 +6,12 @@
 #include "Mesh.h"
 #include "RenderableGameObject.h"
 #include "Camera.h"
+#include "ForwardShader.h"
 
 typedef struct meshcmp {
-	bool operator()(const Mesh*& m1, const Mesh*& m2) const
+	bool operator()(Mesh*& m1, Mesh*& m2) const
 	{
-		return m1->getShader()->getID() > m2->getShader()->getID();
+		return m1->getMaterial()->getID() > m2->getMaterial()->getID();
 	}
 };
 typedef std::pair<Mesh*, RenderableGameObject*> RenderPair;
@@ -25,14 +26,15 @@ public:
 	~Renderer();
 
 	void rendermultipass(RenderList& _renderlist,
-		std::vector<DirectionalLight*>* _dirlights = nullptr,
-		std::vector<PointLight*>* _pointlights = nullptr,
-		std::vector<SpotLight*>* _spotlights = nullptr);
+		Camera* _camera,
+		const std::list<DirectionalLight*>& _dirlights,
+		const std::list<PointLight*>& _pointlights,
+		const std::list<SpotLight*>& _spotlights);
 
 	void renderforward(RenderList& _renderlist,
 		Camera* _camera,
-		std::vector<DirectionalLight*>* _dirlights = nullptr,
-		std::vector<PointLight*>* _pointlights = nullptr,
-		std::vector<SpotLight*>* _spotlights = nullptr);
+		const std::list<DirectionalLight*>& _dirlights,
+		const std::list<PointLight*>& _pointlights,
+		const std::list<SpotLight*>& _spotlights);
 };
 
