@@ -22,6 +22,11 @@ class Camera: Moveable
 protected:
 	vec3 Position;
 	quat rot;
+	GLfloat fov;
+	GLfloat width;
+	GLfloat height;
+	GLfloat znear;
+	GLfloat zfar;
 
 public:
 
