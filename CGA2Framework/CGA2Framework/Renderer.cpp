@@ -16,9 +16,12 @@ void Renderer::renderforward(RenderList& _renderlist,
 	const std::list<PointLight*>& _pointlights,
 	const std::list<SpotLight*>& _spotlights)
 {
+	//renderstates
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+	glDepthMask(GL_TRUE);
 
 	ForwardShader* curShader = nullptr;
 	RenderableGameObject* curGO = nullptr;
@@ -34,6 +37,7 @@ void Renderer::renderforward(RenderList& _renderlist,
 				curShader->setProjectionMatrix(_camera->getProjectionMatrix());
 				//lights
 				curShader->setLights(_dirlights, _pointlights, _spotlights);
+				curShader->setCameraPos(_camera->Position);
 			}
 			else
 			{
@@ -56,7 +60,7 @@ void Renderer::renderforward(RenderList& _renderlist,
 		curShader->postRenderActions();
 	}
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	/*glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);*/
 }
 
 void Renderer::rendermultipass(RenderList& _renderlist,

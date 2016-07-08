@@ -28,6 +28,7 @@ public:
 	/*void setMaterialUniforms(Material* _material);*/
 
 	void setLights(const std::list<DirectionalLight*>& dirlights, const std::list<PointLight*>& pointlights, const std::list<SpotLight*>& spotlights);
+	void setCameraPos(glm::vec3 _position);
 	
 	virtual void preRenderActions();
 	virtual void postRenderActions();

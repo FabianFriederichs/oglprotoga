@@ -12,12 +12,12 @@ ForwardShader::~ForwardShader()
 
 void ForwardShader::preRenderActions()
 {
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 }
 
 void ForwardShader::postRenderActions()
 {
-	glDisable(GL_DEPTH_TEST);
+	//glDisable(GL_DEPTH_TEST);
 }
 
 void ForwardShader::setModelMatrix(glm::mat4& _mat)
@@ -66,6 +66,7 @@ void ForwardShader::setLights(
 		this->setUniform("pointlights[" + std::to_string(ct) + "].cterm", (*it)->m_constant);
 		this->setUniform("pointlights[" + std::to_string(ct) + "].lterm", (*it)->m_linear);
 		this->setUniform("pointlights[" + std::to_string(ct) + "].qterm", (*it)->m_quadratic);
+		this->setUniform("pointlights[" + std::to_string(ct) + "].range", (*it)->m_range);
 		ct++;
 	}
 	this->setUniform("pointlightcount", ct);
@@ -84,8 +85,14 @@ void ForwardShader::setLights(
 		this->setUniform("spotlights[" + std::to_string(ct) + "].qterm", (*it)->m_quadratic);
 		this->setUniform("spotlights[" + std::to_string(ct) + "].innercone", (*it)->m_cosinnercone);
 		this->setUniform("spotlights[" + std::to_string(ct) + "].qterm", (*it)->m_cosoutercone);
+		this->setUniform("spotlights[" + std::to_string(ct) + "].range", (*it)->m_range);
 		ct++;
 	}
 	this->setUniform("spotlightcount", ct);
 
+}
+
+void ForwardShader::setCameraPos(glm::vec3 _position)
+{
+	this->setUniform("camerapos", _position);
 }

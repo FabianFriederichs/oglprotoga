@@ -4,6 +4,7 @@ class PointLight : public Light
 {
 public:
 	PointLight();
+	PointLight(glm::vec4 _color, Transform _transform, GLfloat _constant, GLfloat _linear, GLfloat _quadratic, GLfloat _range);
 	~PointLight();
 
 	//attentuation
@@ -11,6 +12,6 @@ public:
 	GLfloat m_linear;
 	GLfloat m_quadratic;
 
-	GLfloat m_radius;
+	GLfloat m_range;
 };
 
