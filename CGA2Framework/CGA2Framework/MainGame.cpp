@@ -67,7 +67,7 @@ MainGame::MainGame(const GLint sizex, const GLint sizey, const GLint cvmaj, cons
 
 	glBindVertexArray(0); // Unbind VAO
 
-	cam = new Camera();
+	cam = new FPSCamera();
 	shader = new Shader("Sample.vs", "Sample.fs");
 	shader->Use();
 	for(auto begin = std::begin(keys), end = std::end(keys); begin!=end; ++begin) *begin = false;

@@ -1,6 +1,6 @@
 #pragma once
 #include "GameWindow.h"
-#include "Camera.h"
+#include "FPSCamera.h"
 #include "Shader.h"
 class MainGame : public GameWindow
 {

@@ -8,8 +8,7 @@ using namespace glm;
 rotate with quaternions instead to circumvent gimbal lock??
 
 default rotate values?
-http://www.gamedev.net/topic/670994-quaternions-for-fps-camera/
-http://gamedev.stackexchange.com/questions/53333/how-to-implement-a-basic-arcball-camera-in-opengl-with-glm
+
 Direction value has to be the negative of the direction the camera points at
 -abstract that and negate in constructor?
 */
@@ -20,13 +19,15 @@ Direction value has to be the negative of the direction the camera points at
 class Camera: Moveable
 {
 protected:
-	vec3 Position;
-	quat rot;
-	GLfloat fov;
-	GLfloat width;
-	GLfloat height;
-	GLfloat znear;
-	GLfloat zfar;
+	vec3 m_position;
+	quat m_rot;
+	GLfloat m_fov;
+	GLfloat m_width;
+	GLfloat m_height;
+	GLfloat m_znear;
+	GLfloat m_zfar;
+	
+	virtual glm::mat4 Camera::Orientation() const =0;
 
 public:
 
@@ -108,9 +109,14 @@ public:
 	//	//this->Up = normalize(glm::cross(this->Right, this->Direction));
 	//}
 
-	glm::mat4 getProjectionMatrix() 
+	glm::mat4 Camera::GetCameraTransform() const
 	{
-		return glm::perspective(fov, (GLfloat)width / (GLfloat)height, znear, zfar);
+		return Orientation() * translate(glm::mat4(1.0f), -m_position);
+	}
+
+	glm::mat4 getProjectionMatrix() const
+	{
+		return glm::perspective(m_fov, (GLfloat)m_width / (GLfloat)m_height, m_znear, m_zfar);
 	}
 };
 
