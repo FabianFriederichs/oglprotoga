@@ -19,10 +19,15 @@ public:
 	virtual void mbcallback(int button, int action, int mods);
 	virtual void mscrcallback(double xoffset, double yoffset);
 
+	quat RotateQuat(const vec3 &rotation);
+
 	bool keys[1024];
 
 	GLuint VBO, VAO;
 	Camera *cam;
 	Shader *shader;
+
+	GLfloat m_VA;
+	GLfloat m_HA;
 };
 

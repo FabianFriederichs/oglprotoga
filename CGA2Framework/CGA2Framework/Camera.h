@@ -16,11 +16,12 @@ Direction value has to be the negative of the direction the camera points at
 
 
 
-class Camera: Moveable
+class Camera
 {
 protected:
 	vec3 m_position;
 	quat m_rot;
+	vec3 m_up;
 	GLfloat m_fov;
 	GLfloat m_width;
 	GLfloat m_height;
@@ -92,8 +93,8 @@ public:
 
 	//	//this->Target += cross(Direction(), Up()) * (movedata.Speed*movedata.Right);
 	//}
-
-	virtual void Rotate(const quat &orientation) = 0;
+	
+	virtual void Rotate(const vec3 &rotation) = 0;
 	//{
 	//	///somehow make it work with quats
 	//	rot = orientation;
@@ -111,12 +112,14 @@ public:
 
 	glm::mat4 Camera::GetCameraTransform() const
 	{
-		return Orientation() * translate(glm::mat4(1.0f), -m_position);
+		return  Orientation()*translate(glm::mat4(1.0f), -m_position);
+		//return  translate(glm::mat4(1.0f), -m_position)*Orientation() ;
 	}
 
 	glm::mat4 getProjectionMatrix() const
 	{
-		return glm::perspective(m_fov, (GLfloat)m_width / (GLfloat)m_height, m_znear, m_zfar);
+		//return glm::ortho((GLfloat)-5, (GLfloat)5, (GLfloat)-5, (GLfloat)5, m_znear, m_zfar);
+		return glm::perspective(m_fov, m_width / m_height, m_znear, m_zfar);
 	}
 };
 

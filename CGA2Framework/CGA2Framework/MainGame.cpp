@@ -67,10 +67,13 @@ MainGame::MainGame(const GLint sizex, const GLint sizey, const GLint cvmaj, cons
 
 	glBindVertexArray(0); // Unbind VAO
 
-	cam = new FPSCamera();
+	cam = new FPSCamera((GLfloat)45.0f, WIDTH(), HEIGHT(), (GLfloat)0.1f, (GLfloat)100.0f, vec3(0,1,0));
+	
 	shader = new Shader("Sample.vs", "Sample.fs");
 	shader->Use();
 	for(auto begin = std::begin(keys), end = std::end(keys); begin!=end; ++begin) *begin = false;
+	 m_VA =0.0f;
+	 m_HA=0.0f;
 }
 
 
@@ -108,49 +111,67 @@ void MainGame::mscrcallback(double xoffset, double yoffset)
 
 GLvoid MainGame::update(GLdouble time)
 {
-	MoveData md = { 0, 0, 0, 0 };
+	MoveData md= {vec3(0,0,0),0};
 	
-	md.Speed = 0.01f;
+	md.Multiplier = 0.05f;
 	if (keys[GLFW_KEY_W])
-		md.Forward = 2.0f;
+		md.mtype += vec3(1,0,0);
 	if (keys[GLFW_KEY_S])
-		md.Forward = -2.0f;
+		md.mtype += vec3(-1,0,0);
 	if (keys[GLFW_KEY_A])
-		md.Right = 2.0f;
+		md.mtype += vec3(0,0,1);
 	if (keys[GLFW_KEY_D])
-		md.Right = -2.0f;
+		md.mtype += vec3(0,0,-1);
 	if (keys[GLFW_KEY_SPACE])
 		modelOrientation = quat(vec3(0,0,0));
+	vec3 EulerAngles(0, 0, 0);
 	if(keys[GLFW_KEY_RIGHT])
 	{
-		vec3 EulerAngles(0, 0.02f, 0);
-		modelOrientation *= quat(EulerAngles);
+		EulerAngles+=vec3(0,0.02f,0);
+		//modelOrientation = normalize(modelOrientation)*quat(EulerAngles);
 	}
 	if(keys[GLFW_KEY_LEFT])
 	{
-		vec3 EulerAngles(0.02f, 0, 0);
-		modelOrientation *= quat(EulerAngles);
+		EulerAngles +=vec3(0.02f,0,0);
+		//modelOrientation = normalize(modelOrientation)*quat(EulerAngles);
 	}
 	if(keys[GLFW_KEY_UP])
 	{
-		vec3 EulerAngles(0, 0, 0.02f);
-		modelOrientation *= quat(EulerAngles);
+		EulerAngles += vec3(0,0,0.02f);
+		//modelOrientation = normalize(modelOrientation)*quat(EulerAngles);
 	}
-	
-	if(md.asVec3()!=vec3(0,0,0))
+	//modelOrientation = normalize(modelOrientation)*quat(EulerAngles);
+	if(md.mtype!=vec3(0,0,0))
 		cam->Move(md);
 	vec2 delta(mpos-vec2(400,300));
-	delta = delta/600.0f;
+	delta = delta/10.0f;
 	if(delta!=vec2(0,0))
 	{
-		vec3 EulerAngles(delta.y, delta.x, 0);
-		modelOrientation*=quat(EulerAngles);
-		cam->Rotate(modelOrientation);
+		vec3 EulerAnglesM(delta.x,delta.y, 0);
+		modelOrientation = RotateQuat(EulerAngles);
+		//modelOrientation = quat(EulerAngles);
+		cam->Rotate(EulerAnglesM);
 	}
 	delta = vec2(0,0);
 	mpos=vec2(400,300);
 	glfwSetCursorPos(this->m_window, 800/2, 600/2);
 	//cam->Rotate(modelOrientation);
+}
+
+quat MainGame::RotateQuat(const vec3 &rotation)
+{
+	m_VA = rotation.y+m_VA;
+	m_HA = rotation.x+m_HA;
+	if(m_VA>90)
+		m_VA=90;
+	if(m_VA<-90)
+		m_VA = -90;
+	if(m_HA<0)
+		m_HA=360+m_HA;
+	if(m_HA>=360)
+		m_HA-=360;
+	//std::cout << m_HA<<" HA " <<std::endl;
+	return quat(vec3(radians(m_VA), radians(m_HA), 0));
 }
 
 GLvoid MainGame::render(GLdouble time)
@@ -166,18 +187,35 @@ GLvoid MainGame::render(GLdouble time)
 	//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 	
 	
-	projection = glm::perspective(45.0f, (GLfloat)this->WIDTH() / (GLfloat)this->HEIGHT(), 0.1f, 100.0f);
+	projection = cam->getProjectionMatrix();//glm::perspective(45.0f, (GLfloat)this->WIDTH() / (GLfloat)this->HEIGHT(), 0.1f, 100.0f);
 	
 	shader->setUniform("view", view, false);
 	shader->setUniform("projection", projection, false);
 	glBindVertexArray(VAO);
 
 	glm::mat4 model;
-	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-	model *= rot;
+	model = glm::translate(model, glm::vec3(2.0f, 1.0f, 1.0f));
+	//model *= rot;
 	//model = glm::rotate(model, 20.0f, glm::vec3(1.0f, 0.3f, 0.5f));
 
 	shader->setUniform("model", model, false);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	glm::mat4 model2;
+	model2 = glm::translate(model2, glm::vec3(0.0f, 0.0f, 0.0f));
+	shader->setUniform("model", model2, false);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	shader->setUniform("model", glm::translate(mat4(), glm::vec3(-2.0f, -1.0f, 1.0f)), false);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	shader->setUniform("model", glm::translate(mat4(), glm::vec3(0.0f, 0.0f, 15.0f)), false);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	shader->setUniform("model", glm::translate(mat4(), glm::vec3(+2.0f, +1.0f, 15.0f)), false);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	shader->setUniform("model", glm::translate(mat4(), glm::vec3(-2.0f, -1.0f, 15.0f)), false);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 
 	glfwSwapBuffers(this->m_window);
