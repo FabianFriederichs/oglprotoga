@@ -39,8 +39,13 @@ glm::mat4 FPSCamera::GetViewMatrix() const
 void FPSCamera::Move(const MoveData &movedata)
 {
 	
-	auto rotation = mat4_cast(quat(vec3(pitch(m_rot),yaw(m_rot), 0)));
-	auto dir = normalize(m_position+vec3(rotation*vec4(1,1,0,1)));
+	auto rotation = mat4_cast(quat(vec3(0,yaw(m_rot), 0)));
+	auto dir = vec3(vec4(0,0,1,1)*rotation);
+	//auto t = translate(mat4(), m_position);
+	//dir = vec3(inverse(t)*rotation*t*vec4(dir, 1.f));
+
+	
+	//dir = normalize(dir);//m_position+vec3(rotation*vec4(0,1,0,1)));
 	//auto r = normalize(vec3(rotation*vec4(movedata.asVec3()*-1.0f,1.0)));
 	std::cout << dir.x <<" " <<dir.y <<" "<< dir.z <<std::endl;
 	vec3 move(0,0,0);
@@ -61,7 +66,7 @@ void FPSCamera::Move(const MoveData &movedata)
 		move-= glm::cross(dir, m_up);
 	}*/
 
-	move+=dir*movedata.mtype.x*-1.0f;
+	move+=dir*movedata.mtype.x*(GLfloat)dir.length();
 	move+=cross(dir, m_up)*movedata.mtype.z;
 	m_position+= move*movedata.Multiplier;
 }
