@@ -5,7 +5,7 @@ using namespace glm;
 struct MoveData
 {
 	vec3 mtype;
-	GLfloat Multiplier
+	GLfloat Multiplier;
 };
 
 class Moveable

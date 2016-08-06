@@ -37,7 +37,7 @@ void Renderer::renderforward(RenderList& _renderlist,
 				curShader->setProjectionMatrix(_camera->getProjectionMatrix());
 				//lights
 				curShader->setLights(_dirlights, _pointlights, _spotlights);
-				curShader->setCameraPos(_camera->Position);
+				curShader->setCameraPos(_camera->GetPosition());
 			}
 			else
 			{
