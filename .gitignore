@@ -13,7 +13,14 @@ CGA2Framework/CGA2Framework/Release/CGA2Framework.tlog/cl.command.1.tlog
 *.mtl
 *.png
 CGA2Framework/Debug/
+<<<<<<< HEAD
 CGA2Framework/CGA2Framework/Release/
 *.user
 *.suo
 CGA2Framework/ipch/*
+=======
+CGA2Framework.zip
+*.suo
+*.user
+CGA2Framework/CGA2Framework/Release/
+>>>>>>> CameraTest

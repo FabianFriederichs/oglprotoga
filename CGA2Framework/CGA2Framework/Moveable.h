@@ -1,12 +1,11 @@
 #pragma once
 #include "headers.h"
+using namespace glm;
+
 struct MoveData
 {
-	GLfloat Speed;
-	GLfloat Forward;
-	GLfloat Backward;
-	GLfloat Left;
-	GLfloat Right;
+	vec3 mtype;
+	GLfloat Multiplier
 };
 
 class Moveable
