@@ -1,9 +1,11 @@
 #include "FPSCamera.h"
 
 
-FPSCamera::FPSCamera(GLfloat fov,GLint width,GLint height,GLfloat znear,GLfloat zfar, vec3 up)
+FPSCamera::FPSCamera(GLfloat fov,GLint width,GLint height,GLfloat znear,GLfloat zfar, vec3 worldup, vec3 worldright, vec3 worldforward)
 {
-	m_up = up;
+	m_wy = worldup;
+	m_wx = worldright;
+	m_wz = worldforward;
 	m_position=vec3(0,0,10);
 	m_rot = quat(vec3(0.0f, 0.0f, 0.0f));
 	m_fov = fov;
@@ -13,76 +15,77 @@ FPSCamera::FPSCamera(GLfloat fov,GLint width,GLint height,GLfloat znear,GLfloat 
 	m_zfar = zfar;
 	m_VA = 0;
 	m_HA = 0;
+	flying = false;
+	recalcProj();
 }
 
-
-//FPSCamera::~FPSCamera(void)
-//{
-//
-//}
+void FPSCamera::SetPosition(vec3 pos)
+{
+	m_position = pos;
+}
 
 glm::mat4 FPSCamera::Orientation() const
 {
-	//return mat4_cast(m_rot);
-	return mat4_cast(normalize(m_rot));
+	return mat4_cast(m_rot);
 }
 
 glm::mat4 FPSCamera::GetViewMatrix() const
 {
-	//auto rotation = mat4_cast(quat(vec3(0,yaw(m_rot), 0)));
-	//auto dir = normalize(m_position+vec3(rotation*vec4(0,1,0,1)));
-	////auto dir = normalize(m_position+vec3(Orientation()*vec4(1,1,0,1)));
-	//return lookAt(m_position, dir, m_up);
 	return GetCameraTransform();
+}
+
+void FPSCamera::Fly(bool trueorwhat)
+{
+	flying = trueorwhat;
 }
 
 void FPSCamera::Move(const MoveData &movedata)
 {
-	
-	auto rotation = mat4_cast(quat(vec3(0,yaw(m_rot), 0)));
-	auto dir = vec3(vec4(0,0,1,1)*rotation);
-	//auto t = translate(mat4(), m_position);
-	//dir = vec3(inverse(t)*rotation*t*vec4(dir, 1.f));
+	auto ori = Orientation();
+	vec3 zaxis(ori[0][2], ori[1][2], ori[2][2]);
+	vec3 xaxis(ori[0][0], ori[1][0], ori[2][0]);
+	auto dir = -zaxis;
 
-	
-	//dir = normalize(dir);//m_position+vec3(rotation*vec4(0,1,0,1)));
-	//auto r = normalize(vec3(rotation*vec4(movedata.asVec3()*-1.0f,1.0)));
-	std::cout << dir.x <<" " <<dir.y <<" "<< dir.z <<std::endl;
 	vec3 move(0,0,0);
-	/*if(HasFlag(movedata.mtype, MovementType::FORWARD))
-	{
-		move-=dir;
-	}
-	if(HasFlag(movedata.mtype, MovementType::BACKWARD))
-	{
-		move+=dir;
-	}
-	if(HasFlag(movedata.mtype, MovementType::STRAFE_L))
-	{
-		move+= glm::cross(dir, m_up);
-	}
-	if(HasFlag(movedata.mtype, MovementType::STRAFE_R))
-	{
-		move-= glm::cross(dir, m_up);
-	}*/
 
-	move+=dir*movedata.mtype.x*(GLfloat)dir.length();
-	move+=cross(dir, m_up)*movedata.mtype.z;
+	if(flying)
+	move+=dir*movedata.mtype.x;
+	else
+	{
+		move+=normalize(cross(m_wy, xaxis))*movedata.mtype.x;
+	}
+	move+=-xaxis*movedata.mtype.z;
 	m_position+= move*movedata.Multiplier;
 }
 
 void FPSCamera::Rotate(const vec3 &rotation)
 {
-	m_VA = rotation.y+m_VA;
-	m_HA = rotation.x+m_HA;
-	if(m_VA>90)
-		m_VA=90;
-	if(m_VA<-90)
-		m_VA = -90;
-	if(m_HA<0)
-		m_HA=360+m_HA;
-	if(m_HA>=360)
-		m_HA-=360;
-	//std::cout << m_HA<<" HA " <<std::endl;
-	m_rot=normalize(quat(vec3(radians(m_VA), radians(m_HA), 0)));
+	m_VA = degrees(rotation.y)+m_VA;
+	m_HA = degrees(rotation.x)+m_HA;
+
+	GLfloat pitch = rotation.y;
+	GLfloat yaw = rotation.x;
+
+	if(m_VA>89)
+	{
+		m_VA=89;
+		pitch= 0;
+	}
+	else if(m_VA<-89)
+	{
+		m_VA = -89;
+		pitch = 0;
+	}
+
+	if(pitch!=0)
+	{
+		m_rot = quat(vec3(pitch, 0,0))*m_rot;
+		m_rot = normalize(m_rot);
+	}
+
+	if(yaw!=0)
+	{
+		m_rot = m_rot*quat(vec3(0,yaw,0));
+		m_rot = normalize(m_rot);
+	}
 }

@@ -67,7 +67,7 @@ MainGame::MainGame(const GLint sizex, const GLint sizey, const GLint cvmaj, cons
 
 	glBindVertexArray(0); // Unbind VAO
 
-	cam = new FPSCamera((GLfloat)45.0f, WIDTH(), HEIGHT(), (GLfloat)0.1f, (GLfloat)100.0f, vec3(0,1,0));
+	cam = new FPSCamera((GLfloat)45.0f, WIDTH(), HEIGHT(), (GLfloat)0.1f, (GLfloat)100.0f, vec3(0,1,0), vec3(1,0,0), vec3(0,0,1));
 	
 	shader = new Shader("Sample.vs", "Sample.fs");
 	shader->Use();
@@ -144,8 +144,8 @@ GLvoid MainGame::update(GLdouble time)
 	if(md.mtype!=vec3(0,0,0))
 		cam->Move(md);
 	vec2 delta(mpos-vec2(400,300));
-	delta = delta/10.0f;
-	if(delta!=vec2(0,0))
+	delta = delta*0.02f;
+	if(delta!=vec2(0,0)&& keys[GLFW_KEY_M])
 	{
 		vec3 EulerAnglesM(delta.x,delta.y, 0);
 		modelOrientation = RotateQuat(EulerAngles);
