@@ -13,3 +13,4 @@ CGA2Framework.zip
 *.suo
 *.user
 CGA2Framework/CGA2Framework/Release/
+CGA2Framework/ipch/
