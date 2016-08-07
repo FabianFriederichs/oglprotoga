@@ -26,8 +26,24 @@ public:
 	GLuint VBO, VAO;
 	Camera *cam;
 	Shader *shader;
-
+	vr::IVRSystem* vrsys;
+	vr::IVRCompositor* vrcomp;
 	GLfloat m_VA;
 	GLfloat m_HA;
+
+	struct FramebufferDesc
+	{
+		GLuint m_nDepthBufferId;
+		GLuint m_nRenderTextureId;
+		GLuint m_nRenderFramebufferId;
+		GLuint m_nResolveTextureId;
+		GLuint m_nResolveFramebufferId;
+	};
+	FramebufferDesc leftEyeDesc;
+	FramebufferDesc rightEyeDesc;
+	uint32_t renderheight;
+	uint32_t renderwidth;
+	Shader* screenshader;
+	bool CreateFrameBuffer( int nWidth, int nHeight, FramebufferDesc &framebufferDesc );
 };
 

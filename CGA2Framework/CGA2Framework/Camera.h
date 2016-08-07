@@ -27,14 +27,13 @@ protected:
 	GLfloat m_fov;
 	GLfloat m_width;
 	GLfloat m_height;
-	GLfloat m_znear;
-	GLfloat m_zfar;
 	mat4 proj;
 	virtual glm::mat4 Camera::Orientation() const =0;
 
 public:
 
-
+	GLfloat m_znear;
+	GLfloat m_zfar;
 	virtual glm::mat4 GetViewMatrix() const =0;
 
 	virtual void SetPosition(vec3 pos) = 0;

@@ -15,4 +15,5 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <openvr.h>
 #endif
