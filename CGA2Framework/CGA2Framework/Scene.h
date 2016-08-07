@@ -6,6 +6,7 @@
 #include "RenderableGameObject.h"
 #include "Model.h"
 #include "Camera.h"
+#include "FPSCamera.h"
 #include "Renderer.h"
 #include "ForwardShader.h"
 #include "GPassShader.h"
@@ -64,7 +65,7 @@ protected:
 	std::list<Material*> m_materials;
 	void addMaterial(Material* _material);
 	
-	Camera m_camera;
+	FPSCamera m_camera;
 
 	ForwardShader m_forwardShader;
 	GPassShader m_gpassShader;

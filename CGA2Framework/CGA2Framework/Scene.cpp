@@ -2,7 +2,7 @@
 
 
 Scene::Scene() :
-m_camera(1920.0f, 1080.0f, 0.1f, 100.0f, 45.0f, glm::vec3(0.0f, 0.0f, 1.0f)),
+m_camera(45.f, 1920.0f, 1080.0f, 0.1f, 100.0f, glm::vec3(0.0f, 1.0f, 0.0f),glm::vec3(1.0f, 0.0f, 0.f), glm::vec3(0.0f, 0.0f, 1.0f)),
 m_directionallights(),
 m_pointlights(),
 m_spotlights(),
@@ -22,7 +22,7 @@ m_nthPassSHader3()
 }
 
 Scene::Scene(GLint width, GLint height) :
-m_camera(width, height, 0.1f, 100.0f, 45.0f, glm::vec3(0.0f, 0.0f, 1.0f)),
+m_camera(45.f, width, height, 0.1f, 100.0f, glm::vec3(0.0f, 1.0f, 0.0f),glm::vec3(1.0f, 0.0f, 0.f), glm::vec3(0.0f, 0.0f, 1.0f)),
 m_directionallights(),
 m_pointlights(),
 m_spotlights(),
