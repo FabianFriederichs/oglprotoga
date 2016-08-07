@@ -223,8 +223,10 @@ quat MainGame::RotateQuat(const vec3 &rotation)
 
 GLvoid MainGame::render(GLdouble time)
 {
+	//GetPoses is necessary to get the compositor to start doing work. This fills an array with positionnal data of all connected tracked devices
 	vr::TrackedDevicePose_t pose[ vr::k_unMaxTrackedDeviceCount ];
 	vrcomp->WaitGetPoses(pose,vr::k_unMaxTrackedDeviceCount , NULL,0);
+
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	shader->Use();
 	glm::mat4 view;
