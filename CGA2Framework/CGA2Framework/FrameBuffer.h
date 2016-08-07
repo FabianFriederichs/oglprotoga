@@ -13,5 +13,8 @@ public:
 	GLint m_vpheight;
 
 	bool bind() { return true; }
+
+	bool setColorTargets(std::vector<Texture*> targetTextures);
+	bool setDepthTarget(Texture* textureTarget);
 };
 
