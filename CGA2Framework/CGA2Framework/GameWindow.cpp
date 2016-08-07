@@ -22,7 +22,14 @@ GameWindow::~GameWindow()
 GLboolean GameWindow::initialize()
 {
 	//glfwSetErrorCallback({})
-
+	vr::EVRInitError vrerr;
+	vrsys = vr::VR_Init(&vrerr,vr::EVRApplicationType::VRApplication_Scene); 
+	vrcomp = vr::VRCompositor();
+	if (! vrcomp) {
+		fprintf(stderr, "OpenVR Compositor initialization failed. See log file for details\n");
+        vr::VR_Shutdown();
+        assert("VR failed" && false);
+	}
 	if (!glfwInit())
 	{
 		fprintf(stderr, "Failed to initialize GLFW\n");

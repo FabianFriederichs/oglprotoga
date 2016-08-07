@@ -107,8 +107,7 @@ MainGame::MainGame(const GLint sizex, const GLint sizey, const GLint cvmaj, cons
 
 	cam = new FPSCamera((GLfloat)45.0f, WIDTH(), HEIGHT(), (GLfloat)0.1f, (GLfloat)100.0f, vec3(0,1,0), vec3(1,0,0), vec3(0,0,1));
 	vr::EVRInitError vrerr;
-	vrsys = vr::VR_Init(&vrerr,vr::EVRApplicationType::VRApplication_Scene); 
-	vr::VRCompositor();
+	vr::VR_GetGenericInterface( vr::IVRRenderModels_Version, &vrerr );
 	vrsys->GetRecommendedRenderTargetSize(&renderwidth, &renderheight);
 	CreateFrameBuffer(renderwidth, renderheight, leftEyeDesc);
 	CreateFrameBuffer(renderwidth, renderheight, rightEyeDesc);
@@ -191,7 +190,7 @@ GLvoid MainGame::update(GLdouble time)
 		cam->Move(md);
 	vec2 delta(mpos-vec2(400,300));
 	delta = delta*0.02f;
-	if(delta!=vec2(0,0)&& keys[GLFW_KEY_M])
+	if(delta!=vec2(0,0))
 	{
 		vec3 EulerAnglesM(delta.x,delta.y, 0);
 		modelOrientation = RotateQuat(EulerAngles);
@@ -201,6 +200,8 @@ GLvoid MainGame::update(GLdouble time)
 	delta = vec2(0,0);
 	mpos=vec2(400,300);
 	glfwSetCursorPos(this->m_window, 800/2, 600/2);
+	vr::VREvent_t ev;
+	while(vrsys->PollNextEvent(&ev, sizeof(ev)));
 	//cam->Rotate(modelOrientation);
 }
 
@@ -222,7 +223,8 @@ quat MainGame::RotateQuat(const vec3 &rotation)
 
 GLvoid MainGame::render(GLdouble time)
 {
-	
+	vr::TrackedDevicePose_t pose[ vr::k_unMaxTrackedDeviceCount ];
+	vrcomp->WaitGetPoses(pose,vr::k_unMaxTrackedDeviceCount , NULL,0);
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	shader->Use();
 	glm::mat4 view;
@@ -245,7 +247,7 @@ GLvoid MainGame::render(GLdouble time)
 	//model *= rot;
 	//model = glm::rotate(model, 20.0f, glm::vec3(1.0f, 0.3f, 0.5f));
 
-	//left eye
+	//left eye rendering
 	glEnable(GL_MULTISAMPLE);
 	glBindFramebuffer(GL_FRAMEBUFFER, leftEyeDesc.m_nRenderFramebufferId);
 	glViewport(0,0, renderwidth, renderheight);
@@ -279,7 +281,7 @@ GLvoid MainGame::render(GLdouble time)
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	
-	//multisample stuff
+	//resolve the multisampled buffer
 	glDisable(GL_MULTISAMPLE);
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, leftEyeDesc.m_nRenderFramebufferId);
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, leftEyeDesc.m_nResolveFramebufferId);
@@ -289,7 +291,7 @@ GLvoid MainGame::render(GLdouble time)
 
 	
 
-	//right eye
+	//right eye rendering. 
 	glEnable(GL_MULTISAMPLE);
 	glBindFramebuffer(GL_FRAMEBUFFER, rightEyeDesc.m_nRenderFramebufferId);
 	glViewport(0,0, renderwidth, renderheight);
@@ -322,7 +324,7 @@ GLvoid MainGame::render(GLdouble time)
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	
-	//multisample stuff
+	//resolve the multisampled buffer
 	glDisable(GL_MULTISAMPLE);
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, rightEyeDesc.m_nRenderFramebufferId);
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, rightEyeDesc.m_nResolveFramebufferId);
@@ -330,18 +332,19 @@ GLvoid MainGame::render(GLdouble time)
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);	
 
-
-	//get right and left eye textures from framebuffer and submit those to the compositor for display on the HMD
+	//get right and left eye textures buffer id's  and submit those to the compositor for display on the HMD
 	vr::Texture_t leftEyeTexture = {(void*)leftEyeDesc.m_nResolveTextureId, vr::API_OpenGL, vr::ColorSpace_Gamma };
-	vr::VRCompositor()->Submit(vr::Eye_Left, &leftEyeTexture );
+	vrcomp->Submit(vr::Eye_Left, &leftEyeTexture );
 	vr::Texture_t rightEyeTexture = {(void*)rightEyeDesc.m_nResolveTextureId, vr::API_OpenGL, vr::ColorSpace_Gamma };
-	vr::VRCompositor()->Submit(vr::Eye_Right, &rightEyeTexture );
+	vrcomp->Submit(vr::Eye_Right, &rightEyeTexture );
+	//vrcomp->PostPresentHandoff();
 	glBindVertexArray(0);
 
+	//Render one eye to window quad
 	screenshader->Use();
 
 	glViewport(0,0,WIDTH(), HEIGHT());
-	glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f); 
 	glClear(GL_COLOR_BUFFER_BIT);
    
@@ -369,7 +372,7 @@ bool MainGame::CreateFrameBuffer( int nWidth, int nHeight, FramebufferDesc &fram
 	glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, 4, GL_RGBA8, nWidth, nHeight, true);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, framebufferDesc.m_nRenderTextureId, 0);
 
-	//create resolve framebuffer as intermediate to the multisample framebuffer
+	//create resolve framebuffer as intermediate to get a normal 2d texture from multisampled buffer for submitting to the HMD and rendering onto window quad
 	glGenFramebuffers(1, &framebufferDesc.m_nResolveFramebufferId );
 	glBindFramebuffer(GL_FRAMEBUFFER, framebufferDesc.m_nResolveFramebufferId);
 

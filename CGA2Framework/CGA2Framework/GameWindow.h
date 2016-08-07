@@ -41,5 +41,7 @@ private:
 
 protected:
 	GLFWwindow* m_window;
+	vr::IVRSystem* vrsys;
+	vr::IVRCompositor* vrcomp;
 };
 

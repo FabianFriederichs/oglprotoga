@@ -26,8 +26,7 @@ public:
 	GLuint VBO, VAO;
 	Camera *cam;
 	Shader *shader;
-	vr::IVRSystem* vrsys;
-	vr::IVRCompositor* vrcomp;
+	
 	GLfloat m_VA;
 	GLfloat m_HA;
 
