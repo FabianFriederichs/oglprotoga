@@ -1,0 +1,25 @@
+# MTL written from megatron.obj
+newmtl 3
+Kd 0.584314 0.584314 0.584314
+Ns 256
+d 1
+illum 2
+Ka 0 0 0
+Ks 1 1 1
+map_Kd Megatron2bytrento.bmp
+newmtl head
+Kd 0.584314 0.584314 0.584314
+Ns 256
+d 1
+illum 2
+Ka 0 0 0
+Ks 1 1 1
+map_Kd megatron1bytrento.bmp
+newmtl material_0
+Kd 0.584314 0.584314 0.584314
+Ns 4096
+d 1
+illum 2
+Ka 0 0 0
+Ks 1 1 1
+map_Kd Megatron.bmp
