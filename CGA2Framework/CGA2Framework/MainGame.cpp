@@ -38,8 +38,12 @@ GLvoid MainGame::update(GLdouble time)
 
 GLvoid MainGame::render(GLdouble time)
 {	
-	m_scene->render();
-	glfwSwapBuffers(this->m_window);
+	//m_scene->render();
+	if (m_scene != nullptr)
+	{
+		m_scenerenderer->render(m_scene, this);
+	}
+	
 }
 
 void MainGame::init()

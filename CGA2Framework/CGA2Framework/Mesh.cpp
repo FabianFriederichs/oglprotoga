@@ -227,16 +227,19 @@ void Mesh::freeGLData()
 	if (m_vbo != 0)
 	{
 		glDeleteBuffers(1, &m_vbo);
+		m_vbo = 0;
 	}
 
 	if (m_ibo != 0)
 	{
 		glDeleteBuffers(1, &m_ibo);
+		m_ibo = 0;
 	}
 
 	if (m_vao != 0)
 	{
 		glDeleteVertexArrays(1, &m_vao);
+		m_vao = 0;
 	}
 }
 
@@ -245,16 +248,19 @@ void Mesh::freeBBGLData()
 	if (m_bbvbo != 0)
 	{
 		glDeleteBuffers(1, &m_bbvbo);
+		m_bbvbo = 0;
 	}
 
 	if (m_bbibo != 0)
 	{
 		glDeleteBuffers(1, &m_bbibo);
+		m_bbibo = 0;
 	}
 
 	if (m_bbvao != 0)
 	{
 		glDeleteVertexArrays(1, &m_bbvao);
+		m_bbvao = 0;
 	}
 }
 
