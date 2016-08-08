@@ -7,7 +7,7 @@
 #include "Model.h"
 #include "Camera.h"
 #include "FPSCamera.h"
-#include "Renderer.h"
+//#include "Renderer.h"
 #include "ForwardShader.h"
 #include "GPassShader.h"
 #include "NthPassShader.h"
@@ -31,20 +31,20 @@ class Scene
 public:
 	Scene();
 	Scene(GLint width, GLint height);
-	~Scene();
+	virtual ~Scene();
 
-	void save();
-	void load();
-	void render();
+	virtual void save() = 0;
+	virtual void load() = 0;
+	//void render();
 protected:
 	//scene data
 	std::list<RenderableGameObject*> m_gameobjects;	
-	RenderList m_renderList;
+	//RenderList m_renderList;
 
 	void addRenderable(RenderableGameObject* _renderable);
 	void removeRenderable(GLint id);
-	RenderList& getRenderList() { return m_renderList; };
-	void createRenderList();
+	//RenderList& getRenderList() { return m_renderList; };
+	//void createRenderList();
 
 
 	std::list<Model*> m_models;
@@ -66,21 +66,15 @@ protected:
 	void addMaterial(Material* _material);
 	
 	FPSCamera m_camera;
-
-	ForwardShader m_forwardShader;
-	GPassShader m_gpassShader;
-	NthPassShader m_nthpassShader1;
-	NthPassShader m_nthpassShader2;
-	NthPassShader m_nthPassSHader3;
 	
 
-	Renderer m_renderer;
+	//Renderer m_renderer;
 
 	//inout
 
 
 private:
-	bool m_renderlistdirty;
+	//bool m_renderlistdirty;
 	GLint m_width;
 	GLint m_height;
 
