@@ -1,5 +1,6 @@
 #pragma once
 #include "Shader.h"
+#include "glerror.h"
 class NthPassShader :
 	public Shader
 {

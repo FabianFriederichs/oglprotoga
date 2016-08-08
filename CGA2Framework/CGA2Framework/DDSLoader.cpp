@@ -252,7 +252,7 @@ bool DDSLoader::loadDDSTex(const std::string& _filepath, Texture& tex)
 
 Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 {
-	Texture* tex = new Texture();
+	Texture* tex = new Texture(_filepath);
 	std::ifstream file(_filepath.c_str(), std::ifstream::binary);
 	DDS_HEADER _header;
 	DDS_HEADER_DXT10 _dx10ExtHeader;
@@ -341,6 +341,7 @@ Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 					tex->addSurface(data);
 					tex->setSize(_header.dwWidth, _header.dwHeight);
 					tex->setType(type);
+					tex->m_isloaded = true;
 					return tex;
 				}
 				else if (_header.dwMipMapCount == 0) //no mipmaps
@@ -365,6 +366,7 @@ Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 						tex->addSurface(imvec);
 						tex->setType(type);
 						tex->setSize(_header.dwWidth, _header.dwHeight);
+						tex->m_isloaded = true;
 						return tex;
 					}
 				}

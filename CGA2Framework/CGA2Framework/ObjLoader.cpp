@@ -252,9 +252,17 @@ std::list<Model*> OBJLoader::loadOBJ(const std::string& _filepath)
 						std::cerr << "Wrong face format.";
 						return std::list<Model*>(); //return empty vector
 					}
+
 				}
 				if (mesh->getVertices().size() > 0)
+				{
+					mesh->setHasPositions(foundposs);
+					mesh->setHasNormals(foundnorms);
+					mesh->setHasTexCoords(founduvs);
 					gameobj->addMesh(mesh);
+				}
+
+
 			}
 			if (gameobj->getMeshes().size() > 0)
 				Models.push_back(gameobj);

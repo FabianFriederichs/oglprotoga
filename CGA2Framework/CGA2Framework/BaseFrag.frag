@@ -8,13 +8,13 @@
 struct DirLight
 {
     vec3 lightdir;
-    vec3 lightcol;
+    vec4 lightcol;
 };
 
 struct PointLight
 {
     vec3 lightpos;
-    vec3 lightcol;
+    vec4 lightcol;
     float cterm;
     float lterm;
     float qterm;
@@ -24,7 +24,7 @@ struct PointLight
 struct SpotLight
 {
     vec3 lightpos;
-    vec3 lightcol;
+    vec4 lightcol;
     vec3 lightdir;
     float cterm;
     float lterm;
@@ -37,14 +37,16 @@ struct SpotLight
 //Materials
 
 struct Material {
-    vec3 ambient;
-    vec3 diffuse;
-    vec3 specular;
+    vec4 ambient;
+    vec4 diffuse;
+    vec4 specular;
     float shininess;
     float alpha;
     sampler2D mtex[MAX_TEXTURES]; // 0: diffuse // 1: spec // 2: gloss // 3: normal // 4: height
     int texcount;
 }; 
+
+uniform Material material;
 
 //input uniforms
 uniform vec3 camerapos;
@@ -58,7 +60,7 @@ uniform int pointlightcount;
 uniform SpotLight spotlights[MAX_SPOT_LIGHTS];
 uniform int spotlightcount;
 
-uniform Material material;
+
 
 //input interface blocks DO IT!
 
@@ -82,6 +84,8 @@ vec3 CalcSpotLight(SpotLight light);
 
 void main()
 {
+	int texturecount = material.texcount;
+
 	vec3 outcol;
 
 	for(int i = 0; i < dirlightcount; i++)
@@ -107,7 +111,7 @@ void main()
 		}
 	}
 
-    color = vec4(outcol, 1.0f);
+    color = vec4(texture(material.mtex[1], vertexdat.uv).rgb, 1.0f);//vec4(outcol, 1.0f);
 }
 
 vec3 CalcDirLight(DirLight light)
@@ -119,13 +123,13 @@ vec3 CalcDirLight(DirLight light)
     vec3 norm = vertexdat.TBN * normalize(texture(material.mtex[3], vertexdat.uv).rgb);
     vec3 lightDir = normalize(-light.lightdir);  
     float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = light.lightcol * diff * texture(material.mtex[0], vertexdat.uv).rgb;  
+    vec3 diffuse = light.lightcol.rgb * diff * texture(material.mtex[0], vertexdat.uv).rgb;  
     
     // Specular
     vec3 viewDir = normalize(camerapos - vertexdat.pos);
     vec3 reflectDir = reflect(-lightDir, norm);  
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), length(texture(material.mtex[2], vertexdat.uv).rgb));
-    vec3 specular = light.lightcol * spec * texture(material.mtex[1], vertexdat.uv).rgb;
+    vec3 specular = light.lightcol.rgb * spec * texture(material.mtex[1], vertexdat.uv).rgb;
             
     return ambient + diffuse + specular;  
 }
@@ -139,13 +143,13 @@ vec3 CalcPointLight(PointLight light)
     vec3 norm = vertexdat.TBN * normalize(texture(material.mtex[3], vertexdat.uv).rgb);
     vec3 lightDir = normalize(light.lightpos - vertexdat.pos);
     float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = light.lightcol * diff * texture(material.mtex[0], vertexdat.uv).rgb;  
+    vec3 diffuse = light.lightcol.rgb * diff * texture(material.mtex[0], vertexdat.uv).rgb;  
     
     // Specular
     vec3 viewDir = normalize(camerapos - vertexdat.pos);
     vec3 reflectDir = reflect(-lightDir, norm);  
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), length(texture(material.mtex[2], vertexdat.uv).rgb));
-    vec3 specular = light.lightcol * spec *  texture(material.mtex[1], vertexdat.uv).rgb;
+    vec3 specular = light.lightcol.rgb * spec *  texture(material.mtex[1], vertexdat.uv).rgb;
     
     // Attenuation
     float distance    = length(light.lightpos - vertexdat.pos);
@@ -155,6 +159,7 @@ vec3 CalcPointLight(PointLight light)
     diffuse  *= attenuation;
     specular *= attenuation;   
             
+	
     return ambient + diffuse + specular;  
 }
 
@@ -168,13 +173,13 @@ vec3 CalcSpotLight(SpotLight light)
 		vec3 norm = vertexdat.TBN * normalize(texture(material.mtex[3], vertexdat.uv).rgb);   
     
 		float diff = max(dot(norm, lightDir), 0.0);
-		vec3 diffuse = light.lightcol * diff * texture(material.mtex[0], vertexdat.uv).rgb;  
+		vec3 diffuse = light.lightcol.rgb * diff * texture(material.mtex[0], vertexdat.uv).rgb;  
     
 		// Specular
 		vec3 viewDir = normalize(camerapos - vertexdat.pos);
 		vec3 reflectDir = reflect(-lightDir, norm);  
 		float spec = pow(max(dot(viewDir, reflectDir), 0.0), length(texture(material.mtex[2], vertexdat.uv).rgb));
-		vec3 specular = light.lightcol * spec *  texture(material.mtex[1], vertexdat.uv).rgb;
+		vec3 specular = light.lightcol.rgb * spec *  texture(material.mtex[1], vertexdat.uv).rgb;
     
 		// Spotlight (soft edges)
 		theta = dot(lightDir, normalize(-light.lightdir)); 

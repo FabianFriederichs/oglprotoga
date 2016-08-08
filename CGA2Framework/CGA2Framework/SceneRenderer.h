@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "glerror.h"
 
 //this callback handles the swapchain swap after rendering completes
 class RenderFinishedCallback

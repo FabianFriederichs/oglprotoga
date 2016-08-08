@@ -7,6 +7,7 @@
 #include "IDProvider.h"
 #include "Texture.h"
 #include "FrameBuffer.h"
+#include "glerror.h"
 
 enum UniformType {UniTf, UniTi, UniTui, UniTfv, UniTiv, UniTuiv, UniTmfv};
 
@@ -32,7 +33,7 @@ public:
 		if (_buf == nullptr)
 		{
 			_target = nullptr;
-			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			glBindFramebuffer(GL_FRAMEBUFFER, 0); GLERR
 			if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 				return false;
 			else
@@ -91,55 +92,55 @@ public:
 		GLint success;
 		GLchar infoLog[512];
 		// Vertex Shader
-		vertex = glCreateShader(GL_VERTEX_SHADER);
-		glShaderSource(vertex, 1, &vShaderCode, NULL);
-		glCompileShader(vertex);
+		vertex = glCreateShader(GL_VERTEX_SHADER); GLERR
+		glShaderSource(vertex, 1, &vShaderCode, NULL);GLERR
+		glCompileShader(vertex); GLERR
 		// Print compile errors if any
-		glGetShaderiv(vertex, GL_COMPILE_STATUS, &success);
+		glGetShaderiv(vertex, GL_COMPILE_STATUS, &success); GLERR
 		if (!success)
 		{
-			glGetShaderInfoLog(vertex, 512, NULL, infoLog);
+			glGetShaderInfoLog(vertex, 512, NULL, infoLog); GLERR
 			std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
 		}
 		// Fragment Shader
-		fragment = glCreateShader(GL_FRAGMENT_SHADER);
-		glShaderSource(fragment, 1, &fShaderCode, NULL);
-		glCompileShader(fragment);
+		fragment = glCreateShader(GL_FRAGMENT_SHADER); GLERR
+		glShaderSource(fragment, 1, &fShaderCode, NULL); GLERR
+		glCompileShader(fragment); GLERR
 		// Print compile errors if any
-		glGetShaderiv(fragment, GL_COMPILE_STATUS, &success);
+		glGetShaderiv(fragment, GL_COMPILE_STATUS, &success); GLERR
 		if (!success)
 		{
-			glGetShaderInfoLog(fragment, 512, NULL, infoLog);
+			glGetShaderInfoLog(fragment, 512, NULL, infoLog); GLERR
 			std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
 		}
 		// Shader Program
-		this->Program = glCreateProgram();
-		glAttachShader(this->Program, vertex);
-		glAttachShader(this->Program, fragment);
-		glLinkProgram(this->Program);
+		this->Program = glCreateProgram(); GLERR
+		glAttachShader(this->Program, vertex); GLERR
+		glAttachShader(this->Program, fragment); GLERR
+		glLinkProgram(this->Program); GLERR
 		// Print linking errors if any
-		glGetProgramiv(this->Program, GL_LINK_STATUS, &success);
+		glGetProgramiv(this->Program, GL_LINK_STATUS, &success); GLERR
 		if (!success)
 		{
-			glGetProgramInfoLog(this->Program, 512, NULL, infoLog);
+			glGetProgramInfoLog(this->Program, 512, NULL, infoLog); GLERR
 			std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
 		}
 		// Delete the shaders as they're linked into our program now and no longer necessery
-		glDetachShader(this->Program, vertex);
-		glDetachShader(this->Program, fragment);
-		glDeleteShader(vertex);
-		glDeleteShader(fragment);
+		glDetachShader(this->Program, vertex); GLERR
+		glDetachShader(this->Program, fragment); GLERR
+		glDeleteShader(vertex); GLERR
+		glDeleteShader(fragment); GLERR
 	}
 	// Uses the current shader
 	void Use()
 	{
-		glUseProgram(this->Program);
+		glUseProgram(this->Program); GLERR
 	}
 
 	bool isActive()
 	{
 		GLint progName = 0;
-		glGetIntegerv(GL_CURRENT_PROGRAM, &progName);
+		glGetIntegerv(GL_CURRENT_PROGRAM, &progName); GLERR
 		if (progName != this->Program)
 			return false;
 		return true;
@@ -148,7 +149,7 @@ public:
 private:
 	GLint getUniformLocation(std::string name)
 	{
-		return glGetUniformLocation(this->Program, name.c_str());
+		return glGetUniformLocation(this->Program, name.c_str()); GLERR
 	}
 	GLint m_id;
 public:
@@ -174,8 +175,10 @@ inline void Shader::setUniform(const std::string name, const GLfloat value)
 {
 	GLint loc = getUniformLocation(name);
 	if (!isActive())
-		glUseProgram(this->Program);
-	glUniform1f(loc, value);
+	{
+		glUseProgram(this->Program); GLERR
+	}
+	glUniform1f(loc, value); GLERR
 
 }
 
@@ -184,18 +187,20 @@ inline void Shader::setUniform(const std::string name, std::vector<GLfloat> valu
 {
 	GLint loc = getUniformLocation(name);
 	if (!isActive())
-		glUseProgram(this->Program);
+	{
+		glUseProgram(this->Program); GLERR
+	}
 	auto size = values.size();
 	switch (size)
 	{
 		case 2:
-			glUniform1fv(loc, 2, values.data());
+			glUniform1fv(loc, 2, values.data()); GLERR
 			break;
 		case 3:
-			glUniform1fv(loc, 3, values.data());
+			glUniform1fv(loc, 3, values.data()); GLERR
 			break;
 		case 4:
-			glUniform1fv(loc, 4, values.data());
+			glUniform1fv(loc, 4, values.data()); GLERR
 			break;
 		default:
 			std::cout << "VECTOR TOO LARGE OR < 2 VALUES";
@@ -207,9 +212,11 @@ inline void Shader::setUniform(const std::string name,glm::vec2 values)
 {
 	GLint loc = getUniformLocation(name);
 	if (!isActive())
-		glUseProgram(this->Program);	
+	{
+		glUseProgram(this->Program); GLERR
+	}
 
-	glUniform1fv(loc, 2, glm::value_ptr(values));
+	glUniform2fv(loc, 1, glm::value_ptr(values)); GLERR
 }
 
 template<>
@@ -217,19 +224,22 @@ inline void Shader::setUniform(const std::string name, glm::vec3 values)
 {
 	GLint loc = getUniformLocation(name);
 	if (!isActive())
-		glUseProgram(this->Program);
+	{
+		glUseProgram(this->Program); GLERR
+	}
 
-	glUniform1fv(loc, 3, glm::value_ptr(values));
+	glUniform3fv(loc, 1, glm::value_ptr(values)); GLERR
 }
 
 template<>
 inline void Shader::setUniform(const std::string name, glm::vec4 values)
-{
-	GLint loc = getUniformLocation(name);
+{	
+	GLint loc = getUniformLocation(name);	
 	if (!isActive())
-		glUseProgram(this->Program);
-	
-	glUniform1fv(loc, 4, glm::value_ptr(values));
+	{
+		glUseProgram(this->Program); GLERR
+	}
+	glUniform4fv(loc, 1, glm::value_ptr(values)); GLERR
 }
 
 template<>
@@ -237,8 +247,10 @@ inline void Shader::setUniform(const std::string name, const GLint value)
 {
 	GLint loc = getUniformLocation(name);
 	if (!isActive())
-		glUseProgram(this->Program);
-	glUniform1i(loc, value);
+	{
+		glUseProgram(this->Program); GLERR
+	}
+	glUniform1i(loc, value); GLERR
 }
 
 template<>
@@ -246,8 +258,10 @@ inline void Shader::setUniform(const std::string name, const GLuint value)
 {
 	GLint loc = getUniformLocation(name);
 	if (!isActive())
-		glUseProgram(this->Program);
-	glUniform1ui(loc, value);
+	{
+		glUseProgram(this->Program); GLERR
+	}
+	glUniform1ui(loc, value); GLERR
 }
 
 template<>
@@ -255,6 +269,8 @@ inline void Shader::setUniform(const std::string name, glm::mat4 value, const GL
 {
 	GLint loc = getUniformLocation(name);
 	if (!isActive())
-		glUseProgram(this->Program);
-	glUniformMatrix4fv(loc, 1, transpose, glm::value_ptr(value));
+	{
+		glUseProgram(this->Program); GLERR
+	}
+	glUniformMatrix4fv(loc, 1, transpose, glm::value_ptr(value)); GLERR
 }

@@ -3,6 +3,7 @@
 #include "Texture.h"
 #include "IDProvider.h"
 #include "Shader.h"
+#include "glerror.h"
 class Material
 {
 public:

@@ -1,6 +1,7 @@
 #pragma once
 #include "headers.h"
 #include "Transform.h"
+#include "glerror.h"
 class Light
 {
 public:

@@ -5,6 +5,7 @@
 #include "PointLight.h"
 #include "SpotLight.h"
 #include "Material.h"
+#include "glerror.h"
 
 #define MAX_DIR_LIGHTS 8
 #define MAX_POINT_LIGHTS 16

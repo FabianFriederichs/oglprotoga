@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include "glerror.h"
 #pragma once
 class FPSCamera: public Camera
 {

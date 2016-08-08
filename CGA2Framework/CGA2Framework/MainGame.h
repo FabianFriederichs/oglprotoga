@@ -1,6 +1,8 @@
 #pragma once
 #include "GameWindow.h"
-#include "Scene.h"
+#include "TestScene.h"
+#include "ForwardRenderer.h"
+#include "glerror.h"
 class MainGame : public GameWindow
 {
 public:
@@ -21,5 +23,8 @@ public:
 
 private:
 	Scene* m_scene;
+
+	GLdouble m_curmousex = 0.0;
+	GLdouble m_curmousey = 0.0;
 };
 

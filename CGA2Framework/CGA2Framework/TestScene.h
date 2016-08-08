@@ -1,5 +1,7 @@
 #pragma once
 #include "Scene.h"
+#include "FPSCamera.h"
+#include "glerror.h"
 class TestScene :
 	public Scene
 {

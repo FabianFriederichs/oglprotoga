@@ -1,6 +1,7 @@
 #pragma once
 #include "headers.h"
 #include "Mesh.h"
+#include "glerror.h"
 class Model
 {
 public:

@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Model.h"
+#include "glerror.h"
 class RenderableGameObject :
 	public GameObject
 {

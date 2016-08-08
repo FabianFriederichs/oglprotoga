@@ -3,6 +3,7 @@
 #include "Image2D.h"
 #include "IDProvider.h"
 #include "DDSLoader.h"
+#include "glerror.h"
 
 typedef enum {
 	TEX_2D = 0,
@@ -14,7 +15,8 @@ typedef enum {
 
 class Texture
 {
-public:
+	friend class DDSLoader;
+public:	
 	Texture();
 	Texture(const Texture& _other);
 	Texture(const std::string& _filepath); //single texture
@@ -49,6 +51,7 @@ public:
 	const bool isLoaded() { return m_isloaded; }
 	const bool isBuffered() { return m_isbuffered; }
 	const bool isBound() { return m_isbound; }
+	const bool isRenderTarget() { return m_isrendertarget; }
 
 	//surfaces and mipmaps
 	void addSurface(const std::vector<Image2D>& _mipmappedimg) { m_data.push_back(_mipmappedimg); }

@@ -6,7 +6,7 @@ Transform::Transform(const glm::vec3& _translate, const glm::vec3& _rotate, cons
 	m_rotate(_rotate),
 	m_scale(_scale),
 	m_transformMat(1.0f),
-	m_matdirty(false)
+	m_matdirty(true)
 {
 	
 }
@@ -26,7 +26,7 @@ Transform::Transform() :
 	m_rotate(0.0f, 0.0f, 0.0f),
 	m_scale(1.0f, 1.0f, 1.0f),
 	m_transformMat(1.0f),
-	m_matdirty(false)
+	m_matdirty(true)
 {
 	
 }

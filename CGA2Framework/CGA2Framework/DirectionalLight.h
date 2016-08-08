@@ -1,5 +1,6 @@
 #pragma once
 #include "Light.h"
+#include "glerror.h"
 class DirectionalLight : public Light
 {
 public:

@@ -1,6 +1,7 @@
 #pragma once
 #include "headers.h"
 #include "dds.h"
+#include "glerror.h"
 
 class Image2D
 {

@@ -8,7 +8,8 @@ Mesh::Mesh() :
 	m_boundingboxvertices(),
 	m_indices(),
 	m_boundingboxindices(),
-	m_material()
+	m_material(),
+	m_glinited(false)
 {
 }
 
@@ -19,7 +20,8 @@ Mesh::Mesh(const Mesh& _other) :
 	m_boundingboxvertices(_other.m_boundingboxvertices),
 	m_indices(_other.m_indices),
 	m_boundingboxindices(_other.m_boundingboxindices),
-	m_material(_other.m_material)
+	m_material(_other.m_material),
+	m_glinited(false)
 {
 	
 }
@@ -31,7 +33,8 @@ Mesh::Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLuint>& _ind
 	m_boundingboxvertices(),
 	m_indices(_indices),
 	m_boundingboxindices(),
-	m_material(_material)
+	m_material(_material),
+	m_glinited(false)
 {
 	if (_calcBoundingBox)
 		generateBoundingBox();
@@ -92,52 +95,58 @@ void Mesh::removeIndex(const GLuint _index)
 
 void Mesh::setupVAOs()
 {
-	//caching vertex data as plain float vector
-	std::vector<GLfloat> buf;
-	buf.reserve(m_vertices.size() * FLOATS_PER_VERTEX);
-	for (auto it = m_vertices.begin(); it != m_vertices.end(); it++)
+	if (!m_glinited)
 	{
-		buf.push_back(it->getPosition().x);		//postition floats
-		buf.push_back(it->getPosition().y);
-		buf.push_back(it->getPosition().z);
+		//caching vertex data as plain float vector
+		std::vector<GLfloat> buf;
+		buf.reserve(m_vertices.size() * FLOATS_PER_VERTEX);
+		for (auto it = m_vertices.begin(); it != m_vertices.end(); it++)
+		{
+			buf.push_back(it->getPosition().x);		//postition floats
+			buf.push_back(it->getPosition().y);
+			buf.push_back(it->getPosition().z);
 
-		buf.push_back(it->getUV().x);			//uv floats
-		buf.push_back(it->getUV().y);
+			buf.push_back(it->getUV().x);			//uv floats
+			buf.push_back(it->getUV().y);
 
-		buf.push_back(it->getNormal().x);		//normal floats
-		buf.push_back(it->getNormal().y);
-		buf.push_back(it->getNormal().z);
+			buf.push_back(it->getNormal().x);		//normal floats
+			buf.push_back(it->getNormal().y);
+			buf.push_back(it->getNormal().z);
 
-		buf.push_back(it->getTangent().x);		//tangent floats	(bitangents not cached here because they can be easily calculated as tangent cross normal)
-		buf.push_back(it->getTangent().y);
-		buf.push_back(it->getTangent().z);
+			buf.push_back(it->getTangent().x);		//tangent floats	(bitangents not cached here because they can be easily calculated as tangent cross normal)
+			buf.push_back(it->getTangent().y);
+			buf.push_back(it->getTangent().z);
+		}
+
+		//glstuff
+
+		if (m_vao == 0)
+		{
+			glCreateVertexArrays(1, &m_vao); GLERR
+		}
+		glBindVertexArray(m_vao); GLERR
+
+			glGenBuffers(1, &m_vbo); GLERR
+			glGenBuffers(1, &m_ibo); GLERR
+
+			glBindBuffer(GL_ARRAY_BUFFER, m_vbo); GLERR
+			glBufferData(GL_ARRAY_BUFFER, m_vertices.size() * FLOATS_PER_VERTEX * sizeof(GLfloat), buf.data(), GL_STATIC_DRAW); GLERR
+
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo); GLERR
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(GLuint), m_indices.data(), GL_STATIC_DRAW); GLERR
+
+			glEnableVertexAttribArray(0); GLERR
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(0)); GLERR //position format
+			glEnableVertexAttribArray(1); GLERR
+			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(3 * sizeof(GLfloat))); GLERR
+			glEnableVertexAttribArray(2); GLERR
+			glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(5 * sizeof(GLfloat))); GLERR
+			glEnableVertexAttribArray(3); GLERR
+			glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(8 * sizeof(GLfloat))); GLERR
+
+			glBindVertexArray(0); GLERR
+		m_glinited = true;
 	}
-
-	//glstuff
-
-	if (m_vao == 0)
-		glCreateVertexArrays(1, &m_vao);
-	glBindVertexArray(m_vao);
-	
-	glGenBuffers(1, &m_vbo);
-	glGenBuffers(1, &m_ibo);
-	
-	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-	glBufferData(GL_ARRAY_BUFFER, m_vertices.size() * FLOATS_PER_VERTEX * sizeof(GLfloat), buf.data(), GL_STATIC_DRAW);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(GLuint), m_indices.data(), GL_STATIC_DRAW);
-	
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(0)); //position format
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(3 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(5 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(3);
-	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(8 * sizeof(GLfloat)));	
-
-	glBindVertexArray(0);
 }
 
 
@@ -168,28 +177,30 @@ void Mesh::setupBBVAOs()
 
 		//glstuff
 		if (m_bbvao == 0)
-			glCreateVertexArrays(1, &m_bbvao);
-		glBindVertexArray(m_bbvao);
+		{
+			glCreateVertexArrays(1, &m_bbvao); GLERR
+		}
+		glBindVertexArray(m_bbvao); GLERR
 
-		glGenBuffers(1, &m_bbvbo);
-		glGenBuffers(1, &m_bbibo);
+			glGenBuffers(1, &m_bbvbo); GLERR
+			glGenBuffers(1, &m_bbibo); GLERR
 
-		glBindBuffer(GL_ARRAY_BUFFER, m_bbvbo);
-		glBufferData(GL_ARRAY_BUFFER, m_boundingboxvertices.size() * FLOATS_PER_VERTEX * sizeof(GLfloat), buf.data(), GL_STATIC_DRAW); //vertices
+			glBindBuffer(GL_ARRAY_BUFFER, m_bbvbo); GLERR
+			glBufferData(GL_ARRAY_BUFFER, m_boundingboxvertices.size() * FLOATS_PER_VERTEX * sizeof(GLfloat), buf.data(), GL_STATIC_DRAW); GLERR//vertices
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_bbibo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_boundingboxindices.size() * sizeof(GLuint), m_boundingboxindices.data(), GL_STATIC_DRAW);//indices
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_bbibo); GLERR
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_boundingboxindices.size() * sizeof(GLuint), m_boundingboxindices.data(), GL_STATIC_DRAW); GLERR//indices
 
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(0));
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(3 * sizeof(GLfloat)));
-		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(5 * sizeof(GLfloat)));
-		glEnableVertexAttribArray(3);
-		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(8 * sizeof(GLfloat)));
+			glEnableVertexAttribArray(0); GLERR
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(0)); GLERR
+			glEnableVertexAttribArray(1); GLERR
+			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(3 * sizeof(GLfloat))); GLERR
+			glEnableVertexAttribArray(2); GLERR
+			glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(5 * sizeof(GLfloat))); GLERR
+			glEnableVertexAttribArray(3); GLERR
+			glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(8 * sizeof(GLfloat))); GLERR
 
-		glBindVertexArray(0);
+			glBindVertexArray(0); GLERR
 		
 	}
 }
@@ -198,10 +209,10 @@ void Mesh::drawBoundingBox()
 {
 	if (m_bbvao != 0)
 	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glBindVertexArray(m_bbvao);
-		glDrawElements(GL_TRIANGLES, m_boundingboxindices.size(), GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); GLERR
+			glBindVertexArray(m_bbvao); GLERR
+			glDrawElements(GL_TRIANGLES, m_boundingboxindices.size(), GL_UNSIGNED_INT, 0); GLERR
+			glBindVertexArray(0); GLERR
 	}
 }
 
@@ -209,10 +220,10 @@ void Mesh::drawMesh()
 {
 	if (m_vao != 0)
 	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		glBindVertexArray(m_vao);
-		glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); GLERR
+			glBindVertexArray(m_vao); GLERR
+			glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0); GLERR
+			glBindVertexArray(0); GLERR
 	}
 	else
 	{
@@ -226,40 +237,42 @@ void Mesh::freeGLData()
 
 	if (m_vbo != 0)
 	{
-		glDeleteBuffers(1, &m_vbo);
+		glDeleteBuffers(1, &m_vbo); GLERR
 		m_vbo = 0;
 	}
 
 	if (m_ibo != 0)
 	{
-		glDeleteBuffers(1, &m_ibo);
+		glDeleteBuffers(1, &m_ibo); GLERR
 		m_ibo = 0;
 	}
 
 	if (m_vao != 0)
 	{
-		glDeleteVertexArrays(1, &m_vao);
+		glDeleteVertexArrays(1, &m_vao); GLERR
 		m_vao = 0;
 	}
+
+	m_glinited = false;
 }
 
 void Mesh::freeBBGLData()
 {
 	if (m_bbvbo != 0)
 	{
-		glDeleteBuffers(1, &m_bbvbo);
+		glDeleteBuffers(1, &m_bbvbo); GLERR
 		m_bbvbo = 0;
 	}
 
 	if (m_bbibo != 0)
 	{
-		glDeleteBuffers(1, &m_bbibo);
+		glDeleteBuffers(1, &m_bbibo); GLERR
 		m_bbibo = 0;
 	}
 
 	if (m_bbvao != 0)
 	{
-		glDeleteVertexArrays(1, &m_bbvao);
+		glDeleteVertexArrays(1, &m_bbvao); GLERR
 		m_bbvao = 0;
 	}
 }

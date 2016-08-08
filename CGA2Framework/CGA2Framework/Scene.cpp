@@ -2,7 +2,7 @@
 
 
 Scene::Scene() :
-m_camera(45.f, 1920.0f, 1080.0f, 0.1f, 100.0f, glm::vec3(0.0f, 1.0f, 0.0f),glm::vec3(1.0f, 0.0f, 0.f), glm::vec3(0.0f, 0.0f, 1.0f)),
+m_camera(0),
 m_directionallights(),
 m_pointlights(),
 m_spotlights(),
@@ -11,13 +11,14 @@ m_materials(),
 m_models(),
 //m_renderer(),
 //m_renderList(),
-m_textures()
+m_textures(),
+m_shaders()
 {
 	
 }
 
 Scene::Scene(GLint width, GLint height) :
-m_camera(45.f, width, height, 0.1f, 100.0f, glm::vec3(0.0f, 1.0f, 0.0f),glm::vec3(1.0f, 0.0f, 0.f), glm::vec3(0.0f, 0.0f, 1.0f)),
+m_camera(0),
 m_directionallights(),
 m_pointlights(),
 m_spotlights(),
@@ -28,7 +29,8 @@ m_models(),
 //m_renderList(),
 m_textures(),
 m_height(height),
-m_width(width)
+m_width(width),
+m_shaders()
 {
 
 }
@@ -36,6 +38,7 @@ m_width(width)
 
 Scene::~Scene()
 {
+	//clear();
 }
 
 //void Scene::render()
@@ -114,6 +117,75 @@ void Scene::addPointLight(PointLight* _pointlight)
 void Scene::addSpotLight(SpotLight* _spotLight)
 {
 	m_spotlights.push_back(_spotLight);
+}
+
+void Scene::addShader(Shader* _shader)
+{
+	m_shaders.push_back(_shader);
+}
+
+
+void Scene::clear()
+{
+	//clear all the object collections in scene
+	for each(GameObject* g in m_gameobjects)
+	{
+		if (g != nullptr)
+			delete g;
+	}
+	m_gameobjects.clear();
+
+	for each(DirectionalLight* l in m_directionallights)
+	{
+		if (l != nullptr)
+			delete l;
+	}
+	m_directionallights.clear();
+
+	for each(PointLight* l in m_pointlights)
+	{
+		if (l != nullptr)
+			delete l;
+	}
+	m_pointlights.clear();
+
+	for each(SpotLight* l in m_spotlights)
+	{
+		if (l != nullptr)
+			delete l;
+	}
+	m_spotlights.clear();
+
+	for each(Model* m in m_models)
+	{
+		if (m != nullptr)
+			delete m;
+	}
+	m_models.clear();
+
+	for each(Material* m in m_materials)
+	{
+		if (m != nullptr)
+			delete m;
+	}
+	m_materials.clear();
+
+	for each(Texture* t in m_textures)
+	{
+		if (t != nullptr)
+			delete t;
+	}
+	m_textures.clear();
+
+	for each(Shader* s in m_shaders)
+	{
+		if (s != nullptr)
+			delete s;
+	}
+	m_shaders.clear();
+
+	if (m_camera != nullptr)
+		delete m_camera;
 }
 
 //

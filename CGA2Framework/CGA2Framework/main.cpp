@@ -15,8 +15,8 @@ using namespace std;
 int main(void)
 {
 	//Texture dds = loadDDSTex("E:\\Benutzer\\Fabian\\Desktop\\TextureStuff\\Testtextures\\testdds.DDS");
-	MainGame mg(800, 600, 4, 0, "testgame", false);
-	mg.setCursorVisble(true);
+	MainGame mg(800, 600, 4, 5, "testgame", false);
+	mg.setCursorVisble(false);
 	mg.run();
 
 	

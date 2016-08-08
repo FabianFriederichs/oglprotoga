@@ -7,6 +7,7 @@
 #include "RenderableGameObject.h"
 #include "Camera.h"
 #include "ForwardShader.h"
+#include "glerror.h"
 
 typedef struct meshcmp {
 	bool operator()(Mesh*& m1, Mesh*& m2) const

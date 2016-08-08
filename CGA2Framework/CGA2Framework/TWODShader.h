@@ -1,5 +1,6 @@
 #pragma once
 #include "Shader.h"
+#include "glerror.h"
 class TWODShader :
 	public Shader
 {

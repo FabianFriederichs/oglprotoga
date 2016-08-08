@@ -125,9 +125,9 @@ Texture* Material::getTexture(const GLint _id)
 
 void Material::setMaterialUniforms()
 {
-	m_shader->setUniform("material.ambientcolor", this->getAmbientColor());
-	m_shader->setUniform("material.diffusecolor", this->getDiffuseColor());
-	m_shader->setUniform("material.specularcolor", this->getSpecularColor());
+	m_shader->setUniform("material.ambient", this->getAmbientColor());
+	m_shader->setUniform("material.diffuse", this->getDiffuseColor());
+	m_shader->setUniform("material.specular", this->getSpecularColor());
 	m_shader->setUniform("material.shininess", this->getShininess());
 	m_shader->setUniform("material.alpha", this->getAlpha());
 

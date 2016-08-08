@@ -13,6 +13,7 @@
 #include "NthPassShader.h"
 #include "OBJLoader.h"
 #include "DDSLoader.h"
+#include "glerror.h"
 /*
 	Keep track of Entity-Shader relations (Map with shader ID as key?)
 	=> Mesh now has a Shader pointer
@@ -35,8 +36,8 @@ public:
 
 	virtual void save() = 0;
 	virtual void load() = 0;
+	virtual void clear();
 	//void render();
-protected:
 	//scene data
 	std::list<RenderableGameObject*> m_gameobjects;	
 	//RenderList m_renderList;
@@ -64,16 +65,17 @@ protected:
 
 	std::list<Material*> m_materials;
 	void addMaterial(Material* _material);
+
+	std::list<Shader*> m_shaders;
+	void addShader(Shader* _shader);
 	
-	FPSCamera m_camera;
+	Camera* m_camera;
 	
 
 	//Renderer m_renderer;
 
 	//inout
 
-
-private:
 	//bool m_renderlistdirty;
 	GLint m_width;
 	GLint m_height;

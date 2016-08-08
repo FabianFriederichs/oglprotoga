@@ -160,11 +160,12 @@ bool Texture::loadGLTexture(GLenum _wrapmodes, GLenum _wrapmodet, GLenum _minfil
 							}
 							else
 							{
-								glBindTexture(GL_TEXTURE_2D, m_texture);
-								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, _wrapmodes);
-								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _wrapmodet);
-								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _minfilter);
-								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _magfilter);
+								glBindTexture(GL_TEXTURE_2D, m_texture); GLERR
+									glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, _wrapmodes); GLERR
+									glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _wrapmodet); GLERR
+									glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _minfilter); GLERR
+									glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _magfilter); GLERR
+									//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, m_data[0].size());
 
 								for (size_t i = 0; i < m_data[0].size(); i++)
 								{
@@ -176,9 +177,9 @@ bool Texture::loadGLTexture(GLenum _wrapmodes, GLenum _wrapmodet, GLenum _minfil
 										m_data[0][i].getSizeY(),
 										0, m_data[0][i].getData().size(),
 										m_data[0][i].getData().data()
-										);
+										); GLERR
 								}
-								glBindTexture(GL_TEXTURE_2D, 0);
+								//glBindTexture(GL_TEXTURE_2D, 0);
 
 								
 								if (glGetError() == GL_NO_ERROR)
@@ -220,15 +221,16 @@ bool Texture::loadGLTexture(GLenum _wrapmodes, GLenum _wrapmodet, GLenum _minfil
 					}
 					else
 					{
-						glBindTexture(GL_TEXTURE_2D, m_texture);
-						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, _wrapmodes);
-						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _wrapmodet);
-						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _minfilter);
-						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _magfilter);
+						glBindTexture(GL_TEXTURE_2D, m_texture); GLERR
+							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, _wrapmodes); GLERR
+							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _wrapmodet); GLERR
+							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _minfilter); GLERR
+							glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _magfilter); GLERR
+							//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 1);
 
-						glTexImage2D(GL_TEXTURE_2D, 0, m_rtinternalformat, m_sizex, m_sizey, 0, m_rtformat, GL_FLOAT, NULL);
+							glTexImage2D(GL_TEXTURE_2D, 0, m_rtinternalformat, m_sizex, m_sizey, 0, m_rtformat, GL_FLOAT, NULL); GLERR
 
-						glBindTexture(GL_TEXTURE_2D, 0);
+							//glBindTexture(GL_TEXTURE_2D, 0);
 
 						if (glGetError() == GL_NO_ERROR)
 						{
@@ -282,7 +284,7 @@ bool Texture::loadGLTexture(GLenum _wrapmodes, GLenum _wrapmodet, GLenum _minfil
 
 bool Texture::freeGLTexture()
 {
-	glDeleteTextures(1, &m_texture);
+	glDeleteTextures(1, &m_texture); GLERR
 	m_isbuffered = false;
 	return true;
 }
@@ -294,8 +296,8 @@ bool Texture::bindToTextureUnit(GLuint _unit)
 		switch (m_type)
 		{
 		case TEX_2D:
-			glActiveTexture(_unit);
-			glBindTexture(GL_TEXTURE_2D, m_texture);
+			glActiveTexture(GL_TEXTURE0 + _unit); GLERR
+			glBindTexture(GL_TEXTURE_2D, m_texture); GLERR
 			if (glGetError() == GL_NO_ERROR)
 			{
 				m_isbound = true;

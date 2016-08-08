@@ -4,6 +4,7 @@
 #include "Material.h"
 #include "Shader.h"
 #include "Transform.h"
+#include "glerror.h"
 class Mesh
 {
 public:
@@ -19,6 +20,11 @@ public:
 	const bool hasNormals() const { return m_hasNormals; }
 	const bool hasTexCoords() const { return m_hasTexCoords; }
 	const bool hasTangents() const { return m_hasTangents; }
+	void setHasPositions(bool pos) { m_hasPositions = pos; }
+	void setHasBoundingBox(bool pos) { m_hasBoundingBox = pos; }
+	void setHasNormals(bool pos) { m_hasNormals = pos; }
+	void setHasTexCoords(bool pos) { m_hasTexCoords = pos; }
+	void setHasTangents(bool pos) { m_hasTangents = pos; }
 
 	void addVertex(const Vertex& _vertex);
 	//adds index AND vertex! if vertex already exists, no vertex but only an index is added.

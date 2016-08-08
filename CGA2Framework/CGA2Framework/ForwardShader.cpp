@@ -12,12 +12,12 @@ ForwardShader::~ForwardShader()
 
 void ForwardShader::preRenderActions()
 {
-	//glEnable(GL_DEPTH_TEST);
+	
 }
 
 void ForwardShader::postRenderActions()
 {
-	//glDisable(GL_DEPTH_TEST);
+	
 }
 
 void ForwardShader::setModelMatrix(glm::mat4& _mat)
