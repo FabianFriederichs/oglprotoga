@@ -190,7 +190,7 @@ vec3 CalcSpotLight(SpotLight light)
 		diffuse  *= attenuation;
 		specular *= attenuation;   
             
-		return diffuse + specular, 1.0f;
+		return diffuse + specular;
 	}
 	else  // else, use ambient light so scene isn't completely dark outside the spotlight.
 		return 0.1f * texture(material.mtex[0], vertexdat.uv).rgb;
