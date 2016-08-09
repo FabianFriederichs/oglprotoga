@@ -56,6 +56,9 @@ GLboolean GameWindow::initialize()
 		glfwTerminate();
 		return false;
 	}
+
+	//std::cout << glewGetString(GL_EXTENSIONS) << std::endl;
+
 	err = glGetError();
 	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 

@@ -21648,3 +21648,6 @@ OpenGL error: invalid enum
 OpenGL error: invalid enum
 OpenGL error: invalid enum
 OpenGL error: invalid enum
+OpenGL error: invalid enum
+OpenGL error: invalid enum
+OpenGL error: invalid enum

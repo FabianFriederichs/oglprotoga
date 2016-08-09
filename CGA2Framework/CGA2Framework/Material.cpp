@@ -148,13 +148,13 @@ void Material::setMaterialUniforms()
 				std::cerr << "ERROR: Texture could not be loaded by OpenGL.\n";
 			}
 		}
-		if (!this->getTextures()[i]->isBound())
-		{
+		/*if (!this->getTextures()[i]->isBound())
+		{*/
 			if (!this->getTextures()[i]->bindToTextureUnit(i))
 			{
 				std::cerr << "ERROR: Texture could not be bound to texture unit";
 			}
-		}
+		//}
 
 		m_shader->setUniform("material.mtex[" + std::to_string(i) + "]", i);
 		//_material->getTextures()[i]->bindToTextureUnit(i);

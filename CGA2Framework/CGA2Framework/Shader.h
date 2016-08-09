@@ -134,7 +134,8 @@ public:
 	// Uses the current shader
 	void Use()
 	{
-		glUseProgram(this->Program); GLERR
+		if (!isActive())
+			glUseProgram(this->Program); GLERR
 	}
 
 	bool isActive()

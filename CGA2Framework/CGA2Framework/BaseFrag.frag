@@ -111,7 +111,10 @@ void main()
 		}
 	}
 
-    color = vec4(texture(material.mtex[1], vertexdat.uv).rgb, 1.0f);//vec4(outcol, 1.0f);
+	vec3 lightDir = normalize(-dirlights[0].lightdir);  
+    float diff = max(dot(vertexdat.normal, lightDir), 0.0);
+
+    color = vec4(outcol, 1.0f);
 }
 
 vec3 CalcDirLight(DirLight light)

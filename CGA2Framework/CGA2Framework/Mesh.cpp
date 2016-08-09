@@ -119,10 +119,10 @@ void Mesh::setupVAOs()
 		}
 
 		//glstuff
-
 		if (m_vao == 0)
 		{
-			glCreateVertexArrays(1, &m_vao); GLERR
+			GLuint* p = &m_vao;
+			glGenVertexArrays(1, &m_vao); GLERR
 		}
 		glBindVertexArray(m_vao); GLERR
 

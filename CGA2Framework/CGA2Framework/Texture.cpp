@@ -165,7 +165,7 @@ bool Texture::loadGLTexture(GLenum _wrapmodes, GLenum _wrapmodet, GLenum _minfil
 									glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _wrapmodet); GLERR
 									glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _minfilter); GLERR
 									glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _magfilter); GLERR
-									//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, m_data[0].size());
+									glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, m_data[0].size() - 1);
 
 								for (size_t i = 0; i < m_data[0].size(); i++)
 								{

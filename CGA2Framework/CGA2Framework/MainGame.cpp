@@ -68,7 +68,7 @@ void MainGame::mscrcallback(double xoffset, double yoffset)
 
 GLvoid MainGame::update(GLdouble time)
 {
-	
+	(*m_scene->m_pointlights.begin())->getTransform().setTranslate(m_scene->m_camera->GetPosition());
 }
 
 GLvoid MainGame::render(GLdouble time)
