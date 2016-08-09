@@ -60,35 +60,35 @@ Texture::Texture(const std::string& _filepath, const std::string& _name) :
 
 }
 
-Texture::Texture(const bool isRenderTarget, GLsizei _width, GLsizei _height) :
-	m_filepath(""),
-	m_texture(0),
-	m_name(""),
-	m_sizex(_width),
-	m_sizey(_height),
-	m_id(IDProvider::createID()),
-	m_isloaded(true),
-	m_isbound(false),
-	m_isbuffered(false),
-	m_isrendertarget(true)
-{
+//Texture::Texture(const bool isRenderTarget, GLsizei _width, GLsizei _height) :
+//	m_filepath(""),
+//	m_texture(0),
+//	m_name(""),
+//	m_sizex(_width),
+//	m_sizey(_height),
+//	m_id(IDProvider::createID()),
+//	m_isloaded(true),
+//	m_isbound(false),
+//	m_isbuffered(false),
+//	m_isrendertarget(true)
+//{
+//
+//}
 
-}
-
-Texture::Texture(const bool isRenderTarget, GLsizei _width, GLsizei _height, const std::string& _name) :
-m_filepath(""),
-m_texture(0),
-m_name(_name),
-m_sizex(_width),
-m_sizey(_height),
-m_id(IDProvider::createID()),
-m_isloaded(true),
-m_isbound(false),
-m_isbuffered(false),
-m_isrendertarget(true)
-{
-
-}
+//Texture::Texture(const bool isRenderTarget, GLsizei _width, GLsizei _height, const std::string& _name) :
+//m_filepath(""),
+//m_texture(0),
+//m_name(_name),
+//m_sizex(_width),
+//m_sizey(_height),
+//m_id(IDProvider::createID()),
+//m_isloaded(true),
+//m_isbound(false),
+//m_isbuffered(false),
+//m_isrendertarget(true)
+//{
+//
+//}
 
 Texture::~Texture()
 {
@@ -169,16 +169,41 @@ bool Texture::loadGLTexture(GLenum _wrapmodes, GLenum _wrapmodet, GLenum _minfil
 
 								for (size_t i = 0; i < m_data[0].size(); i++)
 								{
-									glCompressedTexImage2D(
-										GL_TEXTURE_2D,
-										m_data[0][i].getLevel(),
-										m_data[0][i].getFormat(),
-										m_data[0][i].getSizeX(),
-										m_data[0][i].getSizeY(),
-										0, m_data[0][i].getData().size(),
-										m_data[0][i].getData().data()
-										); GLERR
+									TEXFORMAT tf = m_data[0][i].getTexFormat();
+									switch (tf)
+									{ 
+										case TF_DXT:
+											glCompressedTexImage2D(
+												GL_TEXTURE_2D,
+												m_data[0][i].getLevel(),
+												m_data[0][i].getFormat(),
+												m_data[0][i].getSizeX(),
+												m_data[0][i].getSizeY(),
+												0, m_data[0][i].getData().size(),
+												m_data[0][i].getData().data()
+												); GLERR
+												break;
+										case TF_ARGB8888:
+											glTexImage2D(GL_TEXTURE_2D,
+												m_data[0][i].getLevel(),
+												GL_RGBA8,
+												m_data[0][i].getSizeX(),
+												m_data[0][i].getSizeY(),
+												0,
+												GL_RGBA,
+												GL_UNSIGNED_BYTE,
+												m_data[0][i].getData().data()); GLERR
+											break;
+										case TF_RGBA32F:
+											std::cout << "RGBA32F format is not supported yet.\n";
+											m_isbuffered = false;
+											break;
+										default:
+											std::cout << "Image2D must have TF_DXT, TF_ARGB8888 or TF_RGBA32F format to be bound.\n";
+											m_isbuffered = false;
+									}
 								}
+
 								//glBindTexture(GL_TEXTURE_2D, 0);
 
 								

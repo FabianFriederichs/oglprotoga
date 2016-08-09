@@ -18,12 +18,12 @@ class Texture
 	friend class DDSLoader;
 public:	
 	Texture();
-	Texture(const Texture& _other);
-	Texture(const std::string& _filepath); //single texture
-	Texture(const std::string& _filepath, const std::string& _name); //single texture
-	Texture(const bool isRenderTarget, GLsizei _width, GLsizei _height);
-	Texture(const bool isRenderTarget, GLsizei _width, GLsizei _height, const std::string& _name);
-	~Texture();
+	Texture(const Texture& _other); //
+	Texture(const std::string& _filepath); //single file texture
+	Texture(const std::string& _filepath, const std::string& _name); //single file texture
+	Texture(GLsizei _width, GLsizei _height);
+	Texture(GLsizei _width, GLsizei _height, const std::string& _name);
+	virtual ~Texture();
 
 	bool loadData();
 	bool unloadData();
@@ -33,6 +33,9 @@ public:
 	//load / unload texture to ogl
 	bool loadGLTexture(GLenum _wrapmodes, GLenum _wrapmodet, GLenum _minfilter, GLenum _magfilter);
 	bool bindToTextureUnit(GLuint _unit);
+	bool unbindFromTextureUnit(GLuint _unit);
+	bool bind();
+	bool unbind();
 	bool freeGLTexture();
 
 	//getters / setters
@@ -45,7 +48,7 @@ public:
 
 	void setSize(GLuint _x, GLuint _y) { this->m_sizex = _x; this->m_sizey = _y; }
 	void setType(TEXTYPE _type) { this->m_type = _type; }
-
+		
 	std::vector<std::vector<Image2D>>& getDataRef() { return m_data; }
 
 	const bool isLoaded() { return m_isloaded; }
@@ -57,8 +60,8 @@ public:
 	void addSurface(const std::vector<Image2D>& _mipmappedimg) { m_data.push_back(_mipmappedimg); }
 	void addMipMap(const int _surfaceindex, const Image2D& _image);
 
-	const int getSurfaceCount() const { return m_data.size(); }
-	const int getMipMapCount(int _surfaceindex) const { try { return m_data[_surfaceindex].size(); } catch (std::exception) { return -1; } }
+	const int getFaceCount() const { return m_faces.size(); }
+	const int getMipMapCount(int _surfaceindex) const { try { return m_faces[_surfaceindex]; } catch (std::exception) { return -1; } }
 
 private:
 	GLint m_id;
@@ -66,10 +69,17 @@ private:
 	GLuint m_texture;
 	std::string m_filepath;
 	std::string m_name;
+	//size of level0 texture
 	GLuint m_sizex;
 	GLuint m_sizey;
+
+	//This is just for caching data from external texture files
 	std::vector<std::vector<Image2D>> m_data; //faces->mipmaps of face->image data in Image2D
 
+	//count faces and mipmaps
+	std::vector<GLint> m_faces; //each face has GLint mipmaps
+
+	//Type of the texture
 	TEXTYPE m_type;
 
 	bool m_isloaded;
@@ -77,6 +87,8 @@ private:
 	bool m_isbound;
 	bool m_isrendertarget;
 
-	GLenum m_rtinternalformat;
-	GLenum m_rtformat;
+	//these formats are used when creating and bindung textures for offscreen rendering
+	GLint m_internalformat;
+	GLenum m_format;
+	GLenum m_gltype;
 };

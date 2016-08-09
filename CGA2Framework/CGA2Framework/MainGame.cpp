@@ -69,6 +69,11 @@ void MainGame::mscrcallback(double xoffset, double yoffset)
 GLvoid MainGame::update(GLdouble time)
 {
 	(*m_scene->m_pointlights.begin())->getTransform().setTranslate(m_scene->m_camera->GetPosition());
+
+
+	/*(*m_scene->m_directionallights.begin())->m_direction.x = (glm::rotate(0.05f, glm::vec3(0.0f, 0.0f, 1.0f)) * vec4((*m_scene->m_directionallights.begin())->m_direction, 1.0f)).x;
+	(*m_scene->m_directionallights.begin())->m_direction.y = (glm::rotate(0.05f, glm::vec3(0.0f, 0.0f, 1.0f)) * vec4((*m_scene->m_directionallights.begin())->m_direction, 1.0f)).y;
+	(*m_scene->m_directionallights.begin())->m_direction.z = (glm::rotate(0.05f, glm::vec3(0.0f, 0.0f, 1.0f)) * vec4((*m_scene->m_directionallights.begin())->m_direction, 1.0f)).z;*/
 }
 
 GLvoid MainGame::render(GLdouble time)

@@ -15,16 +15,16 @@ void TestScene::load()
 
 	//load testmodel "uglypot"
 	std::list<Model*> models = OBJLoader::loadOBJ("Assets\\Models\\uglypot.obj");
-	Texture* wooddiff = DDSLoader::loadDDSTex("Assets\\Materials\\wooddiff.dds");
-	Texture* woodspec = DDSLoader::loadDDSTex("Assets\\Materials\\woodspec.dds");
-	Texture* woodgloss = DDSLoader::loadDDSTex("Assets\\Materials\\woodgloss.dds");
-	Texture* woodnormal = DDSLoader::loadDDSTex("Assets\\Materials\\woodnormal.dds");
-	Texture* woodheight = DDSLoader::loadDDSTex("Assets\\Materials\\woodheight.dds");
-	Texture* metaldiff = DDSLoader::loadDDSTex("Assets\\Materials\\metaldiff.dds");
-	Texture* metalspec = DDSLoader::loadDDSTex("Assets\\Materials\\metalspec.dds");
-	Texture* metalgloss = DDSLoader::loadDDSTex("Assets\\Materials\\metalgloss.dds");
-	Texture* metalnormal = DDSLoader::loadDDSTex("Assets\\Materials\\metalnormal.dds");
-	Texture* metalheight = DDSLoader::loadDDSTex("Assets\\Materials\\metalheight.dds");
+	Texture* wooddiff = DDSLoader::loadDDSTex("Assets\\Materials\\wooddiff_RGBA32UI.dds");
+	Texture* woodspec = DDSLoader::loadDDSTex("Assets\\Materials\\woodspec_RGBA32UI.dds");
+	Texture* woodgloss = DDSLoader::loadDDSTex("Assets\\Materials\\woodgloss_RGBA32UI.dds");
+	Texture* woodnormal = DDSLoader::loadDDSTex("Assets\\Materials\\woodnormal_RGBA32UI.dds");
+	Texture* woodheight = DDSLoader::loadDDSTex("Assets\\Materials\\woodheight_RGBA32UI.dds");
+	Texture* metaldiff = DDSLoader::loadDDSTex("Assets\\Materials\\metaldiff_RGBA32UI.dds");
+	Texture* metalspec = DDSLoader::loadDDSTex("Assets\\Materials\\metalspec_RGBA32UI.dds");
+	Texture* metalgloss = DDSLoader::loadDDSTex("Assets\\Materials\\metalgloss_RGBA32UI.dds");
+	Texture* metalnormal = DDSLoader::loadDDSTex("Assets\\Materials\\metalnormal_RGBA32UI.dds");
+	Texture* metalheight = DDSLoader::loadDDSTex("Assets\\Materials\\metalheight_RGBA32UI.dds");
 	//this thing will be forward shaded
 	ForwardShader* forward = new ForwardShader();
 	forward->load("BaseVertex.vert", "BaseFrag.frag");

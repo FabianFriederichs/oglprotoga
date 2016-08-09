@@ -168,7 +168,7 @@ bool DDSLoader::loadDDSTex(const std::string& _filepath, Texture& tex)
 						}
 						else
 						{
-							Image2D im(format, components, curw, curh, i, buffer);
+							Image2D im(format, TF_DXT, components, curw, curh, i, buffer);
 							data.push_back(im);
 						}
 
@@ -196,7 +196,7 @@ bool DDSLoader::loadDDSTex(const std::string& _filepath, Texture& tex)
 					{
 						file.close();
 						//process data
-						Image2D im(format, components, _header.dwWidth, _header.dwHeight, 0, buffer);
+						Image2D im(format, TF_DXT, components, _header.dwWidth, _header.dwHeight, 0, buffer);
 						std::vector<Image2D> imvec;
 						imvec.push_back(im);
 						tex.addSurface(imvec);
@@ -208,9 +208,79 @@ bool DDSLoader::loadDDSTex(const std::string& _filepath, Texture& tex)
 			}
 			else //uncompressed texture
 			{
-				file.close();
-				std::cerr << "DDS loader: Uncompressed textures are not supported yet." << std::endl;
-				return false;
+				if ((_header.dwFlags & (DDPF_RGB | DDPF_ALPHA)) && (_header.ddspf.dwRGBBitCount == 32)) //uncompressed R8G8B8A8 data?
+				{
+					if ((_header.dwFlags & DDSD_MIPMAPCOUNT) && (_header.dwCaps & DDSCAPS_COMPLEX)) //DDS contains mipmaps
+					{
+						unsigned long bufsize = 0;
+						unsigned long curw = _header.dwWidth;
+						unsigned long curh = _header.dwHeight;
+						DWORD format = GL_RGBA32UI;		//RGBA32 unsigned integer data
+
+						std::vector<Image2D> data;
+						for (DWORD i = 0; i < _header.dwMipMapCount; i++)
+						{
+							bufsize = ((curw * 32 + 7) / 8) * curh;
+							std::vector<unsigned char> buffer;
+							buffer.resize(bufsize);
+
+							if (!file.read((char*)&buffer[0], bufsize))
+							{
+								std::cerr << "DDS loader: An error occured while reading DDS data." << std::endl;
+								file.close();
+								return false;
+							}
+							else
+							{
+								Image2D im(format, TF_ARGB8888, 4, curw, curh, i, buffer);
+								data.push_back(im);
+							}
+
+							curw = (curw > 1 ? curw / 2 : 1);
+							curh = (curh > 1 ? curh / 2 : 1);
+						}
+						file.close();
+						tex.addSurface(data);
+						tex.setSize(_header.dwWidth, _header.dwHeight);
+						tex.setType(type);
+						tex.m_isloaded = true;
+						return true;
+					}
+					else if (_header.dwMipMapCount == 0) //no mipmaps
+					{
+						unsigned long bufsize = ((_header.dwWidth * 32 + 7) / 8) * _header.dwHeight;
+						DWORD format = GL_RGBA32UI;
+						std::vector<unsigned char> buffer;
+						buffer.resize(bufsize);
+						if (!file.read((char*)&buffer[0], bufsize))
+						{
+							std::cerr << "DDS loader: An error occured while reading DDS data." << std::endl;
+							file.close();
+							//delete tex;
+							return false;
+						}
+						else
+						{
+							file.close();
+							//process data
+							Image2D im(format, TF_ARGB8888, 4, _header.dwWidth, _header.dwHeight, 0, buffer);
+							std::vector<Image2D> imvec;
+							imvec.push_back(im);
+							tex.addSurface(imvec);
+							tex.setType(type);
+							tex.setSize(_header.dwWidth, _header.dwHeight);
+							tex.m_isloaded = true;
+							return true;
+						}
+					}
+				}
+				else
+				{
+					file.close();
+					std::cerr << "DDS loader: The format is not supported yet." << std::endl;
+					//delete tex;
+					return false;
+				}
 			}
 			break;
 		case TEX_CUBEMAP:
@@ -330,7 +400,7 @@ Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 						}
 						else
 						{
-							Image2D im(format, components, curw, curh, i, buffer);
+							Image2D im(format,TF_DXT, components, curw, curh, i, buffer);
 							data.push_back(im);
 						}
 
@@ -360,7 +430,7 @@ Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 					{
 						file.close();
 						//process data
-						Image2D im(format, components, _header.dwWidth, _header.dwHeight, 0, buffer);
+						Image2D im(format,TF_DXT, components, _header.dwWidth, _header.dwHeight, 0, buffer);
 						std::vector<Image2D> imvec;
 						imvec.push_back(im);
 						tex->addSurface(imvec);
@@ -373,10 +443,79 @@ Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 			}
 			else //uncompressed texture
 			{
-				file.close();
-				std::cerr << "DDS loader: Uncompressed textures are not supported yet." << std::endl;
-				delete tex;
-				return 0;
+				if ((_header.ddspf.dwFlags & (DDPF_RGB | DDPF_ALPHA)) && (_header.ddspf.dwRGBBitCount == 32)) //uncompressed R8G8B8A8 data?
+				{
+					if ((_header.dwFlags & DDSD_MIPMAPCOUNT) && (_header.dwCaps & DDSCAPS_COMPLEX)) //DDS contains mipmaps
+					{
+						unsigned long bufsize = 0;
+						unsigned long curw = _header.dwWidth;
+						unsigned long curh = _header.dwHeight;
+						DWORD format = GL_RGBA32UI;		//RGBA32 unsigned integer data
+						
+						std::vector<Image2D> data;
+						for (DWORD i = 0; i < _header.dwMipMapCount; i++)
+						{
+							bufsize = ((curw * 32 + 7) / 8) * curh;
+							std::vector<unsigned char> buffer;
+							buffer.resize(bufsize);
+
+							if (!file.read((char*)&buffer[0], bufsize))
+							{
+								std::cerr << "DDS loader: An error occured while reading DDS data." << std::endl;
+								file.close();
+								return tex;
+							}
+							else
+							{
+								Image2D im(format, TF_ARGB8888, 4, curw, curh, i, buffer);
+								data.push_back(im);
+							}
+
+							curw = (curw > 1 ? curw / 2 : 1);
+							curh = (curh > 1 ? curh / 2 : 1);
+						}
+						file.close();
+						tex->addSurface(data);
+						tex->setSize(_header.dwWidth, _header.dwHeight);
+						tex->setType(type);
+						tex->m_isloaded = true;
+						return tex;
+					}
+					else if (_header.dwMipMapCount == 0) //no mipmaps
+					{
+						unsigned long bufsize = ((_header.dwWidth * 32 + 7) / 8) * _header.dwHeight;
+						DWORD format = GL_RGBA32UI;
+						std::vector<unsigned char> buffer;
+						buffer.resize(bufsize);
+						if (!file.read((char*)&buffer[0], bufsize))
+						{
+							std::cerr << "DDS loader: An error occured while reading DDS data." << std::endl;
+							file.close();
+							delete tex;
+							return 0;
+						}
+						else
+						{
+							file.close();
+							//process data
+							Image2D im(format,TF_RGBA32F, 4, _header.dwWidth, _header.dwHeight, 0, buffer);
+							std::vector<Image2D> imvec;
+							imvec.push_back(im);
+							tex->addSurface(imvec);
+							tex->setType(type);
+							tex->setSize(_header.dwWidth, _header.dwHeight);
+							tex->m_isloaded = true;
+							return tex;
+						}
+					}
+				}
+				else
+				{
+					file.close();
+					std::cerr << "DDS loader: The format is not supported yet." << std::endl;
+					delete tex;
+					return 0;
+				}				
 			}
 			break;
 		case TEX_CUBEMAP:
