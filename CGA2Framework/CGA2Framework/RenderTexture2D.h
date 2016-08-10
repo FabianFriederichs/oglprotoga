@@ -9,8 +9,8 @@ public:
 	~RenderTexture2D();
 
 	//buffering and binding
-	virtual bool buffer() = 0;	//created gl texture can be accessed via getGLTexture()
-	virtual bool unbuffer() = 0;
+	virtual bool allocateGlTex() = 0;	//created gl texture can be accessed via getGLTexture()
+	virtual bool freeGlTex() = 0;
 	virtual bool bind() = 0;
 	virtual bool bindToTextureUnit(const GLuint _unit) = 0;
 	virtual bool unbind() = 0;

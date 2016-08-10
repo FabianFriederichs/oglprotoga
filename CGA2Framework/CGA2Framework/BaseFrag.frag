@@ -95,6 +95,9 @@ void main()
 		outcol += CalcDirLight(dirlights[i]);
 	}
 
+	//color = vec4(outcol, 1);
+	//return;
+
 	for(int i = 0; i < pointlightcount; i++)
 	{
 		float dist = length(pointlights[i].lightpos - vertexdat.pos);
@@ -115,7 +118,7 @@ void main()
 
     color = vec4(outcol, 1.0f);
 
-	//color = texture(material.mtex[4], vec2(vertexdat.uv.x, -vertexdat.uv.y));
+	//color = texture(material.mtex[4], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y));
 }
 
 vec3 CalcDirLight(DirLight light)
@@ -124,16 +127,17 @@ vec3 CalcDirLight(DirLight light)
     vec3 ambient = 0.1f * vec3(texture(material.mtex[0], vec2(vertexdat.uv.x, vertexdat.uv.y)));
   	
     // Diffuse 
-    vec3 norm = vertexdat.TBN * normalize(texture(material.mtex[3], vec2(vertexdat.uv.x, vertexdat.uv.y)).rgb);
+    vec3 norm = vertexdat.TBN * normalize(texture(material.mtex[3], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb);
     vec3 lightDir = normalize(-light.lightdir);  
     float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = light.lightcol.rgb * diff * texture(material.mtex[0], vec2(vertexdat.uv.x, vertexdat.uv.y)).rgb;  
+	//return vec3(diff, diff, diff);
+    vec3 diffuse = light.lightcol.rgb * diff * texture(material.mtex[0], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb;  
     
     // Specular
     vec3 viewDir = normalize(camerapos - vertexdat.pos);
     vec3 reflectDir = reflect(-lightDir, norm);  
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), clamp(texture(material.mtex[2], vec2(vertexdat.uv.x, vertexdat.uv.y)).r, 0.0f, 1.0f) * MAX_SHININESS);
-    vec3 specular = light.lightcol.rgb * spec * texture(material.mtex[1], vec2(vertexdat.uv.x, vertexdat.uv.y)).rgb;
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), clamp(texture(material.mtex[2], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).r, 0.0f, 1.0f) * MAX_SHININESS);
+    vec3 specular = light.lightcol.rgb * spec * texture(material.mtex[1], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb;
             
     return ambient + diffuse + specular;  
 }
@@ -141,19 +145,19 @@ vec3 CalcDirLight(DirLight light)
 vec3 CalcPointLight(PointLight light)
 {
 	// Ambient
-    vec3 ambient = 0.1f * texture(material.mtex[0], vec2(vertexdat.uv.x, -vertexdat.uv.y)).rgb;
+    vec3 ambient = 0.1f * texture(material.mtex[0], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb;
   	
     // Diffuse 
-    vec3 norm = vertexdat.TBN * normalize(texture(material.mtex[3], vec2(vertexdat.uv.x, -vertexdat.uv.y)).rgb);
+    vec3 norm = vertexdat.TBN * normalize(texture(material.mtex[3], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb);
     vec3 lightDir = normalize(light.lightpos - vertexdat.pos);
     float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = light.lightcol.rgb * diff * texture(material.mtex[0], vec2(vertexdat.uv.x, -vertexdat.uv.y)).rgb;  
+    vec3 diffuse = light.lightcol.rgb * diff * texture(material.mtex[0], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb;  
     
     // Specular
     vec3 viewDir = normalize(camerapos - vertexdat.pos);
     vec3 reflectDir = reflect(-lightDir, norm);  
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), clamp(texture(material.mtex[2], vec2(vertexdat.uv.x, -vertexdat.uv.y)).r, 0.0f, 1.0f) * MAX_SHININESS);
-    vec3 specular = light.lightcol.rgb * spec *  texture(material.mtex[1], vec2(vertexdat.uv.x, -vertexdat.uv.y)).rgb;
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), clamp(texture(material.mtex[2], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).r, 0.0f, 1.0f) * MAX_SHININESS);
+    vec3 specular = light.lightcol.rgb * spec *  texture(material.mtex[1], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb;
     
     // Attenuation
     float distance    = length(light.lightpos - vertexdat.pos);
@@ -174,16 +178,16 @@ vec3 CalcSpotLight(SpotLight light)
 	if(theta > light.innercone) 
 	{       
 		  // Diffuse 
-		vec3 norm = vertexdat.TBN * normalize(texture(material.mtex[3], vec2(vertexdat.uv.x, -vertexdat.uv.y)).rgb);   
+		vec3 norm = vertexdat.TBN * normalize(texture(material.mtex[3], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb);   
     
 		float diff = max(dot(norm, lightDir), 0.0);
-		vec3 diffuse = light.lightcol.rgb * diff * texture(material.mtex[0], vec2(vertexdat.uv.x, -vertexdat.uv.y)).rgb;  
+		vec3 diffuse = light.lightcol.rgb * diff * texture(material.mtex[0], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb;  
     
 		// Specular
 		vec3 viewDir = normalize(camerapos - vertexdat.pos);
 		vec3 reflectDir = reflect(-lightDir, norm);  
-		float spec = pow(max(dot(viewDir, reflectDir), 0.0), clamp(texture(material.mtex[2], vec2(vertexdat.uv.x, -vertexdat.uv.y)).r, 0.0f, 1.0f) * MAX_SHININESS);
-		vec3 specular = light.lightcol.rgb * spec *  texture(material.mtex[1], vec2(vertexdat.uv.x, -vertexdat.uv.y)).rgb;
+		float spec = pow(max(dot(viewDir, reflectDir), 0.0), clamp(texture(material.mtex[2], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).r, 0.0f, 1.0f) * MAX_SHININESS);
+		vec3 specular = light.lightcol.rgb * spec *  texture(material.mtex[1], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb;
     
 		// Spotlight (soft edges)
 		theta = dot(lightDir, normalize(-light.lightdir)); 
@@ -202,7 +206,7 @@ vec3 CalcSpotLight(SpotLight light)
 		return diffuse + specular;
 	}
 	else  // else, use ambient light so scene isn't completely dark outside the spotlight.
-		return 0.1f * texture(material.mtex[0], vec2(vertexdat.uv.x, -vertexdat.uv.y)).rgb;
+		return 0.1f * texture(material.mtex[0], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb;
     
     
 }
