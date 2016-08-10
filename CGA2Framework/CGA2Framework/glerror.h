@@ -10,4 +10,9 @@
 #endif
 
 void printglerror();
+//for printing a previous read error
+void printglerror(GLenum err);
+
+//check for error, print it and return true/false if error occured
+bool checkglerror();
 	

@@ -14,6 +14,7 @@
 #include "OBJLoader.h"
 #include "DDSLoader.h"
 #include "glerror.h"
+#include "Texture2D.h"
 /*
 	Keep track of Entity-Shader relations (Map with shader ID as key?)
 	=> Mesh now has a Shader pointer
@@ -51,8 +52,8 @@ public:
 	std::list<Model*> m_models;
 	void addModel(Model* _model);
 
-	std::list<Texture*> m_textures;
-	void addTexture(Texture* _texture);
+	std::list<Texture2D*> m_textures;
+	void addTexture(Texture2D* _texture);
 
 	std::list<DirectionalLight*> m_directionallights;
 	void addDirectionalLight(DirectionalLight* _directionallight);

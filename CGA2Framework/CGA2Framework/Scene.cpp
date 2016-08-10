@@ -99,7 +99,7 @@ void Scene::addMaterial(Material* _material)
 	m_materials.push_back(_material);
 }
 
-void Scene::addTexture(Texture* _texture)
+void Scene::addTexture(Texture2D* _texture)
 {
 	m_textures.push_back(_texture);
 }
@@ -170,7 +170,7 @@ void Scene::clear()
 	}
 	m_materials.clear();
 
-	for each(Texture* t in m_textures)
+	for each(Texture2D* t in m_textures)
 	{
 		if (t != nullptr)
 			delete t;

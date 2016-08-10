@@ -1,7 +1,8 @@
 #include "TextureCB.h"
 
 
-TextureCB::TextureCB()
+TextureCB::TextureCB():
+	Texture(TEX_CUBEMAP)
 {
 }
 

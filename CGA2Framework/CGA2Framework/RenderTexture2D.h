@@ -1,21 +1,19 @@
 #pragma once
-#include "headers.h"
 #include "Texture.h"
-#include "Image2D.h"
-class Texture2D :
+class RenderTexture2D :
 	public Texture
 {
 public:
-	Texture2D();
-	Texture2D(const std::string& _name);
-	Texture2D(const GLint _width, const GLint _height, const std::string& _name);
-	~Texture2D();
+	RenderTexture2D();
+	RenderTexture2D(const std::string& _name);
+	~RenderTexture2D();
 
-	bool buffer();	//created gl texture can be accessed via getGLTexture()
-	bool unbuffer();
-	bool bind();
-	bool bindToTextureUnit(const GLuint _unit);
-	bool unbind();
+	//buffering and binding
+	virtual bool buffer() = 0;	//created gl texture can be accessed via getGLTexture()
+	virtual bool unbuffer() = 0;
+	virtual bool bind() = 0;
+	virtual bool bindToTextureUnit(const GLuint _unit) = 0;
+	virtual bool unbind() = 0;
 
 	//getters / setters
 	GLint getWidth() { return m_width; }
@@ -27,7 +25,6 @@ public:
 	GLint getGLInternalFormat() const { return m_glinternalformat; }
 	GLenum getGLFormat() const { return m_glformat; }
 	GLenum getGLType() const { return m_gltype; }
-	GLint getMipMapCount() const { return m_data.size(); }
 
 	GLenum getWrapModeS() const { return m_wrapmodes; }
 	GLenum getWrapModeT() const { return m_wrapmodet; }
@@ -51,14 +48,12 @@ public:
 		m_magfilter = _maxfilter;
 	}
 
-	void addMipMap(const Image2D& _image);
-
 
 protected:
-	std::vector<Image2D> m_data; // Texture2D has 1 face and a arbitrary number of mipmaps
-	//format stuff
-	GLint m_width;	
+	GLint m_width;
 	GLint m_height;
+
+	//format
 	GLint m_glinternalformat;
 	GLenum m_glformat;
 	GLenum m_gltype;

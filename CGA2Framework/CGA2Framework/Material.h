@@ -1,6 +1,6 @@
 #pragma once
 #include "headers.h"
-#include "Texture.h"
+#include "Texture2D.h"
 #include "IDProvider.h"
 #include "Shader.h"
 #include "glerror.h"
@@ -17,7 +17,7 @@ public:
 		const GLfloat _alpha);
 
 	Material(const std::string& _name,
-		const std::vector<Texture*>& _textures,
+		const std::vector<Texture2D*>& _textures,
 		const glm::vec4& _ambientcolor,
 		const glm::vec4& _diffusecolor,
 		const glm::vec4& _specularcolor,
@@ -50,17 +50,17 @@ public:
 
 	//Textures
 	void removeTexture(const GLint _id);
-	void addTexture(Texture* _texture);
-	std::vector<Texture*>& getTextures() { return m_textures; }
+	void addTexture(Texture2D* _texture);
+	std::vector<Texture2D*>& getTextures() { return m_textures; }
 	GLint getTextureCount();
-	Texture* getTexture(const int _id);
+	Texture2D* getTexture(const int _id);
 
 	void setMaterialUniforms();
 
 private:
 	GLint m_id;							//each material has a unique id
 	std::string m_name;
-	std::vector<Texture*> m_textures;  //i.e. <diffuse_map, specular_map, normal_map, height_map> -> holds all data for standard shading, normal mapping, bump mapping, parallax mapping (normalmap + heightmap), displacement mapping
+	std::vector<Texture2D*> m_textures;  //i.e. <diffuse_map, specular_map, normal_map, height_map> -> holds all data for standard shading, normal mapping, bump mapping, parallax mapping (normalmap + heightmap), displacement mapping
 	//standard phong stuff
 	glm::vec4 m_ambientcolor;			//if no diffuse_map given
 	glm::vec4 m_diffusecolor;			//if no diffuse_map given

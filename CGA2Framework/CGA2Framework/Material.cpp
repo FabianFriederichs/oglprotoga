@@ -35,7 +35,7 @@ Material::Material(const std::string& _name,
 }
 
 Material::Material(const std::string& _name,
-	const std::vector<Texture*>& _textures,
+	const std::vector<Texture2D*>& _textures,
 	const glm::vec4& _ambientcolor,
 	const glm::vec4& _diffusecolor,
 	const glm::vec4& _specularcolor,
@@ -76,14 +76,14 @@ Material::~Material()
 
 }
 
-void Material::addTexture(Texture* _texture)
+void Material::addTexture(Texture2D* _texture)
 {
 	m_textures.push_back(_texture);
 }
 
 void Material::removeTexture(const GLint _id)
 {
-	m_textures.erase(std::remove_if(m_textures.begin(), m_textures.end(), [_id](const Texture* x)
+	m_textures.erase(std::remove_if(m_textures.begin(), m_textures.end(), [_id](const Texture2D* x)
 	{
 		return x->getID() == _id;
 	}), m_textures.end());
@@ -94,9 +94,9 @@ GLint Material::getTextureCount()
 	return m_textures.size();
 }
 
-Texture* Material::getTexture(const GLint _id)
+Texture2D* Material::getTexture(const GLint _id)
 {
-	for (std::vector<Texture*>::iterator it = m_textures.begin(); it != m_textures.end(); it++)
+	for (std::vector<Texture2D*>::iterator it = m_textures.begin(); it != m_textures.end(); it++)
 	{
 		if ((*it)->getID() == _id)
 			return (*it);
@@ -134,16 +134,16 @@ void Material::setMaterialUniforms()
 	//textures
 	for (GLint i = 0; i < this->getTextures().size(); i++)
 	{
-		if (!this->getTextures()[i]->isLoaded())
+		/*if (!this->getTextures()[i]->isLoaded())
 		{
 			if (!this->getTextures()[i]->loadData())
 			{
 				std::cerr << "ERROR: Texture could not be loaded from file.\n";
 			}
-		}
+		}*/
 		if (!this->getTextures()[i]->isBuffered())
 		{
-			if (!this->getTextures()[i]->loadGLTexture(GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR))
+			if (!this->getTextures()[i]->buffer())
 			{
 				std::cerr << "ERROR: Texture could not be loaded by OpenGL.\n";
 			}

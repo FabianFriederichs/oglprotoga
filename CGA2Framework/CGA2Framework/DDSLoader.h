@@ -1,5 +1,5 @@
 #pragma once
-#include "Texture.h"
+#include "Texture2D.h"
 #include "Image2D.h"
 #include "dds.h"
 

@@ -15,19 +15,30 @@ void TestScene::load()
 
 	//load testmodel "uglypot"
 	std::list<Model*> models = OBJLoader::loadOBJ("Assets\\Models\\uglypot.obj");
-	Texture* wooddiff = DDSLoader::loadDDSTex("Assets\\Materials\\wooddiff_RGBA32UI.dds");
-	Texture* woodspec = DDSLoader::loadDDSTex("Assets\\Materials\\woodspec_RGBA32UI.dds");
-	Texture* woodgloss = DDSLoader::loadDDSTex("Assets\\Materials\\woodgloss_RGBA32UI.dds");
-	Texture* woodnormal = DDSLoader::loadDDSTex("Assets\\Materials\\woodnormal_RGBA32UI.dds");
-	Texture* woodheight = DDSLoader::loadDDSTex("Assets\\Materials\\woodheight_RGBA32UI.dds");
-	Texture* metaldiff = DDSLoader::loadDDSTex("Assets\\Materials\\metaldiff_RGBA32UI.dds");
-	Texture* metalspec = DDSLoader::loadDDSTex("Assets\\Materials\\metalspec_RGBA32UI.dds");
-	Texture* metalgloss = DDSLoader::loadDDSTex("Assets\\Materials\\metalgloss_RGBA32UI.dds");
-	Texture* metalnormal = DDSLoader::loadDDSTex("Assets\\Materials\\metalnormal_RGBA32UI.dds");
-	Texture* metalheight = DDSLoader::loadDDSTex("Assets\\Materials\\metalheight_RGBA32UI.dds");
+	Texture2D* wooddiff = dynamic_cast<Texture2D*>(DDSLoader::loadDDSTex("Assets\\Materials\\wooddiff_RGBA32UI.dds"));
+	Texture2D* woodspec = dynamic_cast<Texture2D*>(DDSLoader::loadDDSTex("Assets\\Materials\\woodspec_RGBA32UI.dds"));
+	Texture2D* woodgloss = dynamic_cast<Texture2D*>(DDSLoader::loadDDSTex("Assets\\Materials\\woodgloss_RGBA32UI.dds"));
+	Texture2D* woodnormal = dynamic_cast<Texture2D*>(DDSLoader::loadDDSTex("Assets\\Materials\\woodnormal_RGBA32UI.dds"));
+	Texture2D* woodheight = dynamic_cast<Texture2D*>(DDSLoader::loadDDSTex("Assets\\Materials\\woodheight_RGBA32UI.dds"));
+	Texture2D* metaldiff = dynamic_cast<Texture2D*>(DDSLoader::loadDDSTex("Assets\\Materials\\metaldiff_RGBA32UI.dds"));
+	Texture2D* metalspec = dynamic_cast<Texture2D*>(DDSLoader::loadDDSTex("Assets\\Materials\\metalspec_RGBA32UI.dds"));
+	Texture2D* metalgloss = dynamic_cast<Texture2D*>(DDSLoader::loadDDSTex("Assets\\Materials\\metalgloss_RGBA32UI.dds"));
+	Texture2D* metalnormal = dynamic_cast<Texture2D*>(DDSLoader::loadDDSTex("Assets\\Materials\\metalnormal_RGBA32UI.dds"));
+	Texture2D* metalheight = dynamic_cast<Texture2D*>(DDSLoader::loadDDSTex("Assets\\Materials\\metalheight_RGBA32UI.dds"));
 	//this thing will be forward shaded
 	ForwardShader* forward = new ForwardShader();
 	forward->load("BaseVertex.vert", "BaseFrag.frag");
+
+	addTexture(wooddiff);
+	addTexture(woodspec);
+	addTexture(woodgloss);
+	addTexture(woodnormal);
+	addTexture(woodheight);
+	addTexture(metaldiff);
+	addTexture(metalspec);
+	addTexture(metalgloss);
+	addTexture(metalnormal);
+	addTexture(metalheight);
 
 	//load wood and metal material
 	Material* wood = new Material();

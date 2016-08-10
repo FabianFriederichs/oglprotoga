@@ -15,20 +15,21 @@ class Image2D
 public:
 	Image2D();
 	Image2D(const Image2D& _other);
-	Image2D(const DWORD _format, const TEXFORMAT _texformat, const DWORD _components, const GLsizei _width, const GLsizei _height, const GLuint _level, const std::vector<unsigned char>& _data);
-	Image2D(const DWORD _format, const DWORD _components, const GLsizei _width, const GLsizei _height, const GLuint _level, const std::vector<unsigned char>& _data);
+	Image2D(const GLint _glinternalformat, const GLenum _glformat, const GLenum _gltype, const DWORD _components, const GLsizei _width, const GLsizei _height, const GLuint _level, const std::vector<unsigned char>& _data);
 	~Image2D();
 
-	const DWORD getFormat() const { return m_format; }
-	const TEXFORMAT getTexFormat() const { return m_texformat; }
+	GLint getGLInternalFormat() const { return m_glinternalformat; }
+	GLenum getGLFormat() const { return m_glformat; }
+	GLenum getGLType() const { return m_gltype; }
 	const DWORD getComponents() const { return m_components; }
 	const GLint getLevel() const { return m_level; }
 	const GLsizei getSizeX() const { return m_sizex; }
 	const GLsizei getSizeY() const { return m_sizey; }
 	const std::vector<unsigned char>& getData() { return m_data; }
 
-	void setFormat(const DWORD _format) { m_format = _format; }
-	void setTexFormat(const TEXFORMAT _format) { m_texformat = _format; }
+	void setGLInternalFormat(const GLint _format) { m_glinternalformat = _format; }
+	void setGLFormat(const GLenum _format) { m_glformat = _format; }
+	void setGLType(const GLenum _type) { m_gltype = _type; }
 	void setComponents(const DWORD _components) { m_components = _components; }
 	void setSize(const GLsizei _width, const GLsizei _height) { m_sizex = _width; m_sizey = _height; }
 	void setLevel(const GLuint _level) { m_level = _level; }
@@ -37,8 +38,9 @@ public:
 private:	
 	std::vector<unsigned char> m_data;
 	GLuint m_level;
-	DWORD m_format;
-	TEXFORMAT m_texformat;
+	GLint m_glinternalformat;
+	GLenum m_glformat;
+	GLenum m_gltype;
 	DWORD m_components;
 	GLsizei m_sizex;
 	GLsizei m_sizey;
