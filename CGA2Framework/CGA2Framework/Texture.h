@@ -25,6 +25,9 @@ public:
 	Texture(GLsizei _width, GLsizei _height, const std::string& _name);
 	virtual ~Texture();
 
+	//public interface for each texture
+
+
 	bool loadData();
 	bool unloadData();
 
