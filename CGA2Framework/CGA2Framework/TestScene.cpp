@@ -72,7 +72,7 @@ void TestScene::load()
 	DirectionalLight* dirlight = new DirectionalLight(glm::vec3(1.0f, -1.0f, -1.0f), Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)), glm::vec4(1.0f, 1.0f, 0.8f, 1.0f));
 	addDirectionalLight(dirlight);
 
-	PointLight* pointlight = new PointLight(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)),1.0f, 0.7f, 1.8f, 7.0f);
+	PointLight* pointlight = new PointLight(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)),1.0f, 0.7f, 1.8f, 7.0f);
 	addPointLight(pointlight);
 	//create a flycam
 	FPSCamera* cam = new FPSCamera(45.0f, 800, 600, 0.1f, 100.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f));

@@ -11,7 +11,8 @@ public:
 	Texture2D(const GLint _width, const GLint _height, const std::string& _name);
 	~Texture2D();
 
-	bool buffer();	//created gl texture can be accessed via getGLTexture()
+	//_empty = true: data comes not from file, the texture was a rendertarget or will be a rendertarget; _empty = false: the texture was read from file and the contained data should be buffered
+	bool buffer(bool _empty);	//created gl texture can be accessed via getGLTexture()
 	bool unbuffer();
 	bool bind();
 	bool bindToTextureUnit(const GLuint _unit);

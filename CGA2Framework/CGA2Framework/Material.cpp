@@ -143,7 +143,7 @@ void Material::setMaterialUniforms()
 		}*/
 		if (!this->getTextures()[i]->isBuffered())
 		{
-			if (!this->getTextures()[i]->buffer())
+			if (!this->getTextures()[i]->buffer(false))
 			{
 				std::cerr << "ERROR: Texture could not be loaded by OpenGL.\n";
 			}
