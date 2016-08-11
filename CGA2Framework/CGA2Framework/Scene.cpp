@@ -131,61 +131,88 @@ void Scene::clear()
 	for each(GameObject* g in m_gameobjects)
 	{
 		if (g != nullptr)
+		{
 			delete g;
+			g = nullptr;
+		}
 	}
 	m_gameobjects.clear();
 
 	for each(DirectionalLight* l in m_directionallights)
 	{
 		if (l != nullptr)
+		{
 			delete l;
+			l = nullptr;
+		}
 	}
 	m_directionallights.clear();
 
 	for each(PointLight* l in m_pointlights)
 	{
 		if (l != nullptr)
+		{
 			delete l;
+			l = nullptr;
+		}
 	}
 	m_pointlights.clear();
 
 	for each(SpotLight* l in m_spotlights)
 	{
 		if (l != nullptr)
+		{
 			delete l;
+			l = nullptr;
+		}
 	}
 	m_spotlights.clear();
 
 	for each(Model* m in m_models)
 	{
 		if (m != nullptr)
+		{
 			delete m;
+			m = nullptr;
+		}
 	}
 	m_models.clear();
 
 	for each(Material* m in m_materials)
 	{
 		if (m != nullptr)
+		{
 			delete m;
+			m = nullptr;
+		}
 	}
 	m_materials.clear();
 
 	for each(Texture2D* t in m_textures)
 	{
 		if (t != nullptr)
+		{
 			delete t;
+			t = nullptr;
+		}
 	}
 	m_textures.clear();
 
 	for each(Shader* s in m_shaders)
 	{
 		if (s != nullptr)
+		{
 			delete s;
+			s = nullptr;
+		}
 	}
 	m_shaders.clear();
 
 	if (m_camera != nullptr)
+	{
 		delete m_camera;
+		m_camera = nullptr;
+	}
 }
 
 //

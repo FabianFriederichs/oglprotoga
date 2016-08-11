@@ -9,7 +9,7 @@
 class GameWindow : public GLFWHandler, public RenderFinishedCallback
 {
 public:
-	GameWindow(const GLint sizex, const GLint sizey, const GLint cvmaj, const GLint cvmin, const std::string& title, const GLboolean uselatestglver);
+	GameWindow(const GLint sizex, const GLint sizey, const GLint cvmaj, const GLint cvmin, const std::string& title, const GLboolean uselatestglver, const GLint msaasamples);
 	virtual ~GameWindow();
 	//initialize glew and glfw window
 	
@@ -51,6 +51,7 @@ protected:
 	GLboolean m_uselatestglcontext;
 	GLint m_cvmaj;
 	GLint m_cvmin;
+	GLint m_samples;
 
 	//Scene renderer
 	//Call m_scenerederer.render(&somescene, this) when it's rendertime!

@@ -12,7 +12,9 @@ Texture2D::Texture2D() :
 	m_wrapmodes(GL_REPEAT),
 	m_wrapmodet(GL_REPEAT),
 	m_minfilter(GL_NEAREST),
-	m_magfilter(GL_NEAREST)
+	m_magfilter(GL_NEAREST),
+	m_multisample(false),
+	m_samples(0)
 {
 
 }
@@ -28,7 +30,9 @@ Texture2D::Texture2D(const std::string& _name) :
 	m_wrapmodes(GL_REPEAT),
 	m_wrapmodet(GL_REPEAT),
 	m_minfilter(GL_NEAREST),
-	m_magfilter(GL_NEAREST)
+	m_magfilter(GL_NEAREST),
+	m_multisample(false),
+	m_samples(0)
 {
 
 }
@@ -44,7 +48,9 @@ Texture2D::Texture2D(const GLint _width, const GLint _height, const std::string&
 	m_wrapmodes(GL_REPEAT),
 	m_wrapmodet(GL_REPEAT),
 	m_minfilter(GL_NEAREST),
-	m_magfilter(GL_NEAREST)
+	m_magfilter(GL_NEAREST),
+	m_multisample(false),
+	m_samples(0)
 {
 
 }
@@ -72,7 +78,7 @@ bool Texture2D::buffer(bool _empty)
 {
 	if (m_texture == 0)
 	{
-		if (m_data.size() > 0 && !_empty)	//at least one mipmap level
+		if (m_data.size() > 0 && !_empty)	//at least one mipmap level //no multisampling supported here
 		{
 			glGenTextures(1, &m_texture);
 			if (m_texture == 0 || checkglerror())
@@ -149,58 +155,103 @@ bool Texture2D::buffer(bool _empty)
 		}
 		else if (_empty)	//this is an empty texture -> allocate opengl memory
 		{
-			glGenTextures(1, &m_texture);
-			if (m_texture == 0 || checkglerror())
+			if (!m_multisample)	//no multisampling
 			{
-				std::cerr << "TEXTURE BUFFERING ERROR: gl texture object creation failed." << std::endl;
-				m_isbuffered = false;
-				m_texture = 0;
-				return false;
+				glGenTextures(1, &m_texture);
+				if (m_texture == 0 || checkglerror())
+				{
+					std::cerr << "TEXTURE BUFFERING ERROR: gl texture object creation failed." << std::endl;
+					m_isbuffered = false;
+					m_texture = 0;
+					return false;
+				}
+
+				glBindTexture(GL_TEXTURE_2D, m_texture);
+				if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, m_wrapmodes);
+				if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, m_wrapmodet);
+				if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, m_minfilter);
+				if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, m_magfilter);
+				if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+				if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
+
+				if (m_glinternalformat == GL_COMPRESSED_RGBA_S3TC_DXT1_EXT || m_glinternalformat == GL_COMPRESSED_RGBA_S3TC_DXT3_EXT || m_glinternalformat == GL_COMPRESSED_RGBA_S3TC_DXT5_EXT)
+				{
+					std::cout << "TEXTURE BUFFERING ERROR: Compressed texture formats are not supported for empty/rendertextures." << std::endl;
+					m_isbuffered = false;
+					m_texture = 0;
+					return false;
+				}
+
+				glTexImage2D(GL_TEXTURE_2D,
+					0,
+					m_glinternalformat,
+					m_width,
+					m_height,
+					0,
+					m_glformat,
+					m_gltype,
+					NULL);
+
+				if (checkglerror())
+				{
+					std::cout << "TEXTURE BUFFERING ERROR: An error occured while buffering the texture." << std::endl;
+					m_isbuffered = false;
+					m_texture = 0;
+					return false;
+				}
+
+				unbind();
+
+				m_isbuffered = true;
+				return true;
 			}
-
-			glBindTexture(GL_TEXTURE_2D, m_texture);
-			if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, m_wrapmodes);
-			if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, m_wrapmodet);
-			if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, m_minfilter);
-			if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, m_magfilter);
-			if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
-			if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
-
-			if (m_glinternalformat == GL_COMPRESSED_RGBA_S3TC_DXT1_EXT || m_glinternalformat == GL_COMPRESSED_RGBA_S3TC_DXT3_EXT || m_glinternalformat == GL_COMPRESSED_RGBA_S3TC_DXT5_EXT)
+			else //multisampled texture
 			{
-				std::cout << "TEXTURE BUFFERING ERROR: Compressed texture formats are not supported for empty/rendertextures." << std::endl;
-				m_isbuffered = false;
-				m_texture = 0;
-				return false;
+				glGenTextures(1, &m_texture);
+				if (m_texture == 0 || checkglerror())
+				{
+					std::cerr << "TEXTURE BUFFERING ERROR: gl texture object creation failed." << std::endl;
+					m_isbuffered = false;
+					m_texture = 0;
+					return false;
+				}
+
+				glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, m_texture);
+				if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
+
+				if (m_glinternalformat == GL_COMPRESSED_RGBA_S3TC_DXT1_EXT || m_glinternalformat == GL_COMPRESSED_RGBA_S3TC_DXT3_EXT || m_glinternalformat == GL_COMPRESSED_RGBA_S3TC_DXT5_EXT)
+				{
+					std::cout << "TEXTURE BUFFERING ERROR: Compressed texture formats are not supported for empty/rendertextures." << std::endl;
+					m_isbuffered = false;
+					m_texture = 0;
+					return false;
+				}
+
+				glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE,
+					m_samples,
+					m_glinternalformat,
+					m_width,
+					m_height,
+					false);
+
+				if (checkglerror())
+				{
+					std::cout << "TEXTURE BUFFERING ERROR: An error occured while buffering the texture." << std::endl;
+					m_isbuffered = false;
+					m_texture = 0;
+					return false;
+				}
+
+				unbind();
+
+				m_isbuffered = true;
+				return true;
 			}
-
-			glTexImage2D(GL_TEXTURE_2D,
-				0,
-				m_glinternalformat,
-				m_width,
-				m_height,
-				0,
-				m_glformat,
-				m_gltype,
-				NULL);
-
-			if (checkglerror())
-			{
-				std::cout << "TEXTURE BUFFERING ERROR: An error occured while buffering the texture." << std::endl;
-				m_isbuffered = false;
-				m_texture = 0;
-				return false;
-			}
-
-			unbind();
-
-			m_isbuffered = true;
-			return true;			
 		}
 		else
 		{
@@ -213,6 +264,7 @@ bool Texture2D::buffer(bool _empty)
 	else
 	{
 		std::cout << "TEXTURE BUFFERING WARNING: The texture is already buffered." << std::endl;
+		return false;
 	}
 }
 
@@ -236,28 +288,51 @@ bool Texture2D::unbuffer()
 			return true;
 		}
 	}
+	else
+	{
+		return false;
+	}
 }
 
 bool Texture2D::bind()
 {
 	if (m_texture != 0 && isBuffered())
 	{
-		glBindTexture(GL_TEXTURE_2D, m_texture);
-		if (checkglerror())
+		if (!m_multisample)
 		{
-			std::cout << "Error binding texture.\n";
-			m_isbound = false;
-			return false;
+			glBindTexture(GL_TEXTURE_2D, m_texture);
+			if (checkglerror())
+			{
+				std::cout << "Error binding texture.\n";
+				m_isbound = false;
+				return false;
+			}
+			else
+			{
+				m_isbound = true;
+				return true;
+			}
 		}
 		else
 		{
-			m_isbound = true;
-			return true;
+			glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, m_texture);
+			if (checkglerror())
+			{
+				std::cout << "Error binding texture.\n";
+				m_isbound = false;
+				return false;
+			}
+			else
+			{
+				m_isbound = true;
+				return true;
+			}
 		}
 	}
 	else
 	{
 		std::cout << "Error binding texture. OpenGL texture is 0.\n";
+		return false;
 	}
 }
 
@@ -265,41 +340,82 @@ bool Texture2D::bindToTextureUnit(const GLuint _unit)
 {
 	if (m_texture != 0 && isBuffered())
 	{
-		glActiveTexture(GL_TEXTURE0 + _unit);
-		if (checkglerror())
+		if (!m_multisample)
 		{
-			std::cout << "Texture unit couldn't be activated.\n";
-			m_isbound = false;
-			return false;
-		}
-		glBindTexture(GL_TEXTURE_2D, m_texture);
-		if (checkglerror())
-		{
-			std::cout << "Error binding texture.\n";
-			m_isbound = false;
-			return false;
+			glActiveTexture(GL_TEXTURE0 + _unit);
+			if (checkglerror())
+			{
+				std::cout << "Texture unit couldn't be activated.\n";
+				m_isbound = false;
+				return false;
+			}
+			glBindTexture(GL_TEXTURE_2D, m_texture);
+			if (checkglerror())
+			{
+				std::cout << "Error binding texture.\n";
+				m_isbound = false;
+				return false;
+			}
+			else
+			{
+				m_isbound = true;
+				return true;
+			}
 		}
 		else
 		{
-			m_isbound = true;
-			return true;
+			glActiveTexture(GL_TEXTURE0 + _unit);
+			if (checkglerror())
+			{
+				std::cout << "Texture unit couldn't be activated.\n";
+				m_isbound = false;
+				return false;
+			}
+			glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, m_texture);
+			if (checkglerror())
+			{
+				std::cout << "Error binding texture.\n";
+				m_isbound = false;
+				return false;
+			}
+			else
+			{
+				m_isbound = true;
+				return true;
+			}
 		}
 	}
 	else
 	{
 		std::cout << "Error binding texture. OpenGL texture is 0.\n";
+		return false;
 	}
 }
 
 bool Texture2D::unbind()
 {
-	glBindTexture(GL_TEXTURE_2D, 0);
-	if (checkglerror())
+	if (!m_multisample)
 	{
-		return false;
+		glBindTexture(GL_TEXTURE_2D, 0);
+		if (checkglerror())
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 	}
 	else
 	{
-		return true;
+		glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
+		if (checkglerror())
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 	}
 }

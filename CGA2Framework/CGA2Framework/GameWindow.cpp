@@ -1,7 +1,7 @@
 #include "GameWindow.h"
 
 
-GameWindow::GameWindow(const GLint sizex, const GLint sizey, const GLint cvmaj, const GLint cvmin, const std::string& title, const GLboolean uselatestglver)
+GameWindow::GameWindow(const GLint sizex, const GLint sizey, const GLint cvmaj, const GLint cvmin, const std::string& title, const GLboolean uselatestglver, const GLint msaasamples)
 {
 	this->m_sizex = sizex;
 	this->m_sizey = sizey;
@@ -9,6 +9,7 @@ GameWindow::GameWindow(const GLint sizex, const GLint sizey, const GLint cvmaj, 
 	this->m_cvmaj = cvmaj;
 	this->m_cvmin = cvmin;
 	this->m_title = title;
+	this->m_samples = msaasamples;
 	if (!this->initialize())
 		throw "Initiatization error: ";
 }
@@ -30,7 +31,7 @@ GLboolean GameWindow::initialize()
 		return false;
 	}
 
-	glfwWindowHint(GLFW_SAMPLES, 4);
+	glfwWindowHint(GLFW_SAMPLES, m_samples);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, this->m_cvmaj);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, this->m_cvmin);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
@@ -72,6 +73,16 @@ GLboolean GameWindow::initialize()
 	glfwSetScrollCallback(m_window, GLFWHandler::mscr_dispatch);
 
 	setHandlerInstance();
+
+	if (m_samples > 0)
+	{
+		glEnable(GL_MULTISAMPLE);
+		if (checkglerror())
+		{
+			return false;
+		}
+	}
+
 	return true;
 }
 
@@ -120,8 +131,8 @@ GLvoid GameWindow::run()
 		timeAccumulator += glfwGetTime() - startTime;
 	}
 	shutdown();
-	glfwTerminate();	
-	delete m_window;
+	glfwDestroyWindow(m_window);
+	glfwTerminate();
 }
 
 GLvoid GameWindow::quit()

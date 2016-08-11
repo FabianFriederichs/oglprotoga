@@ -5765,3 +5765,1783 @@ OpenGL error: invalid enum
 OpenGL error: invalid enum
 OpenGL error: invalid enum
 OpenGL error: invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum
+An OpenGL error has occured at file: "e:\benutzer\fabian\dokumente\sourcetreerepos\oglprotoga\cga2framework\cga2framework\texture2d.cpp", line: 90:
+invalid enum

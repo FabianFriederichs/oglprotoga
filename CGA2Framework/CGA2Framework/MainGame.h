@@ -6,7 +6,7 @@
 class MainGame : public GameWindow
 {
 public:
-	MainGame::MainGame(const GLint sizex, const GLint sizey, const GLint cvmaj, const GLint cvmin, const std::string& title, const GLboolean uselatestglver);
+	MainGame::MainGame(const GLint sizex, const GLint sizey, const GLint cvmaj, const GLint cvmin, const std::string& title, const GLboolean uselatestglver, const GLint msaasamples);
 	virtual ~MainGame();
 
 	void init();

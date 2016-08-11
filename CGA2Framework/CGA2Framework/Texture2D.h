@@ -35,6 +35,9 @@ public:
 	GLenum getMinFilter() const { return m_minfilter; }
 	GLenum getMagFilter() const { return m_magfilter; }
 
+	bool isMultiSampled() { return m_multisample; }
+	GLint getMultiSampleCount() { return m_samples; }
+
 	void setGLInternalFormat(const GLint _format) { m_glinternalformat = _format; }
 	void setGLFormat(const GLenum _format) { m_glformat = _format; }
 	void setGLType(const GLenum _type) { m_gltype = _type; }
@@ -52,6 +55,15 @@ public:
 		m_magfilter = _maxfilter;
 	}
 
+	void setMultisampling(bool _multisample, GLint _samples)
+	{
+		if (!m_isbound && !m_isbuffered)
+		{
+			m_multisample = _multisample;
+			m_samples = _samples;
+		}
+	}
+
 	void addMipMap(const Image2D& _image);
 
 
@@ -63,6 +75,8 @@ protected:
 	GLint m_glinternalformat;
 	GLenum m_glformat;
 	GLenum m_gltype;
+	bool m_multisample;
+	GLint m_samples;
 
 	//texture binding options
 	GLenum m_wrapmodes;

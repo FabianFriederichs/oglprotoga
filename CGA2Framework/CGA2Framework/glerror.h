@@ -1,5 +1,9 @@
 #pragma once
-#include "headers.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <GL\glew.h>
 
 #define EXIT_ON_GL_ERROR 0
 #define LOG_GL_ERRORS 1

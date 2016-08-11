@@ -2,8 +2,8 @@
 #include "headers.h"
 
 
-MainGame::MainGame(const GLint sizex, const GLint sizey, const GLint cvmaj, const GLint cvmin, const std::string& title, const GLboolean uselatestglver)
-	: GameWindow(sizex, sizey, cvmaj, cvmin, title, uselatestglver)
+MainGame::MainGame(const GLint sizex, const GLint sizey, const GLint cvmaj, const GLint cvmin, const std::string& title, const GLboolean uselatestglver, const GLint msaasamples)
+	: GameWindow(sizex, sizey, cvmaj, cvmin, title, uselatestglver, msaasamples)
 {
 }
 
@@ -39,7 +39,7 @@ void MainGame::keycallback(int key, int scancode, int action, int mods)
 			m_scene->m_camera->Move(move);
 			break;
 		case GLFW_KEY_ESCAPE:
-			m_scene->clear();
+			//m_scene->clear();
 			quit();
 			break;
 		}
@@ -95,5 +95,5 @@ void MainGame::init()
 
 void MainGame::shutdown()
 {
-	m_scene->clear();
+	//m_scene->clear();
 }
