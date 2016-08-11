@@ -2,7 +2,7 @@
 #define MAX_DIR_LIGHTS 8
 #define MAX_POINT_LIGHTS 16
 #define MAX_SPOT_LIGHTS 16
-#define MAX_TEXTURES 8
+#define MAX_TEXTURES 32
 
 #define MAX_SHININESS 30.0f
 
