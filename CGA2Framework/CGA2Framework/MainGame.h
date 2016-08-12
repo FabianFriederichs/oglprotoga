@@ -40,8 +40,8 @@ public:
 	};
 	FramebufferDesc leftEyeDesc;
 	FramebufferDesc rightEyeDesc;
-	uint32_t renderheight;
-	uint32_t renderwidth;
+	uint32 renderheight;
+	uint32 renderwidth;
 	Shader* screenshader;
 	bool CreateFrameBuffer( int nWidth, int nHeight, FramebufferDesc &framebufferDesc );
 };
