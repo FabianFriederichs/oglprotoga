@@ -42,7 +42,7 @@ public:
 		else
 		{
 			_target = _buf;
-			return _buf->bind();
+			return _buf->bind(FWRITE);
 		}
 	}
 

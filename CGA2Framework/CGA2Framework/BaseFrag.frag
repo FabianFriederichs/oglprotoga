@@ -95,9 +95,6 @@ void main()
 		outcol += CalcDirLight(dirlights[i]);
 	}
 
-	//color = vec4(outcol, 1);
-	//return;
-
 	for(int i = 0; i < pointlightcount; i++)
 	{
 		float dist = length(pointlights[i].lightpos - vertexdat.pos);
@@ -117,8 +114,6 @@ void main()
 	}
 
     color = vec4(outcol, 1.0f);
-
-	//color = texture(material.mtex[4], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y));
 }
 
 vec3 CalcDirLight(DirLight light)

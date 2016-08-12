@@ -2,6 +2,13 @@
 #include "headers.h"
 #include "Texture.h"
 #include "glerror.h"
+
+typedef enum {
+	FREAD,
+	FWRITE,
+	FREADWRITE
+} FBO_BINDINGMODE;
+
 class FrameBuffer
 {
 public:
@@ -10,13 +17,26 @@ public:
 
 	bool allocate() { return true; }
 	bool destroy() { return true; }
-	bool bind() { return true; }
-	bool updateViewport() { return true; }
+	bool bind(FBO_BINDINGMODE _bindingmode) { return true; }
+	bool updateGLViewport() { return true; }
+	bool blit(FrameBuffer* _target) { return true; }
 
 	//getters / setters
 	GLuint getGLFBO() { return m_fbo; }
 	GLint getViewportWidth() { return m_vpwidth; }
 	GLint getViewportHeight() { return m_vpheight; }
+
+	void setViewPortWidth(const GLint _width) { m_vpwidth = _width; }
+	void setViewPortHeight(const GLint _height) { m_vpheight = _height; }
+
+	//access the textures
+	Texture* getColorBuffer(const std::string& name);
+	Texture* getDepthBuffer();
+
+	//creating buffers
+	bool addColorBuffer(const std::string& _name, GLint _glinternalformat, GLenum _glformat, GLenum _gltype);
+	bool createDepthBuffer(GLint _glinternalformat, GLenum _glformat, GLenum _gltype);
+	bool complete(); //adds missing renderbuffers etc.
 
 	
 
