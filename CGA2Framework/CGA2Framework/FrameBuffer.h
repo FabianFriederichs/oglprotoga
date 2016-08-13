@@ -34,14 +34,23 @@ public:
 	Texture* getDepthBuffer();
 
 	//creating buffers
-	bool addColorBuffer(const std::string& _name, GLint _glinternalformat, GLenum _glformat, GLenum _gltype);
-	bool createDepthBuffer(GLint _glinternalformat, GLenum _glformat, GLenum _gltype);
+	bool addColorBuffer2D(const std::string& _name, GLint _glinternalformat = GL_RGBA8, GLenum _glformat = GL_RGBA, GLenum _gltype = GL_UNSIGNED_BYTE, GLboolean _multisample = false, GLint _samples = 0);
+	bool setDepthBuffer2D(GLint _glinternalformat = GL_DEPTH_COMPONENT24, GLenum _glformat = GL_DEPTH_COMPONENT, GLenum _gltype = GL_FLOAT, GLboolean _multisample = false, GLint _samples = 0);
+
+	//cube map buffers
+	bool addColorBufferCB(const std::string& _name, GLint _glinternalformat = GL_RGBA8, GLenum _glformat = GL_RGBA, GLenum _gltype = GL_UNSIGNED_BYTE, GLboolean _multisample = false, GLint _samples = 0);
+	bool setDepthBufferCB(GLint _glinternalformat = GL_DEPTH_COMPONENT24, GLenum _glformat = GL_DEPTH_COMPONENT, GLenum _gltype = GL_FLOAT, GLboolean _multisample = false, GLint _samples = 0);
+
+	//optional msaa resolve stuff
+	bool resolve(FrameBuffer* _resolvebuffer = nullptr);
+	bool resolveToTexture(Texture* _resolvetexture);
+
 	bool complete(); //adds missing renderbuffers etc.
 
 	
 
 private:
-	//the fbo hande
+	//the fbo handle
 	GLuint m_fbo;
 	//when not using a buffer for a texture, keep handles to the renderbuffers
 	std::unordered_map<std::string, GLuint> m_colorrenderbuffers;
