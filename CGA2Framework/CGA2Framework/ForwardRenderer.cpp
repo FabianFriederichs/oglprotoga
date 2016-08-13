@@ -55,7 +55,7 @@ ForwardRenderer::~ForwardRenderer()
 void ForwardRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 {	
 
-	glClearColor(0.2f, 0.2f, 1.0f, 1.0f); GLERR
+	glClearColor(0.15f, 0.15f, 0.18f, 1.0f); GLERR
 	glEnable(GL_CULL_FACE); GLERR
 	glFrontFace(GL_CCW); GLERR
 	glCullFace(GL_BACK); GLERR

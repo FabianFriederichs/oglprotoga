@@ -5,6 +5,9 @@
 MainGame::MainGame(const GLint sizex, const GLint sizey, const GLint cvmaj, const GLint cvmin, const std::string& title, const GLboolean uselatestglver, const GLint msaasamples)
 	: GameWindow(sizex, sizey, cvmaj, cvmin, title, uselatestglver, msaasamples)
 {
+	m_curmousex = 0.0;
+	m_curmousey = 0.0;
+	for (auto begin = std::begin(keys), end = std::end(keys); begin != end; ++begin) *begin = false;
 }
 
 
@@ -16,34 +19,11 @@ MainGame::~MainGame()
 
 void MainGame::keycallback(int key, int scancode, int action, int mods)
 {
-	if (m_scene->m_camera != nullptr)
-	{
-		MoveData move;
-		move.Multiplier = 0.2f;
-		switch (key)
-		{
-		case GLFW_KEY_W:			
-			move.mtype = glm::vec3(1.0f, 0.0f, 0.0f);
-			m_scene->m_camera->Move(move);
-			break;
-		case GLFW_KEY_A:
-			move.mtype = glm::vec3(0.0f, 0.0f, 1.0f);
-			m_scene->m_camera->Move(move);
-			break;
-		case GLFW_KEY_S:
-			move.mtype = glm::vec3(-1.0f, 0.0f, 0.0f);
-			m_scene->m_camera->Move(move);
-			break;
-		case GLFW_KEY_D:
-			move.mtype = glm::vec3(0.0f, 0.0f, -1.0f);
-			m_scene->m_camera->Move(move);
-			break;
-		case GLFW_KEY_ESCAPE:
-			//m_scene->clear();
-			quit();
-			break;
-		}
-	}
+	if (action == GLFW_PRESS)
+		keys[key] = true;
+	else if (action == GLFW_RELEASE)
+		keys[key] = false;
+	
 }
 
 void MainGame::mmcallback(double xpos, double ypos)
@@ -69,8 +49,25 @@ void MainGame::mscrcallback(double xoffset, double yoffset)
 GLvoid MainGame::update(GLdouble time)
 {
 	(*m_scene->m_pointlights.begin())->getTransform().setTranslate(m_scene->m_camera->GetPosition());
+	if (m_scene->m_camera != nullptr)
+	{
+		MoveData md = { vec3(0, 0, 0), 0 };
 
-
+		md.Multiplier = 0.05f;
+		if (keys[GLFW_KEY_W])
+			md.mtype += vec3(1, 0, 0);
+		if (keys[GLFW_KEY_S])
+			md.mtype += vec3(-1, 0, 0);
+		if (keys[GLFW_KEY_A])
+			md.mtype += vec3(0, 0, 1);
+		if (keys[GLFW_KEY_D])
+			md.mtype += vec3(0, 0, -1);
+		if (md.mtype != vec3(0, 0, 0))
+			m_scene->m_camera->Move(md);
+	}
+	if (keys[GLFW_KEY_ESCAPE]){
+		quit();
+	}
 	/*(*m_scene->m_directionallights.begin())->m_direction.x = (glm::rotate(0.05f, glm::vec3(0.0f, 0.0f, 1.0f)) * vec4((*m_scene->m_directionallights.begin())->m_direction, 1.0f)).x;
 	(*m_scene->m_directionallights.begin())->m_direction.y = (glm::rotate(0.05f, glm::vec3(0.0f, 0.0f, 1.0f)) * vec4((*m_scene->m_directionallights.begin())->m_direction, 1.0f)).y;
 	(*m_scene->m_directionallights.begin())->m_direction.z = (glm::rotate(0.05f, glm::vec3(0.0f, 0.0f, 1.0f)) * vec4((*m_scene->m_directionallights.begin())->m_direction, 1.0f)).z;*/
