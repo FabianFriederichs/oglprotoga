@@ -131,7 +131,7 @@ vec3 CalcDirLight(DirLight light)
     // Specular
     vec3 viewDir = normalize(camerapos - vertexdat.pos);
     vec3 reflectDir = reflect(-lightDir, norm);  
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), clamp(texture(material.mtex[2], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).r, 0.0f, 1.0f) * MAX_SHININESS);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), clamp(texture(material.mtex[2], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).r, 0.1f, 1.0f) * MAX_SHININESS);
     vec3 specular = light.lightcol.rgb * spec * texture(material.mtex[1], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb;
             
     return ambient + diffuse + specular;  
@@ -151,7 +151,7 @@ vec3 CalcPointLight(PointLight light)
     // Specular
     vec3 viewDir = normalize(camerapos - vertexdat.pos);
     vec3 reflectDir = reflect(-lightDir, norm);  
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), clamp(texture(material.mtex[2], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).r, 0.0f, 1.0f) * MAX_SHININESS);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), clamp(texture(material.mtex[2], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).r, 0.1f, 1.0f) * MAX_SHININESS);
     vec3 specular = light.lightcol.rgb * spec *  texture(material.mtex[1], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb;
     
     // Attenuation
@@ -181,7 +181,7 @@ vec3 CalcSpotLight(SpotLight light)
 		// Specular
 		vec3 viewDir = normalize(camerapos - vertexdat.pos);
 		vec3 reflectDir = reflect(-lightDir, norm);  
-		float spec = pow(max(dot(viewDir, reflectDir), 0.0), clamp(texture(material.mtex[2], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).r, 0.0f, 1.0f) * MAX_SHININESS);
+		float spec = pow(max(dot(viewDir, reflectDir), 0.0), clamp(texture(material.mtex[2], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).r, 0.1f, 1.0f) * MAX_SHININESS);
 		vec3 specular = light.lightcol.rgb * spec *  texture(material.mtex[1], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb;
     
 		// Spotlight (soft edges)
