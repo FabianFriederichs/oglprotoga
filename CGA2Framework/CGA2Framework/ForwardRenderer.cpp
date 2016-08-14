@@ -1,48 +1,10 @@
 #include "ForwardRenderer.h"
 
-//GLfloat quadVertices[] = {   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
-//	// Positions   // TexCoords
-//	-1.0f, 1.0f, 0.0f, 1.0f,
-//	-1.0f, -1.0f, 0.0f, 0.0f,
-//	1.0f, -1.0f, 1.0f, 0.0f,
-//
-//	-1.0f, 1.0f, 0.0f, 1.0f,
-//	1.0f, -1.0f, 1.0f, 0.0f,
-//	1.0f, 1.0f, 1.0f, 1.0f
-//};
+
 
 ForwardRenderer::ForwardRenderer()
 {
 	
-
-	//
-	//glGenVertexArrays(1, &testvao);
-	//glGenBuffers(1, &testvbo);
-
-	//glBindVertexArray(testvao);
-	//glBindBuffer(GL_ARRAY_BUFFER,testvbo);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), (void*)quadVertices, GL_STATIC_DRAW);
-
-	////vertices
-	//glEnableVertexAttribArray(0);
-	//glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
-	//glEnableVertexAttribArray(1);
-	//glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)(2 * sizeof(GLfloat)));
-	//glBindVertexArray(0); // Unbind VAO
-
-	////testshader
-	//textestshader = new Shader();
-	//textestshader->load("TextureTest.vert", "TextureTest.frag");
-	//textestshader->Use();
-
-	////testtexture
-	//DDSLoader loader;
-	//wood = loader.loadDDSTex("Assets\\Materials\\wooddiff.dds");
-
-	//wood->loadGLTexture(GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
-	//wood->bindToTextureUnit(0);
-
-	//textestshader->setUniform("tex", 0);		
 }
 
 
@@ -54,6 +16,67 @@ ForwardRenderer::~ForwardRenderer()
 
 void ForwardRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 {	
+	GLfloat skyboxVertices[] = {
+		// Positions          
+		-1.0f, 1.0f, -1.0f,
+		-1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f, 1.0f, -1.0f,
+		-1.0f, 1.0f, -1.0f,
+
+		-1.0f, -1.0f, 1.0f,
+		-1.0f, -1.0f, -1.0f,
+		-1.0f, 1.0f, -1.0f,
+		-1.0f, 1.0f, -1.0f,
+		-1.0f, 1.0f, 1.0f,
+		-1.0f, -1.0f, 1.0f,
+
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+
+		-1.0f, -1.0f, 1.0f,
+		-1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, -1.0f, 1.0f,
+		-1.0f, -1.0f, 1.0f,
+
+		-1.0f, 1.0f, -1.0f,
+		1.0f, 1.0f, -1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f, -1.0f,
+
+		-1.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f, 1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f, 1.0f,
+		1.0f, -1.0f, 1.0f
+	};
+
+	if (!skyboxinited)
+	{
+		skyboxshader = new Shader();
+		skyboxshader->load("SkyBox.vert", "SkyBox.frag");
+
+		glGenVertexArrays(1, &skyboxvao);
+		glGenBuffers(1, &skyboxvbo);
+		glBindVertexArray(skyboxvao);
+		glBindBuffer(GL_ARRAY_BUFFER, skyboxvbo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), (void*)skyboxVertices, GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+		glBindVertexArray(0);
+		skyboxinited = true;
+	}
+
 
 	glClearColor(0.2f, 0.2f, 1.0f, 1.0f); GLERR
 	glEnable(GL_CULL_FACE); GLERR
@@ -62,7 +85,7 @@ void ForwardRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	glEnable(GL_DEPTH_TEST); GLERR
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GLERR
 
-
+	
 
 		//textured quad test
 	/*glBindVertexArray(testvao);
@@ -91,7 +114,7 @@ void ForwardRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 			if (currentshader == nullptr || currentshader->getID() != m->getMaterial()->getID())
 			{
 				currentshader = dynamic_cast<ForwardShader*>(m->getMaterial()->getShader());
-				currentshader->Use();
+				currentshader->Use();				
 
 				//These uniforms must only be set once per shader
 				//set Lights
@@ -103,17 +126,50 @@ void ForwardRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 				currentshader->setViewMatrix(_scene->m_camera->GetViewMatrix());
 				currentshader->setProjectionMatrix(_scene->m_camera->getProjectionMatrix());
 				currentshader->setCameraPos(_scene->m_camera->GetPosition());
+
+				if (_scene->m_cubemaps.size() > 0)
+				{
+					if (!(*_scene->m_cubemaps.begin())->isBuffered())
+						(*_scene->m_cubemaps.begin())->buffer(false);
+					(*_scene->m_cubemaps.begin())->bindToTextureUnit(10);
+				}
+
+				currentshader->setUniform("skybox", 10);
 			}
 			
 			//set Material Uniforms
-			material->setMaterialUniforms();			
+			material->setMaterialUniforms();
 			
 			//now draw it
 			currentshader->preRenderActions();
 			m->drawMesh();
 			currentshader->postRenderActions();
+
+			
 		}
+
+
 	}
+
+	//render the skybox
+
+	if (_scene->m_cubemaps.size() > 0)
+	{
+		if (!(*_scene->m_cubemaps.begin())->isBuffered())
+			(*_scene->m_cubemaps.begin())->buffer(false);
+		(*_scene->m_cubemaps.begin())->bindToTextureUnit(10);
+	}
+	glDepthFunc(GL_LEQUAL);
+	skyboxshader->Use();
+	skyboxshader->setUniform("skybox", 10);
+	skyboxshader->setUniform("view", glm::mat4(glm::mat3(_scene->m_camera->GetViewMatrix())), false);
+	skyboxshader->setUniform("projection", _scene->m_camera->getProjectionMatrix(), false);
+
+	glBindVertexArray(skyboxvao);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glBindVertexArray(0);
+	glDepthFunc(GL_LESS);
+
 	glDisable(GL_DEPTH_TEST); GLERR
 	_callback->renderFinished();
 }

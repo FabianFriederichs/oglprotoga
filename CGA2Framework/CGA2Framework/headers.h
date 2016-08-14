@@ -22,3 +22,4 @@
 #include <math.h>
 #include <unordered_map>
 #include <memory>
+#include <cmath>

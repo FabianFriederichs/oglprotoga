@@ -124,6 +124,11 @@ void Scene::addShader(Shader* _shader)
 	m_shaders.push_back(_shader);
 }
 
+void Scene::addCubeMap(TextureCB* _texture)
+{
+	m_cubemaps.push_back(_texture);
+}
+
 
 void Scene::clear()
 {
@@ -213,6 +218,16 @@ void Scene::clear()
 		delete m_camera;
 		m_camera = nullptr;
 	}
+
+	for each(TextureCB* c in m_cubemaps)
+	{
+		if (c != nullptr)
+		{
+			delete c;
+			c = nullptr;
+		}
+	}
+	m_cubemaps.clear();
 }
 
 //

@@ -55,6 +55,9 @@ public:
 	std::list<Texture2D*> m_textures;
 	void addTexture(Texture2D* _texture);
 
+	std::list<TextureCB*> m_cubemaps;
+	void addCubeMap(TextureCB* _texture);
+
 	std::list<DirectionalLight*> m_directionallights;
 	void addDirectionalLight(DirectionalLight* _directionallight);
 

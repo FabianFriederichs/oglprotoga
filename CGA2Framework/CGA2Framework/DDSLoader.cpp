@@ -339,9 +339,411 @@ bool DDSLoader::loadDDSTex(const std::string& _filepath, Texture& _tex)
 	return false;
 }
 
+//Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
+//{
+//	
+//	std::ifstream file(_filepath.c_str(), std::ifstream::binary);
+//	DDS_HEADER _header;
+//	DDS_HEADER_DXT10 _dx10ExtHeader;
+//	bool ddsHeaderFound = false;
+//	bool dx10ExtHeaderFound = false;
+//	TEXTYPE type;
+//	if (!DDSLoader::extractDDSHeader(file, _header, _dx10ExtHeader, ddsHeaderFound, dx10ExtHeaderFound))
+//	{
+//		std::cerr << "DDS file is corrupted." << std::endl;
+//		file.close();
+//		return 0;
+//	}
+//
+//	if (ddsHeaderFound)
+//	{
+//		// default
+//		type = TEX_2D;
+//
+//		// cubemap?
+//		if ((_header.dwCaps & (DDSCAPS_COMPLEX)) && (_header.dwCaps2 & DDSCAPS2_CUBEMAP))
+//			type = TEX_CUBEMAP;
+//
+//		// volume?
+//		if ((_header.dwCaps & (DDSCAPS_COMPLEX)) && (_header.dwCaps2 & DDSCAPS2_VOLUME) && (_header.dwFlags & DDSD_DEPTH) && (_header.dwDepth > 0))
+//			type = TEX_3D;
+//
+//		switch (type)
+//		{
+//		case TEX_2D:
+//		{
+//			Texture2D* tex = new Texture2D(_filepath);
+//			if ((_header.dwFlags & DDSD_LINEARSIZE) && (_header.ddspf.dwFlags & DDPF_FOURCC)) //compressed texture
+//			{
+//				//format
+//				unsigned int components = 0;
+//				DWORD format;
+//				switch (_header.ddspf.dwFourCC)
+//				{
+//				case FOURCC_DXT1:
+//					format = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
+//					components = 3;
+//					break;
+//				case FOURCC_DXT3:
+//					format = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
+//					components = 4;
+//					break;
+//				case FOURCC_DXT5:
+//					format = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
+//					components = 4;
+//					break;
+//				default:
+//					file.close();
+//					std::cerr << "DDS loader: Only DXT1, DXT3 and DXT5 compressed textures are supported." << std::endl;
+//					delete tex;
+//					return 0;
+//					break;
+//				}
+//
+//				if ((_header.dwFlags & DDSD_MIPMAPCOUNT) && (_header.dwCaps & DDSCAPS_COMPLEX)) //DDS contains mipmaps
+//				{
+//					unsigned long bufsize = 0;
+//					unsigned long curw = _header.dwWidth;
+//					unsigned long curh = _header.dwHeight;
+//					tex->setWidth(curw);
+//					tex->setHeight(curh);
+//					for (DWORD i = 0; i < _header.dwMipMapCount; i++)
+//					{
+//						bufsize = std::max(1UL, ((curw + 3) / 4)) * std::max(1UL, ((curh + 3) / 4)) * (_header.ddspf.dwFourCC == FOURCC_DXT1 ? 8 : 16);
+//						std::vector<unsigned char> buffer;
+//						buffer.resize(bufsize);
+//
+//						if (!file.read((char*)&buffer[0], bufsize))
+//						{
+//							std::cerr << "DDS loader: An error occured while reading DDS data." << std::endl;
+//							file.close();
+//							return tex;
+//						}
+//						else
+//						{
+//							Image2D im(format, 0, 0, components, curw, curh, i, buffer);
+//							tex->addMipMap(im);
+//						}
+//
+//						curw = (curw > 1 ? curw / 2 : 1);
+//						curh = (curh > 1 ? curh / 2 : 1);
+//					}
+//					file.close();
+//					tex->setGLInternalFormat(format);
+//					tex->setGLFormat(0);
+//					tex->setGLType(0);
+//					tex->setBindingOptions(GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+//					return tex;
+//				}
+//				else if (_header.dwMipMapCount == 0) //no mipmaps
+//				{
+//					unsigned long bufsize = _header.dwPitchOrLinearSize;
+//					std::vector<unsigned char> buffer;
+//					buffer.resize(bufsize);
+//					if (!file.read((char*)&buffer[0], bufsize))
+//					{
+//						std::cerr << "DDS loader: An error occured while reading DDS data." << std::endl;
+//						file.close();
+//						delete tex;
+//						return 0;
+//					}
+//					else
+//					{
+//						file.close();
+//						//process data
+//						Image2D im(format, 0, 0, components, _header.dwWidth, _header.dwHeight, 0, buffer);
+//						tex->addMipMap(im);
+//						tex->setGLInternalFormat(format);
+//						tex->setGLFormat(0);
+//						tex->setGLType(0);
+//						tex->setBindingOptions(GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+//						return tex;
+//					}
+//				}
+//			}
+//			else //uncompressed texture
+//			{
+//				if ((_header.ddspf.dwFlags & (DDPF_RGB | DDPF_ALPHA)) && (_header.ddspf.dwRGBBitCount == 32)) //uncompressed R8G8B8A8 data?
+//				{
+//					if ((_header.dwFlags & DDSD_MIPMAPCOUNT) && (_header.dwCaps & DDSCAPS_COMPLEX)) //DDS contains mipmaps
+//					{
+//						unsigned long bufsize = 0;
+//						unsigned long curw = _header.dwWidth;
+//						unsigned long curh = _header.dwHeight;
+//						DWORD format = GL_RGBA8;		//RGBA32 unsigned integer data
+//
+//						std::vector<Image2D> data;
+//						for (DWORD i = 0; i < _header.dwMipMapCount; i++)
+//						{
+//							bufsize = ((curw * 32 + 7) / 8) * curh;
+//							std::vector<unsigned char> buffer;
+//							buffer.resize(bufsize);
+//
+//							if (!file.read((char*)&buffer[0], bufsize))
+//							{
+//								std::cerr << "DDS loader: An error occured while reading DDS data." << std::endl;
+//								file.close();
+//								return tex;
+//							}
+//							else
+//							{
+//								Image2D im(format, GL_RGBA, GL_UNSIGNED_BYTE, 4, curw, curh, i, buffer);
+//								tex->addMipMap(im);
+//							}
+//
+//							curw = (curw > 1 ? curw / 2 : 1);
+//							curh = (curh > 1 ? curh / 2 : 1);
+//						}
+//						file.close();
+//						tex->setGLInternalFormat(format);
+//						tex->setGLFormat(GL_RGBA);
+//						tex->setGLType(GL_UNSIGNED_BYTE);
+//						tex->setBindingOptions(GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+//						return tex;
+//					}
+//					else if (_header.dwMipMapCount == 0) //no mipmaps
+//					{
+//						unsigned long bufsize = ((_header.dwWidth * 32 + 7) / 8) * _header.dwHeight;
+//						DWORD format = GL_RGBA8;
+//						std::vector<unsigned char> buffer;
+//						buffer.resize(bufsize);
+//						if (!file.read((char*)&buffer[0], bufsize))
+//						{
+//							std::cerr << "DDS loader: An error occured while reading DDS data." << std::endl;
+//							file.close();
+//							delete tex;
+//							return 0;
+//						}
+//						else
+//						{
+//							file.close();
+//							//process data
+//							Image2D im(format, GL_RGBA, GL_UNSIGNED_BYTE, 4, _header.dwWidth, _header.dwHeight, 0, buffer);
+//							tex->addMipMap(im);
+//							tex->setGLInternalFormat(format);
+//							tex->setGLFormat(GL_RGBA);
+//							tex->setGLType(GL_UNSIGNED_BYTE);
+//							tex->setBindingOptions(GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+//							return tex;
+//						}
+//					}
+//				}
+//				else
+//				{
+//					file.close();
+//					std::cerr << "DDS loader: The format is not supported yet." << std::endl;
+//					delete tex;
+//					return 0;
+//				}
+//			}
+//			break;
+//		}
+//		case TEX_CUBEMAP:
+//		{
+//			file.close();
+//			std::cerr << "DDS loader: Cubemaps are not supported yet." << std::endl;
+//			return 0;
+//			break;
+//		}
+//		case TEX_3D:
+//		{
+//			file.close();
+//			std::cerr << "DDS loader: Volume textures are not supported yet." << std::endl;
+//			return 0;
+//			break;
+//			//Not supported for now:
+//		}
+//		case TEX_ARRAY:
+//		{
+//			file.close();
+//			std::cerr << "DDS loader: DDS DX10 extension is not supported yet." << std::endl;
+//			return 0;
+//			break;
+//		}
+//		case TEX_DX10_CUBEMAP:
+//		{
+//			file.close();
+//			std::cerr << "DDS loader: DDS DX10 extension is not supported yet." << std::endl;
+//			return 0;
+//			break;
+//		}
+//		default:
+//		{
+//			file.close();
+//			std::cerr << "DDS loader: Wrong textype parameter." << std::endl;
+//			return 0;
+//			break;
+//		}
+//		}
+//	}
+//	else
+//	{
+//		std::cerr << "DDS loader: DDS file is corrupted." << std::endl;
+//		file.close();
+//		return 0;
+//	}
+//	return 0;
+//}
+
 Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 {
+	Texture2D* tex = new Texture2D("_filepath");
+	std::vector<Image2D> mipmaps = loadImageMipmaps(_filepath);
+
+	if (mipmaps.size() > 0)
+	{
+		for (int i = 0; i < mipmaps.size(); i++)
+		{
+			tex->addMipMap(mipmaps[i]);
+		}
+
+		tex->setGLInternalFormat(mipmaps[0].getGLInternalFormat());
+		tex->setGLFormat(mipmaps[0].getGLFormat());
+		tex->setGLType(mipmaps[0].getGLType());
+
+		tex->setBindingOptions(GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+		tex->setWidth(mipmaps[0].getSizeX());
+		tex->setHeight(mipmaps[0].getSizeY());
+
+		return tex;
+	}
+	else
+	{
+		delete tex;
+		std::cout << "DDS Texture could not be loaded." << std::endl;
+		return nullptr;
+	}
 	
+}
+
+Texture* DDSLoader::loadDDSTex(const std::string& _filepathposx, const std::string& _filepathnegx, const std::string& _filepathposy, const std::string& _filepathnegy, const std::string& _filepathposz, const std::string& _filepathnegz)
+{
+	TextureCB* tex = new TextureCB();
+
+	std::vector<Image2D> mipmapsposx = loadImageMipmaps(_filepathposx);
+	std::vector<Image2D> mipmapsnegx = loadImageMipmaps(_filepathnegx);
+	std::vector<Image2D> mipmapsposy = loadImageMipmaps(_filepathposy);
+	std::vector<Image2D> mipmapsnegy = loadImageMipmaps(_filepathnegy);
+	std::vector<Image2D> mipmapsposz = loadImageMipmaps(_filepathposz);
+	std::vector<Image2D> mipmapsnegz = loadImageMipmaps(_filepathnegz);
+
+	if (mipmapsposx.size() > 0)
+	{
+		for (int i = 0; i < mipmapsposx.size(); i++)
+		{
+			tex->addMipMap(TextureCB::CBFACE_POSX,mipmapsposx[i]);
+		}
+
+		tex->setGLInternalFormat(mipmapsposx[0].getGLInternalFormat());
+		tex->setGLFormat(mipmapsposx[0].getGLFormat());
+		tex->setGLType(mipmapsposx[0].getGLType());
+	}
+	else
+	{
+		delete tex;
+		std::cout << "DDS Texture could not be loaded." << std::endl;
+		return nullptr;
+	}
+
+	if (mipmapsnegx.size() > 0)
+	{
+		for (int i = 0; i < mipmapsnegx.size(); i++)
+		{
+			tex->addMipMap(TextureCB::CBFACE_NEGX, mipmapsnegx[i]);
+		}
+
+		tex->setGLInternalFormat(mipmapsnegx[0].getGLInternalFormat());
+		tex->setGLFormat(mipmapsnegx[0].getGLFormat());
+		tex->setGLType(mipmapsnegx[0].getGLType());
+	}
+	else
+	{
+		delete tex;
+		std::cout << "DDS Texture could not be loaded." << std::endl;
+		return nullptr;
+	}
+
+	if (mipmapsposy.size() > 0)
+	{
+		for (int i = 0; i < mipmapsposy.size(); i++)
+		{
+			tex->addMipMap(TextureCB::CBFACE_POSY, mipmapsposy[i]);
+		}
+
+		tex->setGLInternalFormat(mipmapsposy[0].getGLInternalFormat());
+		tex->setGLFormat(mipmapsposy[0].getGLFormat());
+		tex->setGLType(mipmapsposy[0].getGLType());
+	}
+	else
+	{
+		delete tex;
+		std::cout << "DDS Texture could not be loaded." << std::endl;
+		return nullptr;
+	}
+
+	if (mipmapsnegy.size() > 0)
+	{
+		for (int i = 0; i < mipmapsnegy.size(); i++)
+		{
+			tex->addMipMap(TextureCB::CBFACE_NEGY, mipmapsnegy[i]);
+		}
+
+		tex->setGLInternalFormat(mipmapsnegy[0].getGLInternalFormat());
+		tex->setGLFormat(mipmapsnegy[0].getGLFormat());
+		tex->setGLType(mipmapsnegy[0].getGLType());
+	}
+	else
+	{
+		delete tex;
+		std::cout << "DDS Texture could not be loaded." << std::endl;
+		return nullptr;
+	}
+
+	if (mipmapsposz.size() > 0)
+	{
+		for (int i = 0; i < mipmapsposz.size(); i++)
+		{
+			tex->addMipMap(TextureCB::CBFACE_POSZ, mipmapsposz[i]);
+		}
+
+		tex->setGLInternalFormat(mipmapsposz[0].getGLInternalFormat());
+		tex->setGLFormat(mipmapsposz[0].getGLFormat());
+		tex->setGLType(mipmapsposz[0].getGLType());
+	}
+	else
+	{
+		delete tex;
+		std::cout << "DDS Texture could not be loaded." << std::endl;
+		return nullptr;
+	}
+
+	if (mipmapsnegz.size() > 0)
+	{
+		for (int i = 0; i < mipmapsnegz.size(); i++)
+		{
+			tex->addMipMap(TextureCB::CBFACE_NEGZ, mipmapsnegz[i]);
+		}
+
+		tex->setGLInternalFormat(mipmapsnegz[0].getGLInternalFormat());
+		tex->setGLFormat(mipmapsnegz[0].getGLFormat());
+		tex->setGLType(mipmapsnegz[0].getGLType());
+	}
+	else
+	{
+		delete tex;
+		std::cout << "DDS Texture could not be loaded." << std::endl;
+		return nullptr;
+	}
+
+	tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	tex->setWidth(mipmapsposx[0].getSizeX());
+	tex->setHeight(mipmapsposx[0].getSizeY());
+	return tex;	
+}
+
+std::vector<Image2D> DDSLoader::loadImageMipmaps(const std::string& _filepath)
+{
+	std::vector<Image2D> mipmaps;
 	std::ifstream file(_filepath.c_str(), std::ifstream::binary);
 	DDS_HEADER _header;
 	DDS_HEADER_DXT10 _dx10ExtHeader;
@@ -352,7 +754,7 @@ Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 	{
 		std::cerr << "DDS file is corrupted." << std::endl;
 		file.close();
-		return 0;
+		return mipmaps;
 	}
 
 	if (ddsHeaderFound)
@@ -372,7 +774,7 @@ Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 		{
 		case TEX_2D:
 		{
-			Texture2D* tex = new Texture2D(_filepath);
+			//Texture2D* tex = new Texture2D(_filepath);
 			if ((_header.dwFlags & DDSD_LINEARSIZE) && (_header.ddspf.dwFlags & DDPF_FOURCC)) //compressed texture
 			{
 				//format
@@ -395,8 +797,7 @@ Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 				default:
 					file.close();
 					std::cerr << "DDS loader: Only DXT1, DXT3 and DXT5 compressed textures are supported." << std::endl;
-					delete tex;
-					return 0;
+					return mipmaps;
 					break;
 				}
 
@@ -405,8 +806,6 @@ Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 					unsigned long bufsize = 0;
 					unsigned long curw = _header.dwWidth;
 					unsigned long curh = _header.dwHeight;
-					tex->setWidth(curw);
-					tex->setHeight(curh);
 					for (DWORD i = 0; i < _header.dwMipMapCount; i++)
 					{
 						bufsize = std::max(1UL, ((curw + 3) / 4)) * std::max(1UL, ((curh + 3) / 4)) * (_header.ddspf.dwFourCC == FOURCC_DXT1 ? 8 : 16);
@@ -417,23 +816,19 @@ Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 						{
 							std::cerr << "DDS loader: An error occured while reading DDS data." << std::endl;
 							file.close();
-							return tex;
+							return mipmaps;
 						}
 						else
 						{
 							Image2D im(format, 0, 0, components, curw, curh, i, buffer);
-							tex->addMipMap(im);
+							mipmaps.push_back(im);
 						}
 
 						curw = (curw > 1 ? curw / 2 : 1);
 						curh = (curh > 1 ? curh / 2 : 1);
 					}
-					file.close();
-					tex->setGLInternalFormat(format);
-					tex->setGLFormat(0);
-					tex->setGLType(0);
-					tex->setBindingOptions(GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
-					return tex;
+					file.close();					
+					return mipmaps;
 				}
 				else if (_header.dwMipMapCount == 0) //no mipmaps
 				{
@@ -444,20 +839,15 @@ Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 					{
 						std::cerr << "DDS loader: An error occured while reading DDS data." << std::endl;
 						file.close();
-						delete tex;
-						return 0;
+						return mipmaps;
 					}
 					else
 					{
 						file.close();
 						//process data
 						Image2D im(format, 0, 0, components, _header.dwWidth, _header.dwHeight, 0, buffer);
-						tex->addMipMap(im);
-						tex->setGLInternalFormat(format);
-						tex->setGLFormat(0);
-						tex->setGLType(0);
-						tex->setBindingOptions(GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
-						return tex;
+						mipmaps.push_back(im);
+						return mipmaps;
 					}
 				}
 			}
@@ -483,23 +873,19 @@ Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 							{
 								std::cerr << "DDS loader: An error occured while reading DDS data." << std::endl;
 								file.close();
-								return tex;
+								return mipmaps;
 							}
 							else
 							{
 								Image2D im(format, GL_RGBA, GL_UNSIGNED_BYTE, 4, curw, curh, i, buffer);
-								tex->addMipMap(im);
+								mipmaps.push_back(im);
 							}
 
 							curw = (curw > 1 ? curw / 2 : 1);
 							curh = (curh > 1 ? curh / 2 : 1);
 						}
 						file.close();
-						tex->setGLInternalFormat(format);
-						tex->setGLFormat(GL_RGBA);
-						tex->setGLType(GL_UNSIGNED_BYTE);
-						tex->setBindingOptions(GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
-						return tex;
+						return mipmaps;
 					}
 					else if (_header.dwMipMapCount == 0) //no mipmaps
 					{
@@ -511,20 +897,15 @@ Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 						{
 							std::cerr << "DDS loader: An error occured while reading DDS data." << std::endl;
 							file.close();
-							delete tex;
-							return 0;
+							return mipmaps;
 						}
 						else
 						{
 							file.close();
 							//process data
 							Image2D im(format, GL_RGBA, GL_UNSIGNED_BYTE, 4, _header.dwWidth, _header.dwHeight, 0, buffer);
-							tex->addMipMap(im);
-							tex->setGLInternalFormat(format);
-							tex->setGLFormat(GL_RGBA);
-							tex->setGLType(GL_UNSIGNED_BYTE);
-							tex->setBindingOptions(GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
-							return tex;
+							mipmaps.push_back(im);							
+							return mipmaps;
 						}
 					}
 				}
@@ -532,8 +913,7 @@ Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 				{
 					file.close();
 					std::cerr << "DDS loader: The format is not supported yet." << std::endl;
-					delete tex;
-					return 0;
+					return mipmaps;
 				}
 			}
 			break;
@@ -542,14 +922,14 @@ Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 		{
 			file.close();
 			std::cerr << "DDS loader: Cubemaps are not supported yet." << std::endl;
-			return 0;
+			return mipmaps;
 			break;
 		}
 		case TEX_3D:
 		{
 			file.close();
 			std::cerr << "DDS loader: Volume textures are not supported yet." << std::endl;
-			return 0;
+			return mipmaps;
 			break;
 			//Not supported for now:
 		}
@@ -557,21 +937,21 @@ Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 		{
 			file.close();
 			std::cerr << "DDS loader: DDS DX10 extension is not supported yet." << std::endl;
-			return 0;
+			return mipmaps;
 			break;
 		}
 		case TEX_DX10_CUBEMAP:
 		{
 			file.close();
 			std::cerr << "DDS loader: DDS DX10 extension is not supported yet." << std::endl;
-			return 0;
+			return mipmaps;
 			break;
 		}
 		default:
 		{
 			file.close();
 			std::cerr << "DDS loader: Wrong textype parameter." << std::endl;
-			return 0;
+			return mipmaps;
 			break;
 		}
 		}
@@ -580,7 +960,8 @@ Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 	{
 		std::cerr << "DDS loader: DDS file is corrupted." << std::endl;
 		file.close();
-		return 0;
+		return mipmaps;
 	}
-	return 0;
+	return mipmaps;
+
 }

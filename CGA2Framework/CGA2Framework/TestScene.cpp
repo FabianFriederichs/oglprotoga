@@ -12,6 +12,16 @@ TestScene::~TestScene()
 
 void TestScene::load()
 {
+	//load skybox
+	TextureCB* skybox = dynamic_cast<TextureCB*>(DDSLoader::loadDDSTex(	"Assets\\skybox\\sbrightmip.dds",
+																		"Assets\\skybox\\sbleftmip.dds",
+																		"Assets\\skybox\\sbupmip.dds",
+																		"Assets\\skybox\\sbdownmip.dds",
+																		"Assets\\skybox\\sbbackmip.dds",
+																		"Assets\\skybox\\sbfrontmip.dds"));
+
+	if (skybox != nullptr)
+		addCubeMap(skybox);
 
 	//load testmodel "uglypot"
 	std::list<Model*> models = OBJLoader::loadOBJ("Assets\\Models\\uglypot.obj");

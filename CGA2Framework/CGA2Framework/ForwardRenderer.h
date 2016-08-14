@@ -11,11 +11,10 @@ public:
 	void render(Scene* _scene, RenderFinishedCallback* _callback);
 private:
 	//teststuff
-/*
-	GLuint testvao;
-	GLuint testvbo;
-	
-	Shader* textestshader;
-	Texture* wood;*/
+	bool skyboxinited = false;
+	GLuint skyboxvao;
+	GLuint skyboxvbo;
+
+	Shader* skyboxshader;	
 };
 

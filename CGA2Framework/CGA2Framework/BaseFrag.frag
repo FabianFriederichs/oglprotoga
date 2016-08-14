@@ -2,9 +2,9 @@
 #define MAX_DIR_LIGHTS 8
 #define MAX_POINT_LIGHTS 16
 #define MAX_SPOT_LIGHTS 16
-#define MAX_TEXTURES 32
+#define MAX_TEXTURES 8
 
-#define MAX_SHININESS 30.0f
+#define MAX_SHININESS 100.0f
 
 //lighting
 struct DirLight
@@ -62,8 +62,6 @@ uniform int pointlightcount;
 uniform SpotLight spotlights[MAX_SPOT_LIGHTS];
 uniform int spotlightcount;
 
-
-
 //input interface blocks DO IT!
 
 in struct VertexData
@@ -77,6 +75,9 @@ in struct VertexData
 
 //output
 out vec4 color;
+
+//skybox
+uniform samplerCube skybox;
 
 //light calculating functions
 vec3 CalcDirLight(DirLight light);
@@ -94,6 +95,9 @@ void main()
 	{
 		outcol += CalcDirLight(dirlights[i]);
 	}
+
+	color = vec4(outcol, 1.0f);
+	return;
 
 	for(int i = 0; i < pointlightcount; i++)
 	{
@@ -134,7 +138,9 @@ vec3 CalcDirLight(DirLight light)
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), clamp(texture(material.mtex[2], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).r, 0.1f, 1.0f) * MAX_SHININESS);
     vec3 specular = light.lightcol.rgb * spec * texture(material.mtex[1], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb;
             
-    return ambient + diffuse + specular;  
+    //return ambient + diffuse + specular;
+	reflectDir = reflect(-viewDir, norm); 
+	return texture(skybox, reflectDir).rgb;
 }
 
 vec3 CalcPointLight(PointLight light)
