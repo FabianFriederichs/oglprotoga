@@ -96,12 +96,12 @@ void ForwardRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	glBindVertexArray(0);*/
 	
 	
-	for each(RenderableGameObject* g in _scene->m_gameobjects)
+	for(RenderableGameObject* g : _scene->m_gameobjects)
 	{
 		//prepare objects for rendering if the aren't yet
 		ForwardShader* currentshader = nullptr;
 		//GLint currentshaderid = -1;
-		for each(Mesh* m in g->getModel()->getMeshes())
+		for(Mesh* m : g->getModel()->getMeshes())
 		{
 			if (!m->hasNormals())
 				m->generateNormals();

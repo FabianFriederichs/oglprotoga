@@ -133,7 +133,7 @@ void Scene::addCubeMap(TextureCB* _texture)
 void Scene::clear()
 {
 	//clear all the object collections in scene
-	for each(GameObject* g in m_gameobjects)
+	for(GameObject* g : m_gameobjects)
 	{
 		if (g != nullptr)
 		{
@@ -143,7 +143,7 @@ void Scene::clear()
 	}
 	m_gameobjects.clear();
 
-	for each(DirectionalLight* l in m_directionallights)
+	for(DirectionalLight* l : m_directionallights)
 	{
 		if (l != nullptr)
 		{
@@ -153,7 +153,7 @@ void Scene::clear()
 	}
 	m_directionallights.clear();
 
-	for each(PointLight* l in m_pointlights)
+	for(PointLight* l : m_pointlights)
 	{
 		if (l != nullptr)
 		{
@@ -163,7 +163,7 @@ void Scene::clear()
 	}
 	m_pointlights.clear();
 
-	for each(SpotLight* l in m_spotlights)
+	for(SpotLight* l : m_spotlights)
 	{
 		if (l != nullptr)
 		{
@@ -173,7 +173,7 @@ void Scene::clear()
 	}
 	m_spotlights.clear();
 
-	for each(Model* m in m_models)
+	for(Model* m : m_models)
 	{
 		if (m != nullptr)
 		{
@@ -183,7 +183,7 @@ void Scene::clear()
 	}
 	m_models.clear();
 
-	for each(Material* m in m_materials)
+	for(Material* m : m_materials)
 	{
 		if (m != nullptr)
 		{
@@ -193,7 +193,7 @@ void Scene::clear()
 	}
 	m_materials.clear();
 
-	for each(Texture2D* t in m_textures)
+	for(Texture2D* t : m_textures)
 	{
 		if (t != nullptr)
 		{
@@ -203,7 +203,7 @@ void Scene::clear()
 	}
 	m_textures.clear();
 
-	for each(Shader* s in m_shaders)
+	for(Shader* s : m_shaders)
 	{
 		if (s != nullptr)
 		{
@@ -219,7 +219,7 @@ void Scene::clear()
 		m_camera = nullptr;
 	}
 
-	for each(TextureCB* c in m_cubemaps)
+	for(TextureCB* c : m_cubemaps)
 	{
 		if (c != nullptr)
 		{
