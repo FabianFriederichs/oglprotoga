@@ -15,7 +15,7 @@ class Texture
 {
 public:	
 	Texture(const TEXTYPE _type);
-	Texture(const Texture& _other); //
+	Texture(const Texture& _other) = delete; //
 	Texture(const std::string& _name, const TEXTYPE _type); //single file texture
 	virtual ~Texture();
 

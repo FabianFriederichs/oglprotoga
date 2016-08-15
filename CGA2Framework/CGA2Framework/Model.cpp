@@ -6,11 +6,11 @@ m_meshes()
 {
 }
 
-Model::Model(const Model& _other) :
-m_meshes(_other.m_meshes)
-{
-
-}
+//Model::Model(const Model& _other) :
+//m_meshes(_other.m_meshes)
+//{
+//
+//}
 
 
 Model::~Model()

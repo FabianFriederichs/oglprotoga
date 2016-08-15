@@ -7,6 +7,7 @@ class Texture2D :
 {
 public:
 	Texture2D();
+	Texture2D(const Texture2D& _other) = delete;
 	Texture2D(const std::string& _name);
 	Texture2D(const GLint _width, const GLint _height, const std::string& _name);
 	~Texture2D();

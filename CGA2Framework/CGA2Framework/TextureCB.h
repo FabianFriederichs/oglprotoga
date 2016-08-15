@@ -18,6 +18,7 @@ public:
 	} CBFACE;
 
 	TextureCB();
+	TextureCB(const TextureCB& _other) = delete;
 	TextureCB(const std::string& _name);
 	TextureCB(const GLint _width, const std::string& _name);
 	~TextureCB();

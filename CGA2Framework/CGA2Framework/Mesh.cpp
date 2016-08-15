@@ -13,18 +13,18 @@ Mesh::Mesh() :
 {
 }
 
-Mesh::Mesh(const Mesh& _other) :
-	m_id(IDProvider::createID()),
-	m_hasBoundingBox(_other.m_hasBoundingBox),
-	m_vertices(_other.m_vertices),
-	m_boundingboxvertices(_other.m_boundingboxvertices),
-	m_indices(_other.m_indices),
-	m_boundingboxindices(_other.m_boundingboxindices),
-	m_material(_other.m_material),
-	m_glinited(false)
-{
-	
-}
+//Mesh::Mesh(const Mesh& _other) :
+//	m_id(IDProvider::createID()),
+//	m_hasBoundingBox(_other.m_hasBoundingBox),
+//	m_vertices(_other.m_vertices),
+//	m_boundingboxvertices(_other.m_boundingboxvertices),
+//	m_indices(_other.m_indices),
+//	m_boundingboxindices(_other.m_boundingboxindices),
+//	m_material(_other.m_material),
+//	m_glinited(false)
+//{
+//	
+//}
 
 Mesh::Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLuint>& _indices, Material* _material, const bool _calcBoundingBox, Shader* _shader) :
 	m_id(IDProvider::createID()),

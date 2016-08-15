@@ -6,7 +6,7 @@ class Model
 {
 public:
 	Model();
-	Model(const Model& _other);
+	Model(const Model& _other) = delete;
 	~Model();
 
 	void addMesh(Mesh* _mesh);
