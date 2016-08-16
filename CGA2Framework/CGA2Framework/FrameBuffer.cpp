@@ -1,7 +1,7 @@
 #include "FrameBuffer.h"
 
 
-FrameBuffer::FrameBuffer() :
+FrameBuffer::FrameBuffer(const FBTYPE _type, const GLint _samples = 0) :
 	m_fbo(0),
 	m_colorrenderbuffers(),
 	m_depthrenderbuffer(0),
@@ -12,11 +12,13 @@ FrameBuffer::FrameBuffer() :
 	m_vpxoff(0),
 	m_vpyoff(0),
 	m_isallocated(false),
-	m_isbound(false)
+	m_isbound(false),
+	m_type(_type),
+	m_samples(_samples)
 {
 }
 
-FrameBuffer::FrameBuffer(const GLint _vpwidth, const GLint _vpheight, const GLint _vpxoff, const GLint _vpyoff) :
+FrameBuffer::FrameBuffer(const GLint _vpwidth, const GLint _vpheight, const GLint _vpxoff, const GLint _vpyoff, const FBTYPE _type, const GLint _samples = 0) :
 	m_fbo(0),
 	m_colorrenderbuffers(),
 	m_depthrenderbuffer(0),
@@ -27,7 +29,9 @@ FrameBuffer::FrameBuffer(const GLint _vpwidth, const GLint _vpheight, const GLin
 	m_vpxoff(_vpxoff),
 	m_vpyoff(_vpyoff),
 	m_isallocated(false),
-	m_isbound(false)
+	m_isbound(false),
+	m_type(_type),
+	m_samples(_samples)
 {
 }
 
@@ -210,51 +214,192 @@ bool FrameBuffer::blit(FrameBuffer* _target)
 
 }
 
-Texture* FrameBuffer::getColorBuffer(const std::string& _name)
+Texture* FrameBuffer::getColorBufferTex(const std::string& _name)
 {
-	return m_colorbuffers.find(_name)->second;
+	return m_colorbuffers.find(_name)->second.tex;
 }
 
-Texture* FrameBuffer::getDepthBuffer()
+Texture* FrameBuffer::getDepthBufferTex()
 {
-	return m_depthbuffer;
+	return m_depthbuffer.tex;
 }
 
-bool FrameBuffer::addColorBuffer2D(
+//TODO: Bind attachments to framebuffer, check if fbo is allocated and bound before doing this!
+bool FrameBuffer::addColorBufferTex(
 	const std::string& _name,
 	GLint _glinternalformat,
 	GLenum _glformat,
-	GLenum _gltype,
-	GLboolean _multisample,
-	GLint _samples)
+	GLenum _gltype)
 {
+	if (m_colorbuffers.find(_name) != m_colorbuffers.end())
+	{
+		return false;
+	}
 
+	switch (m_type)
+	{
+		case FBTYPE::FBT_2D:
+		{
+			Texture2D* tex = new Texture2D(m_vpwidth, m_vpheight, _name);
+			tex->setGLInternalFormat(_glinternalformat);
+			tex->setGLFormat(_glformat);
+			tex->setGLType(_gltype);
+			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
+			if (tex->buffer(true))
+			{
+				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, Attachment(m_colorbuffers.size(), tex)));
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			break;
+		}
+		case FBTYPE::FBT_2D_MULTISAMPLE:
+		{
+			Texture2D* tex = new Texture2D(m_vpwidth, m_vpheight, _name);
+			tex->setGLInternalFormat(_glinternalformat);
+			tex->setGLFormat(_glformat);
+			tex->setGLType(_gltype);
+			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
+			tex->setMultisampling(true, m_samples);
+			if (tex->buffer(true))
+			{
+				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, Attachment(m_colorbuffers.size(), tex)));
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			break;
+		}
+		case FBTYPE::FBT_CUBEMAP:
+		{
+			TextureCB* tex = new TextureCB(m_vpwidth, _name);
+			tex->setGLInternalFormat(_glinternalformat);
+			tex->setGLFormat(_glformat);
+			tex->setGLType(_gltype);
+			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
+			if (tex->buffer(true))
+			{
+				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, Attachment(m_colorbuffers.size(), tex)));
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			break;
+		}
+		default:
+		{
+			return false;
+			break;
+		}			
+	}
 }
 
-bool FrameBuffer::setDepthBuffer2D(
+//TODO: Bind attachments to framebuffer, check if fbo is allocated and bound before doing this!
+bool FrameBuffer::setDepthBufferTex(
 	GLint _glinternalformat,
 	GLenum _glformat,
-	GLenum _gltype,
-	GLboolean _multisample,
-	GLint _samples
+	GLenum _gltype
 	)
 {
-
+	switch (m_type)
+	{
+		case FBTYPE::FBT_2D:
+		{
+			Texture2D* tex = new Texture2D(m_vpwidth, m_vpheight);
+			tex->setGLInternalFormat(_glinternalformat);
+			tex->setGLFormat(_glformat);
+			tex->setGLType(_gltype);
+			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
+			if (tex->buffer(true))
+			{
+				m_depthbuffer = Attachment(0, tex);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			break;
+		}
+		case FBTYPE::FBT_2D_MULTISAMPLE:
+		{
+			Texture2D* tex = new Texture2D(m_vpwidth, m_vpheight);
+			tex->setGLInternalFormat(_glinternalformat);
+			tex->setGLFormat(_glformat);
+			tex->setGLType(_gltype);
+			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
+			tex->setMultisampling(true, m_samples);
+			if (tex->buffer(true))
+			{
+				m_depthbuffer = Attachment(0, tex);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			break;
+		}
+		case FBTYPE::FBT_CUBEMAP:
+		{
+			TextureCB* tex = new TextureCB(m_vpwidth);
+			tex->setGLInternalFormat(_glinternalformat);
+			tex->setGLFormat(_glformat);
+			tex->setGLType(_gltype);
+			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
+			if (tex->buffer(true))
+			{
+				m_depthbuffer = Attachment(0, tex);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			break;
+		}
+		default:
+		{
+			return false;
+			break;
+		}
+	}
 }
 
-bool FrameBuffer::addColorBufferCB(
+//TODO: Create renderbuffers and bind them, check if fbo is allocated and bound before doing this!
+bool FrameBuffer::addColorRenderBuffer(
 	const std::string& _name,
 	GLint _glinternalformat,
 	GLenum _glformat,
 	GLenum _gltype)
 {
-
+	switch (m_type)
+	{
+	case FBTYPE::FBT_2D:
+		break;
+	case FBTYPE::FBT_2D_MULTISAMPLE:
+		break;
+	case FBTYPE::FBT_CUBEMAP:
+		break;
+	default:
+		return false;
+		break;
+	}
 }
 
-bool FrameBuffer::setDepthBufferCB(
+//TODO: Create renderbuffers and bind them, check if fbo is allocated and bound before doing this!
+bool FrameBuffer::setDepthRenderBuffer(
 	GLint _glinternalformat,
 	GLenum _glformat,
-	GLenum _gltype)
+	GLenum _gltype
+	)
 {
 
 }
@@ -302,7 +447,7 @@ bool FrameBuffer::checkfbostate()
 				return false;
 				break;
 			case GL_FRAMEBUFFER_UNSUPPORTED:
-				std::cout << "FRAMEBUFFER ERROR: The image formats you specified are not supported by the system's OpenGL implementation." << std::endl;
+				std::cout << "FRAMEBUFFER ERROR: The image formats specified are not supported by the system's OpenGL implementation." << std::endl;
 				return false;
 				break;
 			case GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE:
