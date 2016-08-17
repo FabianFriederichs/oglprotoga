@@ -12,6 +12,7 @@ public:
 	void Move(const MoveData &movedata) override;
 	void Rotate(const vec3 &rotation) override;
 	void Fly(bool);
+	const bool isFlying(){ return flying; }
 private:
 	GLfloat m_VA;
 	GLfloat m_HA;

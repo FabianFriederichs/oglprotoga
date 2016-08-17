@@ -183,6 +183,7 @@ bool DDSLoader::loadDDSTex(const std::string& _filepath, Texture& _tex)
 					tex->setGLFormat(0);
 					tex->setGLType(0);
 					tex->setBindingOptions(GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+					
 					return true;
 				}
 				else if (_header.dwMipMapCount == 0) //no mipmaps
@@ -372,7 +373,8 @@ Texture* DDSLoader::loadDDSTex(const std::string& _filepath)
 		{
 		case TEX_2D:
 		{
-			Texture2D* tex = new Texture2D(_filepath);
+			Texture2D* tex = new Texture2D("");
+			tex->setPath(_filepath);
 			if ((_header.dwFlags & DDSD_LINEARSIZE) && (_header.ddspf.dwFlags & DDPF_FOURCC)) //compressed texture
 			{
 				//format

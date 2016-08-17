@@ -58,5 +58,14 @@ public:
 	{
 		proj = glm::perspective(m_fov, m_width / m_height, m_znear, m_zfar);
 	}
+
+	const GLfloat getFov(){ return m_fov; }
+	const GLfloat getWidth(){ return m_width; }
+	const GLfloat getHeight(){ return m_height; }
+	const GLfloat getNear(){ return m_znear; }
+	const GLfloat getFar(){ return m_zfar; }
+	const vec3 getWorldUp(){ return m_wy; }
+	const vec3 getWorldRight(){ return m_wx; }
+	const vec3 getWorldForw(){ return m_wz; }
 };
 

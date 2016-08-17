@@ -86,11 +86,12 @@ GLvoid MainGame::render(GLdouble time)
 void MainGame::init()
 {
 	m_scene = new TestScene(m_sizex, m_sizey);
-	m_scene->load();
+	dynamic_cast<TestScene*>(m_scene)->load("Assets\\TestScene.txt");
 	m_scenerenderer = new ForwardRenderer();
 }
 
 void MainGame::shutdown()
 {
+	dynamic_cast<TestScene*>(m_scene)->save("Assets\\TestScene.txt");
 	//m_scene->clear();
 }
