@@ -36,237 +36,8 @@ TestScene::~TestScene()
 {
 }
 
-void TestScene::load(){}
-
-void TestScene::load(const std::string &path)
+void TestScene::load()
 {
-	std::ifstream file(path.c_str());
-	std::list<SNode> nodes;
-	if (file.is_open())
-	{
-		while (!file.eof())
-		{
-			std::string line;
-			std::getline(file, line);
-			if (line[0] == '/')
-			{
-				nodes.push_back(SNode(line));
-			}
-			else if (line[0] == '\t')
-			{
-				SNode* curnode = &nodes.back();
-				int c = 1;
-				while (line[c] == '\t')
-				{
-					c++;
-					if (curnode->Count() > 0)
-						curnode = &curnode->getNode(-1);
-					else
-						goto skip;
-				}
-				curnode->AddChild(line.substr(c));
-			}
-		skip:;
-		}
-	}
-	file.close();
-	std::unordered_map<std::string, Texture2D*> texturess;
-	std::unordered_map < std::string, Shader* > shaderss;
-	std::unordered_map<std::string, Model*> modelss;
-	std::unordered_map<std::string, Material*> materialss;
-	for (SNode n : nodes)
-	{
-		if (n.Value() == "/resources")
-		{
-			if (n.Contains("/textures"))
-			{
-				for (SNode* nt : n["/textures"].Children())
-				{
-					std::string v = nt->Value();
-					int c = v.find_first_of('<')+1;
-					int cc = v.find_first_of('>');
-					texturess[v.substr(c, cc - c)] = dynamic_cast<Texture2D*>(DDSLoader::loadDDSTex(v.substr(cc + 1)));
-				}
-			}
-			if (n.Contains("/shaders"))
-			{
-				for (SNode* nt : n["/shaders"].Children())
-				{
-					std::string v = nt->Value();
-					int c = v.find_first_of('<') + 1;
-					int cc = v.find_first_of('>');
-					std::string name = v.substr(c, cc - c);
-					c = v.find_first_of('<',cc) + 1;
-					cc = v.find_first_of('>', c);
-					std::string vs = v.substr(c, cc - c);
-					c = v.find_first_of('<', cc) + 1;
-					cc = v.find_first_of('>', c);
-					std::string fs = v.substr(c, cc - c);
-					ForwardShader* forward = new ForwardShader();
-					forward->load(vs.c_str(), fs.c_str());
-					shaderss[name] = forward;
-				}
-			}
-			if (n.Contains("/models"))
-			{
-				std::string modelsloaded;
-				std::list<Model*> ms;
-				for (SNode* nt : n["/models"].Children())
-				{
-					std::string v = nt->Value();
-					int c = v.find_first_of('<') + 1;
-					int cc = v.find_first_of('>');
-					std::string name = v.substr(c, cc - c);
-					c = v.find_first_of('<', cc) + 1;
-					cc = v.find_first_of('>', c);
-					int index = std::stoi(v.substr(c, cc - c));
-					std::string p = v.substr(cc+1);
-					if (modelsloaded.find(p) == std::string::npos)
-					{
-						ms = OBJLoader::loadOBJ(p);
-						modelsloaded += p + "\t";
-					}
-					if (ms.size() > index)
-					{
-						auto it = std::begin(ms);
-						std::advance(it, index);
-						modelss[name] = *it;
-					}
-				}
-			}
-		}
-		else if (n.Value() == "/materials")
-		{
-			for (SNode* nt : n["/materials"].Children())
-			{
-				Material* m = new Material();
-				if (nt->Count() > 1 && nt->Contains("/textures"))
-				{
-					if (nt[0].Value() != "/textures")
-						m->setShader(shaderss[nt[0].Value()]);
-					else
-						m->setShader(shaderss[nt[1].Value()]);
-					for (SNode* ntt : nt->getNode("/textures").Children())
-					{
-						m->addTexture(texturess[ntt->Value()]);
-					}
-				}
-			}
-		}
-		else if (n.Value() == "/submesh-material")
-		{
-			for (SNode* nt : n["/submesh-material"].Children())
-			{
-				auto meshes = modelss[nt->Value()]->getMeshes();
-				for (SNode* ntt : nt->Children())
-				{
-					std::string v = nt->Value();
-					int c = v.find_first_of('<') + 1;
-					int cc = v.find_first_of('>');
-					int idx = std::stoi(v.substr(c, cc - c));
-					c = v.find_first_of('<', cc) + 1;
-					cc = v.find_first_of('>', c);
-					std::string matname = v.substr(c, cc - c);
-					meshes[idx]->setMaterial(materialss[matname]);
-				}
-
-			}
-		}
-		else if (n.Value() == "/go")
-		{
-
-		}
-		else if (n.Value() == "/dirlights")
-		{
-
-		}
-		else if (n.Value() == "/plights")
-		{
-
-		}
-		else if (n.Value() == "/slights")
-		{
-
-		}
-		else if (n.Value() == "/camera")
-		{
-
-		}
-		else if (n.Value() == "/width")
-		{
-			m_width = std::stoi(n[0].Value());
-		}
-		else if (n.Value() == "/height")
-		{
-			m_height = std::stoi(n[0].Value());
-		}
-	}
-	/*
-
-	file format:
-	/resources
-	\t/textures
-	\t\t<name>path
-	\t/shaders
-	\t\t<name><Vpath><Fpath>
-	\t/models
-	\t\t<name>path
-
-	/materials
-	\tname
-	\t\tshadername
-	\t\t/textures
-	\t\t\ttexturename
-	...
-	/submesh-material
-	\t<modelname>
-	\t\t<submeshid>materialname
-	/go
-	\tmodelname<scale><rotation><translation>
-	/dirlights
-	\t<dir><scale><rotate><translate><color>
-	/plights
-	\t<color><scale><rotate><translate><constant><lineear><quadratic><range>
-	/slights
-	\t<color><scale><rotate><translate><dir><constannt>linear><quadratic><range>
-	/camera
-	\ttype
-	\t<fov><width><height><znear><zfar><wup><wright><wforw>
-	\tfly(true/false)
-	/width<>
-	/height<>
-
-	-textures
-	-shaders (shader pairs)
-	-materials
-	-1:m textures
-	-shader
-	-models
-	-submeshes <> material
-
-	-renderable GO
-	-model
-	-transform
-
-	-dirlights
-	-glm::vec3 _direction, Transform _transform, glm::vec4 _color
-	-plights
-	-glm::vec4 _color, Transform _transform, GLfloat _constant, GLfloat _linear, GLfloat _quadratic, GLfloat _range
-	-slights
-	-glm::vec4 _color, Transform _transform, glm::vec3 _direction, GLfloat _constant, GLfloat _linear, GLfloat _quadratic, GLfloat _range
-	-1camera
-	-camera type
-	-GLfloat fov,GLint width,GLint height,GLfloat znear,GLfloat zfar, vec3 worldup, vec3 worldright, vec3 worldforward
-	-fly mode
-	width
-	height
-
-	1. Load all resources and map them to their names specified in scene file
-	2. create objects as defined in scene file by their associated data (resource names, initialization data)
-	3.
-	
-	*/
-
 	//load testmodel "uglypot"
 	std::list<Model*> models = OBJLoader::loadOBJ("Assets\\Models\\uglypot.obj");
 	Texture2D* wooddiff = dynamic_cast<Texture2D*>(DDSLoader::loadDDSTex("Assets\\Materials\\wooddiff_RGBA32UI.dds"));
@@ -284,7 +55,7 @@ void TestScene::load(const std::string &path)
 	forward->load("BaseVertex.vert", "BaseFrag.frag");
 	addShader(forward);
 
-	
+
 
 	addTexture(wooddiff);
 	addTexture(woodspec);
@@ -334,7 +105,7 @@ void TestScene::load(const std::string &path)
 	DirectionalLight* dirlight = new DirectionalLight(glm::vec3(1.0f, -1.0f, -1.0f), Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)), glm::vec4(1.0f, 1.0f, 0.8f, 1.0f));
 	addDirectionalLight(dirlight);
 
-	PointLight* pointlight = new PointLight(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)),1.0f, 0.7f, 1.8f, 7.0f);
+	PointLight* pointlight = new PointLight(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)), 1.0f, 0.7f, 1.8f, 7.0f);
 	addPointLight(pointlight);
 	//create a flycam
 	FPSCamera* cam = new FPSCamera(45.0f, 800, 600, 0.1f, 100.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f));
@@ -343,6 +114,259 @@ void TestScene::load(const std::string &path)
 	m_camera = cam;
 
 	int dummy = 0;
+}
+
+void TestScene::load(const std::string &path)
+{
+	std::ifstream file(path.c_str());
+	std::list<SNode> nodes;
+	if (file.is_open())
+	{
+		while (!file.eof())
+		{
+			std::string line;
+			std::getline(file, line);
+			if (line[0] == '/')
+			{
+				nodes.push_back(SNode(line));
+			}
+			else if (line[0] == '\t')
+			{
+				SNode* curnode = &nodes.back();
+				int c = 1;
+				while (line[c] == '\t')
+				{
+					c++;
+					if (curnode->Count() > 0)
+						curnode = &curnode->getNode(-1);
+					else
+						goto skip;
+				}
+				curnode->AddChild(line.substr(c));
+			}
+		skip:;
+		}
+	}
+	file.close();
+	std::unordered_map<std::string, Texture2D*> texturess;
+	std::unordered_map <std::string, Shader* > shaderss;
+	std::unordered_map<std::string, Model*> modelss;
+	std::unordered_map<std::string, Material*> materialss;
+	for (SNode n : nodes)
+	{
+		if (n.Value() == "/resources")
+		{
+			if (n.Contains("/textures"))
+			{
+				for (SNode* nt : n["/textures"].Children())
+				{
+					std::string v = nt->Value();
+					int c = v.find_first_of('<')+1;
+					int cc = v.find_first_of('>');
+					texturess[v.substr(c, cc - c)] = dynamic_cast<Texture2D*>(DDSLoader::loadDDSTex(v.substr(cc + 1)));
+					addTexture(texturess[v.substr(c, cc - c)]);
+				}
+			}
+			if (n.Contains("/shaders"))
+			{
+				for (SNode* nt : n["/shaders"].Children())
+				{
+					std::string v = nt->Value();
+					int c = v.find_first_of('<') + 1;
+					int cc = v.find_first_of('>');
+					std::string name = v.substr(c, cc - c);
+					c = v.find_first_of('<',cc) + 1;
+					cc = v.find_first_of('>', c);
+					std::string vs = v.substr(c, cc - c);
+					c = v.find_first_of('<', cc) + 1;
+					cc = v.find_first_of('>', c);
+					std::string fs = v.substr(c, cc - c);
+					ForwardShader* forward = new ForwardShader();
+					forward->load(vs.c_str(), fs.c_str());
+					shaderss[name] = forward;
+					addShader(shaderss[name]);
+				}
+			}
+			if (n.Contains("/models"))
+			{
+				std::string modelsloaded;
+				std::list<Model*> ms;
+				for (SNode* nt : n["/models"].Children())
+				{
+					std::string v = nt->Value();
+					int c = v.find_first_of('<') + 1;
+					int cc = v.find_first_of('>');
+					std::string name = v.substr(c, cc - c);
+					c = v.find_first_of('<', cc) + 1;
+					cc = v.find_first_of('>', c);
+					int index = std::stoi(v.substr(c, cc - c));
+					std::string p = v.substr(cc+1);
+					if (modelsloaded.find(p) == std::string::npos)
+					{
+						ms = OBJLoader::loadOBJ(p);
+						for (Model* m : ms)
+							addModel(m);
+						modelsloaded += p + "\t";
+					}
+					if (ms.size() > index)
+					{
+						auto it = std::begin(ms);
+						std::advance(it, index);
+						modelss[name] = *it;
+					}
+				}
+			}
+		}
+		else if (n.Value() == "/materials")
+		{
+			for (SNode* nt : n.Children())
+			{
+				if (nt->Count() > 1 && nt->Contains("/textures"))
+				{
+					Material* m = new Material();
+					if (nt->getNode(0).Value() != "/textures")
+						m->setShader(shaderss[nt->getNode(0).Value()]);
+					else
+						m->setShader(shaderss[nt->getNode(1).Value()]);
+					for (SNode* ntt : nt->getNode("/textures").Children())
+					{
+						m->addTexture(texturess[ntt->Value()]);
+					}
+					materialss[nt->Value()] = m;
+					addMaterial(m);
+					
+				}
+			}
+		}
+		else if (n.Value() == "/submesh-material")
+		{
+			for (SNode* nt : n.Children())
+			{
+				auto meshes = modelss[nt->Value()]->getMeshes();
+				for (SNode* ntt : nt->Children())
+				{
+					std::string v = ntt->Value();
+					int c = v.find_first_of('<') + 1;
+					int cc = v.find_first_of('>');
+					int idx = std::stoi(v.substr(c, cc - c));
+
+					std::string matname = v.substr(cc + 1);
+					meshes[idx]->setMaterial(materialss[matname]);
+				}
+			}
+		}
+		else if (n.Value() == "/go")
+		{
+			for (SNode* nt : n.Children())
+			{
+				std::vector<std::string> vals;
+				std::string v = nt->Value();
+				vals.push_back(v.substr(0, v.find_first_of('<')));
+				int c = 0, cc = 0;
+				while ((c = v.find_first_of('<', cc)) != std::string::npos)
+				{
+					cc = v.find_first_of('>', ++c);
+					vals.push_back(v.substr(c, cc - c));
+				}
+				
+				if (vals.size() > 3)
+				{
+					RenderableGameObject* go = new RenderableGameObject();
+					go->setModel(modelss[vals[0]]);
+					go->getTransform().setScale(vec3FromString(vals[1]));
+					go->getTransform().setRotate(vec3FromString(vals[2]));
+					go->getTransform().setTranslate(vec3FromString(vals[3]));
+					addRenderable(go);
+				}
+			}
+		}
+		else if (n.Value() == "/dirlights")
+		{
+			for (SNode* nt : n.Children())
+			{
+				std::vector<std::string> vals;
+				std::string v = nt->Value();
+				int c = 0, cc = 0;
+				while ((c = v.find_first_of('<', cc)) != std::string::npos)
+				{
+					cc = v.find_first_of('>', ++c);
+					vals.push_back(v.substr(c, cc - c));
+				}
+				if (vals.size() > 4)
+				{
+					DirectionalLight* dirlight = new DirectionalLight(vec3FromString(vals[0]), Transform(vec3FromString(vals[1]), vec3FromString(vals[2]), vec3FromString(vals[3])), vec4FromString(vals[4]));
+					addDirectionalLight(dirlight);
+				}
+			}
+		}
+		else if (n.Value() == "/plights")
+		{
+			for (SNode* nt : n.Children())
+			{
+				std::vector<std::string> vals;
+				std::string v = nt->Value();
+				int c = 0, cc = 0;
+				while ((c = v.find_first_of('<', cc)) != std::string::npos)
+				{
+					cc = v.find_first_of('>', ++c);
+					vals.push_back(v.substr(c, cc - c));
+				}
+				if (vals.size() > 7)
+				{
+					PointLight* pointlight = new PointLight(vec4FromString(vals[0]), Transform(vec3FromString(vals[1]), vec3FromString(vals[2]), vec3FromString(vals[3])), std::stod(vals[4]), std::stod(vals[5]), std::stod(vals[6]), std::stod(vals[7]));
+					addPointLight(pointlight);
+				}
+			}
+		}
+		else if (n.Value() == "/slights")
+		{
+			for (SNode* nt : n.Children())
+			{
+				std::vector<std::string> vals;
+				std::string v = nt->Value();
+				int c = 0, cc = 0;
+				while ((c = v.find_first_of('<', cc)) != std::string::npos)
+				{
+					cc = v.find_first_of('>', ++c);
+					vals.push_back(v.substr(c, cc - c));
+				}
+				if (vals.size() > 8)
+				{
+					SpotLight* spotlight = new SpotLight(vec4FromString(vals[0]), Transform(vec3FromString(vals[1]), vec3FromString(vals[2]), vec3FromString(vals[3])), vec3FromString(vals[4]), std::stod(vals[5]), std::stod(vals[6]), std::stod(vals[7]), std::stod(vals[8]));
+					addSpotLight(spotlight);
+				}
+			}
+		}
+		else if (n.Value() == "/camera")
+		{
+			std::vector<std::string> vals;
+			std::string v = n[1].Value();
+			int c = 0, cc = 0;
+			while ((c = v.find_first_of('<', cc)) != std::string::npos)
+			{
+				cc = v.find_first_of('>', ++c);
+				vals.push_back(v.substr(c, cc - c));
+			}
+			if (vals.size() > 7)
+			{
+				//\t<fov><width><height><znear><zfar><wup><wright><wforw>
+				FPSCamera* cam = new FPSCamera(std::stof(vals[0]), std::stoi(vals[1]), std::stoi(vals[2]), std::stof(vals[3]), std::stof(vals[4]), vec3FromString(vals[5]), vec3FromString(vals[6]), vec3FromString(vals[7]));
+				cam->Fly(n[2].Value()=="1");
+				cam->recalcProj();
+				m_camera = cam;
+			}
+		}
+		else if (n.Value() == "/width")
+		{
+			m_width = std::stoi(n[0].Value());
+		}
+		else if (n.Value() == "/height")
+		{
+			m_height = std::stoi(n[0].Value());
+		}
+	}
+	nodes.clear();
+	
 }
 
 void TestScene::save(const std::string& path)
@@ -562,8 +586,10 @@ void TestScene::save(const std::string& path)
 	\ttype
 	\t<fov><width><height><znear><zfar><wup><wright><wforw>
 	\tfly(true/false)
-	/width<>
-	/height<>
+	/width
+	\t<>
+	/height
+	\t<>
 	*/
 
 }
@@ -597,7 +623,7 @@ const std::string vec4ToString(const glm::vec4& v)
 	std::string s = "";
 	s += std::to_string(v.x) + ",";
 	s += std::to_string(v.y) + ",";
-	s += std::to_string(v.z) + ",";
+	s += std::to_string(v.z) + ","; 
 	s += std::to_string(v.w);
 	return s;
 }

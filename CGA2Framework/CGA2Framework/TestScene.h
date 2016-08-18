@@ -20,10 +20,6 @@ class SNode
 public:
 	~SNode()
 	{
-		for (SNode* n : children)
-		{
-			delete n;
-		}
 	}
 	SNode(){ parent = nullptr; }
 	SNode(std::string value){ m_value = value; parent = nullptr; }
