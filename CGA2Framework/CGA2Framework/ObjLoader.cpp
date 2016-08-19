@@ -133,6 +133,7 @@ std::list<Model*> OBJLoader::loadOBJ(const std::string& _filepath)
 		for (auto o = rawfaces.begin(); o != rawfaces.end(); o++)		//iterate objects
 		{
 			gameobj = new Model();
+			gameobj->setPath(_filepath);
 			for (auto g = o->begin(); g != o->end(); g++)				//iterate meshes / groups
 			{
 				mesh = new Mesh();	//new empty mesh
@@ -267,6 +268,7 @@ std::list<Model*> OBJLoader::loadOBJ(const std::string& _filepath)
 			if (gameobj->getMeshes().size() > 0)
 				Models.push_back(gameobj);
 		}
+		
 		return Models;
 	}
 	catch (std::exception& ex)

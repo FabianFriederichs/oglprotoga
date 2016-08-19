@@ -775,6 +775,8 @@ std::vector<Image2D> DDSLoader::loadImageMipmaps(const std::string& _filepath)
 		case TEX_2D:
 		{
 			//Texture2D* tex = new Texture2D(_filepath);
+			Texture2D* tex = new Texture2D("");
+			tex->setPath(_filepath);
 			if ((_header.dwFlags & DDSD_LINEARSIZE) && (_header.ddspf.dwFlags & DDPF_FOURCC)) //compressed texture
 			{
 				//format

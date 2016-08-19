@@ -88,6 +88,10 @@ void Scene::removeRenderable(GLint _id)
 
 }
 
+void Scene::addShader(Shader* _shader)
+{
+	m_shaders.push_back(_shader);
+}
 
 void Scene::addModel(Model* _model)
 {

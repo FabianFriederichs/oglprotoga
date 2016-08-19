@@ -34,10 +34,16 @@ public:
 	const bool isBuffered() { return m_isbuffered; }
 	const bool isBound() { return m_isbound; }
 
+	const std::string getPath(){ return m_path; }
+	const std::string getName(){ return m_name; }
+	void setPath(const std::string& path){ m_path = path; }
+	void setName(const std::string& name){ m_name = name; }
+
 protected:
 	GLint m_id;	
 	GLuint m_texture;
-	std::string m_name;	
+	std::string m_name;
+	std::string m_path;
 	TEXTYPE m_type;	
 	bool m_isbuffered;
 	bool m_isbound;

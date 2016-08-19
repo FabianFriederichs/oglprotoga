@@ -48,6 +48,8 @@ public:
 	//RenderList& getRenderList() { return m_renderList; };
 	//void createRenderList();
 
+	std::list<Shader*> m_shaders;
+	void addShader(Shader* _shader);
 
 	std::list<Model*> m_models;
 	void addModel(Model* _model);
@@ -69,9 +71,6 @@ public:
 
 	std::list<Material*> m_materials;
 	void addMaterial(Material* _material);
-
-	std::list<Shader*> m_shaders;
-	void addShader(Shader* _shader);
 	
 	Camera* m_camera;
 	

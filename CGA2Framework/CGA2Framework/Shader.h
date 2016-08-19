@@ -34,10 +34,10 @@ public:
 		{
 			_target = nullptr;
 			glBindFramebuffer(GL_FRAMEBUFFER, 0); GLERR
-			if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-				return false;
-			else
-				return true;
+				if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+					return false;
+				else
+					return true;
 		}
 		else
 		{
@@ -85,6 +85,8 @@ public:
 		{
 			std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
 		}
+		m_vertpath = vertexPath;
+		m_fragpath = fragmentPath;
 		const GLchar* vShaderCode = vertexCode.c_str();
 		const GLchar * fShaderCode = fragmentCode.c_str();
 		// 2. Compile shaders
@@ -93,43 +95,43 @@ public:
 		GLchar infoLog[512];
 		// Vertex Shader
 		vertex = glCreateShader(GL_VERTEX_SHADER); GLERR
-		glShaderSource(vertex, 1, &vShaderCode, NULL);GLERR
-		glCompileShader(vertex); GLERR
-		// Print compile errors if any
-		glGetShaderiv(vertex, GL_COMPILE_STATUS, &success); GLERR
-		if (!success)
-		{
+			glShaderSource(vertex, 1, &vShaderCode, NULL); GLERR
+			glCompileShader(vertex); GLERR
+			// Print compile errors if any
+			glGetShaderiv(vertex, GL_COMPILE_STATUS, &success); GLERR
+			if (!success)
+			{
 			glGetShaderInfoLog(vertex, 512, NULL, infoLog); GLERR
-			std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-		}
+				std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+			}
 		// Fragment Shader
 		fragment = glCreateShader(GL_FRAGMENT_SHADER); GLERR
-		glShaderSource(fragment, 1, &fShaderCode, NULL); GLERR
-		glCompileShader(fragment); GLERR
-		// Print compile errors if any
-		glGetShaderiv(fragment, GL_COMPILE_STATUS, &success); GLERR
-		if (!success)
-		{
+			glShaderSource(fragment, 1, &fShaderCode, NULL); GLERR
+			glCompileShader(fragment); GLERR
+			// Print compile errors if any
+			glGetShaderiv(fragment, GL_COMPILE_STATUS, &success); GLERR
+			if (!success)
+			{
 			glGetShaderInfoLog(fragment, 512, NULL, infoLog); GLERR
-			std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
-		}
+				std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+			}
 		// Shader Program
 		this->Program = glCreateProgram(); GLERR
-		glAttachShader(this->Program, vertex); GLERR
-		glAttachShader(this->Program, fragment); GLERR
-		glLinkProgram(this->Program); GLERR
-		// Print linking errors if any
-		glGetProgramiv(this->Program, GL_LINK_STATUS, &success); GLERR
-		if (!success)
-		{
+			glAttachShader(this->Program, vertex); GLERR
+			glAttachShader(this->Program, fragment); GLERR
+			glLinkProgram(this->Program); GLERR
+			// Print linking errors if any
+			glGetProgramiv(this->Program, GL_LINK_STATUS, &success); GLERR
+			if (!success)
+			{
 			glGetProgramInfoLog(this->Program, 512, NULL, infoLog); GLERR
-			std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
-		}
+				std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+			}
 		// Delete the shaders as they're linked into our program now and no longer necessery
 		glDetachShader(this->Program, vertex); GLERR
-		glDetachShader(this->Program, fragment); GLERR
-		glDeleteShader(vertex); GLERR
-		glDeleteShader(fragment); GLERR
+			glDetachShader(this->Program, fragment); GLERR
+			glDeleteShader(vertex); GLERR
+			glDeleteShader(fragment); GLERR
 	}
 	// Uses the current shader
 	void Use()
@@ -142,8 +144,8 @@ public:
 	{
 		GLint progName = 0;
 		glGetIntegerv(GL_CURRENT_PROGRAM, &progName); GLERR
-		if (progName != this->Program)
-			return false;
+			if (progName != this->Program)
+				return false;
 		return true;
 	}
 
@@ -153,13 +155,17 @@ private:
 		return glGetUniformLocation(this->Program, name.c_str()); GLERR
 	}
 	GLint m_id;
+	std::string m_vertpath;
+	std::string m_fragpath;
 public:
-	template<class T> 
+	template<class T>
 	inline void setUniform(const std::string name, T stuff);
 	template<class T>
 	inline void setUniform(const std::string name, T stuff, const GLboolean transpose);
 
-	GLint getID() { return m_id; }
+	const GLint getID() { return m_id; }
+	const std::string getVPath(){ return m_vertpath; }
+	const std::string getFPath(){ return m_fragpath; }
 };
 
 

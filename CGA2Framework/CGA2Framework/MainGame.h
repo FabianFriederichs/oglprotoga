@@ -20,11 +20,12 @@ public:
 	virtual void mmcallback(double xpos, double ypos);
 	virtual void mbcallback(int button, int action, int mods);
 	virtual void mscrcallback(double xoffset, double yoffset);
+	bool keys[1024];
 
 private:
 	Scene* m_scene;
 
-	GLdouble m_curmousex = 0.0;
-	GLdouble m_curmousey = 0.0;
+	GLdouble m_curmousex;
+	GLdouble m_curmousey;
 };
 
