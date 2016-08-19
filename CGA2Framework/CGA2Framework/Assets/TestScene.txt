@@ -1,15 +1,5 @@
 /resources
 	/textures
-		<tex0>Assets\Materials\wooddiff_RGBA32UI.dds
-		<tex1>Assets\Materials\woodspec_RGBA32UI.dds
-		<tex2>Assets\Materials\woodgloss_RGBA32UI.dds
-		<tex3>Assets\Materials\woodnormal_RGBA32UI.dds
-		<tex4>Assets\Materials\woodheight_RGBA32UI.dds
-		<tex5>Assets\Materials\metaldiff_RGBA32UI.dds
-		<tex6>Assets\Materials\metalspec_RGBA32UI.dds
-		<tex7>Assets\Materials\metalgloss_RGBA32UI.dds
-		<tex8>Assets\Materials\metalnormal_RGBA32UI.dds
-		<tex9>Assets\Materials\metalheight_RGBA32UI.dds
 	/shaders
 		<0><BaseVertex.vert><BaseFrag.frag>
 	/models
@@ -18,19 +8,19 @@
 	material0
 		0
 		/textures
-			tex0
-			tex1
-			tex2
-			tex3
-			tex4
+			_filepath
+			_filepath
+			_filepath
+			_filepath
+			_filepath
 	material1
 		0
 		/textures
-			tex5
-			tex6
-			tex7
-			tex8
-			tex9
+			_filepath
+			_filepath
+			_filepath
+			_filepath
+			_filepath
 /submesh-material
 	model0
 		<0>material0
@@ -39,7 +29,7 @@
 	model0<1.000000,1.000000,1.000000><0.000000,0.000000,0.000000><0.000000,0.000000,-2.000000>
 	model0<1.000000,1.000000,1.000000><0.000000,0.000000,0.000000><2.000000,2.000000,-2.000000>
 /dirlights
-	<1.000000,-1.000000,-1.000000><0.000000,0.000000,0.000000><0.000000,0.000000,0.000000><1.000000,1.000000,1.000000><1.000000,1.000000,0.800000,1.000000>
+	<1.000000,-1.000000,-1.000000><1.000000,1.000000,1.000000><0.000000,0.000000,0.000000><0.000000,0.000000,0.000000><1.000000,1.000000,0.800000,1.000000>
 /plights
 	<1.000000,1.000000,1.000000,1.000000><0.000000,0.000000,10.000000><0.000000,0.000000,0.000000><0.000000,0.000000,10.000000><1.000000><0.700000><1.800000><7.000000>
 /camera

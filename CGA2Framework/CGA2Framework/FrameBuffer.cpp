@@ -1,12 +1,12 @@
 #include "FrameBuffer.h"
 
 
-FrameBuffer::FrameBuffer(const FBTYPE _type, const GLint _samples = 0) :
+FrameBuffer::FrameBuffer(const FBTYPE _type, const GLint _samples) :
 	m_fbo(0),
 	m_colorrenderbuffers(),
-	m_depthrenderbuffer(0),
+	m_depthrenderbuffer(0,0),
 	m_colorbuffers(),
-	m_depthbuffer(0),
+	m_depthbuffer(0,0),
 	m_vpwidth(0),
 	m_vpheight(0),
 	m_vpxoff(0),
@@ -18,12 +18,12 @@ FrameBuffer::FrameBuffer(const FBTYPE _type, const GLint _samples = 0) :
 {
 }
 
-FrameBuffer::FrameBuffer(const GLint _vpwidth, const GLint _vpheight, const GLint _vpxoff, const GLint _vpyoff, const FBTYPE _type, const GLint _samples = 0) :
+FrameBuffer::FrameBuffer(const GLint _vpxoff, const GLint _vpyoff, const GLint _vpwidth, const GLint _vpheight, const FBTYPE _type, const GLint _samples) :
 	m_fbo(0),
 	m_colorrenderbuffers(),
-	m_depthrenderbuffer(0),
+	m_depthrenderbuffer(0,0),
 	m_colorbuffers(),
-	m_depthbuffer(0),
+	m_depthbuffer(0,0),
 	m_vpwidth(_vpwidth),
 	m_vpheight(_vpheight),
 	m_vpxoff(_vpxoff),
@@ -211,7 +211,13 @@ bool FrameBuffer::updateGLViewport(const GLint _vpxoff, const GLint _vpyoff, con
 
 bool FrameBuffer::blit(FrameBuffer* _target)
 {
-
+	/*glDisable(GL_MULTISAMPLE);
+	glBindFramebuffer(GL_READ_FRAMEBUFFER, rightEyeDesc.m_nRenderFramebufferId);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, _target->);
+	glBlitFramebuffer(0, 0, renderwidth, renderheight, 0, 0, renderwidth, renderheight, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+	glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);*/
+	return false;
 }
 
 Texture* FrameBuffer::getColorBufferTex(const std::string& _name)
@@ -312,7 +318,7 @@ bool FrameBuffer::setDepthBufferTex(
 	{
 		case FBTYPE::FBT_2D:
 		{
-			Texture2D* tex = new Texture2D(m_vpwidth, m_vpheight);
+			Texture2D* tex = new Texture2D(m_vpwidth, m_vpheight,"");
 			tex->setGLInternalFormat(_glinternalformat);
 			tex->setGLFormat(_glformat);
 			tex->setGLType(_gltype);
@@ -330,7 +336,7 @@ bool FrameBuffer::setDepthBufferTex(
 		}
 		case FBTYPE::FBT_2D_MULTISAMPLE:
 		{
-			Texture2D* tex = new Texture2D(m_vpwidth, m_vpheight);
+			Texture2D* tex = new Texture2D(m_vpwidth, m_vpheight,"");
 			tex->setGLInternalFormat(_glinternalformat);
 			tex->setGLFormat(_glformat);
 			tex->setGLType(_gltype);
@@ -349,7 +355,7 @@ bool FrameBuffer::setDepthBufferTex(
 		}
 		case FBTYPE::FBT_CUBEMAP:
 		{
-			TextureCB* tex = new TextureCB(m_vpwidth);
+			TextureCB* tex = new TextureCB(m_vpwidth,"");
 			tex->setGLInternalFormat(_glinternalformat);
 			tex->setGLFormat(_glformat);
 			tex->setGLType(_gltype);
@@ -401,17 +407,17 @@ bool FrameBuffer::setDepthRenderBuffer(
 	GLenum _gltype
 	)
 {
-
+	return false;
 }
 
 bool FrameBuffer::resolve(FrameBuffer* _resolvebuffer)
 {
-
+	return false;
 }
 
 bool FrameBuffer::complete()
 {
-
+	return false;
 }
 
 bool FrameBuffer::checkfbostate()

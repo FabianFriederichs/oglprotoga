@@ -123,11 +123,6 @@ void Scene::addSpotLight(SpotLight* _spotLight)
 	m_spotlights.push_back(_spotLight);
 }
 
-void Scene::addShader(Shader* _shader)
-{
-	m_shaders.push_back(_shader);
-}
-
 void Scene::addCubeMap(TextureCB* _texture)
 {
 	m_cubemaps.push_back(_texture);
