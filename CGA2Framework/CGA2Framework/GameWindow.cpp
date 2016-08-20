@@ -115,8 +115,9 @@ void GameWindow::mscrcallback(double xoffset, double yoffset)
 GLvoid GameWindow::run()
 {
 	init();
-	GLdouble timeDelta = 1.0f / 60.0f;
+	GLdouble timeDelta = 1.0f / 120.0f;
 	GLdouble timeAccumulator = 0;
+	GLdouble timeAccumulator2 = 0;
 	GLdouble startTime;
 	while (!glfwWindowShouldClose(this->m_window))
 	{
@@ -125,10 +126,19 @@ GLvoid GameWindow::run()
 		while (timeAccumulator >= timeDelta)
 		{
 			update(timeAccumulator);
+			
 			timeAccumulator -= timeDelta;
 		}
-		render(timeAccumulator);
+		auto ta = glfwGetTime();
+		render(glfwGetTime() - startTime);
+		if (timeAccumulator2 >= 1.f / 3.f)
+		{
+			std::cout << "Frame time: " << (glfwGetTime() - ta )<< "s\n";
+			timeAccumulator2 = 0;
+		}
+		
 		timeAccumulator += glfwGetTime() - startTime;
+		timeAccumulator2 += glfwGetTime() - startTime;
 	}
 	shutdown();
 	glfwDestroyWindow(m_window);
