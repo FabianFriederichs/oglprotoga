@@ -66,8 +66,8 @@ public:
 	}
 
 	void addMipMap(const Image2D& _image);
-
-
+	const std::vector<Image2D> getData() const {return m_data; }
+	
 protected:
 	std::vector<Image2D> m_data; // Texture2D has 1 face and a arbitrary number of mipmaps
 	//format stuff

@@ -45,7 +45,6 @@ void TestScene::load()
 																		"Assets\\skybox\\sbdownmip.dds",
 																		"Assets\\skybox\\sbbackmip.dds",
 																		"Assets\\skybox\\sbfrontmip.dds"));
-
 	if (skybox != nullptr)
 		addCubeMap(skybox);
 
@@ -128,6 +127,7 @@ void TestScene::load()
 
 void TestScene::load(const std::string &path)
 {
+	clear();
 	std::ifstream file(path.c_str());
 	std::list<SNode> nodes;
 	if (file.is_open())
@@ -159,6 +159,7 @@ void TestScene::load(const std::string &path)
 	}
 	file.close();
 	std::unordered_map<std::string, Texture2D*> texturess;
+	std::unordered_map<std::string, TextureCB*> cubemaps;
 	std::unordered_map <std::string, Shader* > shaderss;
 	std::unordered_map<std::string, Model*> modelss;
 	std::unordered_map<std::string, Material*> materialss;
@@ -175,6 +176,51 @@ void TestScene::load(const std::string &path)
 					int cc = v.find_first_of('>');
 					texturess[v.substr(c, cc - c)] = dynamic_cast<Texture2D*>(DDSLoader::loadDDSTex(v.substr(cc + 1)));
 					addTexture(texturess[v.substr(c, cc - c)]);
+				}
+			}
+			if (n.Contains("/cubemaps"))
+			{
+				for (SNode* nt : n["/cubemaps"].Children())
+				{
+					std::vector<std::string> vals;
+					std::string v = nt->Value();
+					vals.push_back(v.substr(0, v.find_first_of('<')));
+					int c = 0, cc = 0;
+					while ((c = v.find_first_of('<', cc)) != std::string::npos)
+					{
+						cc = v.find_first_of('>', ++c);
+						vals.push_back(v.substr(c, cc - c));
+					}
+
+					if (vals.size() > 6)
+					{
+						TextureCB* cb = new TextureCB();
+						cb->setName(vals[0]);
+						
+						for (Image2D i : texturess[vals[1]]->getData())
+							cb->addMipMap(TextureCB::CBFACE_POSX, i);
+						for (Image2D i : texturess[vals[2]]->getData())
+							cb->addMipMap(TextureCB::CBFACE_NEGX,i);
+						for (Image2D i : texturess[vals[3]]->getData())
+							cb->addMipMap(TextureCB::CBFACE_POSY, i);
+						for (Image2D i : texturess[vals[4]]->getData())
+							cb->addMipMap(TextureCB::CBFACE_NEGY,i);
+						for (Image2D i : texturess[vals[5]]->getData())
+							cb->addMipMap(TextureCB::CBFACE_POSZ, i);
+						for (Image2D i : texturess[vals[6]]->getData())
+							cb->addMipMap(TextureCB::CBFACE_NEGZ, i);
+						cb->setGLInternalFormat(texturess[vals[1]]->getGLInternalFormat());
+						cb->setGLFormat(texturess[vals[1]]->getGLFormat());
+						cb->setGLType(texturess[vals[1]]->getGLType());
+						cb->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+						cb->setWidth(texturess[vals[1]]->getWidth());
+						cb->setHeight(texturess[vals[1]]->getHeight());
+						if (cb != nullptr)
+						{
+							cubemaps[vals[0]] = cb;
+							addCubeMap(cb);
+						}
+					}
 				}
 			}
 			if (n.Contains("/shaders"))
