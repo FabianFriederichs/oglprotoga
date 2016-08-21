@@ -101,3 +101,29 @@ const std::string Peek(std::ifstream &strim)
 	strim.seekg(len, std::ios_base::beg);
 	return line;
 }
+
+glm::mat4 convert(const vr::HmdMatrix44_t &m) {
+	return glm::mat4(
+		m.m[0][0], m.m[1][0], m.m[2][0], m.m[3][0],
+		m.m[0][1], m.m[1][1], m.m[2][1], m.m[3][1],
+		m.m[0][2], m.m[1][2], m.m[2][2], m.m[3][2],
+		m.m[0][3], m.m[1][3], m.m[2][3], m.m[3][3]);
+}
+
+glm::mat4x3 convert(const vr::HmdMatrix34_t &m) {
+	return glm::mat4x3(
+		m.m[0][0], m.m[1][0], m.m[2][0],
+		m.m[0][1], m.m[1][1], m.m[2][1],
+		m.m[0][2], m.m[1][2], m.m[2][2],
+		m.m[0][3], m.m[1][3], m.m[2][3]);
+}
+
+void resolveFB(GLint read, GLint draw, glm::uint32 renderwidth, glm::uint32 renderheight)
+{
+	glDisable(GL_MULTISAMPLE);
+	glBindFramebuffer(GL_READ_FRAMEBUFFER, read);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, draw);
+	glBlitFramebuffer(0, 0, renderwidth, renderheight, 0, 0, renderwidth, renderheight, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+	glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+}

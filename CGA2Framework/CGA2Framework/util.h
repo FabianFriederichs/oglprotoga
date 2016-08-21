@@ -121,3 +121,9 @@ private:
 	SNode *parent;
 	std::string m_value;
 };
+
+glm::mat4 convert(const vr::HmdMatrix44_t &m);
+
+glm::mat4x3 convert(const vr::HmdMatrix34_t &m);
+
+void resolveFB(GLint read, GLint draw, glm::uint32 renderwidth, glm::uint32 renderheight);

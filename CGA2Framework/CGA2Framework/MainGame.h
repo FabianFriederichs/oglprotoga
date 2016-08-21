@@ -1,7 +1,7 @@
 #pragma once
 #include "GameWindow.h"
-#include "TestScene.h"
 #include "ForwardRenderer.h"
+#include "VRRenderercpp.h"
 #include "glerror.h"
 class MainGame : public GameWindow
 {

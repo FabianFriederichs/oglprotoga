@@ -23,3 +23,4 @@
 #include <unordered_map>
 #include <memory>
 #include <cmath>
+#include <openvr.h>

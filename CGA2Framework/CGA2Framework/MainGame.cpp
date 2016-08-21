@@ -67,6 +67,8 @@ GLvoid MainGame::update(GLdouble time)
 	if (keys[GLFW_KEY_ESCAPE]){
 		quit();
 	}
+	
+	//while (vr::VRSystem()->PollNextEvent(&ev, sizeof(ev)));
 	/*(*m_scene->m_directionallights.begin())->m_direction.x = (glm::rotate(0.05f, glm::vec3(0.0f, 0.0f, 1.0f)) * vec4((*m_scene->m_directionallights.begin())->m_direction, 1.0f)).x;
 	(*m_scene->m_directionallights.begin())->m_direction.y = (glm::rotate(0.05f, glm::vec3(0.0f, 0.0f, 1.0f)) * vec4((*m_scene->m_directionallights.begin())->m_direction, 1.0f)).y;
 	(*m_scene->m_directionallights.begin())->m_direction.z = (glm::rotate(0.05f, glm::vec3(0.0f, 0.0f, 1.0f)) * vec4((*m_scene->m_directionallights.begin())->m_direction, 1.0f)).z;*/
@@ -88,6 +90,7 @@ void MainGame::init()
 	m_scene = new Scene(m_sizex, m_sizey);
 	(m_scene)->load("..\\..\\Assets\\TestScene.txt");
 	m_scenerenderer = new ForwardRenderer();
+	//m_scenerenderer = new VRRenderer(new ForwardRenderer(), new Shader("..\\..\\Assets\\Shader\\quad.vert", "..\\..\\Assets\\Shader\\quad.frag"));
 }
 
 void MainGame::shutdown()

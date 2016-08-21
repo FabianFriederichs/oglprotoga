@@ -18,3 +18,5 @@ CGA2Framework/ipch/
 CGA2Framework/CGA2Framework/glerrorlog.txt
 CGA2Framework/TestGame/glerrorlog.txt
 CGA2Framework/TestGame/Debug/TestGame.Build.CppClean.log
+CGA2Framework/TestGame/Release/
+CGA2Framework/TestGame/Debug/
