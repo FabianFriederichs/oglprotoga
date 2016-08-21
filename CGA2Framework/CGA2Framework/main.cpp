@@ -1,14 +1,7 @@
-#include <GL\glew.h>
-#include <glfw3.h>
-#include <glm/glm.hpp>
 #include <stdio.h>
 #include <stdlib.h>
-#include "Shader.h"
 #include "MainGame.h"
-#include "GameObject.h"
-#include "OBJLoader.h"
 #include "util.h"
-#include "dds.h"
 using namespace std;
 
 

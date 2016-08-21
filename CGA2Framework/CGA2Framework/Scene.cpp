@@ -236,6 +236,7 @@ void Scene::save(std::string _path)
 void Scene::load(std::string _path)
 {
 	clear();
+	std::string relPath = _path.substr(0,_path.find_last_of('\\')+1);
 	std::ifstream file(_path.c_str());
 	std::list<SNode> nodes;
 	if (file.is_open())
@@ -282,7 +283,7 @@ void Scene::load(std::string _path)
 					std::string v = nt->Value();
 					int c = v.find_first_of('<') + 1;
 					int cc = v.find_first_of('>');
-					texturess[v.substr(c, cc - c)] = dynamic_cast<Texture2D*>(DDSLoader::loadDDSTex(v.substr(cc + 1)));
+					texturess[v.substr(c, cc - c)] = dynamic_cast<Texture2D*>(DDSLoader::loadDDSTex(relPath+v.substr(cc + 1)));
 					addTexture(texturess[v.substr(c, cc - c)]);
 				}
 			}
@@ -346,7 +347,7 @@ void Scene::load(std::string _path)
 					cc = v.find_first_of('>', c);
 					std::string fs = v.substr(c, cc - c);
 					ForwardShader* forward = new ForwardShader();
-					forward->load(vs.c_str(), fs.c_str());
+					forward->load((relPath + vs).c_str(), (relPath + fs).c_str());
 					shaderss[name] = forward;
 					addShader(shaderss[name]);
 				}
@@ -364,7 +365,7 @@ void Scene::load(std::string _path)
 					c = v.find_first_of('<', cc) + 1;
 					cc = v.find_first_of('>', c);
 					int index = std::stoi(v.substr(c, cc - c));
-					std::string p = v.substr(cc + 1);
+					std::string p = relPath + v.substr(cc + 1);
 					if (modelsloaded.find(p) == std::string::npos)
 					{
 						ms = OBJLoader::loadOBJ(p);

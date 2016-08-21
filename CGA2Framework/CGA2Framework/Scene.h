@@ -36,8 +36,8 @@ public:
 	Scene(GLint width, GLint height);
 	virtual ~Scene();
 
-	virtual void save() = 0;
-	virtual void load() = 0;
+	virtual void save(){};
+	virtual void load(){};
 	virtual void save(std::string _path);
 	virtual void load(std::string _path);
 	virtual void clear();

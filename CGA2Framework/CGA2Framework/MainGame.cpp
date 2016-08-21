@@ -1,5 +1,4 @@
 #include "MainGame.h"
-#include "headers.h"
 
 
 MainGame::MainGame(const GLint sizex, const GLint sizey, const GLint cvmaj, const GLint cvmin, const std::string& title, const GLboolean uselatestglver, const GLint msaasamples)
@@ -86,13 +85,13 @@ GLvoid MainGame::render(GLdouble time)
 
 void MainGame::init()
 {
-	m_scene = new TestScene(m_sizex, m_sizey);
-	dynamic_cast<TestScene*>(m_scene)->Scene::load("Assets\\TestScene.txt");
+	m_scene = new Scene(m_sizex, m_sizey);
+	(m_scene)->load("..\\..\\Assets\\TestScene.txt");
 	m_scenerenderer = new ForwardRenderer();
 }
 
 void MainGame::shutdown()
 {
-	dynamic_cast<TestScene*>(m_scene)->Scene::save("Assets\\TestSceneSaveTest.txt");
+	//dynamic_cast<TestScene*>(m_scene)->Scene::save("Assets\\TestSceneSaveTest.txt");
 	//m_scene->clear();
 }
