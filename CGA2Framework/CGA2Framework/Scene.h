@@ -15,6 +15,7 @@
 #include "DDSLoader.h"
 #include "glerror.h"
 #include "Texture2D.h"
+#include "util.h"
 /*
 	Keep track of Entity-Shader relations (Map with shader ID as key?)
 	=> Mesh now has a Shader pointer
@@ -37,6 +38,8 @@ public:
 
 	virtual void save() = 0;
 	virtual void load() = 0;
+	virtual void save(std::string _path);
+	virtual void load(std::string _path);
 	virtual void clear();
 	//void render();
 	//scene data
@@ -83,6 +86,42 @@ public:
 	GLint m_width;
 	GLint m_height;
 
-	
+	/*
+	file format:
+	/resources
+	\t/textures
+	\t\t<name>path
+	\t/shaders
+	\t\t<name><Vpath><Fpath>
+	\t/models
+	\t\t<name>path
+
+	/materials
+	\tname
+	\t\tshadername
+	\t\t/textures
+	\t\t\ttexturename
+	...
+	/submesh-material
+	\t<modelname>
+	\t\t<submeshid>materialname
+	/go
+	\tmodelname<scale><rotation><translation>
+	/dirlights
+	\t<dir><scale><rotate><translate><color>
+	/plights
+	\t<color><scale><rotate><translate><constant><lineear><quadratic><range>
+	/slights
+	\t<color><scale><rotate><translate><dir><constannt>linear><quadratic><range>
+	/camera
+	\ttype
+	\t<fov><width><height><znear><zfar><wup><wright><wforw>
+	\tfly(true/false)
+	/width
+	\t<>
+	/height
+	\t<>
+	*/
+
 };
 

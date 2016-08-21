@@ -16,51 +16,6 @@ ForwardRenderer::~ForwardRenderer()
 
 void ForwardRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 {	
-	GLfloat skyboxVertices[] = {
-		// Positions          
-		-1.0f, 1.0f, -1.0f,
-		-1.0f, -1.0f, -1.0f,
-		1.0f, -1.0f, -1.0f,
-		1.0f, -1.0f, -1.0f,
-		1.0f, 1.0f, -1.0f,
-		-1.0f, 1.0f, -1.0f,
-
-		-1.0f, -1.0f, 1.0f,
-		-1.0f, -1.0f, -1.0f,
-		-1.0f, 1.0f, -1.0f,
-		-1.0f, 1.0f, -1.0f,
-		-1.0f, 1.0f, 1.0f,
-		-1.0f, -1.0f, 1.0f,
-
-		1.0f, -1.0f, -1.0f,
-		1.0f, -1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f, -1.0f,
-		1.0f, -1.0f, -1.0f,
-
-		-1.0f, -1.0f, 1.0f,
-		-1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f, -1.0f, 1.0f,
-		-1.0f, -1.0f, 1.0f,
-
-		-1.0f, 1.0f, -1.0f,
-		1.0f, 1.0f, -1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f, -1.0f,
-
-		-1.0f, -1.0f, -1.0f,
-		-1.0f, -1.0f, 1.0f,
-		1.0f, -1.0f, -1.0f,
-		1.0f, -1.0f, -1.0f,
-		-1.0f, -1.0f, 1.0f,
-		1.0f, -1.0f, 1.0f
-	};
-
 	if (!skyboxinited)
 	{
 		skyboxshader = new Shader();
@@ -70,7 +25,7 @@ void ForwardRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 		glGenBuffers(1, &skyboxvbo);
 		glBindVertexArray(skyboxvao);
 		glBindBuffer(GL_ARRAY_BUFFER, skyboxvbo);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), (void*)skyboxVertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, Primitives::SizeOfCubeVertices, (void*)Primitives::CubeVertices, GL_STATIC_DRAW);
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
 		glBindVertexArray(0);
