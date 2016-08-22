@@ -61,29 +61,40 @@ public:
 	bool unbind();
 	bool updateGLViewport();
 	bool updateGLViewport(const GLint _vpxoff, const GLint _vpyoff, const GLint _vpwidth, const GLint _vpheight);
-	
+
 	//blit operations
 	//blit one fbo to another //if width or height is negative, the viewport dimensions are used
 	static bool blit(FrameBuffer* _source,
 		FrameBuffer* _target,
-		const GLint _xoff,
-		const GLint _yoff,
-		const GLint _width,
-		const GLint _height,
-		bool colorbit,
-		GLint _colorbufferindex,
-		bool _depthbit,
-		bool _stencilbit);
+		bool _color,			//blit colorbuffer?
+		GLint _colorbufferindex,//what colorbuffer?
+		bool _depth,			//blit depthbuffer?
+		bool _stencil,			//blit stencilbuffer?
+		const GLint _srcx0 = -1,
+		const GLint _srcy0 = -1,
+		const GLint _srcx1 = -1,
+		const GLint _srcy1 = -1,
+		const GLint _dstx0 = -1,
+		const GLint _dsty0 = -1,
+		const GLint _dstx1 = -1,
+		const GLint _dsty1 = -1
+		);
 
 	//blit the default framebuffer to a fbo
-	static bool blitdefault(bool _frontback,	//true: frontbuffer, flase: backbuffer
+	static bool blitdefault(bool _frontback,	//true: frontbuffer, false: backbuffer
 		FrameBuffer* _target,
-		const GLint _xoff,
-		const GLint _yoff,
-		const GLint _width,
-		const GLint _height,
-		bool _depthbit,
-		bool _stencilbit);
+		bool _color,
+		bool _depth,
+		bool _stencil,
+		const GLint _srcx0 = -1,
+		const GLint _srcy0 = -1,
+		const GLint _srcx1 = -1,
+		const GLint _srcy1 = -1,
+		const GLint _dstx0 = -1,
+		const GLint _dsty0 = -1,
+		const GLint _dstx1 = -1,
+		const GLint _dsty1 = -1
+		);
 
 	//getters / setters
 	GLuint getGLFBO() { return m_fbo; }
@@ -141,6 +152,6 @@ private:
 
 	bool checkfbostate();
 
-	
+
 };
 

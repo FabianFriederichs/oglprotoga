@@ -2,33 +2,41 @@
 
 
 FrameBuffer::FrameBuffer(const FBTYPE _type, const GLint _samples) :
-	m_fbo(0),
-	m_colorbuffers(),
-	m_depthbuffer(0,0),
-	m_vpwidth(0),
-	m_vpheight(0),
-	m_vpxoff(0),
-	m_vpyoff(0),
-	m_isallocated(false),
-	m_isbound(false),
-	m_type(_type),
-	m_samples(_samples)
+m_fbo(0),
+m_colorbuffers(),
+m_depthbuffer(0, 0),
+m_vpwidth(0),
+m_vpheight(0),
+m_vpxoff(0),
+m_vpyoff(0),
+m_isallocated(false),
+m_isbound(false),
+m_type(_type),
+m_samples(0)
 {
+	if (m_type == FBTYPE::FBT_2D_MULTISAMPLE)
+	{
+		m_samples = _samples;
+	}
 }
 
 FrameBuffer::FrameBuffer(const GLint _vpxoff, const GLint _vpyoff, const GLint _vpwidth, const GLint _vpheight, const FBTYPE _type, const GLint _samples) :
-	m_fbo(0),
-	m_colorbuffers(),
-	m_depthbuffer(0,0),
-	m_vpwidth(_vpwidth),
-	m_vpheight(_vpheight),
-	m_vpxoff(_vpxoff),
-	m_vpyoff(_vpyoff),
-	m_isallocated(false),
-	m_isbound(false),
-	m_type(_type),
-	m_samples(_samples)
+m_fbo(0),
+m_colorbuffers(),
+m_depthbuffer(0, 0),
+m_vpwidth(_vpwidth),
+m_vpheight(_vpheight),
+m_vpxoff(_vpxoff),
+m_vpyoff(_vpyoff),
+m_isallocated(false),
+m_isbound(false),
+m_type(_type),
+m_samples(0)
 {
+	if (m_type == FBTYPE::FBT_2D_MULTISAMPLE)
+	{
+		m_samples = _samples;
+	}
 }
 
 
@@ -178,7 +186,7 @@ bool FrameBuffer::updateGLViewport()
 	if (m_vpwidth >= 0 && m_vpheight >= 0 && m_vpxoff >= 0 && m_vpyoff >= 0)
 	{
 		glViewport(m_vpxoff, m_vpyoff, m_vpwidth, m_vpheight); GLERR
-		return true;
+			return true;
 	}
 	else
 	{
@@ -196,7 +204,7 @@ bool FrameBuffer::updateGLViewport(const GLint _vpxoff, const GLint _vpyoff, con
 		m_vpwidth = _vpwidth;
 		m_vpheight = _vpheight;
 		glViewport(m_vpxoff, m_vpyoff, m_vpwidth, m_vpheight); GLERR
-		return true;
+			return true;
 	}
 	else
 	{
@@ -242,105 +250,105 @@ bool FrameBuffer::addColorBufferTex(
 
 	switch (m_type)
 	{
-		case FBTYPE::FBT_2D:
+	case FBTYPE::FBT_2D:
+	{
+		Texture2D* tex = new Texture2D(m_vpwidth, m_vpheight, _name);
+		tex->setGLInternalFormat(_glinternalformat);
+		tex->setGLFormat(_glformat);
+		tex->setGLType(_gltype);
+		tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
+		if (tex->buffer(true))
 		{
-			Texture2D* tex = new Texture2D(m_vpwidth, m_vpheight, _name);
-			tex->setGLInternalFormat(_glinternalformat);
-			tex->setGLFormat(_glformat);
-			tex->setGLType(_gltype);
-			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
-			if (tex->buffer(true))
+			m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, Attachment(m_colorbuffers.size(), tex)));
+			glFramebufferTexture2D(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + m_colorbuffers.size() - 1, GL_TEXTURE_2D, tex->getGLTexture(), 0);
+			if (checkglerror())
 			{
-				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, Attachment(m_colorbuffers.size(), tex)));
-				glFramebufferTexture2D(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + m_colorbuffers.size() - 1, GL_TEXTURE_2D, tex->getGLTexture(), 0);
-				if (checkglerror())
+				if (m_colorbuffers[_name].tex != nullptr)
 				{
-					if (m_colorbuffers[_name].tex != nullptr)
-					{
-						delete m_colorbuffers[_name].tex;
-						m_colorbuffers[_name].tex = nullptr;
-					}
-					return false;
+					delete m_colorbuffers[_name].tex;
+					m_colorbuffers[_name].tex = nullptr;
 				}
-				else
-				{
-					return true;
-				}
+				return false;
 			}
 			else
 			{
-				return false;
+				return true;
 			}
-			break;
 		}
-		case FBTYPE::FBT_2D_MULTISAMPLE:
-		{
-			Texture2D* tex = new Texture2D(m_vpwidth, m_vpheight, _name);
-			tex->setGLInternalFormat(_glinternalformat);
-			tex->setGLFormat(_glformat);
-			tex->setGLType(_gltype);
-			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
-			tex->setMultisampling(true, m_samples);
-			if (tex->buffer(true))
-			{
-				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, Attachment(m_colorbuffers.size(), tex)));
-				glFramebufferTexture2D(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + m_colorbuffers.size() - 1, GL_TEXTURE_2D_MULTISAMPLE, tex->getGLTexture(), 0);
-				if (checkglerror())
-				{
-					if (m_colorbuffers[_name].tex != nullptr)
-					{
-						delete m_colorbuffers[_name].tex;
-						m_colorbuffers[_name].tex = nullptr;
-					}
-					return false;
-				}
-				else
-				{
-					return true;
-				}
-			}
-			else
-			{
-				return false;
-			}
-			break;
-		}
-		case FBTYPE::FBT_CUBEMAP:
-		{
-			TextureCB* tex = new TextureCB(m_vpwidth, _name);
-			tex->setGLInternalFormat(_glinternalformat);
-			tex->setGLFormat(_glformat);
-			tex->setGLType(_gltype);
-			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
-			if (tex->buffer(true))
-			{
-				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, Attachment(m_colorbuffers.size(), tex)));
-				glFramebufferTexture(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + m_colorbuffers.size() - 1, tex->getGLTexture(), 0);
-				if (checkglerror())
-				{
-					if (m_colorbuffers[_name].tex != nullptr)
-					{
-						delete m_colorbuffers[_name].tex;
-						m_colorbuffers[_name].tex = nullptr;
-					}
-					return false;
-				}
-				else
-				{
-					return true;
-				}
-			}
-			else
-			{
-				return false;
-			}
-			break;
-		}
-		default:
+		else
 		{
 			return false;
-			break;
-		}			
+		}
+		break;
+	}
+	case FBTYPE::FBT_2D_MULTISAMPLE:
+	{
+		Texture2D* tex = new Texture2D(m_vpwidth, m_vpheight, _name);
+		tex->setGLInternalFormat(_glinternalformat);
+		tex->setGLFormat(_glformat);
+		tex->setGLType(_gltype);
+		tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
+		tex->setMultisampling(true, m_samples);
+		if (tex->buffer(true))
+		{
+			m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, Attachment(m_colorbuffers.size(), tex)));
+			glFramebufferTexture2D(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + m_colorbuffers.size() - 1, GL_TEXTURE_2D_MULTISAMPLE, tex->getGLTexture(), 0);
+			if (checkglerror())
+			{
+				if (m_colorbuffers[_name].tex != nullptr)
+				{
+					delete m_colorbuffers[_name].tex;
+					m_colorbuffers[_name].tex = nullptr;
+				}
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		else
+		{
+			return false;
+		}
+		break;
+	}
+	case FBTYPE::FBT_CUBEMAP:
+	{
+		TextureCB* tex = new TextureCB(m_vpwidth, _name);
+		tex->setGLInternalFormat(_glinternalformat);
+		tex->setGLFormat(_glformat);
+		tex->setGLType(_gltype);
+		tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
+		if (tex->buffer(true))
+		{
+			m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, Attachment(m_colorbuffers.size(), tex)));
+			glFramebufferTexture(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + m_colorbuffers.size() - 1, tex->getGLTexture(), 0);
+			if (checkglerror())
+			{
+				if (m_colorbuffers[_name].tex != nullptr)
+				{
+					delete m_colorbuffers[_name].tex;
+					m_colorbuffers[_name].tex = nullptr;
+				}
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		else
+		{
+			return false;
+		}
+		break;
+	}
+	default:
+	{
+		return false;
+		break;
+	}
 	}
 }
 
@@ -371,105 +379,105 @@ bool FrameBuffer::setDepthBufferTex(
 
 	switch (m_type)
 	{
-		case FBTYPE::FBT_2D:
+	case FBTYPE::FBT_2D:
+	{
+		Texture2D* tex = new Texture2D(m_vpwidth, m_vpheight, "");
+		tex->setGLInternalFormat(_glinternalformat);
+		tex->setGLFormat(_glformat);
+		tex->setGLType(_gltype);
+		tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
+		if (tex->buffer(true))
 		{
-			Texture2D* tex = new Texture2D(m_vpwidth, m_vpheight,"");
-			tex->setGLInternalFormat(_glinternalformat);
-			tex->setGLFormat(_glformat);
-			tex->setGLType(_gltype);
-			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
-			if (tex->buffer(true))
+			m_depthbuffer = Attachment(0, tex);
+			glFramebufferTexture2D(m_glframebuffertarget, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthbuffer.tex->getGLTexture(), 0);
+			if (checkglerror())
 			{
-				m_depthbuffer = Attachment(0, tex);
-				glFramebufferTexture2D(m_glframebuffertarget, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthbuffer.tex->getGLTexture(), 0);
-				if (checkglerror())
+				if (m_depthbuffer.tex != nullptr)
 				{
-					if (m_depthbuffer.tex != nullptr)
-					{
-						delete m_depthbuffer.tex;
-						m_depthbuffer.tex = nullptr;
-					}
-					return false;
+					delete m_depthbuffer.tex;
+					m_depthbuffer.tex = nullptr;
 				}
-				else
-				{
-					return true;
-				}
+				return false;
 			}
 			else
 			{
-				return false;
+				return true;
 			}
-			break;
 		}
-		case FBTYPE::FBT_2D_MULTISAMPLE:
-		{
-			Texture2D* tex = new Texture2D(m_vpwidth, m_vpheight,"");
-			tex->setGLInternalFormat(_glinternalformat);
-			tex->setGLFormat(_glformat);
-			tex->setGLType(_gltype);
-			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
-			tex->setMultisampling(true, m_samples);
-			if (tex->buffer(true))
-			{
-				m_depthbuffer = Attachment(0, tex);
-				glFramebufferTexture2D(m_glframebuffertarget, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, m_depthbuffer.tex->getGLTexture(), 0);
-				if (checkglerror())
-				{
-					if (m_depthbuffer.tex != nullptr)
-					{
-						delete m_depthbuffer.tex;
-						m_depthbuffer.tex = nullptr;
-					}
-					return false;
-				}
-				else
-				{
-					return true;
-				}
-			}
-			else
-			{
-				return false;
-			}
-			break;
-		}
-		case FBTYPE::FBT_CUBEMAP:
-		{
-			TextureCB* tex = new TextureCB(m_vpwidth,"");
-			tex->setGLInternalFormat(_glinternalformat);
-			tex->setGLFormat(_glformat);
-			tex->setGLType(_gltype);
-			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
-			if (tex->buffer(true))
-			{
-				m_depthbuffer = Attachment(0, tex);
-				glFramebufferTexture(m_glframebuffertarget, GL_DEPTH_ATTACHMENT, m_depthbuffer.tex->getGLTexture(), 0);
-				if (checkglerror())
-				{
-					if (m_depthbuffer.tex != nullptr)
-					{
-						delete m_depthbuffer.tex;
-						m_depthbuffer.tex = nullptr;
-					}
-					return false;
-				}
-				else
-				{
-					return true;
-				}
-			}
-			else
-			{
-				return false;
-			}
-			break;
-		}
-		default:
+		else
 		{
 			return false;
-			break;
 		}
+		break;
+	}
+	case FBTYPE::FBT_2D_MULTISAMPLE:
+	{
+		Texture2D* tex = new Texture2D(m_vpwidth, m_vpheight, "");
+		tex->setGLInternalFormat(_glinternalformat);
+		tex->setGLFormat(_glformat);
+		tex->setGLType(_gltype);
+		tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
+		tex->setMultisampling(true, m_samples);
+		if (tex->buffer(true))
+		{
+			m_depthbuffer = Attachment(0, tex);
+			glFramebufferTexture2D(m_glframebuffertarget, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, m_depthbuffer.tex->getGLTexture(), 0);
+			if (checkglerror())
+			{
+				if (m_depthbuffer.tex != nullptr)
+				{
+					delete m_depthbuffer.tex;
+					m_depthbuffer.tex = nullptr;
+				}
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		else
+		{
+			return false;
+		}
+		break;
+	}
+	case FBTYPE::FBT_CUBEMAP:
+	{
+		TextureCB* tex = new TextureCB(m_vpwidth, "");
+		tex->setGLInternalFormat(_glinternalformat);
+		tex->setGLFormat(_glformat);
+		tex->setGLType(_gltype);
+		tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
+		if (tex->buffer(true))
+		{
+			m_depthbuffer = Attachment(0, tex);
+			glFramebufferTexture(m_glframebuffertarget, GL_DEPTH_ATTACHMENT, m_depthbuffer.tex->getGLTexture(), 0);
+			if (checkglerror())
+			{
+				if (m_depthbuffer.tex != nullptr)
+				{
+					delete m_depthbuffer.tex;
+					m_depthbuffer.tex = nullptr;
+				}
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		else
+		{
+			return false;
+		}
+		break;
+	}
+	default:
+	{
+		return false;
+		break;
+	}
 	}
 }
 
@@ -527,169 +535,169 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 					glDeleteRenderbuffers(1, &rbuf);
 					return false;
 				}
-				
+
 				switch (m_type)
 				{
-					case FBTYPE::FBT_2D:
+				case FBTYPE::FBT_2D:
+				{
+					glRenderbufferStorage(GL_RENDERBUFFER, _depthinternalformat, m_vpwidth, m_vpheight);
+
+					if (checkglerror())
 					{
-						glRenderbufferStorage(GL_RENDERBUFFER, _depthinternalformat, m_vpwidth, m_vpheight);
-
-						if (checkglerror())
-						{
-							glBindRenderbuffer(GL_RENDERBUFFER, 0);
-							glDeleteRenderbuffers(1, &rbuf);
-							return false;
-						}
-
 						glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
-						GLenum attachment;
-						switch (_depthinternalformat)
-						{
-						case GL_DEPTH_COMPONENT16:
-							attachment = GL_DEPTH_ATTACHMENT;
-							break;
-						case GL_DEPTH_COMPONENT24:
-							attachment = GL_DEPTH_ATTACHMENT;
-							break;
-						case GL_DEPTH_COMPONENT32:
-							attachment = GL_DEPTH_ATTACHMENT;
-							break;
-						case GL_DEPTH_COMPONENT32F:
-							attachment = GL_DEPTH_ATTACHMENT;
-							break;
-						case GL_DEPTH24_STENCIL8:
-							attachment = GL_DEPTH_STENCIL_ATTACHMENT;
-							break;
-						case GL_DEPTH32F_STENCIL8:
-							attachment = GL_DEPTH_STENCIL_ATTACHMENT;
-							break;
-						default:
-							glBindRenderbuffer(GL_RENDERBUFFER, 0);
-							glDeleteRenderbuffers(1, &rbuf);
-							return false;
-							break;
-						}						
-
-						glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachment, GL_RENDERBUFFER, rbuf);
-
-						if (checkglerror())
-						{
-							glBindRenderbuffer(GL_RENDERBUFFER, 0);
-							glDeleteRenderbuffers(1, &rbuf);
-							return false;
-						}						
-						break;
+						glDeleteRenderbuffers(1, &rbuf);
+						return false;
 					}
-					case FBTYPE::FBT_2D_MULTISAMPLE:
+
+					glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+					GLenum attachment;
+					switch (_depthinternalformat)
 					{
-						glRenderbufferStorageMultisample(GL_RENDERBUFFER, m_samples ,_depthinternalformat, m_vpwidth, m_vpheight);
-
-						if (checkglerror())
-						{
-							glBindRenderbuffer(GL_RENDERBUFFER, 0);
-							glDeleteRenderbuffers(1, &rbuf);
-							return false;
-						}
-
-						glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
-						GLenum attachment;
-						switch (_depthinternalformat)
-						{
-						case GL_DEPTH_COMPONENT16:
-							attachment = GL_DEPTH_ATTACHMENT;
-							break;
-						case GL_DEPTH_COMPONENT24:
-							attachment = GL_DEPTH_ATTACHMENT;
-							break;
-						case GL_DEPTH_COMPONENT32:
-							attachment = GL_DEPTH_ATTACHMENT;
-							break;
-						case GL_DEPTH_COMPONENT32F:
-							attachment = GL_DEPTH_ATTACHMENT;
-							break;
-						case GL_DEPTH24_STENCIL8:
-							attachment = GL_DEPTH_STENCIL_ATTACHMENT;
-							break;
-						case GL_DEPTH32F_STENCIL8:
-							attachment = GL_DEPTH_STENCIL_ATTACHMENT;
-							break;
-						default:
-							glBindRenderbuffer(GL_RENDERBUFFER, 0);
-							glDeleteRenderbuffers(1, &rbuf);
-							return false;
-							break;
-						}
-
-						glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachment, GL_RENDERBUFFER, rbuf);
-
-						if (checkglerror())
-						{
-							glBindRenderbuffer(GL_RENDERBUFFER, 0);
-							glDeleteRenderbuffers(1, &rbuf);
-							return false;
-						}
+					case GL_DEPTH_COMPONENT16:
+						attachment = GL_DEPTH_ATTACHMENT;
 						break;
-					}
-					case FBTYPE::FBT_CUBEMAP:
-					{
-						glRenderbufferStorage(GL_RENDERBUFFER, _depthinternalformat, m_vpwidth, m_vpheight);
-
-						if (checkglerror())
-						{
-							glBindRenderbuffer(GL_RENDERBUFFER, 0);
-							glDeleteRenderbuffers(1, &rbuf);
-							return false;
-						}
-
-						glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
-						GLenum attachment;
-						switch (_depthinternalformat)
-						{
-						case GL_DEPTH_COMPONENT16:
-							attachment = GL_DEPTH_ATTACHMENT;
-							break;
-						case GL_DEPTH_COMPONENT24:
-							attachment = GL_DEPTH_ATTACHMENT;
-							break;
-						case GL_DEPTH_COMPONENT32:
-							attachment = GL_DEPTH_ATTACHMENT;
-							break;
-						case GL_DEPTH_COMPONENT32F:
-							attachment = GL_DEPTH_ATTACHMENT;
-							break;
-						case GL_DEPTH24_STENCIL8:
-							attachment = GL_DEPTH_STENCIL_ATTACHMENT;
-							break;
-						case GL_DEPTH32F_STENCIL8:
-							attachment = GL_DEPTH_STENCIL_ATTACHMENT;
-							break;
-						default:
-							glBindRenderbuffer(GL_RENDERBUFFER, 0);
-							glDeleteRenderbuffers(1, &rbuf);
-							return false;
-							break;
-						}
-
-						glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachment, GL_RENDERBUFFER, rbuf);
-
-						if (checkglerror())
-						{
-							glBindRenderbuffer(GL_RENDERBUFFER, 0);
-							glDeleteRenderbuffers(1, &rbuf);
-							return false;
-						}
+					case GL_DEPTH_COMPONENT24:
+						attachment = GL_DEPTH_ATTACHMENT;
 						break;
-					}
+					case GL_DEPTH_COMPONENT32:
+						attachment = GL_DEPTH_ATTACHMENT;
+						break;
+					case GL_DEPTH_COMPONENT32F:
+						attachment = GL_DEPTH_ATTACHMENT;
+						break;
+					case GL_DEPTH24_STENCIL8:
+						attachment = GL_DEPTH_STENCIL_ATTACHMENT;
+						break;
+					case GL_DEPTH32F_STENCIL8:
+						attachment = GL_DEPTH_STENCIL_ATTACHMENT;
+						break;
 					default:
-					{
 						glBindRenderbuffer(GL_RENDERBUFFER, 0);
 						glDeleteRenderbuffers(1, &rbuf);
 						return false;
 						break;
 					}
+
+					glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachment, GL_RENDERBUFFER, rbuf);
+
+					if (checkglerror())
+					{
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glDeleteRenderbuffers(1, &rbuf);
+						return false;
+					}
+					break;
+				}
+				case FBTYPE::FBT_2D_MULTISAMPLE:
+				{
+					glRenderbufferStorageMultisample(GL_RENDERBUFFER, m_samples, _depthinternalformat, m_vpwidth, m_vpheight);
+
+					if (checkglerror())
+					{
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glDeleteRenderbuffers(1, &rbuf);
+						return false;
+					}
+
+					glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+					GLenum attachment;
+					switch (_depthinternalformat)
+					{
+					case GL_DEPTH_COMPONENT16:
+						attachment = GL_DEPTH_ATTACHMENT;
+						break;
+					case GL_DEPTH_COMPONENT24:
+						attachment = GL_DEPTH_ATTACHMENT;
+						break;
+					case GL_DEPTH_COMPONENT32:
+						attachment = GL_DEPTH_ATTACHMENT;
+						break;
+					case GL_DEPTH_COMPONENT32F:
+						attachment = GL_DEPTH_ATTACHMENT;
+						break;
+					case GL_DEPTH24_STENCIL8:
+						attachment = GL_DEPTH_STENCIL_ATTACHMENT;
+						break;
+					case GL_DEPTH32F_STENCIL8:
+						attachment = GL_DEPTH_STENCIL_ATTACHMENT;
+						break;
+					default:
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glDeleteRenderbuffers(1, &rbuf);
+						return false;
+						break;
+					}
+
+					glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachment, GL_RENDERBUFFER, rbuf);
+
+					if (checkglerror())
+					{
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glDeleteRenderbuffers(1, &rbuf);
+						return false;
+					}
+					break;
+				}
+				case FBTYPE::FBT_CUBEMAP:
+				{
+					glRenderbufferStorage(GL_RENDERBUFFER, _depthinternalformat, m_vpwidth, m_vpheight);
+
+					if (checkglerror())
+					{
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glDeleteRenderbuffers(1, &rbuf);
+						return false;
+					}
+
+					glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+					GLenum attachment;
+					switch (_depthinternalformat)
+					{
+					case GL_DEPTH_COMPONENT16:
+						attachment = GL_DEPTH_ATTACHMENT;
+						break;
+					case GL_DEPTH_COMPONENT24:
+						attachment = GL_DEPTH_ATTACHMENT;
+						break;
+					case GL_DEPTH_COMPONENT32:
+						attachment = GL_DEPTH_ATTACHMENT;
+						break;
+					case GL_DEPTH_COMPONENT32F:
+						attachment = GL_DEPTH_ATTACHMENT;
+						break;
+					case GL_DEPTH24_STENCIL8:
+						attachment = GL_DEPTH_STENCIL_ATTACHMENT;
+						break;
+					case GL_DEPTH32F_STENCIL8:
+						attachment = GL_DEPTH_STENCIL_ATTACHMENT;
+						break;
+					default:
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glDeleteRenderbuffers(1, &rbuf);
+						return false;
+						break;
+					}
+
+					glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachment, GL_RENDERBUFFER, rbuf);
+
+					if (checkglerror())
+					{
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glDeleteRenderbuffers(1, &rbuf);
+						return false;
+					}
+					break;
+				}
+				default:
+				{
+					glBindRenderbuffer(GL_RENDERBUFFER, 0);
+					glDeleteRenderbuffers(1, &rbuf);
+					return false;
+					break;
+				}
 				}
 			}
 			else
@@ -715,82 +723,82 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 
 				switch (m_type)
 				{
-					case FBTYPE::FBT_2D:
-					{
-						glRenderbufferStorage(GL_RENDERBUFFER, _colorinternalformat, m_vpwidth, m_vpheight);
+				case FBTYPE::FBT_2D:
+				{
+					glRenderbufferStorage(GL_RENDERBUFFER, _colorinternalformat, m_vpwidth, m_vpheight);
 
-						if (checkglerror())
-						{
-							glBindRenderbuffer(GL_RENDERBUFFER, 0);
-							glDeleteRenderbuffers(1, &rbuf);
-							return false;
-						}
-
-						glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
-						glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, rbuf);
-
-						if (checkglerror())
-						{
-							glBindRenderbuffer(GL_RENDERBUFFER, 0);
-							glDeleteRenderbuffers(1, &rbuf);
-							return false;
-						}
-						break;
-					}
-					case FBTYPE::FBT_2D_MULTISAMPLE:
-					{
-						glRenderbufferStorageMultisample(GL_RENDERBUFFER, m_samples, _colorinternalformat, m_vpwidth, m_vpheight);
-
-						if (checkglerror())
-						{
-							glBindRenderbuffer(GL_RENDERBUFFER, 0);
-							glDeleteRenderbuffers(1, &rbuf);
-							return false;
-						}
-
-						glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
-						glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, rbuf);
-
-						if (checkglerror())
-						{
-							glBindRenderbuffer(GL_RENDERBUFFER, 0);
-							glDeleteRenderbuffers(1, &rbuf);
-							return false;
-						}
-						break;
-					}
-					case FBTYPE::FBT_CUBEMAP:
-					{
-						glRenderbufferStorage(GL_RENDERBUFFER, _colorinternalformat, m_vpwidth, m_vpheight);
-
-						if (checkglerror())
-						{
-							glBindRenderbuffer(GL_RENDERBUFFER, 0);
-							glDeleteRenderbuffers(1, &rbuf);
-							return false;
-						}
-
-						glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
-						glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, rbuf);
-
-						if (checkglerror())
-						{
-							glBindRenderbuffer(GL_RENDERBUFFER, 0);
-							glDeleteRenderbuffers(1, &rbuf);
-							return false;
-						}
-						break;
-					}
-					default:
+					if (checkglerror())
 					{
 						glBindRenderbuffer(GL_RENDERBUFFER, 0);
 						glDeleteRenderbuffers(1, &rbuf);
 						return false;
-						break;
 					}
+
+					glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+					glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, rbuf);
+
+					if (checkglerror())
+					{
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glDeleteRenderbuffers(1, &rbuf);
+						return false;
+					}
+					break;
+				}
+				case FBTYPE::FBT_2D_MULTISAMPLE:
+				{
+					glRenderbufferStorageMultisample(GL_RENDERBUFFER, m_samples, _colorinternalformat, m_vpwidth, m_vpheight);
+
+					if (checkglerror())
+					{
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glDeleteRenderbuffers(1, &rbuf);
+						return false;
+					}
+
+					glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+					glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, rbuf);
+
+					if (checkglerror())
+					{
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glDeleteRenderbuffers(1, &rbuf);
+						return false;
+					}
+					break;
+				}
+				case FBTYPE::FBT_CUBEMAP:
+				{
+					glRenderbufferStorage(GL_RENDERBUFFER, _colorinternalformat, m_vpwidth, m_vpheight);
+
+					if (checkglerror())
+					{
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glDeleteRenderbuffers(1, &rbuf);
+						return false;
+					}
+
+					glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+					glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, rbuf);
+
+					if (checkglerror())
+					{
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glDeleteRenderbuffers(1, &rbuf);
+						return false;
+					}
+					break;
+				}
+				default:
+				{
+					glBindRenderbuffer(GL_RENDERBUFFER, 0);
+					glDeleteRenderbuffers(1, &rbuf);
+					return false;
+					break;
+				}
 				}
 			}
 			else
@@ -821,47 +829,47 @@ bool FrameBuffer::checkfbostate()
 		if (m_glframebuffertarget == GL_DRAW_FRAMEBUFFER || m_glframebuffertarget == GL_READ_FRAMEBUFFER || m_glframebuffertarget == GL_FRAMEBUFFER)
 		{
 			GLenum res = glCheckFramebufferStatus(m_glframebuffertarget); GLERR
-			switch (res)
+				switch (res)
 			{
-			case GL_FRAMEBUFFER_COMPLETE:
-				return true;
-				break;
-			case GL_FRAMEBUFFER_UNDEFINED:
-				std::cout << "FRAMEBUFFER ERROR: The default framebuffer is undefined." << std::endl;
-				return false;
-				break;
-			case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT:
-				std::cout << "FRAMEBUFFER ERROR: Framebuffer attachments incomplete." << std::endl;
-				return false;
-				break;
-			case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT:
-				std::cout << "FRAMEBUFFER ERROR: There must be at least one colorbuffer attached to the framebuffer." << std::endl;
-				return false;
-				break;
-			case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER:
-				std::cout << "FRAMEBUFFER ERROR: Incomplete draw buffer: Invalid GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE." << std::endl;
-				return false;
-				break;
-			case GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER:
-				std::cout << "FRAMEBUFFER ERROR: Incomplete read buffer: Invalid GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE." << std::endl;
-				return false;
-				break;
-			case GL_FRAMEBUFFER_UNSUPPORTED:
-				std::cout << "FRAMEBUFFER ERROR: The image formats specified are not supported by the system's OpenGL implementation." << std::endl;
-				return false;
-				break;
-			case GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE:
-				std::cout << "FRAMEBUFFER ERROR: All images must have the same number of multisample samples." << std::endl;
-				return false;
-				break;
-			case GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS:
-				std::cout << "FRAMEBUFFER ERROR: There is a layered image attached, but other attachments aren't layered. The attachments must be consistent." << std::endl;
-				return false;
-				break;
-			default:
-				std::cout << "FRAMEBUFFER ERROR: Unknown error. The framebuffer is incomplete." << std::endl;
-				return false;
-				break;
+				case GL_FRAMEBUFFER_COMPLETE:
+					return true;
+					break;
+				case GL_FRAMEBUFFER_UNDEFINED:
+					std::cout << "FRAMEBUFFER ERROR: The default framebuffer is undefined." << std::endl;
+					return false;
+					break;
+				case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT:
+					std::cout << "FRAMEBUFFER ERROR: Framebuffer attachments incomplete." << std::endl;
+					return false;
+					break;
+				case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT:
+					std::cout << "FRAMEBUFFER ERROR: There must be at least one colorbuffer attached to the framebuffer." << std::endl;
+					return false;
+					break;
+				case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER:
+					std::cout << "FRAMEBUFFER ERROR: Incomplete draw buffer: Invalid GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE." << std::endl;
+					return false;
+					break;
+				case GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER:
+					std::cout << "FRAMEBUFFER ERROR: Incomplete read buffer: Invalid GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE." << std::endl;
+					return false;
+					break;
+				case GL_FRAMEBUFFER_UNSUPPORTED:
+					std::cout << "FRAMEBUFFER ERROR: The image formats specified are not supported by the system's OpenGL implementation." << std::endl;
+					return false;
+					break;
+				case GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE:
+					std::cout << "FRAMEBUFFER ERROR: All images must have the same number of multisample samples." << std::endl;
+					return false;
+					break;
+				case GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS:
+					std::cout << "FRAMEBUFFER ERROR: There is a layered image attached, but other attachments aren't layered. The attachments must be consistent." << std::endl;
+					return false;
+					break;
+				default:
+					std::cout << "FRAMEBUFFER ERROR: Unknown error. The framebuffer is incomplete." << std::endl;
+					return false;
+					break;
 			}
 		}
 		else
@@ -879,26 +887,103 @@ bool FrameBuffer::checkfbostate()
 
 bool FrameBuffer::blit(FrameBuffer* _source,
 	FrameBuffer* _target,
-	const GLint _xoff,
-	const GLint _yoff,
-	const GLint _width,
-	const GLint _height,
-	bool colorbit,
-	GLint _colorbufferindex,
-	bool _depthbit,
-	bool _stencilbit)
+	bool _color,			//blit colorbuffer?
+	GLint _colorbufferindex,//what colorbuffer?
+	bool _depth,			//blit depthbuffer?
+	bool _stencil,			//blit stencilbuffer?
+	const GLint _srcx0,
+	const GLint _srcy0,
+	const GLint _srcx1,
+	const GLint _srcy1,
+	const GLint _dstx0,
+	const GLint _dsty0,
+	const GLint _dstx1,
+	const GLint _dsty1)
 {
-	return false;
-}
+	if (_source != nullptr && _target != nullptr)				//FBO -> FBO
+	{
+		if (_source->isAllocated() && _target->isAllocated())
+		{
+			if (!_source->bind(FBO_BINDINGMODE::FREAD))
+			{
+				glBindFramebuffer(GL_READ_FRAMEBUFFER, 0); GLERR
+					return false;
+			}
 
-bool FrameBuffer::blitdefault(bool _frontback,
-	FrameBuffer* _target,
-	const GLint _xoff,
-	const GLint _yoff,
-	const GLint _width,
-	const GLint _height,
-	bool _depthbit,
-	bool _stencilbit)
-{
-	return false;
+			if (!_target->bind(FBO_BINDINGMODE::FWRITE))
+			{
+				glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0); GLERR
+					return false;
+			}
+
+			GLenum filter = (_depth || _stencil ? GL_NEAREST : GL_LINEAR);
+			GLbitfield mask = 0;
+
+			//set read / drawbuffers
+			if (_color)
+			{
+				if (_colorbufferindex >= 0 && _colorbufferindex < _source->m_colorbuffers.size() && _colorbufferindex < _target->m_colorbuffers.size())
+				{
+					glReadBuffer(GL_COLOR_ATTACHMENT0 + _colorbufferindex); GLERR
+						GLenum drawbufs[] = { GL_COLOR_ATTACHMENT0 + _colorbufferindex };
+					glDrawBuffers(1, drawbufs); GLERR
+						mask |= GL_COLOR_BUFFER_BIT;
+				}
+				else
+				{
+					glBindFramebuffer(GL_READ_FRAMEBUFFER, 0); GLERR
+						glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0); GLERR
+						return false;
+				}
+			}
+
+			if (_depth)
+			{
+				mask |= GL_DEPTH_BUFFER_BIT;
+			}
+
+			if (_stencil)
+			{
+				mask |= GL_STENCIL_BUFFER_BIT;
+			}
+
+			glBlitFramebuffer(
+				(_srcx0 == -1 ? _source->m_vpxoff : _srcx0),
+				(_srcy0 == -1 ? _source->m_vpyoff : _srcy0),
+				(_srcx1 == -1 ? _source->m_vpxoff + _source->m_vpwidth : _srcx1),
+				(_srcy1 == -1 ? _source->m_vpyoff + _source->m_vpheight : _srcy1),
+				(_dstx0 == -1 ? _target->m_vpxoff : _dstx0),
+				(_dsty0 == -1 ? _target->m_vpyoff : _dsty0),
+				(_dstx1 == -1 ? _target->m_vpxoff + _target->m_vpwidth : _dstx1),
+				(_dsty1 == -1 ? _target->m_vpyoff + _target->m_vpheight : _dsty1),
+				mask,
+				filter
+				);
+
+			if (checkglerror())
+			{
+				glBindFramebuffer(GL_READ_FRAMEBUFFER, 0); GLERR
+					glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0); GLERR
+					return false;
+			}
+
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else if (_source == nullptr && _target != nullptr)		//DefaultFB -> FBO
+	{
+
+	}
+	else if (_source != nullptr && _target == nullptr)		//FBO -> DefaultFB
+	{
+
+	}
+	else													//nothing
+	{
+		return false;
+	}
 }
