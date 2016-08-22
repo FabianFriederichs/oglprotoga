@@ -3,8 +3,6 @@
 
 FrameBuffer::FrameBuffer(const FBTYPE _type, const GLint _samples) :
 	m_fbo(0),
-	m_colorrenderbuffers(),
-	m_depthrenderbuffer(0,0),
 	m_colorbuffers(),
 	m_depthbuffer(0,0),
 	m_vpwidth(0),
@@ -20,8 +18,6 @@ FrameBuffer::FrameBuffer(const FBTYPE _type, const GLint _samples) :
 
 FrameBuffer::FrameBuffer(const GLint _vpxoff, const GLint _vpyoff, const GLint _vpwidth, const GLint _vpheight, const FBTYPE _type, const GLint _samples) :
 	m_fbo(0),
-	m_colorrenderbuffers(),
-	m_depthrenderbuffer(0,0),
 	m_colorbuffers(),
 	m_depthbuffer(0,0),
 	m_vpwidth(_vpwidth),
@@ -209,20 +205,16 @@ bool FrameBuffer::updateGLViewport(const GLint _vpxoff, const GLint _vpyoff, con
 	}
 }
 
-bool FrameBuffer::blit(FrameBuffer* _target)
-{
-	/*glDisable(GL_MULTISAMPLE);
-	glBindFramebuffer(GL_READ_FRAMEBUFFER, rightEyeDesc.m_nRenderFramebufferId);
-	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, _target->);
-	glBlitFramebuffer(0, 0, renderwidth, renderheight, 0, 0, renderwidth, renderheight, GL_COLOR_BUFFER_BIT, GL_LINEAR);
-	glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
-	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);*/
-	return false;
-}
-
 Texture* FrameBuffer::getColorBufferTex(const std::string& _name)
 {
-	return m_colorbuffers.find(_name)->second.tex;
+	try
+	{
+		return m_colorbuffers.at(_name).tex;
+	}
+	catch (std::out_of_range ex)
+	{
+		return nullptr;
+	}
 }
 
 Texture* FrameBuffer::getDepthBufferTex()
@@ -237,6 +229,12 @@ bool FrameBuffer::addColorBufferTex(
 	GLenum _glformat,
 	GLenum _gltype)
 {
+	if (!m_isallocated || !m_isbound)
+	{
+		std::cout << "FRAMEBUFFER ERROR: Framebuffer is not bound or allocated. Allocate and bind the framebuffer before adding render textures!";
+		return false;
+	}
+
 	if (m_colorbuffers.find(_name) != m_colorbuffers.end())
 	{
 		return false;
@@ -254,7 +252,20 @@ bool FrameBuffer::addColorBufferTex(
 			if (tex->buffer(true))
 			{
 				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, Attachment(m_colorbuffers.size(), tex)));
-				return true;
+				glFramebufferTexture2D(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + m_colorbuffers.size() - 1, GL_TEXTURE_2D, tex->getGLTexture(), 0);
+				if (checkglerror())
+				{
+					if (m_colorbuffers[_name].tex != nullptr)
+					{
+						delete m_colorbuffers[_name].tex;
+						m_colorbuffers[_name].tex = nullptr;
+					}
+					return false;
+				}
+				else
+				{
+					return true;
+				}
 			}
 			else
 			{
@@ -273,7 +284,20 @@ bool FrameBuffer::addColorBufferTex(
 			if (tex->buffer(true))
 			{
 				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, Attachment(m_colorbuffers.size(), tex)));
-				return true;
+				glFramebufferTexture2D(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + m_colorbuffers.size() - 1, GL_TEXTURE_2D_MULTISAMPLE, tex->getGLTexture(), 0);
+				if (checkglerror())
+				{
+					if (m_colorbuffers[_name].tex != nullptr)
+					{
+						delete m_colorbuffers[_name].tex;
+						m_colorbuffers[_name].tex = nullptr;
+					}
+					return false;
+				}
+				else
+				{
+					return true;
+				}
 			}
 			else
 			{
@@ -291,7 +315,20 @@ bool FrameBuffer::addColorBufferTex(
 			if (tex->buffer(true))
 			{
 				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, Attachment(m_colorbuffers.size(), tex)));
-				return true;
+				glFramebufferTexture(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + m_colorbuffers.size() - 1, tex->getGLTexture(), 0);
+				if (checkglerror())
+				{
+					if (m_colorbuffers[_name].tex != nullptr)
+					{
+						delete m_colorbuffers[_name].tex;
+						m_colorbuffers[_name].tex = nullptr;
+					}
+					return false;
+				}
+				else
+				{
+					return true;
+				}
 			}
 			else
 			{
@@ -314,6 +351,24 @@ bool FrameBuffer::setDepthBufferTex(
 	GLenum _gltype
 	)
 {
+
+	if (!m_isallocated || !m_isbound)
+	{
+		std::cout << "FRAMEBUFFER ERROR: Framebuffer is not bound or allocated. Allocate and bind the framebuffer before adding render textures!";
+		return false;
+	}
+
+	if (m_depthbuffer.tex != nullptr)
+	{
+		delete m_depthbuffer.tex;
+		m_depthbuffer.tex = nullptr;
+	}
+
+	if (m_depthbuffer.renderbufferhandle != 0)
+	{
+		glDeleteRenderbuffers(1, &m_depthbuffer.renderbufferhandle); GLERR
+	}
+
 	switch (m_type)
 	{
 		case FBTYPE::FBT_2D:
@@ -326,7 +381,20 @@ bool FrameBuffer::setDepthBufferTex(
 			if (tex->buffer(true))
 			{
 				m_depthbuffer = Attachment(0, tex);
-				return true;
+				glFramebufferTexture2D(m_glframebuffertarget, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthbuffer.tex->getGLTexture(), 0);
+				if (checkglerror())
+				{
+					if (m_depthbuffer.tex != nullptr)
+					{
+						delete m_depthbuffer.tex;
+						m_depthbuffer.tex = nullptr;
+					}
+					return false;
+				}
+				else
+				{
+					return true;
+				}
 			}
 			else
 			{
@@ -345,7 +413,20 @@ bool FrameBuffer::setDepthBufferTex(
 			if (tex->buffer(true))
 			{
 				m_depthbuffer = Attachment(0, tex);
-				return true;
+				glFramebufferTexture2D(m_glframebuffertarget, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, m_depthbuffer.tex->getGLTexture(), 0);
+				if (checkglerror())
+				{
+					if (m_depthbuffer.tex != nullptr)
+					{
+						delete m_depthbuffer.tex;
+						m_depthbuffer.tex = nullptr;
+					}
+					return false;
+				}
+				else
+				{
+					return true;
+				}
 			}
 			else
 			{
@@ -363,7 +444,20 @@ bool FrameBuffer::setDepthBufferTex(
 			if (tex->buffer(true))
 			{
 				m_depthbuffer = Attachment(0, tex);
-				return true;
+				glFramebufferTexture(m_glframebuffertarget, GL_DEPTH_ATTACHMENT, m_depthbuffer.tex->getGLTexture(), 0);
+				if (checkglerror())
+				{
+					if (m_depthbuffer.tex != nullptr)
+					{
+						delete m_depthbuffer.tex;
+						m_depthbuffer.tex = nullptr;
+					}
+					return false;
+				}
+				else
+				{
+					return true;
+				}
 			}
 			else
 			{
@@ -380,44 +474,344 @@ bool FrameBuffer::setDepthBufferTex(
 }
 
 //TODO: Create renderbuffers and bind them, check if fbo is allocated and bound before doing this!
-bool FrameBuffer::addColorRenderBuffer(
-	const std::string& _name,
-	GLint _glinternalformat,
-	GLenum _glformat,
-	GLenum _gltype)
-{
-	switch (m_type)
-	{
-	case FBTYPE::FBT_2D:
-		break;
-	case FBTYPE::FBT_2D_MULTISAMPLE:
-		break;
-	case FBTYPE::FBT_CUBEMAP:
-		break;
-	default:
-		return false;
-		break;
-	}
-}
+//bool FrameBuffer::addColorRenderBuffer(
+//	const std::string& _name,
+//	GLint _glinternalformat,
+//	GLenum _glformat,
+//	GLenum _gltype)
+//{
+//	switch (m_type)
+//	{
+//	case FBTYPE::FBT_2D:
+//		break;
+//	case FBTYPE::FBT_2D_MULTISAMPLE:
+//		break;
+//	case FBTYPE::FBT_CUBEMAP:
+//		break;
+//	default:
+//		return false;
+//		break;
+//	}
+//}
 
 //TODO: Create renderbuffers and bind them, check if fbo is allocated and bound before doing this!
-bool FrameBuffer::setDepthRenderBuffer(
-	GLint _glinternalformat,
-	GLenum _glformat,
-	GLenum _gltype
-	)
-{
-	return false;
-}
+//bool FrameBuffer::setDepthRenderBuffer(
+//	GLint _glinternalformat,
+//	GLenum _glformat,
+//	GLenum _gltype
+//	)
+//{
+//	return false;
+//}
 
 bool FrameBuffer::resolve(FrameBuffer* _resolvebuffer)
 {
 	return false;
 }
 
-bool FrameBuffer::complete()
+bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalformat)
 {
-	return false;
+	if (m_isbound && m_isallocated)
+	{
+		//create depth renderbuffer if needed
+		if (m_depthbuffer.tex == nullptr && m_depthbuffer.renderbufferhandle == 0)
+		{
+			GLuint rbuf;
+			glGenRenderbuffers(1, &rbuf);
+			if (rbuf != 0 && !checkglerror())
+			{
+				glBindRenderbuffer(GL_RENDERBUFFER, rbuf);
+				if (checkglerror())
+				{
+					glBindRenderbuffer(GL_RENDERBUFFER, 0);
+					glDeleteRenderbuffers(1, &rbuf);
+					return false;
+				}
+				
+				switch (m_type)
+				{
+					case FBTYPE::FBT_2D:
+					{
+						glRenderbufferStorage(GL_RENDERBUFFER, _depthinternalformat, m_vpwidth, m_vpheight);
+
+						if (checkglerror())
+						{
+							glBindRenderbuffer(GL_RENDERBUFFER, 0);
+							glDeleteRenderbuffers(1, &rbuf);
+							return false;
+						}
+
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+						GLenum attachment;
+						switch (_depthinternalformat)
+						{
+						case GL_DEPTH_COMPONENT16:
+							attachment = GL_DEPTH_ATTACHMENT;
+							break;
+						case GL_DEPTH_COMPONENT24:
+							attachment = GL_DEPTH_ATTACHMENT;
+							break;
+						case GL_DEPTH_COMPONENT32:
+							attachment = GL_DEPTH_ATTACHMENT;
+							break;
+						case GL_DEPTH_COMPONENT32F:
+							attachment = GL_DEPTH_ATTACHMENT;
+							break;
+						case GL_DEPTH24_STENCIL8:
+							attachment = GL_DEPTH_STENCIL_ATTACHMENT;
+							break;
+						case GL_DEPTH32F_STENCIL8:
+							attachment = GL_DEPTH_STENCIL_ATTACHMENT;
+							break;
+						default:
+							glBindRenderbuffer(GL_RENDERBUFFER, 0);
+							glDeleteRenderbuffers(1, &rbuf);
+							return false;
+							break;
+						}						
+
+						glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachment, GL_RENDERBUFFER, rbuf);
+
+						if (checkglerror())
+						{
+							glBindRenderbuffer(GL_RENDERBUFFER, 0);
+							glDeleteRenderbuffers(1, &rbuf);
+							return false;
+						}						
+						break;
+					}
+					case FBTYPE::FBT_2D_MULTISAMPLE:
+					{
+						glRenderbufferStorageMultisample(GL_RENDERBUFFER, m_samples ,_depthinternalformat, m_vpwidth, m_vpheight);
+
+						if (checkglerror())
+						{
+							glBindRenderbuffer(GL_RENDERBUFFER, 0);
+							glDeleteRenderbuffers(1, &rbuf);
+							return false;
+						}
+
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+						GLenum attachment;
+						switch (_depthinternalformat)
+						{
+						case GL_DEPTH_COMPONENT16:
+							attachment = GL_DEPTH_ATTACHMENT;
+							break;
+						case GL_DEPTH_COMPONENT24:
+							attachment = GL_DEPTH_ATTACHMENT;
+							break;
+						case GL_DEPTH_COMPONENT32:
+							attachment = GL_DEPTH_ATTACHMENT;
+							break;
+						case GL_DEPTH_COMPONENT32F:
+							attachment = GL_DEPTH_ATTACHMENT;
+							break;
+						case GL_DEPTH24_STENCIL8:
+							attachment = GL_DEPTH_STENCIL_ATTACHMENT;
+							break;
+						case GL_DEPTH32F_STENCIL8:
+							attachment = GL_DEPTH_STENCIL_ATTACHMENT;
+							break;
+						default:
+							glBindRenderbuffer(GL_RENDERBUFFER, 0);
+							glDeleteRenderbuffers(1, &rbuf);
+							return false;
+							break;
+						}
+
+						glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachment, GL_RENDERBUFFER, rbuf);
+
+						if (checkglerror())
+						{
+							glBindRenderbuffer(GL_RENDERBUFFER, 0);
+							glDeleteRenderbuffers(1, &rbuf);
+							return false;
+						}
+						break;
+					}
+					case FBTYPE::FBT_CUBEMAP:
+					{
+						glRenderbufferStorage(GL_RENDERBUFFER, _depthinternalformat, m_vpwidth, m_vpheight);
+
+						if (checkglerror())
+						{
+							glBindRenderbuffer(GL_RENDERBUFFER, 0);
+							glDeleteRenderbuffers(1, &rbuf);
+							return false;
+						}
+
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+						GLenum attachment;
+						switch (_depthinternalformat)
+						{
+						case GL_DEPTH_COMPONENT16:
+							attachment = GL_DEPTH_ATTACHMENT;
+							break;
+						case GL_DEPTH_COMPONENT24:
+							attachment = GL_DEPTH_ATTACHMENT;
+							break;
+						case GL_DEPTH_COMPONENT32:
+							attachment = GL_DEPTH_ATTACHMENT;
+							break;
+						case GL_DEPTH_COMPONENT32F:
+							attachment = GL_DEPTH_ATTACHMENT;
+							break;
+						case GL_DEPTH24_STENCIL8:
+							attachment = GL_DEPTH_STENCIL_ATTACHMENT;
+							break;
+						case GL_DEPTH32F_STENCIL8:
+							attachment = GL_DEPTH_STENCIL_ATTACHMENT;
+							break;
+						default:
+							glBindRenderbuffer(GL_RENDERBUFFER, 0);
+							glDeleteRenderbuffers(1, &rbuf);
+							return false;
+							break;
+						}
+
+						glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachment, GL_RENDERBUFFER, rbuf);
+
+						if (checkglerror())
+						{
+							glBindRenderbuffer(GL_RENDERBUFFER, 0);
+							glDeleteRenderbuffers(1, &rbuf);
+							return false;
+						}
+						break;
+					}
+					default:
+					{
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glDeleteRenderbuffers(1, &rbuf);
+						return false;
+						break;
+					}
+				}
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		//create color renderbuffer if needed
+		if (m_colorbuffers.size() == 0)
+		{
+			GLuint rbuf;
+			glGenRenderbuffers(1, &rbuf);
+			if (rbuf != 0 && !checkglerror())
+			{
+				glBindRenderbuffer(GL_RENDERBUFFER, rbuf);
+				if (checkglerror())
+				{
+					glBindRenderbuffer(GL_RENDERBUFFER, 0);
+					glDeleteRenderbuffers(1, &rbuf);
+					return false;
+				}
+
+				switch (m_type)
+				{
+					case FBTYPE::FBT_2D:
+					{
+						glRenderbufferStorage(GL_RENDERBUFFER, _colorinternalformat, m_vpwidth, m_vpheight);
+
+						if (checkglerror())
+						{
+							glBindRenderbuffer(GL_RENDERBUFFER, 0);
+							glDeleteRenderbuffers(1, &rbuf);
+							return false;
+						}
+
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+						glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, rbuf);
+
+						if (checkglerror())
+						{
+							glBindRenderbuffer(GL_RENDERBUFFER, 0);
+							glDeleteRenderbuffers(1, &rbuf);
+							return false;
+						}
+						break;
+					}
+					case FBTYPE::FBT_2D_MULTISAMPLE:
+					{
+						glRenderbufferStorageMultisample(GL_RENDERBUFFER, m_samples, _colorinternalformat, m_vpwidth, m_vpheight);
+
+						if (checkglerror())
+						{
+							glBindRenderbuffer(GL_RENDERBUFFER, 0);
+							glDeleteRenderbuffers(1, &rbuf);
+							return false;
+						}
+
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+						glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, rbuf);
+
+						if (checkglerror())
+						{
+							glBindRenderbuffer(GL_RENDERBUFFER, 0);
+							glDeleteRenderbuffers(1, &rbuf);
+							return false;
+						}
+						break;
+					}
+					case FBTYPE::FBT_CUBEMAP:
+					{
+						glRenderbufferStorage(GL_RENDERBUFFER, _colorinternalformat, m_vpwidth, m_vpheight);
+
+						if (checkglerror())
+						{
+							glBindRenderbuffer(GL_RENDERBUFFER, 0);
+							glDeleteRenderbuffers(1, &rbuf);
+							return false;
+						}
+
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+						glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, rbuf);
+
+						if (checkglerror())
+						{
+							glBindRenderbuffer(GL_RENDERBUFFER, 0);
+							glDeleteRenderbuffers(1, &rbuf);
+							return false;
+						}
+						break;
+					}
+					default:
+					{
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glDeleteRenderbuffers(1, &rbuf);
+						return false;
+						break;
+					}
+				}
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		if (isComplete())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
 }
 
 bool FrameBuffer::checkfbostate()
@@ -481,4 +875,30 @@ bool FrameBuffer::checkfbostate()
 		std::cout << "The framebuffer isn't bound or allocated." << std::endl;
 		return false;
 	}
+}
+
+bool FrameBuffer::blit(FrameBuffer* _source,
+	FrameBuffer* _target,
+	const GLint _xoff,
+	const GLint _yoff,
+	const GLint _width,
+	const GLint _height,
+	bool colorbit,
+	GLint _colorbufferindex,
+	bool _depthbit,
+	bool _stencilbit)
+{
+
+}
+
+bool FrameBuffer::blitdefault(bool _frontback,
+	FrameBuffer* _target,
+	const GLint _xoff,
+	const GLint _yoff,
+	const GLint _width,
+	const GLint _height,
+	bool _depthbit,
+	bool _stencilbit)
+{
+
 }
