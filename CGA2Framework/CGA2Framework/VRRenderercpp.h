@@ -1,5 +1,6 @@
 #pragma once
 #include "SceneRenderer.h"
+#include "FrameBuffer.h"
 #include "Primitives.h"
 #include <openvr.h>
 #include "glerror.h"
@@ -39,6 +40,10 @@ private:
 	FramebufferDesc leftEyeDesc;
 	FramebufferDesc rightEyeDesc;
 
+	/*FrameBuffer leftEye;
+	FrameBuffer leftResolve;
+	FrameBuffer rightEye;
+	FrameBuffer rightResolve;*/
 	vr::IVRSystem* vrsys;
 	vr::IVRCompositor* vrcomp;
 
