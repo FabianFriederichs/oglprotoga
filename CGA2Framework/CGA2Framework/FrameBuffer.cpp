@@ -12,8 +12,12 @@ FrameBuffer::FrameBuffer(const FBTYPE _type, const GLint _samples) :
 	m_isallocated(false),
 	m_isbound(false),
 	m_type(_type),
-	m_samples(_samples)
+	m_samples(0)
 {
+	if (m_type == FBTYPE::FBT_2D_MULTISAMPLE)
+	{
+		m_samples = _samples;
+	}
 }
 
 FrameBuffer::FrameBuffer(const GLint _vpxoff, const GLint _vpyoff, const GLint _vpwidth, const GLint _vpheight, const FBTYPE _type, const GLint _samples) :
@@ -27,8 +31,12 @@ FrameBuffer::FrameBuffer(const GLint _vpxoff, const GLint _vpyoff, const GLint _
 	m_isallocated(false),
 	m_isbound(false),
 	m_type(_type),
-	m_samples(_samples)
+	m_samples(0)
 {
+	if (m_type == FBTYPE::FBT_2D_MULTISAMPLE)
+	{
+		m_samples = _samples;
+	}
 }
 
 
@@ -879,26 +887,103 @@ bool FrameBuffer::checkfbostate()
 
 bool FrameBuffer::blit(FrameBuffer* _source,
 	FrameBuffer* _target,
-	const GLint _xoff,
-	const GLint _yoff,
-	const GLint _width,
-	const GLint _height,
-	bool colorbit,
-	GLint _colorbufferindex,
-	bool _depthbit,
-	bool _stencilbit)
+	bool _color,			//blit colorbuffer?
+	GLint _colorbufferindex,//what colorbuffer?
+	bool _depth,			//blit depthbuffer?
+	bool _stencil,			//blit stencilbuffer?
+	const GLint _srcx0,
+	const GLint _srcy0,
+	const GLint _srcx1,
+	const GLint _srcy1,
+	const GLint _dstx0,
+	const GLint _dsty0,
+	const GLint _dstx1,
+	const GLint _dsty1)
 {
+	if (_source != nullptr && _target != nullptr)				//FBO -> FBO
+	{
+		if (_source->isAllocated() && _target->isAllocated())
+		{
+			if (!_source->bind(FBO_BINDINGMODE::FREAD))
+			{
+				glBindFramebuffer(GL_READ_FRAMEBUFFER, 0); GLERR
+					return false;
+			}
 
-}
+			if (!_target->bind(FBO_BINDINGMODE::FWRITE))
+			{
+				glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0); GLERR
+					return false;
+			}
 
-bool FrameBuffer::blitdefault(bool _frontback,
-	FrameBuffer* _target,
-	const GLint _xoff,
-	const GLint _yoff,
-	const GLint _width,
-	const GLint _height,
-	bool _depthbit,
-	bool _stencilbit)
-{
+			GLenum filter = (_depth || _stencil ? GL_NEAREST : GL_LINEAR);
+			GLbitfield mask = 0;
+			
+			//set read / drawbuffers
+			if (_color)
+			{
+				if (_colorbufferindex >= 0 && _colorbufferindex < _source->m_colorbuffers.size() && _colorbufferindex < _target->m_colorbuffers.size())
+				{
+					glReadBuffer(GL_COLOR_ATTACHMENT0 + _colorbufferindex); GLERR
+					GLenum drawbufs[] = {GL_COLOR_ATTACHMENT0 + _colorbufferindex};
+					glDrawBuffers(1,  drawbufs); GLERR
+					mask |= GL_COLOR_BUFFER_BIT;
+				}
+				else
+				{
+					glBindFramebuffer(GL_READ_FRAMEBUFFER, 0); GLERR
+					glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0); GLERR
+					return false;
+				}
+			}
 
+			if (_depth)
+			{
+				mask |= GL_DEPTH_BUFFER_BIT;
+			}
+
+			if (_stencil)
+			{
+				mask |= GL_STENCIL_BUFFER_BIT;
+			}
+
+			glBlitFramebuffer(
+				(_srcx0 == -1 ? _source->m_vpxoff : _srcx0),
+				(_srcy0 == -1 ? _source->m_vpyoff : _srcy0),
+				(_srcx1 == -1 ? _source->m_vpxoff + _source->m_vpwidth : _srcx1),
+				(_srcy1 == -1 ? _source->m_vpyoff + _source->m_vpheight : _srcy1),
+				(_dstx0 == -1 ? _target->m_vpxoff : _dstx0),
+				(_dsty0 == -1 ? _target->m_vpyoff : _dsty0),
+				(_dstx1 == -1 ? _target->m_vpxoff + _target->m_vpwidth : _dstx1),
+				(_dsty1 == -1 ? _target->m_vpyoff + _target->m_vpheight : _dsty1),
+				mask,
+				filter
+				);
+
+			if (checkglerror())
+			{
+				glBindFramebuffer(GL_READ_FRAMEBUFFER, 0); GLERR
+				glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0); GLERR
+				return false;
+			}
+
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else if (_source == nullptr && _target != nullptr)		//DefaultFB -> FBO
+	{
+
+	}
+	else if (_source != nullptr && _target == nullptr)		//FBO -> DefaultFB
+	{
+
+	}
+	else													//nothing
+	{
+		return false;
+	}
 }
