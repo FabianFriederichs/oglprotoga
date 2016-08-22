@@ -888,7 +888,7 @@ bool FrameBuffer::blit(FrameBuffer* _source,
 	bool _depthbit,
 	bool _stencilbit)
 {
-
+	return false;
 }
 
 bool FrameBuffer::blitdefault(bool _frontback,
@@ -900,5 +900,5 @@ bool FrameBuffer::blitdefault(bool _frontback,
 	bool _depthbit,
 	bool _stencilbit)
 {
-
+	return false;
 }
