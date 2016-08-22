@@ -23,12 +23,12 @@ bool VRRenderer::Init()
 		glEnableVertexAttribArray(1); GLERR;
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)(2 * sizeof(GLfloat))); GLERR;
 		glBindVertexArray(0); GLERR;
-
 		vr::VR_GetGenericInterface(vr::IVRRenderModels_Version, &vrerr);
 		vrsys->GetRecommendedRenderTargetSize(&renderWidth, &renderHeight);
 
 		CreateFrameBuffer(renderWidth, renderHeight, leftEyeDesc);
 		CreateFrameBuffer(renderWidth, renderHeight, rightEyeDesc);
+
 	}
 	return true;
 }
@@ -53,7 +53,7 @@ void VRRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 
 	//Right
 	glEnable(GL_MULTISAMPLE); GLERR;
-	glBindFramebuffer(GL_FRAMEBUFFER, leftEyeDesc.m_nRenderFramebufferId); GLERR;
+	glBindFramebuffer(GL_FRAMEBUFFER, rightEyeDesc.m_nRenderFramebufferId); GLERR;
 	glViewport(0, 0, renderWidth, renderHeight);
 	proj = convert(vrsys->GetProjectionMatrix(vr::EVREye::Eye_Right, _scene->m_camera->getNear(), _scene->m_camera->getFar(), vr::EGraphicsAPIConvention::API_OpenGL));
 	view = view*inverse(mat4(convert(vrsys->GetEyeToHeadTransform(vr::EVREye::Eye_Right))));
@@ -62,18 +62,23 @@ void VRRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	resolveFB(rightEyeDesc.m_nRenderFramebufferId, rightEyeDesc.m_nResolveFramebufferId, renderWidth, renderHeight);
 
 	vr::Texture_t leftEyeTexture = { (void*)leftEyeDesc.m_nResolveTextureId, vr::API_OpenGL, vr::ColorSpace_Gamma };
-	vrcomp->Submit(vr::Eye_Left, &leftEyeTexture);
-	vr::Texture_t rightEyeTexture = { (void*)rightEyeDesc.m_nResolveTextureId, vr::API_OpenGL, vr::ColorSpace_Gamma };
-	vrcomp->Submit(vr::Eye_Right, &rightEyeTexture);
-	//vrcomp->PostPresentHandoff();
-	glBindVertexArray(0); GLERR;
+	vr::VRCompositor()->Submit(vr::Eye_Left, &leftEyeTexture);
 
-	screenShader->Use();
+	vr::Texture_t rightEyeTexture = { (void*)rightEyeDesc.m_nResolveTextureId, vr::API_OpenGL, vr::ColorSpace_Gamma };
+	vr::VRCompositor()->Submit(vr::Eye_Right, &rightEyeTexture);
+	//vrcomp->PostPresentHandoff();
+
 
 	glViewport(0, 0, _scene->m_height, _scene->m_width);
+	glBindVertexArray(0); GLERR;
+
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); GLERR;
-	//glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	//glClear(GL_COLOR_BUFFER_BIT);
+	screenShader->Use();
+
+	
+	
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
 
 	glBindVertexArray(quadVAO); GLERR;
 	glDisable(GL_DEPTH_TEST); GLERR;
