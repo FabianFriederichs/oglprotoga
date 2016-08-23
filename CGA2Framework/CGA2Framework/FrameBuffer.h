@@ -61,11 +61,11 @@ public:
 	bool unbind();
 	bool updateGLViewport();
 	bool updateGLViewport(const GLint _vpxoff, const GLint _vpyoff, const GLint _vpwidth, const GLint _vpheight);
-	
+
 	//blit operations
 	//blit one fbo to another //if width or height is negative, the viewport dimensions are used
 	static bool blit(FrameBuffer* _source,
-		FrameBuffer* _target,		
+		FrameBuffer* _target,
 		bool _color,			//blit colorbuffer?
 		GLint _colorbufferindex,//what colorbuffer?
 		bool _depth,			//blit depthbuffer?
@@ -137,6 +137,6 @@ private:
 
 	bool checkfbostate();
 
-	
+
 };
 
