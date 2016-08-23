@@ -898,7 +898,8 @@ bool FrameBuffer::blit(FrameBuffer* _source,
 	const GLint _dstx0,
 	const GLint _dsty0,
 	const GLint _dstx1,
-	const GLint _dsty1)
+	const GLint _dsty1,
+	const GLenum _defaultfbcolorbuffer)
 {
 	if (_source != nullptr && _target != nullptr)				//FBO -> FBO
 	{
@@ -906,14 +907,14 @@ bool FrameBuffer::blit(FrameBuffer* _source,
 		{
 			if (!_source->bind(FBO_BINDINGMODE::FREAD))
 			{
-				glBindFramebuffer(GL_READ_FRAMEBUFFER, 0); GLERR
-					return false;
+				glBindFramebuffer(GL_FRAMEBUFFER, 0); GLERR
+				return false;
 			}
 
 			if (!_target->bind(FBO_BINDINGMODE::FWRITE))
 			{
-				glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0); GLERR
-					return false;
+				glBindFramebuffer(GL_FRAMEBUFFER, 0); GLERR
+				return false;
 			}
 
 			GLenum filter = (_depth || _stencil ? GL_NEAREST : GL_LINEAR);
@@ -931,8 +932,7 @@ bool FrameBuffer::blit(FrameBuffer* _source,
 				}
 				else
 				{
-					glBindFramebuffer(GL_READ_FRAMEBUFFER, 0); GLERR
-					glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0); GLERR
+					glBindFramebuffer(GL_FRAMEBUFFER, 0); GLERR
 					return false;
 				}
 			}
@@ -962,11 +962,11 @@ bool FrameBuffer::blit(FrameBuffer* _source,
 
 			if (checkglerror())
 			{
-				glBindFramebuffer(GL_READ_FRAMEBUFFER, 0); GLERR
-				glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0); GLERR
+				glBindFramebuffer(GL_FRAMEBUFFER, 0); GLERR
 				return false;
 			}
 
+			glBindFramebuffer(GL_FRAMEBUFFER, 0); GLERR
 			return true;
 		}
 		else
@@ -976,11 +976,145 @@ bool FrameBuffer::blit(FrameBuffer* _source,
 	}
 	else if (_source == nullptr && _target != nullptr)		//DefaultFB -> FBO
 	{
+		if (_source->isAllocated() && _target->isAllocated())
+		{
+			
+			glBindFramebuffer(GL_READ_FRAMEBUFFER, 0); GLERR			
 
+			if (!_target->bind(FBO_BINDINGMODE::FWRITE))
+			{
+				glBindFramebuffer(GL_FRAMEBUFFER, 0); GLERR
+				return false;
+			}
+
+			GLenum filter = (_depth || _stencil ? GL_NEAREST : GL_LINEAR);
+			GLbitfield mask = 0;
+
+			//set read / drawbuffers
+			if (_color)
+			{
+				if (_colorbufferindex < _target->m_colorbuffers.size() && _colorbufferindex >= 0)
+				{
+					glReadBuffer(_defaultfbcolorbuffer); GLERR
+					GLenum drawbufs[] = {GL_COLOR_ATTACHMENT0 + _colorbufferindex};
+					glDrawBuffers(1, drawbufs); GLERR
+					mask |= GL_COLOR_BUFFER_BIT;
+				}
+				else
+				{
+					glBindFramebuffer(GL_FRAMEBUFFER, 0); GLERR
+					return false;
+				}
+			}
+
+			if (_depth)
+			{
+				mask |= GL_DEPTH_BUFFER_BIT;
+			}
+
+			if (_stencil)
+			{
+				mask |= GL_STENCIL_BUFFER_BIT;
+			}
+
+			glBlitFramebuffer(
+				(_srcx0),
+				(_srcy0),
+				(_srcx1),
+				(_srcy1),
+				(_dstx0 == -1 ? _target->m_vpxoff : _dstx0),
+				(_dsty0 == -1 ? _target->m_vpyoff : _dsty0),
+				(_dstx1 == -1 ? _target->m_vpxoff + _target->m_vpwidth : _dstx1),
+				(_dsty1 == -1 ? _target->m_vpyoff + _target->m_vpheight : _dsty1),
+				mask,
+				filter
+				);
+
+			if (checkglerror())
+			{
+				glBindFramebuffer(GL_FRAMEBUFFER, 0); GLERR
+				return false;
+			}
+
+			glBindFramebuffer(GL_FRAMEBUFFER, 0); GLERR
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	else if (_source != nullptr && _target == nullptr)		//FBO -> DefaultFB
 	{
+		if (_source->isAllocated() && _target->isAllocated())
+		{
+			if (!_source->bind(FBO_BINDINGMODE::FREAD))
+			{
+				glBindFramebuffer(GL_FRAMEBUFFER, 0); GLERR
+				return false;
+			}
 
+			
+			glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0); GLERR
+			return false;
+			
+
+			GLenum filter = (_depth || _stencil ? GL_NEAREST : GL_LINEAR);
+			GLbitfield mask = 0;
+
+			//set read / drawbuffers
+			if (_color)
+			{
+				if (_colorbufferindex >= 0 && _colorbufferindex < _source->m_colorbuffers.size())
+				{
+					glReadBuffer(GL_COLOR_ATTACHMENT0 + _colorbufferindex); GLERR
+					GLenum drawbufs[] = { _defaultfbcolorbuffer };
+					glDrawBuffers(1, drawbufs); GLERR
+					mask |= GL_COLOR_BUFFER_BIT;
+				}
+				else
+				{
+					glBindFramebuffer(GL_FRAMEBUFFER, 0); GLERR
+					return false;
+				}
+			}
+
+			if (_depth)
+			{
+				mask |= GL_DEPTH_BUFFER_BIT;
+			}
+
+			if (_stencil)
+			{
+				mask |= GL_STENCIL_BUFFER_BIT;
+			}
+
+			glBlitFramebuffer(
+				(_srcx0 == -1 ? _source->m_vpxoff : _srcx0),
+				(_srcy0 == -1 ? _source->m_vpyoff : _srcy0),
+				(_srcx1 == -1 ? _source->m_vpxoff + _source->m_vpwidth : _srcx1),
+				(_srcy1 == -1 ? _source->m_vpyoff + _source->m_vpheight : _srcy1),
+				(_dstx0),
+				(_dsty0),
+				(_dstx1),
+				(_dsty1),
+				mask,
+				filter
+				);
+
+			if (checkglerror())
+			{
+				glBindFramebuffer(GL_FRAMEBUFFER, 0); GLERR
+				return false;
+			}
+
+			glBindFramebuffer(GL_FRAMEBUFFER, 0); GLERR
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	else													//nothing
 	{

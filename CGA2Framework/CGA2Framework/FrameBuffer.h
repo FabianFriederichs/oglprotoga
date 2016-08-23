@@ -77,23 +77,8 @@ public:
 		const GLint _dstx0 = -1,
 		const GLint _dsty0 = -1,
 		const GLint _dstx1 = -1,
-		const GLint _dsty1 = -1
-		);
-
-	//blit the default framebuffer to a fbo
-	static bool blitdefault(bool _frontback,	//true: frontbuffer, false: backbuffer
-		FrameBuffer* _target,
-		bool _color,
-		bool _depth,
-		bool _stencil,
-		const GLint _srcx0 = -1,
-		const GLint _srcy0 = -1,
-		const GLint _srcx1 = -1,
-		const GLint _srcy1 = -1,
-		const GLint _dstx0 = -1,
-		const GLint _dsty0 = -1,
-		const GLint _dstx1 = -1,
-		const GLint _dsty1 = -1
+		const GLint _dsty1 = -1,
+		const GLenum _defaultfbcolorbuffer = GL_FRONT
 		);
 
 	//getters / setters
