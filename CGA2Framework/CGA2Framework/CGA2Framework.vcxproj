@@ -86,6 +86,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="dds.h" />
     <ClInclude Include="DDSLoader.h" />
+    <ClInclude Include="DeferredRenderer.h" />
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="ForwardRenderer.h" />
@@ -134,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="Billboard.cpp" />
     <ClCompile Include="DDSLoader.cpp" />
+    <ClCompile Include="DeferredRenderer.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="ForwardRenderer.cpp" />
     <ClCompile Include="ForwardShader.cpp" />

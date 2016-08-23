@@ -42,9 +42,23 @@ private:
 		{
 		}
 
+		void destroy()
+		{
+			if (tex != nullptr)
+			{
+				delete tex;
+				tex = nullptr;
+			}
+			if (renderbufferhandle != 0)
+			{
+				glDeleteRenderbuffers(1, &renderbufferhandle); GLERR
+				renderbufferhandle = 0;
+			}
+		}
+
 		~Attachment()
 		{
-			//delete texture?
+			
 		}
 		GLint aid;
 		Texture* tex;
@@ -63,7 +77,6 @@ public:
 	bool updateGLViewport(const GLint _vpxoff, const GLint _vpyoff, const GLint _vpwidth, const GLint _vpheight);
 
 	//blit operations
-	//blit one fbo to another //if width or height is negative, the viewport dimensions are used
 	static bool blit(FrameBuffer* _source,
 		FrameBuffer* _target,
 		bool _color,			//blit colorbuffer?
@@ -78,7 +91,7 @@ public:
 		const GLint _dsty0 = -1,
 		const GLint _dstx1 = -1,
 		const GLint _dsty1 = -1,
-		const GLenum _defaultfbcolorbuffer = GL_FRONT
+		const GLenum _defaultfbcolorbuffer = GL_BACK	//color buffer alias when using a default framebuffer
 		);
 
 	//getters / setters
@@ -102,7 +115,7 @@ public:
 	//bool setDepthRenderBuffer(GLint _glinternalformat = GL_DEPTH_COMPONENT24, GLenum _glformat = GL_DEPTH_COMPONENT, GLenum _gltype = GL_FLOAT);
 
 	//optional msaa resolve stuff, in case of nullptr the current framebuffer will be blit into the default framebuffer
-	bool resolve(FrameBuffer* _resolvebuffer = nullptr);
+	bool resolve(FrameBuffer* _msbuffer, FrameBuffer* _resolvebuffer, bool _color, GLint _colorbufferindex, bool _depth, bool _stencil, GLenum _defaultfbcolorbuffer = GL_BACK);
 
 	bool complete(GLenum _depthinternalformat = GL_DEPTH24_STENCIL8, GLenum _colorinternalformat = GL_RGBA8); //adds missing renderbuffers etc. and attaches the added images
 

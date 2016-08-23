@@ -159,7 +159,11 @@
     <ClInclude Include="VRRenderercpp.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Billboard.h">
+=======
+    <ClInclude Include="DeferredRenderer.h">
+>>>>>>> 83b5e871db75978d1408efa97a227077f37b41ce
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -281,7 +285,11 @@
     <ClCompile Include="VRRenderercpp.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Billboard.cpp">
+=======
+    <ClCompile Include="DeferredRenderer.cpp">
+>>>>>>> 83b5e871db75978d1408efa97a227077f37b41ce
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
