@@ -42,6 +42,22 @@ FrameBuffer::FrameBuffer(const GLint _vpxoff, const GLint _vpyoff, const GLint _
 
 FrameBuffer::~FrameBuffer()
 {
+	if (m_isallocated)
+	{
+		if (m_isbound)
+		{
+			unbind();
+		}
+		glDeleteFramebuffers(1, &m_fbo); GLERR		
+		m_isallocated = false;
+
+		for (auto& att : m_colorbuffers)
+		{
+			att.second.destroy();
+		}
+
+		m_depthbuffer.destroy();
+	}
 }
 
 bool FrameBuffer::allocate()
@@ -88,6 +104,13 @@ bool FrameBuffer::destroy()
 			m_isallocated = false;
 			return true;
 		}
+
+		for (auto& att : m_colorbuffers)
+		{
+			att.second.destroy();
+		}
+
+		m_depthbuffer.destroy();
 	}
 	else
 	{

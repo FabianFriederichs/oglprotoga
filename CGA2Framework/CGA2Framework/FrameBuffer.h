@@ -42,9 +42,23 @@ private:
 		{
 		}
 
+		void destroy()
+		{
+			if (tex != nullptr)
+			{
+				delete tex;
+				tex = nullptr;
+			}
+			if (renderbufferhandle != 0)
+			{
+				glDeleteRenderbuffers(1, &renderbufferhandle); GLERR
+				renderbufferhandle = 0;
+			}
+		}
+
 		~Attachment()
 		{
-			//delete texture?
+			
 		}
 		GLint aid;
 		Texture* tex;

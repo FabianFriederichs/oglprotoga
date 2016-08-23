@@ -92,7 +92,7 @@ void Primitives::drawNDCCube()
 		glBindBuffer(GL_ARRAY_BUFFER, cubevbo); GLERR
 		glBufferData(GL_ARRAY_BUFFER, SizeOfCubeVertices, CubeVertices, GL_STATIC_DRAW); GLERR
 		glEnableVertexAttribArray(0); GLERR
-		glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(GLfloat) * 3, reinterpret_cast<void*>(0));
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, reinterpret_cast<void*>(0));
 		glBindVertexArray(0);		
 	}
 
@@ -126,9 +126,9 @@ void Primitives::drawNDCQuad()
 		glBindBuffer(GL_ARRAY_BUFFER, quadvbo); GLERR
 		glBufferData(GL_ARRAY_BUFFER, SizeOfQuadVertices, QuadVertices, GL_STATIC_DRAW); GLERR
 		glEnableVertexAttribArray(0); GLERR
-		glVertexAttribPointer(0, 2, GL_FLOAT, false, sizeof(GLfloat) * 4, reinterpret_cast<void*>(0));
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 4, reinterpret_cast<void*>(0));
 		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, false, sizeof(GLfloat) * 4, reinterpret_cast<void*>(2 * sizeof(GLfloat)));
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 4, reinterpret_cast<void*>(2 * sizeof(GLfloat)));
 		glBindVertexArray(0);
 	}
 
