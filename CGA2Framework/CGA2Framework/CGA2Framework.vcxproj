@@ -82,6 +82,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Billboard.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="dds.h" />
     <ClInclude Include="DDSLoader.h" />
@@ -131,6 +132,7 @@
     <ClInclude Include="VRRenderercpp.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Billboard.cpp" />
     <ClCompile Include="DDSLoader.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="ForwardRenderer.cpp" />

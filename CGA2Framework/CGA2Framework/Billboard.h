@@ -17,6 +17,8 @@ public:
 
 private:
 	Shader m_shader;
-	Texture2D m_tex;
+	Texture2D* m_tex;
+	BILLBOARDTYPE m_type;
+
 };
 
