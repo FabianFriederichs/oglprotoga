@@ -6,6 +6,9 @@
 
 #define MAX_SHININESS 100.0f
 
+//output
+layout (location = 0) out vec4 color;
+
 //lighting
 struct DirLight
 {
@@ -73,8 +76,7 @@ in struct VertexData
 	mat3 TBN;
 }   vertexdat;
 
-//output
-out vec4 color;
+
 
 //skybox
 uniform samplerCube skybox;

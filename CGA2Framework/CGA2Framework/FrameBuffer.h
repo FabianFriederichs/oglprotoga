@@ -30,7 +30,7 @@ private:
 
 		Attachment(const GLint _aid, Texture* _tex) :
 			aid(_aid),
-			tex(tex),
+			tex(_tex),
 			renderbufferhandle(0)
 		{
 		}
@@ -123,6 +123,8 @@ public:
 	bool isComplete() { return checkfbostate(); }
 	bool isAllocated() { return m_isallocated; }
 	bool isBound() { return m_isbound; }
+
+	bool setDrawBuffers();
 
 private:
 	//the fbo handle
