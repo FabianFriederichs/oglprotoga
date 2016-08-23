@@ -133,6 +133,6 @@ void Primitives::drawNDCQuad()
 	}
 
 	glBindVertexArray(quadvao); GLERR
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4); GLERR
+	glDrawArrays(GL_TRIANGLES, 0, 6); GLERR
 	glBindVertexArray(0); GLERR
 }

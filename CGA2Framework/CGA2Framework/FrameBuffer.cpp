@@ -89,10 +89,9 @@ bool FrameBuffer::destroy()
 {
 	if (m_isallocated)
 	{
-		if (m_isbound)
-		{
-			unbind();
-		}
+		
+		unbind();
+		
 		glDeleteFramebuffers(1, &m_fbo);
 
 		if (checkglerror())
@@ -102,7 +101,6 @@ bool FrameBuffer::destroy()
 		else
 		{
 			m_isallocated = false;
-			return true;
 		}
 
 		for (auto& att : m_colorbuffers)
@@ -182,26 +180,18 @@ bool FrameBuffer::bind(const FBO_BINDINGMODE _mode)
 }
 
 bool FrameBuffer::unbind()
-{
-	if (m_isbound)
+{	
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	if (checkglerror())
 	{
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		if (checkglerror())
-		{
-			return false;
-		}
-		else
-		{
-			m_isbound = false;
-			m_glframebuffertarget = GL_INVALID_ENUM;
-			return true;
-		}
+		return false;
 	}
 	else
 	{
-		std::cout << "The framebuffer is not bound." << std::endl;
-		return false;
-	}
+		m_isbound = false;
+		m_glframebuffertarget = GL_INVALID_ENUM;
+		return true;
+	}	
 }
 
 bool FrameBuffer::updateGLViewport()
@@ -280,9 +270,10 @@ bool FrameBuffer::addColorBufferTex(
 			tex->setGLFormat(_glformat);
 			tex->setGLType(_gltype);
 			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
-			if (tex->buffer(true))
+			if (tex->buffer(true) && tex->bind())
 			{
-				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, Attachment(m_colorbuffers.size(), tex)));
+				Attachment att(m_colorbuffers.size(), tex);
+				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, att));
 				glFramebufferTexture2D(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + m_colorbuffers.size() - 1, GL_TEXTURE_2D, tex->getGLTexture(), 0);
 				if (checkglerror())
 				{
@@ -313,7 +304,7 @@ bool FrameBuffer::addColorBufferTex(
 			tex->setGLType(_gltype);
 			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
 			tex->setMultisampling(true, m_samples);
-			if (tex->buffer(true))
+			if (tex->buffer(true) && tex->bind())
 			{
 				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, Attachment(m_colorbuffers.size(), tex)));
 				glFramebufferTexture2D(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + m_colorbuffers.size() - 1, GL_TEXTURE_2D_MULTISAMPLE, tex->getGLTexture(), 0);
@@ -345,7 +336,7 @@ bool FrameBuffer::addColorBufferTex(
 			tex->setGLFormat(_glformat);
 			tex->setGLType(_gltype);
 			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
-			if (tex->buffer(true))
+			if (tex->buffer(true) && tex->bind())
 			{
 				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, Attachment(m_colorbuffers.size(), tex)));
 				glFramebufferTexture(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + m_colorbuffers.size() - 1, tex->getGLTexture(), 0);
@@ -412,7 +403,7 @@ bool FrameBuffer::setDepthBufferTex(
 			tex->setGLFormat(_glformat);
 			tex->setGLType(_gltype);
 			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
-			if (tex->buffer(true))
+			if (tex->buffer(true) && tex->bind())
 			{
 				m_depthbuffer = Attachment(0, tex);
 				glFramebufferTexture2D(m_glframebuffertarget, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthbuffer.tex->getGLTexture(), 0);
@@ -445,7 +436,7 @@ bool FrameBuffer::setDepthBufferTex(
 			tex->setGLType(_gltype);
 			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
 			tex->setMultisampling(true, m_samples);
-			if (tex->buffer(true))
+			if (tex->buffer(true) && tex->bind())
 			{
 				m_depthbuffer = Attachment(0, tex);
 				glFramebufferTexture2D(m_glframebuffertarget, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, m_depthbuffer.tex->getGLTexture(), 0);
@@ -477,7 +468,7 @@ bool FrameBuffer::setDepthBufferTex(
 			tex->setGLFormat(_glformat);
 			tex->setGLType(_gltype);
 			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
-			if (tex->buffer(true))
+			if (tex->buffer(true) && tex->bind())
 			{
 				m_depthbuffer = Attachment(0, tex);
 				glFramebufferTexture(m_glframebuffertarget, GL_DEPTH_ATTACHMENT, m_depthbuffer.tex->getGLTexture(), 0);
@@ -628,7 +619,7 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 							return false;
 						}
 
-						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						//glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 						GLenum attachment;
 						switch (_depthinternalformat)
@@ -665,7 +656,9 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 							glBindRenderbuffer(GL_RENDERBUFFER, 0);
 							glDeleteRenderbuffers(1, &rbuf);
 							return false;
-						}						
+						}
+
+						m_depthbuffer = Attachment(0, rbuf);
 						break;
 					}
 					case FBTYPE::FBT_2D_MULTISAMPLE:
@@ -679,7 +672,7 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 							return false;
 						}
 
-						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						//glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 						GLenum attachment;
 						switch (_depthinternalformat)
@@ -717,6 +710,8 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 							glDeleteRenderbuffers(1, &rbuf);
 							return false;
 						}
+
+						m_depthbuffer = Attachment(0, rbuf);
 						break;
 					}
 					case FBTYPE::FBT_CUBEMAP:
@@ -730,7 +725,7 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 							return false;
 						}
 
-						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						//glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 						GLenum attachment;
 						switch (_depthinternalformat)
@@ -768,6 +763,7 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 							glDeleteRenderbuffers(1, &rbuf);
 							return false;
 						}
+						m_depthbuffer = Attachment(0, rbuf);
 						break;
 					}
 					default:
@@ -813,7 +809,7 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 							return false;
 						}
 
-						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						//glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 						glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, rbuf);
 
@@ -823,6 +819,7 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 							glDeleteRenderbuffers(1, &rbuf);
 							return false;
 						}
+						m_colorbuffers.insert(std::pair<std::string, Attachment>("COLOR", Attachment(0, rbuf)));
 						break;
 					}
 					case FBTYPE::FBT_2D_MULTISAMPLE:
@@ -836,7 +833,7 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 							return false;
 						}
 
-						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						//glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 						glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, rbuf);
 
@@ -846,6 +843,7 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 							glDeleteRenderbuffers(1, &rbuf);
 							return false;
 						}
+						m_colorbuffers.insert(std::pair<std::string, Attachment>("COLOR", Attachment(0, rbuf)));
 						break;
 					}
 					case FBTYPE::FBT_CUBEMAP:
@@ -859,7 +857,7 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 							return false;
 						}
 
-						glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						//glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 						glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, rbuf);
 
@@ -869,6 +867,7 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 							glDeleteRenderbuffers(1, &rbuf);
 							return false;
 						}
+						m_colorbuffers.insert(std::pair<std::string, Attachment>("COLOR", Attachment(0, rbuf)));
 						break;
 					}
 					default:
@@ -1132,11 +1131,8 @@ bool FrameBuffer::blit(FrameBuffer* _source,
 				glBindFramebuffer(GL_FRAMEBUFFER, 0); GLERR
 				return false;
 			}
-
 			
-			glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0); GLERR
-			return false;
-			
+			glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0); GLERR			
 
 			GLenum filter = (_depth || _stencil ? GL_NEAREST : GL_LINEAR);
 			GLbitfield mask = 0;
@@ -1196,6 +1192,24 @@ bool FrameBuffer::blit(FrameBuffer* _source,
 		}
 	}
 	else													//nothing
+	{
+		return false;
+	}
+}
+
+bool FrameBuffer::setDrawBuffers()
+{
+	if (m_glframebuffertarget == GL_FRAMEBUFFER || m_glframebuffertarget == GL_DRAW_FRAMEBUFFER)
+	{
+		std::vector<GLenum> drawbuffers;
+		for (auto& att : m_colorbuffers)
+		{
+			drawbuffers.push_back(att.second.aid);
+		}
+		glDrawBuffers(drawbuffers.size(), drawbuffers.data());
+		return checkglerror();
+	}
+	else
 	{
 		return false;
 	}

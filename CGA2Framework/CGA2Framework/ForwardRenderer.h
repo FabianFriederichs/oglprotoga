@@ -17,6 +17,7 @@ private:
 	GLuint skyboxvao;
 	GLuint skyboxvbo;
 
-	Shader* skyboxshader;	
+	Shader* skyboxshader;
+	Shader* quadshader;
 };
 
