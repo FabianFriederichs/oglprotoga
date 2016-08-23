@@ -126,25 +126,25 @@ void Mesh::setupVAOs()
 		}
 		glBindVertexArray(m_vao); GLERR
 
-			glGenBuffers(1, &m_vbo); GLERR
-			glGenBuffers(1, &m_ibo); GLERR
+		glGenBuffers(1, &m_vbo); GLERR
+		glGenBuffers(1, &m_ibo); GLERR
 
-			glBindBuffer(GL_ARRAY_BUFFER, m_vbo); GLERR
-			glBufferData(GL_ARRAY_BUFFER, m_vertices.size() * FLOATS_PER_VERTEX * sizeof(GLfloat), buf.data(), GL_STATIC_DRAW); GLERR
+		glBindBuffer(GL_ARRAY_BUFFER, m_vbo); GLERR
+		glBufferData(GL_ARRAY_BUFFER, m_vertices.size() * FLOATS_PER_VERTEX * sizeof(GLfloat), buf.data(), GL_STATIC_DRAW); GLERR
 
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo); GLERR
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(GLuint), m_indices.data(), GL_STATIC_DRAW); GLERR
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo); GLERR
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(GLuint), m_indices.data(), GL_STATIC_DRAW); GLERR
 
-			glEnableVertexAttribArray(0); GLERR
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(0)); GLERR //position format
-			glEnableVertexAttribArray(1); GLERR
-			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(3 * sizeof(GLfloat))); GLERR
-			glEnableVertexAttribArray(2); GLERR
-			glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(5 * sizeof(GLfloat))); GLERR
-			glEnableVertexAttribArray(3); GLERR
-			glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(8 * sizeof(GLfloat))); GLERR
+		glEnableVertexAttribArray(0); GLERR
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(0)); GLERR //position format
+		glEnableVertexAttribArray(1); GLERR
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(3 * sizeof(GLfloat))); GLERR
+		glEnableVertexAttribArray(2); GLERR
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(5 * sizeof(GLfloat))); GLERR
+		glEnableVertexAttribArray(3); GLERR
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(8 * sizeof(GLfloat))); GLERR
 
-			glBindVertexArray(0); GLERR
+		glBindVertexArray(0); GLERR
 		m_glinited = true;
 	}
 }
@@ -210,9 +210,9 @@ void Mesh::drawBoundingBox()
 	if (m_bbvao != 0)
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); GLERR
-			glBindVertexArray(m_bbvao); GLERR
-			glDrawElements(GL_TRIANGLES, m_boundingboxindices.size(), GL_UNSIGNED_INT, 0); GLERR
-			glBindVertexArray(0); GLERR
+		glBindVertexArray(m_bbvao); GLERR
+		glDrawElements(GL_TRIANGLES, m_boundingboxindices.size(), GL_UNSIGNED_INT, 0); GLERR
+		glBindVertexArray(0); GLERR
 	}
 }
 
@@ -221,9 +221,9 @@ void Mesh::drawMesh()
 	if (m_vao != 0)
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); GLERR
-			glBindVertexArray(m_vao); GLERR
-			glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0); GLERR
-			glBindVertexArray(0); GLERR
+		glBindVertexArray(m_vao); GLERR
+		glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0); GLERR
+		glBindVertexArray(0); GLERR
 	}
 	else
 	{

@@ -159,6 +159,9 @@
     <ClInclude Include="VRRenderercpp.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="DeferredRenderer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DDSLoader.cpp">
@@ -276,6 +279,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="VRRenderercpp.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="DeferredRenderer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
