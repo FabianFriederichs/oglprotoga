@@ -277,6 +277,7 @@ bool FrameBuffer::addColorBufferTex(
 			}
 			else
 			{
+				delete tex;
 				return false;
 			}
 			break;
@@ -309,6 +310,7 @@ bool FrameBuffer::addColorBufferTex(
 			}
 			else
 			{
+				delete tex;
 				return false;
 			}
 			break;
@@ -340,6 +342,7 @@ bool FrameBuffer::addColorBufferTex(
 			}
 			else
 			{
+				delete tex;
 				return false;
 			}
 			break;
@@ -406,6 +409,7 @@ bool FrameBuffer::setDepthBufferTex(
 			}
 			else
 			{
+				delete tex;
 				return false;
 			}
 			break;
@@ -438,6 +442,7 @@ bool FrameBuffer::setDepthBufferTex(
 			}
 			else
 			{
+				delete tex;
 				return false;
 			}
 			break;
@@ -469,6 +474,7 @@ bool FrameBuffer::setDepthBufferTex(
 			}
 			else
 			{
+				delete tex;
 				return false;
 			}
 			break;
@@ -512,9 +518,59 @@ bool FrameBuffer::setDepthBufferTex(
 //	return false;
 //}
 
-bool FrameBuffer::resolve(FrameBuffer* _resolvebuffer)
+bool FrameBuffer::resolve(FrameBuffer* _msbuffer, FrameBuffer* _resolvebuffer, bool _color, GLint _colorbufferindex, bool _depth, bool _stencil, GLenum _defaultfbcolorbuffer)
 {
-	return false;
+	if (_msbuffer != nullptr && _msbuffer->m_type == FBTYPE::FBT_2D_MULTISAMPLE)
+	{
+		if (_resolvebuffer != nullptr)
+		{
+			GLint sx0, sy0, sx1, sy1, dx0, dy0, dx1, dy1;
+
+			sx0 = _msbuffer->m_vpxoff;
+			sy0 = _msbuffer->m_vpyoff;
+			sx1 = sx0 + _msbuffer->m_vpwidth;
+			sy1 = sy0 + _msbuffer->m_vpheight;
+
+			dx0 = _resolvebuffer->m_vpxoff;
+			dy0 = _resolvebuffer->m_vpyoff;
+			dx1 = dx0 + _resolvebuffer->m_vpwidth;
+			dy1 = dy0 + _resolvebuffer->m_vpheight;
+
+			return blit(_msbuffer, _resolvebuffer, _color, _colorbufferindex, _depth, _stencil,
+				sx0, sy0, sx1, sy1,
+				dx0, dy0, dx1, dy1);
+		}
+		else if (_resolvebuffer == nullptr)
+		{
+			GLint sx0, sy0, sx1, sy1, dx0, dy0, dx1, dy1;
+
+			sx0 = _msbuffer->m_vpxoff;
+			sy0 = _msbuffer->m_vpyoff;
+			sx1 = sx0 + _msbuffer->m_vpwidth;
+			sy1 = sy0 + _msbuffer->m_vpheight;
+
+			GLint curviewport[4];
+			glGetIntegerv(GL_VIEWPORT, curviewport); GLERR
+
+			dx0 = curviewport[0];
+			dy0 = curviewport[1];
+			dx1 = curviewport[0] + curviewport[2];
+			dy1 = curviewport[1] + curviewport[3];
+
+			return blit(_msbuffer, _resolvebuffer, _color, _colorbufferindex, _depth, _stencil,
+				sx0, sy0, sx1, sy1,
+				dx0, dy0, dx1, dy1,
+				_defaultfbcolorbuffer);
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
 }
 
 bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalformat)
@@ -976,7 +1032,7 @@ bool FrameBuffer::blit(FrameBuffer* _source,
 	}
 	else if (_source == nullptr && _target != nullptr)		//DefaultFB -> FBO
 	{
-		if (_source->isAllocated() && _target->isAllocated())
+		if (_target->isAllocated())
 		{
 			
 			glBindFramebuffer(GL_READ_FRAMEBUFFER, 0); GLERR			
@@ -1046,7 +1102,7 @@ bool FrameBuffer::blit(FrameBuffer* _source,
 	}
 	else if (_source != nullptr && _target == nullptr)		//FBO -> DefaultFB
 	{
-		if (_source->isAllocated() && _target->isAllocated())
+		if (_source->isAllocated())
 		{
 			if (!_source->bind(FBO_BINDINGMODE::FREAD))
 			{
