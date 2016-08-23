@@ -16,10 +16,12 @@
 		<sbd>skybox\sbdownmip.dds
 		<sbb>skybox\sbbackmip.dds
 		<sbf>skybox\sbfrontmip.dds
+		<bill>Textures\TestBillboard.dds
 	/cubemaps
 		skybox<sbr><sbl><sbu><sbd><sbb><sbf>
 	/shaders
 		<0><Shader\BaseVertex.vert><Shader\BaseFrag.frag>
+		<1><Shader\Billboard.vert><Shader\Billboard.frag>
 	/models
 		<model0><0>Models\uglypot.obj
 /materials

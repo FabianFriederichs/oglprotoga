@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Quelldateien">
@@ -159,11 +159,10 @@
     <ClInclude Include="VRRenderercpp.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="Billboard.h">
-=======
+<Filter>Headerdateien</Filter>
+    </ClInclude>
     <ClInclude Include="DeferredRenderer.h">
->>>>>>> 83b5e871db75978d1408efa97a227077f37b41ce
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -285,11 +284,10 @@
     <ClCompile Include="VRRenderercpp.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="Billboard.cpp">
-=======
+<Filter>Quelldateien</Filter>
+    </ClCompile>
     <ClCompile Include="DeferredRenderer.cpp">
->>>>>>> 83b5e871db75978d1408efa97a227077f37b41ce
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

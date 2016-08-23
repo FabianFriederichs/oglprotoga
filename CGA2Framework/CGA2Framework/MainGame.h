@@ -2,6 +2,7 @@
 #include "GameWindow.h"
 #include "ForwardRenderer.h"
 #include "VRRenderercpp.h"
+#include "Billboard.h"
 #include "glerror.h"
 class MainGame : public GameWindow
 {

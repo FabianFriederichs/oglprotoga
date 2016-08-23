@@ -73,16 +73,19 @@ void VRRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	glBindVertexArray(0); GLERR;
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); GLERR;
-	screenShader->Use();
+
+
+	
 
 	
 	
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
-
+	screenShader->Use();
 	glBindVertexArray(quadVAO); GLERR;
 	glDisable(GL_DEPTH_TEST); GLERR;
 	glBindTexture(GL_TEXTURE_2D, leftEyeDesc.m_nResolveTextureId); GLERR;
+	//screenShader->setUniform("screenTexture", leftEyeDesc.m_nResolveTextureId);
 	glDrawArrays(GL_TRIANGLES, 0, 6); GLERR;
 	glBindVertexArray(0); GLERR;
 	_callback->renderFinished();

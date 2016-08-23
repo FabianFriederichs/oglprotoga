@@ -98,8 +98,13 @@ void ForwardRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 
 
 	}
-
+	for (auto b : _scene->m_billboards)
+	{
+		b->Draw();
+	}
 	//render the skybox
+
+
 
 	if (_scene->m_cubemaps.size() > 0)
 	{

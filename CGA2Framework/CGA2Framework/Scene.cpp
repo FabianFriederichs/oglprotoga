@@ -617,6 +617,10 @@ void Scene::addCubeMap(TextureCB* _texture)
 	m_cubemaps.push_back(_texture);
 }
 
+void Scene::addBillboard(Billboard* _billboard)
+{
+	m_billboards.push_back(_billboard);
+}
 
 void Scene::clear()
 {

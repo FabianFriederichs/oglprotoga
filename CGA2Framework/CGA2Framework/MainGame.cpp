@@ -89,6 +89,29 @@ void MainGame::init()
 {
 	m_scene = new Scene(m_sizex, m_sizey);
 	(m_scene)->load("..\\..\\Assets\\TestScene.txt");
+	
+
+	Billboard* b = new Billboard();
+	m_scene->m_textures.back()->setWrapModeS(GL_CLAMP_TO_EDGE);
+	m_scene->m_textures.back()->setWrapModeT(GL_CLAMP_TO_EDGE);
+	m_scene->m_textures.back()->buffer(false);
+
+	b->setTexture(m_scene->m_textures.back());
+
+	b->setCamera(m_scene->m_camera);
+	b->setShader(m_scene->m_shaders.back());
+	b->getTransform().setRotate(radians(-90.f), 0, 0);
+	b->getTransform().setScale(vec3(30.f, 30.f,0.f));
+
+	m_scene->addBillboard(b);
+
+	b = new Billboard();
+	b->setTexture(m_scene->m_textures.back());
+
+	b->setCamera(m_scene->m_camera);
+	b->setShader(m_scene->m_shaders.back());
+
+	m_scene->addBillboard(b);
 	m_scenerenderer = new ForwardRenderer();
 	//m_scenerenderer = new VRRenderer(new ForwardRenderer(), new Shader("..\\..\\Assets\\Shader\\quad.vert", "..\\..\\Assets\\Shader\\quad.frag"));
 }

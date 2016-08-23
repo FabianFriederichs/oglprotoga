@@ -15,6 +15,7 @@
 #include "DDSLoader.h"
 #include "glerror.h"
 #include "Texture2D.h"
+#include "Billboard.h"
 #include "util.h"
 /*
 	Keep track of Entity-Shader relations (Map with shader ID as key?)
@@ -74,7 +75,10 @@ public:
 
 	std::list<Material*> m_materials;
 	void addMaterial(Material* _material);
-	
+
+	std::list<Billboard*> m_billboards;
+	void addBillboard(Billboard* _billboard);
+
 	Camera* m_camera;
 	
 
