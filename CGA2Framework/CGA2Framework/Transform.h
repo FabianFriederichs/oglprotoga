@@ -16,16 +16,19 @@ public:
 
 	//getters, setters
 	const glm::vec3& getTranslate()  const { return m_translate; }
-	const glm::vec3& getRotate()  const { return m_rotate; }
+	const glm::vec3& getRotate() const { return glm::vec3(pitch(m_rquat), yaw(m_rquat), roll(m_rquat)); }
+	const glm::quat& getRotateQ()  const { return m_rquat; }
 	const glm::vec3& getScale()  const { return m_scale; }
 
 	void setTranslate(const glm::vec3& _translate) { m_translate = _translate; m_matdirty = true; }
-	void setRotate(const glm::vec3& _rotate) { m_rotate = _rotate; m_matdirty = true; }
-	void setRotate(const GLfloat _pitch, const GLfloat _yaw, const GLfloat _roll) { m_rotate = glm::vec3(_pitch, _yaw, _roll); m_matdirty = true; }
+	void setRotate(const glm::vec3& _rotate) { m_rquat = glm::quat(_rotate); m_matdirty = true; }
+	void setRotate(const GLfloat _pitch, const GLfloat _yaw, const GLfloat _roll) { m_rquat = glm::quat(glm::vec3(_pitch, _yaw, _roll)); m_matdirty = true; }
+	void setRotate(const glm::quat& _rquat){ m_rquat = _rquat; m_matdirty = true; }
 	void setScale(const glm::vec3& _scale) { m_scale = _scale; m_matdirty = true; }
 
 private:
 	glm::vec3 m_translate;
+	glm::quat m_rquat;
 	glm::vec3 m_rotate;
 	glm::vec3 m_scale;
 

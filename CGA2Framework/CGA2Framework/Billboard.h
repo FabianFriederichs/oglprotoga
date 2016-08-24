@@ -16,20 +16,20 @@ public:
 	Billboard();
 	~Billboard();
 
-	void Draw(void* _target = nullptr);
+	void Draw();
 	void setTexture(Texture2D* _tex)
 	{
 		m_tex = _tex;
 	}
 	void setCamera(Camera* _cam){ m_cam = _cam; }
 	void setShader(Shader* _shader){ m_shader = _shader; }
+	void setTarget(GameObject*_go){ target = _go; }
 private:
 	Shader* m_shader;
 	Texture2D* m_tex;
 	BILLBOARDTYPE m_type;
 	Camera* m_cam;
-	void* target;
-
+	GameObject* target;
 	void Orient();
 };
 

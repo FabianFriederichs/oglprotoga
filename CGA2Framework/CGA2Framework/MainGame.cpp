@@ -63,6 +63,25 @@ GLvoid MainGame::update(GLdouble time)
 			md.mtype += vec3(0, 0, -1);
 		if (md.mtype != vec3(0, 0, 0))
 			m_scene->m_camera->Move(md);
+
+		md = { vec3(0, 0, 0), 0 };
+
+		md.Multiplier = 0.05f;
+		if (keys[GLFW_KEY_UP])
+			md.mtype += vec3(1, 0, 0);
+		if (keys[GLFW_KEY_DOWN])
+			md.mtype += vec3(-1, 0, 0);
+		if (keys[GLFW_KEY_LEFT])
+			md.mtype += vec3(0, 0, -1);
+		if (keys[GLFW_KEY_RIGHT])
+			md.mtype += vec3(0, 0, 1);
+		if (keys[GLFW_KEY_SPACE])
+			md.mtype += vec3(0, 1, 0);
+		if (keys[GLFW_KEY_V])
+			md.mtype += vec3(0, -1, 0);
+
+		if (md.mtype != vec3(0, 0, 0))
+			m_scene->m_gameobjects.front()->getTransform().translate(md.mtype*md.Multiplier);
 	}
 	if (keys[GLFW_KEY_ESCAPE]){
 		quit();
@@ -100,9 +119,10 @@ void MainGame::init()
 
 	b->setCamera(m_scene->m_camera);
 	b->setShader(m_scene->m_shaders.back());
-	b->getTransform().setRotate(radians(-90.f), 0, 0);
-	b->getTransform().setScale(vec3(30.f, 30.f,0.f));
-
+	//b->getTransform().setRotate(radians(-45.f), radians(-90.f), 0);
+	b->getTransform().setScale(vec3(5.f, 1.f,1.f));
+	b->getTransform().setTranslate(vec3(-5.f, 1.f, 1.f));
+	//b->setTarget(m_scene->m_gameobjects.front());
 	m_scene->addBillboard(b);
 
 	b = new Billboard();
@@ -110,7 +130,7 @@ void MainGame::init()
 
 	b->setCamera(m_scene->m_camera);
 	b->setShader(m_scene->m_shaders.back());
-
+	b->setTarget(m_scene->m_gameobjects.front());
 	m_scene->addBillboard(b);
 	m_scenerenderer = new ForwardRenderer();
 	//m_scenerenderer = new VRRenderer(new ForwardRenderer(), new Shader("..\\..\\Assets\\Shader\\quad.vert", "..\\..\\Assets\\Shader\\quad.frag"));

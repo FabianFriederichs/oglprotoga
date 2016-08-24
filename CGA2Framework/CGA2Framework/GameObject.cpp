@@ -3,20 +3,17 @@
 
 
 GameObject::GameObject() :
-	m_active(true),
-	m_name(),
-	m_id(IDProvider::createID()),
-	m_transform()
+m_active(true),
+m_name(),
+m_id(IDProvider::createID())
 {
 }
 
 GameObject::GameObject(const GameObject& _other) :
 	m_active(_other.m_active),
 	m_name(_other.m_name),
-	m_id(IDProvider::createID()),
-	m_transform(_other.m_transform)
+	m_id(IDProvider::createID())
 {
-	
 }
 
 
