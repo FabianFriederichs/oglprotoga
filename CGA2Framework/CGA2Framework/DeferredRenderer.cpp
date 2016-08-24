@@ -108,13 +108,24 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	//activate gpass shader
 	gpassshader->Use();
 
+	//per frame uniforms
+	gpassshader->setUniform("view", _scene->m_camera->GetViewMatrix());
+	gpassshader->setUniform("projection", _scene->m_camera->getProjectionMatrix());
+
 	//draw all renderable gameobjects
 	for (auto go : _scene->m_gameobjects)
 	{
 		//set per go uniforms
+		gpassshader->setUniform("model", go.second->getTransform().getTransformMat());
 
 		//draw go meshes
+		for (auto m : go.second->getModel()->getMeshes())
+		{
+
+		}
 	}
+
+
 
 	//(render shadowmaps)
 
@@ -124,7 +135,7 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 
 	//back to default framebuffer
 	gbuffer->unbind();
-	
+
 	//do lighting pass
 
 
