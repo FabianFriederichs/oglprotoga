@@ -270,7 +270,7 @@ bool FrameBuffer::addColorBufferTex(
 			tex->setGLFormat(_glformat);
 			tex->setGLType(_gltype);
 			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
-			if (tex->buffer(true) && tex->bind())
+			if (tex->buffer(true))
 			{
 				Attachment att(m_colorbuffers.size(), tex);
 				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, att));
@@ -304,7 +304,7 @@ bool FrameBuffer::addColorBufferTex(
 			tex->setGLType(_gltype);
 			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
 			tex->setMultisampling(true, m_samples);
-			if (tex->buffer(true) && tex->bind())
+			if (tex->buffer(true))
 			{
 				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, Attachment(m_colorbuffers.size(), tex)));
 				glFramebufferTexture2D(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + m_colorbuffers.size() - 1, GL_TEXTURE_2D_MULTISAMPLE, tex->getGLTexture(), 0);
@@ -336,7 +336,7 @@ bool FrameBuffer::addColorBufferTex(
 			tex->setGLFormat(_glformat);
 			tex->setGLType(_gltype);
 			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
-			if (tex->buffer(true) && tex->bind())
+			if (tex->buffer(true))
 			{
 				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, Attachment(m_colorbuffers.size(), tex)));
 				glFramebufferTexture(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + m_colorbuffers.size() - 1, tex->getGLTexture(), 0);
@@ -406,7 +406,36 @@ bool FrameBuffer::setDepthBufferTex(
 			if (tex->buffer(true) && tex->bind())
 			{
 				m_depthbuffer = Attachment(0, tex);
-				glFramebufferTexture2D(m_glframebuffertarget, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthbuffer.tex->getGLTexture(), 0);
+
+				GLenum attachment;
+				switch (_glinternalformat)
+				{
+				case GL_DEPTH_COMPONENT16:
+					attachment = GL_DEPTH_ATTACHMENT;
+					break;
+				case GL_DEPTH_COMPONENT24:
+					attachment = GL_DEPTH_ATTACHMENT;
+					break;
+				case GL_DEPTH_COMPONENT32:
+					attachment = GL_DEPTH_ATTACHMENT;
+					break;
+				case GL_DEPTH_COMPONENT32F:
+					attachment = GL_DEPTH_ATTACHMENT;
+					break;
+				case GL_DEPTH24_STENCIL8:
+					attachment = GL_DEPTH_STENCIL_ATTACHMENT;
+					break;
+				case GL_DEPTH32F_STENCIL8:
+					attachment = GL_DEPTH_STENCIL_ATTACHMENT;
+					break;
+				default:
+					m_depthbuffer = Attachment(0, 0);
+					delete tex;
+					return false;
+					break;
+				}
+
+				glFramebufferTexture2D(m_glframebuffertarget, attachment, GL_TEXTURE_2D, m_depthbuffer.tex->getGLTexture(), 0);
 				if (checkglerror())
 				{
 					if (m_depthbuffer.tex != nullptr)
@@ -439,7 +468,36 @@ bool FrameBuffer::setDepthBufferTex(
 			if (tex->buffer(true) && tex->bind())
 			{
 				m_depthbuffer = Attachment(0, tex);
-				glFramebufferTexture2D(m_glframebuffertarget, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, m_depthbuffer.tex->getGLTexture(), 0);
+
+				GLenum attachment;
+				switch (_glinternalformat)
+				{
+				case GL_DEPTH_COMPONENT16:
+					attachment = GL_DEPTH_ATTACHMENT;
+					break;
+				case GL_DEPTH_COMPONENT24:
+					attachment = GL_DEPTH_ATTACHMENT;
+					break;
+				case GL_DEPTH_COMPONENT32:
+					attachment = GL_DEPTH_ATTACHMENT;
+					break;
+				case GL_DEPTH_COMPONENT32F:
+					attachment = GL_DEPTH_ATTACHMENT;
+					break;
+				case GL_DEPTH24_STENCIL8:
+					attachment = GL_DEPTH_STENCIL_ATTACHMENT;
+					break;
+				case GL_DEPTH32F_STENCIL8:
+					attachment = GL_DEPTH_STENCIL_ATTACHMENT;
+					break;
+				default:
+					m_depthbuffer = Attachment(0, 0);
+					delete tex;
+					return false;
+					break;
+				}
+
+				glFramebufferTexture2D(m_glframebuffertarget, attachment, GL_TEXTURE_2D_MULTISAMPLE, m_depthbuffer.tex->getGLTexture(), 0);
 				if (checkglerror())
 				{
 					if (m_depthbuffer.tex != nullptr)
@@ -471,7 +529,36 @@ bool FrameBuffer::setDepthBufferTex(
 			if (tex->buffer(true) && tex->bind())
 			{
 				m_depthbuffer = Attachment(0, tex);
-				glFramebufferTexture(m_glframebuffertarget, GL_DEPTH_ATTACHMENT, m_depthbuffer.tex->getGLTexture(), 0);
+
+				GLenum attachment;
+				switch (_glinternalformat)
+				{
+				case GL_DEPTH_COMPONENT16:
+					attachment = GL_DEPTH_ATTACHMENT;
+					break;
+				case GL_DEPTH_COMPONENT24:
+					attachment = GL_DEPTH_ATTACHMENT;
+					break;
+				case GL_DEPTH_COMPONENT32:
+					attachment = GL_DEPTH_ATTACHMENT;
+					break;
+				case GL_DEPTH_COMPONENT32F:
+					attachment = GL_DEPTH_ATTACHMENT;
+					break;
+				case GL_DEPTH24_STENCIL8:
+					attachment = GL_DEPTH_STENCIL_ATTACHMENT;
+					break;
+				case GL_DEPTH32F_STENCIL8:
+					attachment = GL_DEPTH_STENCIL_ATTACHMENT;
+					break;
+				default:
+					m_depthbuffer = Attachment(0, 0);
+					delete tex;
+					return false;
+					break;
+				}
+
+				glFramebufferTexture(m_glframebuffertarget, attachment, m_depthbuffer.tex->getGLTexture(), 0);
 				if (checkglerror())
 				{
 					if (m_depthbuffer.tex != nullptr)
@@ -619,7 +706,7 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 							return false;
 						}
 
-						//glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 						GLenum attachment;
 						switch (_depthinternalformat)
@@ -672,7 +759,7 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 							return false;
 						}
 
-						//glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 						GLenum attachment;
 						switch (_depthinternalformat)
@@ -725,7 +812,7 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 							return false;
 						}
 
-						//glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 						GLenum attachment;
 						switch (_depthinternalformat)
@@ -809,7 +896,7 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 							return false;
 						}
 
-						//glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 						glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, rbuf);
 
@@ -833,7 +920,7 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 							return false;
 						}
 
-						//glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 						glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, rbuf);
 
@@ -857,7 +944,7 @@ bool FrameBuffer::complete(GLenum _depthinternalformat, GLenum _colorinternalfor
 							return false;
 						}
 
-						//glBindRenderbuffer(GL_RENDERBUFFER, 0);
+						glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 						glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, rbuf);
 
@@ -1204,7 +1291,7 @@ bool FrameBuffer::setDrawBuffers()
 		std::vector<GLenum> drawbuffers;
 		for (auto& att : m_colorbuffers)
 		{
-			drawbuffers.push_back(att.second.aid);
+			drawbuffers.push_back(GL_COLOR_ATTACHMENT0 + att.second.aid);
 		}
 		glDrawBuffers(drawbuffers.size(), drawbuffers.data());
 		return checkglerror();

@@ -108,7 +108,7 @@ public:
 
 	//creating buffers
 	bool addColorBufferTex(const std::string& _name, GLint _glinternalformat = GL_RGBA8, GLenum _glformat = GL_RGBA, GLenum _gltype = GL_UNSIGNED_BYTE);
-	bool setDepthBufferTex(GLint _glinternalformat = GL_DEPTH_COMPONENT24, GLenum _glformat = GL_DEPTH_COMPONENT, GLenum _gltype = GL_FLOAT);
+	bool setDepthBufferTex(GLint _glinternalformat = GL_DEPTH24_STENCIL8, GLenum _glformat = GL_DEPTH_STENCIL, GLenum _gltype = GL_UNSIGNED_INT_24_8);
 
 	//creating buffers
 	//bool addColorRenderBuffer(const std::string& _name, GLint _glinternalformat = GL_RGBA8, GLenum _glformat = GL_RGBA, GLenum _gltype = GL_UNSIGNED_BYTE);
