@@ -3,7 +3,7 @@
 
 Transform::Transform(const glm::vec3& _translate, const glm::vec3& _rotate, const glm::vec3& _scale) :
 	m_translate(_translate),
-	m_rotate(_rotate),
+	m_rquat(_rotate),
 	m_scale(_scale),
 	m_transformMat(1.0f),
 	m_matdirty(true)
@@ -13,7 +13,7 @@ Transform::Transform(const glm::vec3& _translate, const glm::vec3& _rotate, cons
 
 Transform::Transform(const Transform& _other) :
 	m_translate(_other.m_translate),
-	m_rotate(_other.m_rotate),
+	m_rquat(_other.m_rotate),
 	m_scale(_other.m_scale),
 	m_transformMat(_other.m_transformMat),
 	m_matdirty(true)
@@ -23,7 +23,7 @@ Transform::Transform(const Transform& _other) :
 
 Transform::Transform() :
 	m_translate(0.0f, 0.0f, 0.0f),
-	m_rotate(0.0f, 0.0f, 0.0f),
+	m_rquat(vec3(0.0f, 0.0f, 0.0f)),
 	m_scale(1.0f, 1.0f, 1.0f),
 	m_transformMat(1.0f),
 	m_matdirty(true)

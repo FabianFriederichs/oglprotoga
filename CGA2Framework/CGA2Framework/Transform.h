@@ -26,6 +26,7 @@ public:
 
 private:
 	glm::vec3 m_translate;
+	glm::quat m_rquat;
 	glm::vec3 m_rotate;
 	glm::vec3 m_scale;
 
