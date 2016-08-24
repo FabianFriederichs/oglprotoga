@@ -127,6 +127,7 @@
     <ClInclude Include="TextureCB.h" />
     <ClInclude Include="THRDPCamera.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="Transformable.h" />
     <ClInclude Include="TWODShader.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="Vertex.h" />

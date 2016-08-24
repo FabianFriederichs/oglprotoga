@@ -17,7 +17,7 @@ void Billboard::Draw()
 	m_shader->Use();
 	m_tex->bindToTextureUnit(0);
 	m_shader->setUniform("billboard", 0);
-	m_shader->setUniform("model", getTransform().getTransformMat()*rotation, false); 
+	m_shader->setUniform("model", getTransform().getTransformMat(), false); 
 	//set view and projection matrix
 	m_shader->setUniform("view", m_cam->GetViewMatrix(), false);
 	m_shader->setUniform("proj", m_cam->getProjectionMatrix(), false);
@@ -33,6 +33,6 @@ void Billboard::Orient()
 	auto tarNormal = m_cam->GetPosition() - getTransform().getTranslate();
 	auto axis = normalize(cross(curNormal, tarNormal));
 	auto angle = acos(dot(normalize(curNormal), normalize(tarNormal)));
-	rotation = rotate(angle, axis);
+	getTransform().setRotate(glm::quat(rotate(angle, axis)));
 	//Do orientation stuff to Transform with targeet
 }

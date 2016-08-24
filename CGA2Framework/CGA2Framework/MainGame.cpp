@@ -72,9 +72,9 @@ GLvoid MainGame::update(GLdouble time)
 		if (keys[GLFW_KEY_DOWN])
 			md.mtype += vec3(-1, 0, 0);
 		if (keys[GLFW_KEY_LEFT])
-			md.mtype += vec3(0, 0, 1);
-		if (keys[GLFW_KEY_RIGHT])
 			md.mtype += vec3(0, 0, -1);
+		if (keys[GLFW_KEY_RIGHT])
+			md.mtype += vec3(0, 0, 1);
 		if (keys[GLFW_KEY_SPACE])
 			md.mtype += vec3(0, 1, 0);
 		if (keys[GLFW_KEY_V])
@@ -119,9 +119,10 @@ void MainGame::init()
 
 	b->setCamera(m_scene->m_camera);
 	b->setShader(m_scene->m_shaders.back());
-	b->getTransform().setRotate(radians(-90.f), 0, 0);
-	//b->getTransform().setScale(vec3(30.f, 30.f,0.f));
-
+	//b->getTransform().setRotate(radians(-45.f), radians(-90.f), 0);
+	b->getTransform().setScale(vec3(5.f, 1.f,1.f));
+	b->getTransform().setTranslate(vec3(-5.f, 1.f, 1.f));
+	//b->setTarget(m_scene->m_gameobjects.front());
 	m_scene->addBillboard(b);
 
 	b = new Billboard();

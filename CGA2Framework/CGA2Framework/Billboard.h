@@ -30,7 +30,6 @@ private:
 	BILLBOARDTYPE m_type;
 	Camera* m_cam;
 	GameObject* target;
-	mat4 rotation;
 	void Orient();
 };
 
