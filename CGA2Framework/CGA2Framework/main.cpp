@@ -3,6 +3,11 @@
 #include "MainGame.h"
 using namespace std;
 
+typedef enum {
+	A,
+	B,
+	C
+} TEST;
 
 int main(void)
 {

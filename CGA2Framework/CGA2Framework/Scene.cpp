@@ -12,7 +12,8 @@ m_models(),
 //m_renderer(),
 //m_renderList(),
 m_textures(),
-m_shaders()
+m_shaders(),
+m_renderables()
 {
 	
 }
@@ -30,7 +31,8 @@ m_models(),
 m_textures(),
 m_height(height),
 m_width(width),
-m_shaders()
+m_shaders(),
+m_renderables()
 {
 
 }
@@ -539,6 +541,10 @@ void Scene::addRenderable(RenderableGameObject* _renderable)
 {
 	m_gameobjects.push_back(_renderable);
 
+	GOTYPE t = _renderable->getType();
+	std::pair<GOTYPE, RenderableGameObject*> p(t, _renderable);
+	m_renderables.insert(p);
+
 	/*for (std::vector<Mesh*>::iterator mit = _renderable->getModel()->getMeshes().begin(); mit != _renderable->getModel()->getMeshes().end(); mit = mit++)
 	{
 		RenderList::iterator insertpos = m_renderList.begin();
@@ -634,6 +640,16 @@ void Scene::clear()
 		}
 	}
 	m_gameobjects.clear();
+
+	for (auto p : m_renderables)
+	{
+		if (p.second != nullptr)
+		{
+			delete p.second;
+			p.second = nullptr;
+		}
+	}
+	m_renderables.clear();
 
 	for(DirectionalLight* l : m_directionallights)
 	{
