@@ -12,9 +12,7 @@ public:
 
 private:
 	//teststuff
-	bool skyboxinited = false;
-	GLuint skyboxvao;
-	GLuint skyboxvbo;
+	bool inited = false;
 
 	Shader* skyboxshader;
 	Shader* quadshader;
