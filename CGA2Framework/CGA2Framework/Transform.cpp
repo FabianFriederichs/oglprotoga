@@ -73,7 +73,10 @@ glm::mat4 Transform::getTransformMat()
 
 void Transform::updateTransformMat()
 {
-	m_transformMat = glm::translate(m_translate)*glm::mat4(m_rquat)*glm::scale(m_scale)*glm::mat4(1.0f);
+	m_transformMat = glm::translate(m_translate)*glm::mat4(m_rquat)*glm::scale(m_scale)* glm::mat4(1.0f);
+	m_z = glm::vec3(m_transformMat[0][2], m_transformMat[1][2], m_transformMat[2][2]);
+	m_x = glm::vec3(m_transformMat[0][0], m_transformMat[1][0], m_transformMat[2][0]);
+	m_y = glm::vec3(m_transformMat[0][1], m_transformMat[1][1], m_transformMat[2][1]);
 	//m_transformMat = glm::translate(m_transformMat, m_translate);
 	//
 	///*m_transformMat = glm::rotate(m_transformMat, m_rotate.x, glm::vec3(1.0f, 0.0f, 0.0f)) *

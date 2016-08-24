@@ -26,12 +26,18 @@ public:
 	void setRotate(const glm::quat& _rquat){ m_rquat = _rquat; m_matdirty = true; }
 	void setScale(const glm::vec3& _scale) { m_scale = _scale; m_matdirty = true; }
 
+	const glm::vec3 getUp(){ return m_y; }
+	const glm::vec3 getRight(){ return m_x; }
+	const glm::vec3 getForw(){ return m_z; }
+
 private:
 	glm::vec3 m_translate;
 	glm::quat m_rquat;
 	glm::vec3 m_rotate;
 	glm::vec3 m_scale;
-
+	glm::vec3 m_y;
+	glm::vec3 m_x;
+	glm::vec3 m_z;
 	bool m_matdirty;
 	glm::mat4 m_transformMat;
 	void updateTransformMat();

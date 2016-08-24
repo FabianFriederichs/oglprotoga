@@ -6,7 +6,7 @@ FPSCamera::FPSCamera(GLfloat fov,GLint width,GLint height,GLfloat znear,GLfloat 
 	m_wy = worldup;
 	m_wx = worldright;
 	m_wz = worldforward;
-	m_transform.setTranslate(vec3(0, 0, 10));
+	getTransform().setTranslate(vec3(0, 0, 10));
 	m_transform.setRotate(quat(vec3(0.0f, 0.0f, 0.0f)));
 	m_fov = fov;
 	m_height = height;
@@ -21,15 +21,15 @@ FPSCamera::FPSCamera(GLfloat fov,GLint width,GLint height,GLfloat znear,GLfloat 
 
 void FPSCamera::SetPosition(vec3 pos)
 {
-	 m_transform.setTranslate(pos);
+	getTransform().setTranslate(pos);
 }
 
-glm::mat4 FPSCamera::Orientation() const
+glm::mat4 FPSCamera::Orientation()
 {
-	return mat4_cast(m_transform.getRotateQ());
+	return mat4_cast(getTransform().getRotateQ());
 }
 
-glm::mat4 FPSCamera::GetViewMatrix() const
+glm::mat4 FPSCamera::GetViewMatrix() 
 {
 	return GetCameraTransform();
 }
@@ -41,21 +41,18 @@ void FPSCamera::Fly(bool trueorwhat)
 
 void FPSCamera::Move(const MoveData &movedata)
 {
-	auto ori = Orientation();
-	vec3 zaxis(ori[0][2], ori[1][2], ori[2][2]);
-	vec3 xaxis(ori[0][0], ori[1][0], ori[2][0]);
-	auto dir = -zaxis;
 
 	vec3 move(0,0,0);
 
 	if(flying)
-	move+=dir*movedata.mtype.x;
+		move += -m_transform.getForw()*movedata.mtype.x;
 	else
 	{
-		move+=normalize(cross(m_wy, xaxis))*movedata.mtype.x;
+		move += normalize(cross(m_wy, m_transform.getRight()))*movedata.mtype.x;
 	}
-	move+=-xaxis*movedata.mtype.z;
-	m_transform.translate(move*movedata.Multiplier);
+	move += -m_transform.getRight()*movedata.mtype.z;
+	m_transform.translate(normalize(move)*movedata.Multiplier);
+	m_transform.getTransformMat();
 }
 
 void FPSCamera::Rotate(const vec3 &rotation)
@@ -83,7 +80,8 @@ void FPSCamera::Rotate(const vec3 &rotation)
 
 	if(yaw!=0)
 	{
-		m_transform.setRotate(normalize(m_transform.getRotateQ()*quat(vec3(0, yaw, 0))));
+		m_transform.setRotate(normalize(m_transform.getRotateQ()*normalize(quat(vec3(0, yaw, 0)))));
 
 	}
+	m_transform.getTransformMat();
 }

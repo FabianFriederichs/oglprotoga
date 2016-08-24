@@ -10,12 +10,12 @@
 		<tex7>Materials\metalgloss_RGBA32UI.dds
 		<tex8>Materials\metalnormal_RGBA32UI.dds
 		<tex9>Materials\metalheight_RGBA32UI.dds
-		<sbr>skybox\sbrightmip.dds
-		<sbl>skybox\sbleftmip.dds
-		<sbu>skybox\sbupmip.dds
-		<sbd>skybox\sbdownmip.dds
-		<sbb>skybox\sbbackmip.dds
-		<sbf>skybox\sbfrontmip.dds
+		<sbr>skybox\sbrightmipCoords.dds
+		<sbl>skybox\sbleftmipCoords.dds
+		<sbu>skybox\sbupmipCoords.dds
+		<sbd>skybox\sbdownmipCoords.dds
+		<sbb>skybox\sbbackmipCoords.dds
+		<sbf>skybox\sbfrontmipCoords.dds
 		<bill>Textures\TestBillboard.dds
 	/cubemaps
 		skybox<sbr><sbl><sbu><sbd><sbb><sbf>
@@ -46,7 +46,7 @@
 		<0>woodshiny
 		<1>metalshiny
 /go
-	model0<0.500000,0.500000,0.500000><0.000000,90.000000,0.000000><0.000000,0.000000,-2.000000>
+	model0<0.500000,0.500000,0.500000><0.000000,45.000000,45.000000><0.000000,0.000000,-2.000000>
 	model0<1.000000,1.000000,1.000000><0.000000,0.000000,0.000000><2.000000,2.000000,-2.000000>
 	model0<1.000000,1.000000,1.000000><0.000000,0.000000,0.000000><2.000000,2.000000,-4.000000>
 	model0<1.000000,1.000000,1.000000><0.000000,0.000000,0.000000><2.000000,2.000000,-6.000000>

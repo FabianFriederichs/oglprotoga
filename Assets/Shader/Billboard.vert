@@ -6,8 +6,8 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 proj;
 
-out vec2 TexCoords;
 
+out vec2 TexCoords;
 void main()
 {
 	vec4 worldpos = model * vec4(position.x, position.y, position.z, 1.0);
