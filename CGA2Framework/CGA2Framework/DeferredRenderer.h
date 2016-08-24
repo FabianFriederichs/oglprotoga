@@ -11,16 +11,17 @@ public:
 	void render(Scene* _scene, RenderFinishedCallback* _callback, glm::mat4* _view, glm::mat4* _proj) override;
 
 private:
-	//teststuff
+	//init
 	bool inited = false;
+	bool init();
 
+	//shaders
 	Shader* skyboxshader;
 	Shader* quadshader;
-
-	//later
 	Shader* gpassshader;	//Position, Normals, Albedo and Specular Rendertargets + Depth Renderbuffer
-	Shader* lightingpassshader;
+	Shader* lpassshader;
 
+	//framebuffers
 	FrameBuffer* gbuffer;
 };
 
