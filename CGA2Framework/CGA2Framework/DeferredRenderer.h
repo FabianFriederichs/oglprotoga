@@ -20,7 +20,7 @@ private:
 	Shader* quadshader;
 
 	//later
-	Shader* gpassshader;
+	Shader* gpassshader;	//Position, Normals, Albedo and Specular Rendertargets + Depth Renderbuffer
 	Shader* lightingpassshader;
 
 	FrameBuffer* gbuffer;

@@ -28,8 +28,12 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 		gbuffer->allocate();
 		gbuffer->bind((FBO_BINDINGMODE::FREADWRITE));
 
-		gbuffer->addColorBufferTex("color", GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE);
-		gbuffer->setDepthBufferTex(GL_DEPTH_COMPONENT24, GL_DEPTH_COMPONENT, GL_FLOAT);
+		gbuffer->addColorBufferTex("position", GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE);
+		gbuffer->addColorBufferTex("normals", GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE);
+		gbuffer->addColorBufferTex("albedo", GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE);
+		gbuffer->addColorBufferTex("specular", GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE);
+		gbuffer->setDepthBufferTex(GL_DEPTH_COMPONENT32, GL_DEPTH_COMPONENT, GL_FLOAT);
+
 
 		gbuffer->complete();
 		gbuffer->setDrawBuffers();
