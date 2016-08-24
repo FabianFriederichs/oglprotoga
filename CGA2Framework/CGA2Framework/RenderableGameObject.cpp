@@ -1,7 +1,7 @@
 #include "RenderableGameObject.h"
 
 
-RenderableGameObject::RenderableGameObject()
+RenderableGameObject::RenderableGameObject(GOTYPE _type) : m_type(_type), m_model(nullptr)
 {
 }
 

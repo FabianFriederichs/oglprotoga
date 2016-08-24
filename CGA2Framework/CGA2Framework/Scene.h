@@ -44,6 +44,7 @@ public:
 	virtual void clear();
 	//void render();
 	//scene data
+	std::unordered_multimap<GOTYPE, RenderableGameObject*> m_renderables;
 	std::list<RenderableGameObject*> m_gameobjects;	
 	//RenderList m_renderList;
 
