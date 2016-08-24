@@ -116,10 +116,10 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	for (auto go : _scene->m_gameobjects)
 	{
 		//set per go uniforms
-		gpassshader->setUniform("model", go.second->getTransform().getTransformMat());
+		gpassshader->setUniform("model", go->getTransform().getTransformMat());
 
 		//draw go meshes
-		for (auto m : go.second->getModel()->getMeshes())
+		for (auto m : go->getModel()->getMeshes())
 		{
 
 		}
