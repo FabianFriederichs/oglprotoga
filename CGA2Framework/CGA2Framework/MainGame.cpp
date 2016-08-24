@@ -112,7 +112,7 @@ void MainGame::init()
 	b->setShader(m_scene->m_shaders.back());
 
 	m_scene->addBillboard(b);
-	m_scenerenderer = new DeferredRenderer();
+	m_scenerenderer = new ForwardRenderer();
 	//m_scenerenderer = new VRRenderer(new ForwardRenderer(), new Shader("..\\..\\Assets\\Shader\\quad.vert", "..\\..\\Assets\\Shader\\quad.frag"));
 }
 
