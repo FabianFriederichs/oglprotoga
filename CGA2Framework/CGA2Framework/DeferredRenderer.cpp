@@ -18,9 +18,27 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	{
 		skyboxshader = new Shader();
 		skyboxshader->load("..\\..\\Assets\\Shader\\SkyBox.vert", "..\\..\\Assets\\Shader\\SkyBox.frag");
+
+		quadshader = new Shader();
+		quadshader->load("..\\..\\Assets\\Shader\\TextureTest.vert", "..\\..\\Assets\\Shader\\TextureTest.frag");
+
+		//create gbuffer fbo
+
+		gbuffer = new FrameBuffer(0, 0, 800, 600, FBTYPE::FBT_2D);
+		gbuffer->allocate();
+		gbuffer->bind((FBO_BINDINGMODE::FREADWRITE));
+
+		gbuffer->addColorBufferTex("color", GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE);
+		gbuffer->setDepthBufferTex(GL_DEPTH_COMPONENT24, GL_DEPTH_COMPONENT, GL_FLOAT);
+
+		gbuffer->complete();
+		gbuffer->setDrawBuffers();
+		gbuffer->unbind();
+
 		skyboxinited = true;
 	}
 
+	gbuffer->bind(FBO_BINDINGMODE::FREADWRITE);
 
 	glClearColor(0.15f, 0.15f, 0.18f, 1.0f); GLERR
 		glEnable(GL_CULL_FACE); GLERR
@@ -77,8 +95,6 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 				currentshader->preRenderActions();
 				m->drawMesh();
 				currentshader->postRenderActions();
-
-
 			}
 
 
@@ -108,8 +124,22 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	glDepthFunc(GL_LESS);
 	glDisable(GL_DEPTH_TEST); GLERR
 
-		if (_callback != nullptr)
-			_callback->renderFinished();
+	gbuffer->unbind();
+
+	//default buffer is bound again
+	//FrameBuffer::blit(gbuffer, nullptr, true, 0, true, false, 0, 0, 800, 600, 0, 0, 800, 600, GL_BACK);
+
+	quadshader->Use();
+	Texture* coltex = gbuffer->getDepthBufferTex();
+	coltex->bindToTextureUnit(0);
+	quadshader->setUniform("tex", 0);
+
+	Primitives::drawNDCQuad();
+
+
+
+	if (_callback != nullptr)
+		_callback->renderFinished();
 }
 
 void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback, glm::mat4* _view, glm::mat4* _proj)
@@ -118,15 +148,19 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback, 
 	{
 		skyboxshader = new Shader();
 		skyboxshader->load("..\\..\\Assets\\Shader\\SkyBox.vert", "..\\..\\Assets\\Shader\\SkyBox.frag");
+		//create gbuffer fbo
 
-		glGenVertexArrays(1, &skyboxvao);
-		glGenBuffers(1, &skyboxvbo);
-		glBindVertexArray(skyboxvao);
-		glBindBuffer(GL_ARRAY_BUFFER, skyboxvbo);
-		glBufferData(GL_ARRAY_BUFFER, Primitives::SizeOfCubeVertices, (void*)Primitives::CubeVertices, GL_STATIC_DRAW);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
-		glBindVertexArray(0);
+		gbuffer = new FrameBuffer(0, 0, 800, 600, FBTYPE::FBT_2D);
+		gbuffer->allocate();
+		gbuffer->bind((FBO_BINDINGMODE::FREADWRITE));
+
+		gbuffer->addColorBufferTex("color", GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE);
+		gbuffer->setDepthBufferTex(GL_DEPTH_COMPONENT24, GL_DEPTH_COMPONENT, GL_FLOAT);
+		
+		gbuffer->complete();
+		gbuffer->setDrawBuffers();
+		gbuffer->unbind();
+
 		skyboxinited = true;
 	}
 

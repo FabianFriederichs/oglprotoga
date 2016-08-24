@@ -5,7 +5,7 @@
 #include <string>
 #include <GL\glew.h>
 
-#define EXIT_ON_GL_ERROR 1
+#define EXIT_ON_GL_ERROR 0
 #define LOG_GL_ERRORS 1
 
 

@@ -18,5 +18,11 @@ private:
 
 	Shader* skyboxshader;
 	Shader* quadshader;
+
+	//later
+	Shader* gpassshader;
+	Shader* lightingpassshader;
+
+	FrameBuffer* gbuffer;
 };
 
