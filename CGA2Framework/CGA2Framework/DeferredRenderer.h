@@ -12,15 +12,13 @@ public:
 
 private:
 	//teststuff
-	bool skyboxinited = false;
-	GLuint skyboxvao;
-	GLuint skyboxvbo;
+	bool inited = false;
 
 	Shader* skyboxshader;
 	Shader* quadshader;
 
 	//later
-	Shader* gpassshader;
+	Shader* gpassshader;	//Position, Normals, Albedo and Specular Rendertargets + Depth Renderbuffer
 	Shader* lightingpassshader;
 
 	FrameBuffer* gbuffer;
