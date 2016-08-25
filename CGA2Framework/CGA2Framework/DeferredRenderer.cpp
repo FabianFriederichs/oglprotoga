@@ -117,7 +117,7 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 
 	gbuffer->updateGLViewport(0, 0, 800, 600);
 
-	glClearColor(1.0f, 0.15f, 0.18f, 1.0f); GLERR
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f); GLERR
 	glEnable(GL_CULL_FACE); GLERR
 	glFrontFace(GL_CCW); GLERR
 	glCullFace(GL_BACK); GLERR
@@ -157,7 +157,8 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 
 
 
-	glDisable(GL_DEPTH_TEST); GLERR
+	
+
 
 	//(render shadowmaps)
 
@@ -167,6 +168,9 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 
 	//back to default framebuffer
 	gbuffer->unbind();
+
+	glEnable(GL_DEPTH_TEST); GLERR
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GLERR
 
 	glViewport(0, 0, 800, 600);
 
@@ -193,7 +197,7 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	
 	Primitives::drawNDCQuad();
 
-
+	glDisable(GL_DEPTH_TEST);
 
 	//do lighting pass
 
