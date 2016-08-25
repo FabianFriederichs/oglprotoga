@@ -142,6 +142,12 @@ void MainGame::init()
 	b->setShader(m_scene->m_shaders.back());
 	b->setTarget(m_scene->m_camera);
 	m_scene->addBillboard(b);
+
+	auto go = new RenderableGameObject(GOTYPE::OPAQUE);
+	auto model = new Model();
+	model->addMesh(new Mesh(PRIMITIVETYPE::QUAD, m_scene->m_materials.front()));
+	go->setModel(model);
+		m_scene->addRenderable(go);
 	m_scenerenderer = new ForwardRenderer();
 	//m_scenerenderer = new VRRenderer(new ForwardRenderer(), new Shader("..\\..\\Assets\\Shader\\quad.vert", "..\\..\\Assets\\Shader\\quad.frag"));
 }

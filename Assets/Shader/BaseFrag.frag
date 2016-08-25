@@ -128,7 +128,7 @@ vec3 CalcDirLight(DirLight light)
     vec3 ambient = 0.1f * vec3(texture(material.mtex[0], vec2(vertexdat.uv.x, vertexdat.uv.y)));
   	
     // Diffuse 
-    vec3 norm = vertexdat.TBN * normalize(texture(material.mtex[3], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb);
+    vec3 norm = vertexdat.normal;//TBN * normalize(texture(material.mtex[3], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb);
     vec3 lightDir = normalize(-light.lightdir);  
     float diff = max(dot(norm, lightDir), 0.0);
 	//return vec3(diff, diff, diff);

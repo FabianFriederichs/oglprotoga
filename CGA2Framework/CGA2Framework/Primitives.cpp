@@ -47,7 +47,8 @@ static const GLfloat CubeVerts[] = {
 const size_t Primitives::SizeOfCubeVertices = sizeof(CubeVerts);
 
 const GLfloat *Primitives::CubeVertices = CubeVerts;
-
+const std::vector<Vertex> Primitives::CubeVerticesV = {};
+const std::vector<GLuint> Primitives::CubeIndices = {};
 static const GLfloat QuadVerts[] = {   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
 	// Positions   // TexCoords
 	-1.0f, 1.0f, 0.0f, 1.0f,
@@ -60,6 +61,8 @@ static const GLfloat QuadVerts[] = {   // Vertex attributes for a quad that fill
 };
 const size_t Primitives::SizeOfQuadVertices = sizeof(QuadVerts);
 const GLfloat *Primitives::QuadVertices = QuadVerts;
+const std::vector<Vertex> Primitives::QuadVerticesV = { Vertex(glm::vec3(-1.f, 1.f, 0.f)), Vertex(glm::vec3(-1.f, -1.f, 0.f)), Vertex(glm::vec3(1.f, -1.f, 0.f)), Vertex(glm::vec3(1.f, 1.f, 0.f)) };
+const std::vector<GLuint> Primitives::QuadIndices = { 0, 1, 2, 0, 2, 3 };
 
 //initialize gl handles
 GLuint Primitives::cubevbo = 0;
@@ -135,4 +138,36 @@ void Primitives::drawNDCQuad()
 	glBindVertexArray(quadvao); GLERR
 	glDrawArrays(GL_TRIANGLES, 0, 6); GLERR
 	glBindVertexArray(0); GLERR
+}
+
+std::vector<Vertex> Primitives::getVertices(PRIMITIVETYPE _type)
+{
+	switch (_type)
+	{
+	case PRIMITIVETYPE::QUAD:
+		return QuadVerticesV;
+		break;
+	case PRIMITIVETYPE::CUBE:
+		return CubeVerticesV;
+		break;
+	default:
+		return QuadVerticesV;
+		break;
+	}
+}
+
+std::vector<GLuint> Primitives::getIndices(PRIMITIVETYPE _type)
+{
+	switch (_type)
+	{
+	case PRIMITIVETYPE::QUAD:
+		return QuadIndices;
+		break;
+	case PRIMITIVETYPE::CUBE:
+		return CubeIndices;
+		break;
+	default:
+		return QuadIndices;
+		break;
+	}
 }
