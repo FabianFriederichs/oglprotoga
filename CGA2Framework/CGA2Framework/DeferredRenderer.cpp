@@ -256,7 +256,7 @@ void DeferredRenderer::setLights(
 			break;
 		_shader->setUniform("spotlights[" + std::to_string(ct) + "].lightpos", (*it)->getTransform().getTranslate());
 		_shader->setUniform("spotlights[" + std::to_string(ct) + "].lightcol", (*it)->m_lightcolor);
-		_shader->setUniform("spotlights[" + std::to_string(ct) + "].lightdir", (*it)->m_direction);
+		_shader->setUniform("spotlights[" + std::to_string(ct) + "].lightdir", (*it)->getTransform().getForw());
 		_shader->setUniform("spotlights[" + std::to_string(ct) + "].cterm", (*it)->m_constant);
 		_shader->setUniform("spotlights[" + std::to_string(ct) + "].lterm", (*it)->m_linear);
 		_shader->setUniform("spotlights[" + std::to_string(ct) + "].qterm", (*it)->m_quadratic);

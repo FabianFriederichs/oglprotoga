@@ -79,7 +79,7 @@ void ForwardShader::setLights(
 			break;
 		this->setUniform("spotlights[" + std::to_string(ct) + "].lightpos", (*it)->getTransform().getTranslate());
 		this->setUniform("spotlights[" + std::to_string(ct) + "].lightcol", (*it)->m_lightcolor);
-		this->setUniform("spotlights[" + std::to_string(ct) + "].lightdir", (*it)->m_direction);
+		this->setUniform("spotlights[" + std::to_string(ct) + "].lightdir", (*it)->getTransform().getForw());
 		this->setUniform("spotlights[" + std::to_string(ct) + "].cterm", (*it)->m_constant);
 		this->setUniform("spotlights[" + std::to_string(ct) + "].lterm", (*it)->m_linear);
 		this->setUniform("spotlights[" + std::to_string(ct) + "].qterm", (*it)->m_quadratic);
