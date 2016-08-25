@@ -7,7 +7,25 @@ public:
 	SpotLight(glm::vec4 _color, Transform _transform, glm::vec3 _direction, GLfloat _constant, GLfloat _linear, GLfloat _quadratic, GLfloat _range);
 	~SpotLight();
 
-	glm::vec3 m_direction;
+	GLfloat getFov(){
+		return acos(m_cosoutercone) * 2;
+	}
+
+	GLfloat getNear()
+	{
+		return 0.01f;
+	}
+
+	GLfloat getFar()
+	{
+		return m_range;
+	}
+
+	glm::mat4 GetView()
+	{
+		return  mat4_cast(getTransform().getRotateQ())*translate(glm::mat4(1.0f), -m_transform.getTranslate());
+	}
+
 	GLfloat m_cosinnercone;
 	GLfloat m_cosoutercone;
 

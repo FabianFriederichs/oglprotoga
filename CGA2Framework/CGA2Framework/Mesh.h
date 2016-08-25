@@ -11,7 +11,7 @@ public:
 	Mesh();
 	Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLuint>& _indices, Material* _material, const bool _calcBoundingBox = false, Shader* _shader = 0);
 	Mesh(const Mesh& _other) = delete;
-	Mesh(PRIMITIVETYPE _type, Material* _material);
+	Mesh(PRIMITIVETYPE _type);
 	~Mesh();
 
 	void generateBoundingBox();
