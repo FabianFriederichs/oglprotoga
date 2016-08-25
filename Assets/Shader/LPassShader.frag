@@ -89,7 +89,6 @@ vec3 CalcSpotLight(SpotLight light, vec3 _pos, vec3 _norm, vec4 _alb, vec4 _spec
 void main()
 {
 	vec3 outcol;
-	
 	//texturelookups
 	vec3 pos = texture(position, TexCoords).rgb;
 	vec3 norm = texture(normal, TexCoords).rgb;
@@ -104,6 +103,9 @@ void main()
 		  outcol += CalcDirLight(dirlights[i], pos, norm, alb, spec, glo, hgt, dpth);
 	}
 
+	color =  vec4(outcol, 1.0f);
+	return;
+	
 	for(int i = 0; i < pointlightcount; i++)
 	{
 		float dist = length(pointlights[i].lightpos - pos);
