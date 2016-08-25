@@ -86,12 +86,13 @@ void ForwardRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 
 
 	}
+	//glDisable(GL_CULL_FACE); GLERR
 	for (auto b : _scene->m_billboards)
 	{
 		b->Draw();
 	}
 	//render the skybox
-
+	//glEnable(GL_CULL_FACE); GLERR
 
 
 	if (_scene->m_cubemaps.size() > 0)

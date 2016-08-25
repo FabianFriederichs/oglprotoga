@@ -1,14 +1,9 @@
 #pragma once
 #include "Shader.h"
-#include "Camera.h"
 #include "Texture2D.h"
-#include "GameObject.h"
+#include "Camera.h"
 #include "Primitives.h"
-typedef enum {
-	POINT,
-	AXISALIGNED,
-	AXIS
-} BILLBOARDTYPE;
+
 
 class Billboard : public GameObject
 {
@@ -24,12 +19,13 @@ public:
 	void setCamera(Camera* _cam){ m_cam = _cam; }
 	void setShader(Shader* _shader){ m_shader = _shader; }
 	void setTarget(GameObject*_go){ target = _go; }
+	void lockAxis(vec3 _ax);
+	void Orient();
 private:
 	Shader* m_shader;
 	Texture2D* m_tex;
-	BILLBOARDTYPE m_type;
 	Camera* m_cam;
 	GameObject* target;
-	void Orient();
+	vec3 lockedAxes;
 };
 

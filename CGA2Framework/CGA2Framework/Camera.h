@@ -2,7 +2,7 @@
 #include "headers.h"
 #include "Rotatable.h"
 #include "Moveable.h"
-#include "Transformable.h"
+#include "GameObject.h"
 using namespace glm;
 
 /*
@@ -17,7 +17,7 @@ Direction value has to be the negative of the direction the camera points at
 
 
 
-class Camera: public Transformable
+class Camera: public GameObject
 {
 protected:
 	vec3 m_position;
@@ -31,21 +31,24 @@ protected:
 	GLfloat m_znear;
 	GLfloat m_zfar;
 	mat4 proj;
-	virtual glm::mat4 Camera::Orientation() const =0;
+	virtual glm::mat4 Camera::Orientation()  =0;
 
 public:
-	virtual glm::mat4 GetViewMatrix() const =0;
+	virtual glm::mat4 GetViewMatrix()  =0;
 
-	virtual vec3 GetPosition() const
+	virtual vec3 GetPosition()
 	{
-		return m_transform.getTranslate();
+		return getTransform().getTranslate();
 	}
 	virtual void SetPosition(vec3 pos) = 0;
 	virtual void Move(const MoveData &movedata) =0;
 
 	virtual void Rotate(const vec3 &rotation) = 0;
 
-	glm::mat4 Camera::GetCameraTransform() const
+
+
+
+	glm::mat4 Camera::GetCameraTransform()
 	{
 		return  Orientation()*translate(glm::mat4(1.0f), -GetPosition());
 	}

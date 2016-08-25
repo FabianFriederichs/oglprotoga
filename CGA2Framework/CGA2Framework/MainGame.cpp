@@ -62,8 +62,12 @@ GLvoid MainGame::update(GLdouble time)
 		if (keys[GLFW_KEY_D])
 			md.mtype += vec3(0, 0, -1);
 		if (md.mtype != vec3(0, 0, 0))
-			m_scene->m_camera->Move(md);
-
+		{
+		m_scene->m_camera->Move(md);
+		
+	}
+		for (auto b : m_scene->m_billboards)
+			b->Orient();
 		md = { vec3(0, 0, 0), 0 };
 
 		md.Multiplier = 0.05f;
@@ -82,10 +86,15 @@ GLvoid MainGame::update(GLdouble time)
 
 		if (md.mtype != vec3(0, 0, 0))
 			m_scene->m_renderables.find(OPAQUE)->second->getTransform().translate(md.mtype*md.Multiplier);
+
+		for (auto go : m_scene->m_gameobjects)
+			go->getTransform().rotate(vec3(0.001f*(((abs((int)(go->getTransform().getTranslate().z) + abs((int)(go->getTransform().getTranslate().y)))) % 6) - 3), 0.001f*(((abs((int)(go->getTransform().getTranslate().z) + abs((int)(go->getTransform().getTranslate().x)))) % 4) - 2), 0.001f*(((abs((int)(go->getTransform().getTranslate().x) + abs((int)(go->getTransform().getTranslate().y)))) % 10) - 5)));
+		//m_scene->m_gameobjects.front()->getTransform().rotate(vec3(0, 0.025f, 0));
 	}
 	if (keys[GLFW_KEY_ESCAPE]){
 		quit();
 	}
+	
 	
 	//while (vr::VRSystem()->PollNextEvent(&ev, sizeof(ev)));
 	/*(*m_scene->m_directionallights.begin())->m_direction.x = (glm::rotate(0.05f, glm::vec3(0.0f, 0.0f, 1.0f)) * vec4((*m_scene->m_directionallights.begin())->m_direction, 1.0f)).x;
@@ -121,16 +130,17 @@ void MainGame::init()
 	b->setShader(m_scene->m_shaders.back());
 	//b->getTransform().setRotate(radians(-45.f), radians(-90.f), 0);
 	b->getTransform().setScale(vec3(5.f, 1.f,1.f));
-	b->getTransform().setTranslate(vec3(-5.f, 1.f, 1.f));
-	//b->setTarget(m_scene->m_gameobjects.front());
+	b->getTransform().setTranslate(vec3(-5.f, -1.f, 1.f));
+	b->setTarget(m_scene->m_renderables.find(OPAQUE)->second);
+	b->lockAxis(vec3(1, 1, 0));
 	m_scene->addBillboard(b);
 
 	b = new Billboard();
 	b->setTexture(m_scene->m_textures.back());
-
+	b->getTransform().setScale(vec3(5.f, 1.f, 1.f));
 	b->setCamera(m_scene->m_camera);
 	b->setShader(m_scene->m_shaders.back());
-	b->setTarget(m_scene->m_renderables.find(OPAQUE)->second);
+	b->setTarget(m_scene->m_camera);
 	m_scene->addBillboard(b);
 	m_scenerenderer = new ForwardRenderer();
 	//m_scenerenderer = new VRRenderer(new ForwardRenderer(), new Shader("..\\..\\Assets\\Shader\\quad.vert", "..\\..\\Assets\\Shader\\quad.frag"));
