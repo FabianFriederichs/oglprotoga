@@ -26,7 +26,8 @@ public:
 
 private:
 	Scene* m_scene;
-
+	SceneRenderer* forward;
+	SceneRenderer* def;
 	GLdouble m_curmousex;
 	GLdouble m_curmousey;
 };

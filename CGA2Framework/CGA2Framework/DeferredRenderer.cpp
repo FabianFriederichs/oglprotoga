@@ -215,7 +215,6 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	auto look = glm::lookAt(vec3(-30, 30, -10), vec3(0, 0, 0), vec3(0, 1, 0));// _scene->m_directionallights.front()->
 	auto ligmat = _scene->m_directionallights.front()->getProj(0.1f, 100.f)*look;
 	spassshader->setUniform("ligmat", ligmat, false);
-
 	it = _scene->m_renderables.equal_range(OPAQUE);
 	for (auto k = it.first; k != it.second; k++)
 	{
@@ -277,6 +276,8 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 
 	lpassshader->setUniform("camerapos", vec3(-2, 4, -2));// _scene->m_camera->GetPosition());
 	lpassshader->setUniform("ligmat", ligmat, false);
+	lpassshader->setUniform("pcf", pcf);
+	lpassshader->setUniform("isshad", isshad);
 	setLights(_scene->m_directionallights, _scene->m_pointlights, _scene->m_spotlights, lpassshader);
 	
 	glDisable(GL_DEPTH_TEST);

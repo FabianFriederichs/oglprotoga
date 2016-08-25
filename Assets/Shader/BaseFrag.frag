@@ -65,6 +65,9 @@ uniform int pointlightcount;
 uniform SpotLight spotlights[MAX_SPOT_LIGHTS];
 uniform int spotlightcount;
 
+uniform int refractIf;
+uniform int reflectIf;
+
 //input interface blocks DO IT!
 
 in struct VertexData
@@ -118,7 +121,7 @@ void main()
 			outcol += CalcSpotLight(spotlights[i]);
 		}
 	}
-
+	
     color = vec4(outcol, 1.0f);
 }
 
@@ -140,9 +143,20 @@ vec3 CalcDirLight(DirLight light)
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), clamp(texture(material.mtex[2], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).r, 0.1f, 1.0f) * MAX_SHININESS);
     vec3 specular = light.lightcol.rgb * spec * texture(material.mtex[1], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb;
             
+			if(reflectIf==1)
+			{
+			reflectDir = reflect(-viewDir, norm); 
+			return texture(skybox, reflectDir).rgb;
+			}
+	if(refractIf==1)
+	{
+	float ratio = 1.00/1.52;
+	vec3 I = normalize(vertexdat.pos - camerapos);
+	vec3 R = refract(I, normalize(norm), ratio);
+	return texture(skybox, R).rgb;
+	}
     return ambient + diffuse + specular;
-	//reflectDir = reflect(-viewDir, norm); 
-	//return texture(skybox, reflectDir).rgb;
+	
 }
 
 vec3 CalcPointLight(PointLight light)

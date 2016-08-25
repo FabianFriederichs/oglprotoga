@@ -94,7 +94,26 @@ GLvoid MainGame::update(GLdouble time)
 			{
 				go->getTransform().rotate(vec3(0.001f*(((abs((int)(go->getTransform().getTranslate().z) + abs((int)(go->getTransform().getTranslate().y)))) % 6) - 3), 0.001f*(((abs((int)(go->getTransform().getTranslate().z) + abs((int)(go->getTransform().getTranslate().x)))) % 4) - 2), 0.001f*(((abs((int)(go->getTransform().getTranslate().x) + abs((int)(go->getTransform().getTranslate().y)))) % 10) - 5)));
 			}
-		
+			if (keys[GLFW_KEY_1])
+				m_scenerenderer = forward;
+			if (keys[GLFW_KEY_2])
+				m_scenerenderer = def;
+			if (keys[GLFW_KEY_3])
+				dynamic_cast<DeferredRenderer*>(def)->setPCF(1);
+			if (keys[GLFW_KEY_4])
+				dynamic_cast<DeferredRenderer*>(def)->setPCF(0);
+			if (keys[GLFW_KEY_5])
+				dynamic_cast<DeferredRenderer*>(def)->setShad(0);
+			if (keys[GLFW_KEY_6])
+				dynamic_cast<DeferredRenderer*>(def)->setShad(1);
+			if (keys[GLFW_KEY_7])
+				dynamic_cast<ForwardRenderer*>(forward)->setRefl(0);
+			if (keys[GLFW_KEY_8])
+				dynamic_cast<ForwardRenderer*>(forward)->setRefl(1);
+			if (keys[GLFW_KEY_9])
+				dynamic_cast<ForwardRenderer*>(forward)->setRef(0);
+			if (keys[GLFW_KEY_0])
+				dynamic_cast<ForwardRenderer*>(forward)->setRef(1);
 		//m_scene->m_gameobjects.front()->getTransform().rotate(vec3(0, 0.025f, 0));
 	}
 	if (keys[GLFW_KEY_ESCAPE]){
@@ -160,8 +179,9 @@ void MainGame::init()
 		m_scene->addRenderable(go);*/
 	//m_scenerenderer = new ForwardRenderer();
 		//m_scene->addRenderable(go);
-	//m_scenerenderer = new ForwardRenderer();
-	m_scenerenderer = new DeferredRenderer();
+	forward = new ForwardRenderer();
+	def = new DeferredRenderer();
+	
 	//m_scenerenderer = new VRRenderer(new ForwardRenderer(), new Shader("..\\..\\Assets\\Shader\\quad.vert", "..\\..\\Assets\\Shader\\quad.frag"));
 }
 

@@ -51,7 +51,8 @@ void ForwardRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 			{
 				currentshader = dynamic_cast<ForwardShader*>(m->getMaterial()->getShader());
 				currentshader->Use();				
-
+				currentshader->setUniform("refractIf", refract);
+				currentshader->setUniform("reflectIf", reflect);
 				//These uniforms must only be set once per shader
 				//set Lights
 				currentshader->setLights(_scene->m_directionallights, _scene->m_pointlights, _scene->m_spotlights);

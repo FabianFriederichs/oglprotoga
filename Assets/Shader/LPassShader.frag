@@ -79,6 +79,9 @@ uniform int spotlightcount;
 //skybox
 uniform samplerCube skybox;
 
+uniform int pcf;
+uniform int isshad;
+
 float linearizeDepth(float near, float far, float depthval)
 {
     return (2 * near) / (far + near - depthval * (far - near));
@@ -101,7 +104,11 @@ void main()
 	vec4 glo = texture(gloss, TexCoords);
 	vec4 hgt = texture(height, TexCoords);
 	float dpth = texture(depth, TexCoords).r;
-	float shad = calcShadow(vec4(pos, 1.0f), norm);
+	float shad;
+	if(isshad==1)
+	shad= calcShadow(vec4(pos, 1.0f), norm);
+	else
+	shad = 1.0f;
 	for(int i = 0; i < dirlightcount; i++)
 	{
 		  outcol += CalcDirLight(dirlights[i], pos, norm, alb, spec, glo, hgt, dpth, shad);
@@ -136,6 +143,8 @@ float calcShadow(vec4 fragpos, vec3 norm)
 	float cdep = projcoords.z;
 	cdep = cdep;
 	float bias = max(0.005f*(1.0f-dot(norm, dirlights[0].lightdir)), 0.001f);
+	if(pcf==1)
+	{
 	float shadf= 0;
 	vec2 texS = 1.0f/textureSize(shadow, 0);
 	for(int x=-3; x<=3;++x)
@@ -149,7 +158,11 @@ float calcShadow(vec4 fragpos, vec3 norm)
 
 
 	shadf=shadf/36;
-	return shadf;
+	return shadf;}
+	else
+	{
+		return cdep-bias>closed?0.0:1.0;
+	}
 }
 
 
