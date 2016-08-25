@@ -23,7 +23,7 @@ public:
 
 	glm::mat4 GetView(glm::vec3 _face)
 	{
-		auto defNorm = vec3(0, 0, 1);
+		//auto defNorm = vec3(0, 0, 1);
 
 		return  mat4_cast(getTransform().getRotateQ())*translate(glm::mat4(1.0f), -m_transform.getTranslate());
 	}

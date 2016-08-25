@@ -207,7 +207,7 @@ void Scene::save(std::string _path)
 				auto r = t.getRotate();
 				auto s = t.getScale();
 				auto tl = t.getTranslate();
-				file << "\t<" << vec4ToString(cur->m_lightcolor) << "><" << vec3ToString(s) << "><" << vec3ToString(r) << "><" << vec3ToString(tl) << "><" << vec3ToString(cur->m_direction) << "><" << std::to_string(cur->m_constant) << "><" << std::to_string(cur->m_linear) << "><" << std::to_string(cur->m_quadratic) << "><" << std::to_string(cur->m_range) << ">\n";
+				file << "\t<" << vec4ToString(cur->m_lightcolor) << "><" << vec3ToString(s) << "><" << vec3ToString(r) << "><" << vec3ToString(tl) << "><" << vec3ToString(cur->getTransform().getForw()) << "><" << std::to_string(cur->m_constant) << "><" << std::to_string(cur->m_linear) << "><" << std::to_string(cur->m_quadratic) << "><" << std::to_string(cur->m_range) << ">\n";
 			});
 		}
 
