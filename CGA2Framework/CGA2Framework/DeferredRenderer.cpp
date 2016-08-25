@@ -180,12 +180,12 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	gbuffer->getDepthBufferTex()->bindToTextureUnit(6);
 
 	lpassshader->setUniform("position", 0);
-	lpassshader->setUniform("normal", 0);
-	lpassshader->setUniform("albedo", 0);
-	lpassshader->setUniform("specular", 0);
-	lpassshader->setUniform("gloss", 0);
-	lpassshader->setUniform("height", 0);
-	lpassshader->setUniform("depth", 0);
+	lpassshader->setUniform("normal", 1);
+	lpassshader->setUniform("albedo", 2);
+	lpassshader->setUniform("specular", 3);
+	lpassshader->setUniform("gloss", 4);
+	lpassshader->setUniform("height", 5);
+	lpassshader->setUniform("depth", 6);
 
 	lpassshader->setUniform("camerapos", _scene->m_camera->GetPosition());
 

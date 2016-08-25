@@ -1,8 +1,8 @@
 #version 430 core
 
 #define MAX_DIR_LIGHTS 8
-#define MAX_POINT_LIGHTS 800
-#define MAX_SPOT_LIGHTS 200
+#define MAX_POINT_LIGHTS 10
+#define MAX_SPOT_LIGHTS 8
 
 #define MAX_SHININESS 100.0f
 
@@ -133,7 +133,7 @@ vec3 CalcDirLight(DirLight light, vec3 _pos, vec3 _norm, vec4 _alb, vec4 _spec, 
     // _diffuse 
     vec3 lightDir = normalize(-light.lightdir);  
     float diff = max(dot(_norm, lightDir), 0.0);
-    vec3 _diffuse = light.lightcol.rgb * diff * _alb;  
+    vec3 _diffuse = light.lightcol.rgb * diff * _alb.rgb;  
     
     // _specular
     vec3 viewDir = normalize(camerapos - _pos);
@@ -154,7 +154,7 @@ vec3 CalcPointLight(PointLight light, vec3 _pos, vec3 _norm, vec4 _alb, vec4 _sp
     // _diffuse 
     vec3 lightDir = normalize(light.lightpos - _pos); 
     float diff = max(dot(_norm, lightDir), 0.0);
-    vec3 _diffuse = light.lightcol.rgb * diff * _alb;  
+    vec3 _diffuse = light.lightcol.rgb * diff * _alb.rgb;  
     
     // _specular
     vec3 viewDir = normalize(camerapos - _pos);
@@ -183,7 +183,7 @@ vec3 CalcSpotLight(SpotLight light, vec3 _pos, vec3 _norm, vec4 _alb, vec4 _spec
 		// _diffuse 
 		vec3 lightDir = normalize(-light.lightdir);  
 		float diff = max(dot(_norm, lightDir), 0.0);
-		vec3 _diffuse = light.lightcol.rgb * diff * _alb;  
+		vec3 _diffuse = light.lightcol.rgb * diff * _alb.rgb;  
     
 		// _specular
 		vec3 viewDir = normalize(camerapos - _pos);
