@@ -1,10 +1,14 @@
 #version 330 core
 
+#define MAX_TEXTURES 8
+
 //output
 layout(location = 0) out vec4 position;
 layout(location = 1) out vec4 normal;
 layout(location = 2) out vec4 albedo;
 layout(location = 3) out vec4 specular;
+layout(location = 4) out vec4 gloss;
+layout(location = 5) out vec4 height;
 
 //Materials
 struct Material {
@@ -32,9 +36,33 @@ in struct VertexData
 	mat3 TBN;
 }   vertexdat;
 
-//skybox
-uniform samplerCube skybox;
 
 void main()
 {
+	//position
+	position = vec4(vertexdat.pos, 1.0f);
+	
+	//will later be modified for parallax mappping
+	vec2 uv = vec2(vertexdat.uv.x, 1 - vertexdat.uv.y);
+	
+	//offset uvs for parallax mapping here
+	
+	
+	
+	//sample textures
+	//albedo
+	albedo = texture(material.mtex[0], uv);
+	
+	//specular
+	specular = texture(material.mtex[1], uv);
+	
+	//gloss
+	gloss = texture(material.mtex[2], uv);
+	
+	//normal map
+	vec3 norm = vertexdat.TBN * normalize(texture(material.mtex[3], uv).rgb);
+	normal = vec4(norm.rgb, 1.0f);
+	
+	//height
+	height = texture(material.mtex[4], uv);	
 }

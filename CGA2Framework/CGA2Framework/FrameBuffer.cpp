@@ -274,7 +274,7 @@ bool FrameBuffer::addColorBufferTex(
 			{
 				Attachment att(m_colorbuffers.size(), tex);
 				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, att));
-				glFramebufferTexture2D(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + m_colorbuffers.size() - 1, GL_TEXTURE_2D, tex->getGLTexture(), 0);
+				glFramebufferTexture2D(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + att.aid, GL_TEXTURE_2D, tex->getGLTexture(), 0);
 				if (checkglerror())
 				{
 					if (m_colorbuffers[_name].tex != nullptr)
@@ -306,8 +306,9 @@ bool FrameBuffer::addColorBufferTex(
 			tex->setMultisampling(true, m_samples);
 			if (tex->buffer(true))
 			{
-				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, Attachment(m_colorbuffers.size(), tex)));
-				glFramebufferTexture2D(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + m_colorbuffers.size() - 1, GL_TEXTURE_2D_MULTISAMPLE, tex->getGLTexture(), 0);
+				Attachment att(m_colorbuffers.size(), tex);
+				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, att));
+				glFramebufferTexture2D(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + att.aid, GL_TEXTURE_2D_MULTISAMPLE, tex->getGLTexture(), 0);
 				if (checkglerror())
 				{
 					if (m_colorbuffers[_name].tex != nullptr)
@@ -338,8 +339,9 @@ bool FrameBuffer::addColorBufferTex(
 			tex->setBindingOptions(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_NEAREST, GL_NEAREST);
 			if (tex->buffer(true))
 			{
-				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, Attachment(m_colorbuffers.size(), tex)));
-				glFramebufferTexture(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + m_colorbuffers.size() - 1, tex->getGLTexture(), 0);
+				Attachment att(m_colorbuffers.size(), tex);
+				m_colorbuffers.insert(std::pair<const std::string, Attachment>(_name, att));
+				glFramebufferTexture(m_glframebuffertarget, GL_COLOR_ATTACHMENT0 + att.aid, tex->getGLTexture(), 0);
 				if (checkglerror())
 				{
 					if (m_colorbuffers[_name].tex != nullptr)
@@ -1289,12 +1291,13 @@ bool FrameBuffer::setDrawBuffers()
 	if (m_glframebuffertarget == GL_FRAMEBUFFER || m_glframebuffertarget == GL_DRAW_FRAMEBUFFER)
 	{
 		std::vector<GLenum> drawbuffers;
+		drawbuffers.resize(m_colorbuffers.size());
 		for (auto& att : m_colorbuffers)
 		{
-			drawbuffers.push_back(GL_COLOR_ATTACHMENT0 + att.second.aid);
+			drawbuffers[att.second.aid] = (GL_COLOR_ATTACHMENT0 + att.second.aid);
 		}
 		glDrawBuffers(drawbuffers.size(), drawbuffers.data());
-		return checkglerror();
+		return !checkglerror();
 	}
 	else
 	{

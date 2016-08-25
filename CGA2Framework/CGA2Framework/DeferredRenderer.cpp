@@ -16,16 +16,16 @@ bool DeferredRenderer::init()
 {
 	//shaders
 	quadshader = new Shader();
-	quadshader->load("..\\..\\Assets\\Shader\\quadshader.vert", "..\\..\\Assets\\Shader\\quadshader.frag");
+	quadshader->load("..\\..\\Assets\\Shader\\quad.vert", "..\\..\\Assets\\Shader\\quad.frag");
 
 	gpassshader = new Shader();
 	gpassshader->load("..\\..\\Assets\\Shader\\GPassShader.vert", "..\\..\\Assets\\Shader\\GPassShader.frag");
 
 	skyboxshader = new Shader();
-	skyboxshader->load("..\\..\\Assets\\Shader\\SkyBoxShader.vert", "..\\..\\Assets\\Shader\\SkyBoxShader.frag");
+	skyboxshader->load("..\\..\\Assets\\Shader\\SkyBox.vert", "..\\..\\Assets\\Shader\\SkyBox.frag");
 
-	lpassshader = new Shader();
-	lpassshader->load("..\\..\\Assets\\Shader\\LPassShader.vert", "..\\..\\Assets\\Shader\\LPassShader.frag");
+	/*lpassshader = new Shader();
+	lpassshader->load("..\\..\\Assets\\Shader\\LPassShader.vert", "..\\..\\Assets\\Shader\\LPassShader.frag");*/
 
 	//posteffect shader
 
@@ -41,22 +41,32 @@ bool DeferredRenderer::init()
 		return false;
 	}
 
-	if (!gbuffer->addColorBufferTex("position", GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE))
+	if (!gbuffer->addColorBufferTex("position", GL_RGBA16F, GL_RGBA, GL_FLOAT))
 	{
 		return false;
 	}
 
-	if (!gbuffer->addColorBufferTex("normals", GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE))
+	if (!gbuffer->addColorBufferTex("normals", GL_RGBA16F, GL_RGBA, GL_FLOAT))
 	{
 		return false;
 	}
 
-	if (!gbuffer->addColorBufferTex("albedo", GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE))
+	if (!gbuffer->addColorBufferTex("albedo", GL_RGBA16F, GL_RGBA, GL_FLOAT))
 	{
 		return false;
 	}
 
-	if (!gbuffer->addColorBufferTex("specular", GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE))
+	if (!gbuffer->addColorBufferTex("specular", GL_RGBA16F, GL_RGBA, GL_FLOAT))
+	{
+		return false;
+	}
+
+	if (!gbuffer->addColorBufferTex("gloss", GL_RGBA16F, GL_RGBA, GL_FLOAT))
+	{
+		return false;
+	}
+
+	if (!gbuffer->addColorBufferTex("height", GL_RGBA16F, GL_RGBA, GL_FLOAT))
 	{
 		return false;
 	}
@@ -105,27 +115,49 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 		return;
 	}
 
+	gbuffer->updateGLViewport(0, 0, 800, 600);
+
+	glClearColor(1.0f, 0.15f, 0.18f, 1.0f); GLERR
+	glEnable(GL_CULL_FACE); GLERR
+	glFrontFace(GL_CCW); GLERR
+	glCullFace(GL_BACK); GLERR
+	glEnable(GL_DEPTH_TEST); GLERR
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GLERR
+
 	//activate gpass shader
 	gpassshader->Use();
 
 	//per frame uniforms
-	gpassshader->setUniform("view", _scene->m_camera->GetViewMatrix());
-	gpassshader->setUniform("projection", _scene->m_camera->getProjectionMatrix());
+	gpassshader->setUniform("view", _scene->m_camera->GetCameraTransform(), false);
+	gpassshader->setUniform("projection", _scene->m_camera->getProjectionMatrix(), false);
+	gpassshader->setUniform("camerapos", _scene->m_camera->GetPosition());
 
-	//draw all renderable gameobjects
-	for (auto go : _scene->m_gameobjects)
+	//draw opaque geometry
+	auto it = _scene->m_renderables.equal_range(OPAQUE);
+	for (auto k = it.first; k != it.second; k++)
 	{
+		RenderableGameObject* go = k->second;
 		//set per go uniforms
-		gpassshader->setUniform("model", go->getTransform().getTransformMat());
+		gpassshader->setUniform("model", go->getTransform().getTransformMat(), false);
 
 		//draw go meshes
 		for (auto m : go->getModel()->getMeshes())
 		{
+			m->getMaterial()->setMaterialUniforms(gpassshader);
+			
+			if (!m->hasNormals())
+				m->generateNormals();
+			if (!m->hasTangents())
+				m->generateTangents();
+			m->setupVAOs();
 
+			m->drawMesh();
 		}
 	}
 
 
+
+	glDisable(GL_DEPTH_TEST); GLERR
 
 	//(render shadowmaps)
 
@@ -135,6 +167,22 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 
 	//back to default framebuffer
 	gbuffer->unbind();
+
+	glViewport(0, 0, 800, 600);
+
+	quadshader->Use();
+	gbuffer->getColorBufferTex("position")->bindToTextureUnit(0);
+	gbuffer->getColorBufferTex("normals")->bindToTextureUnit(1);
+	gbuffer->getColorBufferTex("albedo")->bindToTextureUnit(2);
+	gbuffer->getColorBufferTex("specular")->bindToTextureUnit(3);
+	gbuffer->getColorBufferTex("gloss")->bindToTextureUnit(4);
+	gbuffer->getColorBufferTex("height")->bindToTextureUnit(5);
+	gbuffer->getDepthBufferTex()->bindToTextureUnit(6);
+	quadshader->setUniform("screenTexture", 0);
+	
+	Primitives::drawNDCQuad();
+
+
 
 	//do lighting pass
 
