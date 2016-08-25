@@ -24,8 +24,8 @@ bool DeferredRenderer::init()
 	skyboxshader = new Shader();
 	skyboxshader->load("..\\..\\Assets\\Shader\\SkyBox.vert", "..\\..\\Assets\\Shader\\SkyBox.frag");
 
-	/*lpassshader = new Shader();
-	lpassshader->load("..\\..\\Assets\\Shader\\LPassShader.vert", "..\\..\\Assets\\Shader\\LPassShader.frag");*/
+	lpassshader = new Shader();
+	lpassshader->load("..\\..\\Assets\\Shader\\LPassShader.vert", "..\\..\\Assets\\Shader\\LPassShader.frag");
 
 	//posteffect shader
 
@@ -51,27 +51,27 @@ bool DeferredRenderer::init()
 		return false;
 	}
 
-	if (!gbuffer->addColorBufferTex("albedo", GL_RGBA16F, GL_RGBA, GL_FLOAT))
+	if (!gbuffer->addColorBufferTex("albedo", GL_RGBA8, GL_RGBA, GL_FLOAT))
 	{
 		return false;
 	}
 
-	if (!gbuffer->addColorBufferTex("specular", GL_RGBA16F, GL_RGBA, GL_FLOAT))
+	if (!gbuffer->addColorBufferTex("specular", GL_RGBA8, GL_RGBA, GL_FLOAT))
 	{
 		return false;
 	}
 
-	if (!gbuffer->addColorBufferTex("gloss", GL_RGBA16F, GL_RGBA, GL_FLOAT))
+	if (!gbuffer->addColorBufferTex("gloss", GL_RGBA8, GL_RGBA, GL_FLOAT))
 	{
 		return false;
 	}
 
-	if (!gbuffer->addColorBufferTex("height", GL_RGBA16F, GL_RGBA, GL_FLOAT))
+	if (!gbuffer->addColorBufferTex("height", GL_RGBA8, GL_RGBA, GL_FLOAT))
 	{
 		return false;
 	}
 
-	if (!gbuffer->setDepthBufferTex(GL_DEPTH_COMPONENT32F, GL_DEPTH_COMPONENT, GL_FLOAT))
+	if (!gbuffer->setDepthBufferTex(GL_DEPTH_COMPONENT24, GL_DEPTH_COMPONENT, GL_FLOAT))
 	{
 		return false;
 	}
@@ -170,7 +170,7 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 
 	glViewport(0, 0, 800, 600);
 
-	quadshader->Use();
+	lpassshader->Use();
 	gbuffer->getColorBufferTex("position")->bindToTextureUnit(0);
 	gbuffer->getColorBufferTex("normals")->bindToTextureUnit(1);
 	gbuffer->getColorBufferTex("albedo")->bindToTextureUnit(2);
@@ -178,7 +178,18 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	gbuffer->getColorBufferTex("gloss")->bindToTextureUnit(4);
 	gbuffer->getColorBufferTex("height")->bindToTextureUnit(5);
 	gbuffer->getDepthBufferTex()->bindToTextureUnit(6);
-	quadshader->setUniform("screenTexture", 0);
+
+	lpassshader->setUniform("position", 0);
+	lpassshader->setUniform("normal", 0);
+	lpassshader->setUniform("albedo", 0);
+	lpassshader->setUniform("specular", 0);
+	lpassshader->setUniform("gloss", 0);
+	lpassshader->setUniform("height", 0);
+	lpassshader->setUniform("depth", 0);
+
+	lpassshader->setUniform("camerapos", _scene->m_camera->GetPosition());
+
+	setLights(_scene->m_directionallights, _scene->m_pointlights, _scene->m_spotlights, lpassshader);
 	
 	Primitives::drawNDCQuad();
 
@@ -201,4 +212,59 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback, 
 {
 	if (_callback != nullptr)
 		_callback->renderFinished();
+}
+
+void DeferredRenderer::setLights(
+	const std::list<DirectionalLight*>& dirLights,
+	const std::list<PointLight*>& pointLights,
+	const std::list<SpotLight*>& spotLights,
+	Shader* _shader)
+{
+	GLint ct = 0;
+	//set directional light uniforms
+	for (std::list<DirectionalLight*>::const_iterator it = dirLights.begin(); it != dirLights.end(); it++)
+	{
+		if (ct + 1 > MAX_DIR_LIGHTS)
+			break;
+		_shader->setUniform("dirlights[" + std::to_string(ct) + "].lightdir", (*it)->m_direction);
+		_shader->setUniform("dirlights[" + std::to_string(ct) + "].lightcol", (*it)->m_lightcolor);
+		ct++;
+	}
+	_shader->setUniform("dirlightcount", ct);
+
+	ct = 0;
+	//set pointlight uniforms
+	for (std::list<PointLight*>::const_iterator it = pointLights.begin(); it != pointLights.end(); it++)
+	{
+		if (ct + 1 > MAX_DIR_LIGHTS)
+			break;
+		_shader->setUniform("pointlights[" + std::to_string(ct) + "].lightpos", (*it)->getTransform().getTranslate());
+		_shader->setUniform("pointlights[" + std::to_string(ct) + "].lightcol", (*it)->m_lightcolor);
+		_shader->setUniform("pointlights[" + std::to_string(ct) + "].cterm", (*it)->m_constant);
+		_shader->setUniform("pointlights[" + std::to_string(ct) + "].lterm", (*it)->m_linear);
+		_shader->setUniform("pointlights[" + std::to_string(ct) + "].qterm", (*it)->m_quadratic);
+		_shader->setUniform("pointlights[" + std::to_string(ct) + "].range", (*it)->m_range);
+		ct++;
+	}
+	_shader->setUniform("pointlightcount", ct);
+
+	ct = 0;
+	//set spotlight uniforms
+	for (std::list<SpotLight*>::const_iterator it = spotLights.begin(); it != spotLights.end(); it++)
+	{
+		if (ct + 1 > MAX_DIR_LIGHTS)
+			break;
+		_shader->setUniform("spotlights[" + std::to_string(ct) + "].lightpos", (*it)->getTransform().getTranslate());
+		_shader->setUniform("spotlights[" + std::to_string(ct) + "].lightcol", (*it)->m_lightcolor);
+		_shader->setUniform("spotlights[" + std::to_string(ct) + "].lightdir", (*it)->m_direction);
+		_shader->setUniform("spotlights[" + std::to_string(ct) + "].cterm", (*it)->m_constant);
+		_shader->setUniform("spotlights[" + std::to_string(ct) + "].lterm", (*it)->m_linear);
+		_shader->setUniform("spotlights[" + std::to_string(ct) + "].qterm", (*it)->m_quadratic);
+		_shader->setUniform("spotlights[" + std::to_string(ct) + "].innercone", (*it)->m_cosinnercone);
+		_shader->setUniform("spotlights[" + std::to_string(ct) + "].qterm", (*it)->m_cosoutercone);
+		_shader->setUniform("spotlights[" + std::to_string(ct) + "].range", (*it)->m_range);
+		ct++;
+	}
+	_shader->setUniform("spotlightcount", ct);
+
 }
