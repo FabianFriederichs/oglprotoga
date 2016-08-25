@@ -20,10 +20,11 @@ private:
 	Shader* quadshader;
 	Shader* gpassshader;	//Position, Normals, Albedo and Specular Rendertargets + Depth Renderbuffer
 	Shader* lpassshader;
+	Shader* spassshader;
 
 	//framebuffers
 	FrameBuffer* gbuffer;
-
+	FrameBuffer* sbuffer;
 	void setLights(const std::list<DirectionalLight*>& dirlights, const std::list<PointLight*>& pointlights, const std::list<SpotLight*>& spotlights, Shader* _shader);
 };
 

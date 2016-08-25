@@ -27,6 +27,9 @@ bool DeferredRenderer::init()
 	lpassshader = new Shader();
 	lpassshader->load("..\\..\\Assets\\Shader\\LPassShader.vert", "..\\..\\Assets\\Shader\\LPassShader.frag");
 
+	spassshader = new Shader();
+	spassshader->load("..\\..\\Assets\\Shader\\", "..\\..\\Assets\\Shader\\");
+
 	//posteffect shader
 
 	//framebuffers
@@ -91,6 +94,43 @@ bool DeferredRenderer::init()
 		return false;
 	}
 
+	//framebuffers
+	sbuffer = new FrameBuffer(0, 0, 800, 600, FBTYPE::FBT_2D);
+	if (!sbuffer->allocate())
+	{
+		return false;
+	}
+
+	if (!sbuffer->bind(FBO_BINDINGMODE::FREADWRITE))
+	{
+		return false;
+	}
+
+	if (!sbuffer->addColorBufferTex("junk", GL_RGBA16F, GL_RGBA, GL_FLOAT))
+	{
+		return false;
+	}
+
+	if (!sbuffer->setDepthBufferTex(GL_DEPTH_COMPONENT32F, GL_DEPTH_COMPONENT, GL_FLOAT))
+	{
+		return false;
+	}
+
+	if (!sbuffer->complete())
+	{
+		return false;
+	}
+
+	if (!sbuffer->setDrawBuffers())
+	{
+		return false;
+	}
+
+	if (!sbuffer->unbind())
+	{
+		return false;
+	}
+
 	inited = true;
 	return true;
 }
@@ -117,7 +157,7 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 
 	gbuffer->updateGLViewport(0, 0, 800, 600);
 
-	glClearColor(1.0f, 0.15f, 0.18f, 1.0f); GLERR
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); GLERR
 	glEnable(GL_CULL_FACE); GLERR
 	glFrontFace(GL_CCW); GLERR
 	glCullFace(GL_BACK); GLERR
@@ -154,6 +194,47 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 			m->drawMesh();
 		}
 	}
+
+	if (!sbuffer->bind(FBO_BINDINGMODE::FREADWRITE))
+	{
+		return;
+	}
+	sbuffer->updateGLViewport(0, 0, 800, 600);
+
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); GLERR
+		glEnable(GL_CULL_FACE); GLERR
+		glFrontFace(GL_CCW); GLERR
+		glCullFace(GL_FRONT); GLERR
+	glEnable(GL_DEPTH_TEST); GLERR
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GLERR;
+	spassshader->Use();
+
+	spassshader->setUniform("ligmat", _scene->m_directionallights.front()->getProj(0.1f, 100.f)*_scene->m_directionallights.front()->getView(vec3(20,20,20)), false);
+
+	auto it = _scene->m_renderables.equal_range(OPAQUE);
+	for (auto k = it.first; k != it.second; k++)
+	{
+		RenderableGameObject* go = k->second;
+		//set per go uniforms
+		gpassshader->setUniform("model", go->getTransform().getTransformMat(), false);
+
+		//draw go meshes
+		for (auto m : go->getModel()->getMeshes())
+		{
+			//m->getMaterial()->setMaterialUniforms(gpassshader);
+
+			if (!m->hasNormals())
+				m->generateNormals();
+			if (!m->hasTangents())
+				m->generateTangents();
+			m->setupVAOs();
+
+			m->drawMesh();
+		}
+	}
+
+
+
 
 
 

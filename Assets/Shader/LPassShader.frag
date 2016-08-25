@@ -1,8 +1,8 @@
 #version 430 core
 
 #define MAX_DIR_LIGHTS 8
-#define MAX_POINT_LIGHTS 10
-#define MAX_SPOT_LIGHTS 8
+#define MAX_POINT_LIGHTS 8
+#define MAX_SPOT_LIGHTS 2
 
 #define MAX_SHININESS 100.0f
 
@@ -101,7 +101,7 @@ void main()
 
 	for(int i = 0; i < dirlightcount; i++)
 	{
-		outcol += CalcDirLight(dirlights[i], pos, norm, alb, spec, glo, hgt, dpth);
+		  outcol += CalcDirLight(dirlights[i], pos, norm, alb, spec, glo, hgt, dpth);
 	}
 
 	for(int i = 0; i < pointlightcount; i++)
@@ -138,10 +138,11 @@ vec3 CalcDirLight(DirLight light, vec3 _pos, vec3 _norm, vec4 _alb, vec4 _spec, 
     // _specular
     vec3 viewDir = normalize(camerapos - _pos);
     vec3 reflectDir = reflect(-lightDir, _norm);  
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), clamp(_glo.r, 0.1f, 1.0f) * MAX_SHININESS);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), clamp(_glo.r, 0.32f, 1.0f) * MAX_SHININESS);
+	//float spec = pow(max(dot(viewDir, reflectDir), 0.0), 1);
     vec3 _specular = light.lightcol.rgb * spec;
             
-    return _ambient + _diffuse + _specular;
+    return  _ambient +_diffuse + _specular;
 	//reflectDir = reflect(-viewDir, _norm); 
 	//return texture(skybox, reflectDir).rgb;
 }
@@ -171,7 +172,7 @@ vec3 CalcPointLight(PointLight light, vec3 _pos, vec3 _norm, vec4 _alb, vec4 _sp
     _specular *= attenuation;   
             
 	
-    return _ambient + _diffuse + _specular;  
+    return  _ambient +_diffuse + _specular;  
 }
 
 vec3 CalcSpotLight(SpotLight light, vec3 _pos, vec3 _norm, vec4 _alb, vec4 _spec, vec4 _glo, vec4 _hgt, float _dpth)
