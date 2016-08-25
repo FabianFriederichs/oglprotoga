@@ -274,6 +274,7 @@ void Scene::load(std::string _path)
 	std::unordered_map <std::string, Shader* > shaderss;
 	std::unordered_map<std::string, Model*> modelss;
 	std::unordered_map<std::string, Material*> materialss;
+	std::unordered_map<std::string, RenderableGameObject*> gos;
 	for (SNode n : nodes)
 	{
 		if (n.Value() == "/resources")
@@ -405,23 +406,6 @@ void Scene::load(std::string _path)
 				}
 			}
 		}
-		else if (n.Value() == "/submesh-material")
-		{
-			for (SNode* nt : n.Children())
-			{
-				auto meshes = modelss[nt->Value()]->getMeshes();
-				for (SNode* ntt : nt->Children())
-				{
-					std::string v = ntt->Value();
-					int c = v.find_first_of('<') + 1;
-					int cc = v.find_first_of('>');
-					int idx = std::stoi(v.substr(c, cc - c));
-
-					std::string matname = v.substr(cc + 1);
-					meshes[idx]->setMaterial(materialss[matname]);
-				}
-			}
-		}
 		else if (n.Value() == "/go")
 		{
 			for (SNode* nt : n.Children())
@@ -439,11 +423,36 @@ void Scene::load(std::string _path)
 				if (vals.size() > 3)
 				{
 					RenderableGameObject* go = new RenderableGameObject();
-					go->setModel(modelss[vals[0]]);
-					go->getTransform().setScale(vec3FromString(vals[1]));
-					go->getTransform().setRotate(vec3FromString(vals[2]));
-					go->getTransform().setTranslate(vec3FromString(vals[3]));
+					go->setName(vals[0]);
+					if (vals[1] == "quad")
+						go->setModel(new Model(PRIMITIVETYPE::QUAD));
+					else
+						go->setModel(modelss[vals[1]]);
+					go->getTransform().setScale(vec3FromString(vals[2]));
+					auto rot = vec3FromString(vals[3]);
+					rot = vec3(radians(rot.x), radians(rot.y), radians(rot.z));
+					go->getTransform().setRotate(rot);
+					go->getTransform().setTranslate(vec3FromString(vals[4]));
+					if (gos.count(vals[0])==0)
+						gos[vals[0]] = go;
 					addRenderable(go);
+				}
+			}
+		}
+		else if (n.Value() == "/submesh-material")
+		{
+			for (SNode* nt : n.Children())
+			{
+				auto meshes = gos[nt->Value()]->getModel()->getMeshes();
+				for (SNode* ntt : nt->Children())
+				{
+					std::string v = ntt->Value();
+					int c = v.find_first_of('<') + 1;
+					int cc = v.find_first_of('>');
+					int idx = std::stoi(v.substr(c, cc - c));
+
+					std::string matname = v.substr(cc + 1);
+					meshes[idx]->setMaterial(materialss[matname]);
 				}
 			}
 		}

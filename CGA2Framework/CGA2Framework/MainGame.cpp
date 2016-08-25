@@ -88,7 +88,12 @@ GLvoid MainGame::update(GLdouble time)
 			m_scene->m_renderables.find(OPAQUE)->second->getTransform().translate(md.mtype*md.Multiplier);
 
 		for (auto go : m_scene->m_gameobjects)
-			go->getTransform().rotate(vec3(0.001f*(((abs((int)(go->getTransform().getTranslate().z) + abs((int)(go->getTransform().getTranslate().y)))) % 6) - 3), 0.001f*(((abs((int)(go->getTransform().getTranslate().z) + abs((int)(go->getTransform().getTranslate().x)))) % 4) - 2), 0.001f*(((abs((int)(go->getTransform().getTranslate().x) + abs((int)(go->getTransform().getTranslate().y)))) % 10) - 5)));
+		{
+			if (go->getName() != "go2" && go->getName() != "go3"&& go->getName() != "go4")
+			{
+				go->getTransform().rotate(vec3(0.001f*(((abs((int)(go->getTransform().getTranslate().z) + abs((int)(go->getTransform().getTranslate().y)))) % 6) - 3), 0.001f*(((abs((int)(go->getTransform().getTranslate().z) + abs((int)(go->getTransform().getTranslate().x)))) % 4) - 2), 0.001f*(((abs((int)(go->getTransform().getTranslate().x) + abs((int)(go->getTransform().getTranslate().y)))) % 10) - 5)));
+			}
+		}
 		//m_scene->m_gameobjects.front()->getTransform().rotate(vec3(0, 0.025f, 0));
 	}
 	if (keys[GLFW_KEY_ESCAPE]){
@@ -143,11 +148,11 @@ void MainGame::init()
 	b->setTarget(m_scene->m_camera);
 	m_scene->addBillboard(b);
 
-	auto go = new RenderableGameObject(GOTYPE::OPAQUE);
+	/*auto go = new RenderableGameObject(GOTYPE::OPAQUE);
 	auto model = new Model();
 	model->addMesh(new Mesh(PRIMITIVETYPE::QUAD, m_scene->m_materials.front()));
 	go->setModel(model);
-		m_scene->addRenderable(go);
+		m_scene->addRenderable(go);*/
 	m_scenerenderer = new ForwardRenderer();
 	//m_scenerenderer = new VRRenderer(new ForwardRenderer(), new Shader("..\\..\\Assets\\Shader\\quad.vert", "..\\..\\Assets\\Shader\\quad.frag"));
 }

@@ -61,7 +61,7 @@ static const GLfloat QuadVerts[] = {   // Vertex attributes for a quad that fill
 };
 const size_t Primitives::SizeOfQuadVertices = sizeof(QuadVerts);
 const GLfloat *Primitives::QuadVertices = QuadVerts;
-const std::vector<Vertex> Primitives::QuadVerticesV = { Vertex(glm::vec3(-1.f, 1.f, 0.f)), Vertex(glm::vec3(-1.f, -1.f, 0.f)), Vertex(glm::vec3(1.f, -1.f, 0.f)), Vertex(glm::vec3(1.f, 1.f, 0.f)) };
+const std::vector<Vertex> Primitives::QuadVerticesV = { Vertex(glm::vec3(-1.f, 1.f, 0.f), glm::vec2(0.f, 1.f)), Vertex(glm::vec3(-1.f, -1.f, 0.f), glm::vec2(0.f, 0.f)), Vertex(glm::vec3(1.f, -1.f, 0.f), glm::vec2(1.f, 0.f)), Vertex(glm::vec3(1.f, 1.f, 0.f), glm::vec2(1.f, 1.f)) };
 const std::vector<GLuint> Primitives::QuadIndices = { 0, 1, 2, 0, 2, 3 };
 
 //initialize gl handles

@@ -98,8 +98,8 @@ void main()
 		outcol += CalcDirLight(dirlights[i]);
 	}
 
-	color = vec4(outcol, 1.0f);
-	return;
+	//color = vec4(outcol, 1.0f);
+	//return;
 
 	for(int i = 0; i < pointlightcount; i++)
 	{
@@ -128,7 +128,7 @@ vec3 CalcDirLight(DirLight light)
     vec3 ambient = 0.1f * vec3(texture(material.mtex[0], vec2(vertexdat.uv.x, vertexdat.uv.y)));
   	
     // Diffuse 
-    vec3 norm = vertexdat.normal;//TBN * normalize(texture(material.mtex[3], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb);
+    vec3 norm = vertexdat.TBN * normalize(texture(material.mtex[3], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb);
     vec3 lightDir = normalize(-light.lightdir);  
     float diff = max(dot(norm, lightDir), 0.0);
 	//return vec3(diff, diff, diff);
@@ -140,9 +140,9 @@ vec3 CalcDirLight(DirLight light)
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), clamp(texture(material.mtex[2], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).r, 0.1f, 1.0f) * MAX_SHININESS);
     vec3 specular = light.lightcol.rgb * spec * texture(material.mtex[1], vec2(vertexdat.uv.x, 1.0f - vertexdat.uv.y)).rgb;
             
-    //return ambient + diffuse + specular;
-	reflectDir = reflect(-viewDir, norm); 
-	return texture(skybox, reflectDir).rgb;
+    return ambient + diffuse + specular;
+	//reflectDir = reflect(-viewDir, norm); 
+	//return texture(skybox, reflectDir).rgb;
 }
 
 vec3 CalcPointLight(PointLight light)

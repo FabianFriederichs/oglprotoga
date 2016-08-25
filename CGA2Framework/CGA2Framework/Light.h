@@ -2,7 +2,8 @@
 #include "headers.h"
 #include "Transform.h"
 #include "glerror.h"
-class Light
+#include "Transformable.h"
+class Light : public Transformable
 {
 public:
 	Light();
@@ -10,13 +11,7 @@ public:
 	Light(glm::vec4 _lightcolor, Transform _transform);
 	~Light();
 
-	//getters / setters
-	Transform& getTransform() { return m_transform; }
-	void setTransform(Transform& _transform) { m_transform = _transform; }
-
 	glm::vec4 m_lightcolor;
 
-protected:
-	Transform m_transform;
 };
 

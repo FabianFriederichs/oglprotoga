@@ -16,6 +16,7 @@
 #include "glerror.h"
 #include "Texture2D.h"
 #include "Billboard.h"
+#include "Primitives.h"
 #include "util.h"
 /*
 	Keep track of Entity-Shader relations (Map with shader ID as key?)

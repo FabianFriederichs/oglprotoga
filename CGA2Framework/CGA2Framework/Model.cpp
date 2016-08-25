@@ -6,6 +6,12 @@ m_meshes()
 {
 }
 
+Model::Model(PRIMITIVETYPE _type):
+m_meshes()
+{
+	addMesh(new Mesh(_type));
+}
+
 //Model::Model(const Model& _other) :
 //m_meshes(_other.m_meshes)
 //{
