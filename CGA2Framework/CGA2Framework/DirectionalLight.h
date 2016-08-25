@@ -10,12 +10,12 @@ public:
 
 	glm::mat4 getProj(GLfloat near, GLfloat far)
 	{
-		return glm::ortho(-512.f, 512.f, -512.f, 512.f, near, far);
+		return glm::ortho(-20.f, 20.f, -20.0f, 20.f, near, far);
 	}
 
-	glm::mat4 getView(vec3 pos)
+	glm::mat4 getView(glm::vec3 pos)
 	{
-		return mat4_cast(getTransform().getRotateQ())*translate(glm::mat4(1.0f), -pos);
+		return glm::mat4_cast(getTransform().getRotateQ())*translate(glm::mat4(1.0f), -pos);
 	}
 
 	glm::vec3 m_direction;

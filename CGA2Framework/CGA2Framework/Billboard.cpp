@@ -1,10 +1,6 @@
 #include "Billboard.h"
 
 
-Billboard::Billboard() : lockedAxes(0)
-{
-}
-
 
 Billboard::~Billboard()
 {

@@ -40,6 +40,8 @@ in struct VertexData
 void main()
 {
 	//position
+	if(texture(material.mtex[0], vertexdat.uv).a<0.9)
+		discard;
 	position = vec4(vertexdat.pos, 1.0f);
 	
 	//will later be modified for parallax mappping

@@ -3,14 +3,20 @@
 #include "Texture2D.h"
 #include "Camera.h"
 #include "Primitives.h"
+#include "RenderableGameObject.h"
 
-
-class Billboard : public GameObject
+class Billboard : public RenderableGameObject
 {
 public:
-	Billboard();
+	Billboard() :lockedAxes(0){ setModel(new Model(PRIMITIVETYPE::QUAD)); };
 	~Billboard();
 
+	void DrawDeferred()
+	{
+		auto curTrans = getTransform().getTransformMat();
+
+		Primitives::drawNDCQuad();
+	}
 	void Draw();
 	void setTexture(Texture2D* _tex)
 	{

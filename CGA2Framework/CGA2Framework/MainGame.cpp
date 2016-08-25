@@ -83,17 +83,18 @@ GLvoid MainGame::update(GLdouble time)
 			md.mtype += vec3(0, 1, 0);
 		if (keys[GLFW_KEY_V])
 			md.mtype += vec3(0, -1, 0);
-
+		 
 		if (md.mtype != vec3(0, 0, 0))
 			m_scene->m_renderables.find(OPAQUE)->second->getTransform().translate(md.mtype*md.Multiplier);
 
-		for (auto go : m_scene->m_gameobjects)
-		{
+		auto it = m_scene->m_gameobjects.begin();
+		it++;
+		auto go = *it;
 			if (go->getName() != "go2" && go->getName() != "go3"&& go->getName() != "go4")
 			{
 				go->getTransform().rotate(vec3(0.001f*(((abs((int)(go->getTransform().getTranslate().z) + abs((int)(go->getTransform().getTranslate().y)))) % 6) - 3), 0.001f*(((abs((int)(go->getTransform().getTranslate().z) + abs((int)(go->getTransform().getTranslate().x)))) % 4) - 2), 0.001f*(((abs((int)(go->getTransform().getTranslate().x) + abs((int)(go->getTransform().getTranslate().y)))) % 10) - 5)));
 			}
-		}
+		
 		//m_scene->m_gameobjects.front()->getTransform().rotate(vec3(0, 0.025f, 0));
 	}
 	if (keys[GLFW_KEY_ESCAPE]){
@@ -134,19 +135,23 @@ void MainGame::init()
 	b->setCamera(m_scene->m_camera);
 	b->setShader(m_scene->m_shaders.back());
 	//b->getTransform().setRotate(radians(-45.f), radians(-90.f), 0);
-	b->getTransform().setScale(vec3(5.f, 1.f,1.f));
-	b->getTransform().setTranslate(vec3(-5.f, -1.f, 1.f));
+	b->getTransform().setScale(vec3(1.f, 1.f,1.f));
+	b->getTransform().setTranslate(vec3(-5.f, 3.f, 1.f));
 	b->setTarget(m_scene->m_renderables.find(OPAQUE)->second);
-	b->lockAxis(vec3(1, 1, 0));
+	//b->lockAxis(vec3(1, 1, 0));
+	b->getModel()->getMeshes().front()->setMaterial(m_scene->m_materials.back());
 	m_scene->addBillboard(b);
-
+	m_scene->addRenderable(b);
 	b = new Billboard();
 	b->setTexture(m_scene->m_textures.back());
-	b->getTransform().setScale(vec3(5.f, 1.f, 1.f));
+	b->getTransform().setScale(vec3(1.f, 1.f, 1.f));
 	b->setCamera(m_scene->m_camera);
 	b->setShader(m_scene->m_shaders.back());
 	b->setTarget(m_scene->m_camera);
+	b->getModel()->getMeshes().front()->setMaterial(m_scene->m_materials.back());
+
 	m_scene->addBillboard(b);
+	m_scene->addRenderable(b);
 
 	/*auto go = new RenderableGameObject(GOTYPE::OPAQUE);
 	auto model = new Model();

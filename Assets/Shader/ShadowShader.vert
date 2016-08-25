@@ -7,8 +7,9 @@ layout (location = 3) in vec3 tangent;
 
 uniform mat4 model;
 uniform mat4 ligmat;
-
+out vec2 uvs;
 void main()
 {
-    gl_Position = ligmat * vec4(position, 1.0f);
+uvs=uv;
+    gl_Position = ligmat * model*vec4(position, 1.0f);
 }

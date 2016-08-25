@@ -21,10 +21,12 @@ uniform sampler2D specular;
 uniform sampler2D gloss;
 uniform sampler2D height;
 uniform sampler2D depth;
+uniform sampler2D shadow;
 
 //camera
 uniform vec3 camerapos;
 
+uniform mat4 ligmat;
 //lighting
 struct DirLight
 {
@@ -82,9 +84,11 @@ float linearizeDepth(float near, float far, float depthval)
     return (2 * near) / (far + near - depthval * (far - near));
 }
 
-vec3 CalcDirLight(DirLight light, vec3 _pos, vec3 _norm, vec4 _alb, vec4 _spec, vec4 _glo, vec4 _hgt, float _dpth);
+vec3 CalcDirLight(DirLight light, vec3 _pos, vec3 _norm, vec4 _alb, vec4 _spec, vec4 _glo, vec4 _hgt, float _dpth, float shadow);
 vec3 CalcPointLight(PointLight light, vec3 _pos, vec3 _norm, vec4 _alb, vec4 _spec,vec4 _glo, vec4 _hgt, float _dpth);
 vec3 CalcSpotLight(SpotLight light, vec3 _pos, vec3 _norm, vec4 _alb, vec4 _spec, vec4 _glo,vec4 _hgt, float _dpth);
+
+float calcShadow(vec4 fragpos, vec3 norm);
 
 void main()
 {
@@ -97,14 +101,11 @@ void main()
 	vec4 glo = texture(gloss, TexCoords);
 	vec4 hgt = texture(height, TexCoords);
 	float dpth = texture(depth, TexCoords).r;
-
+	float shad = calcShadow(vec4(pos, 1.0f), norm);
 	for(int i = 0; i < dirlightcount; i++)
 	{
-		  outcol += CalcDirLight(dirlights[i], pos, norm, alb, spec, glo, hgt, dpth);
+		  outcol += CalcDirLight(dirlights[i], pos, norm, alb, spec, glo, hgt, dpth, shad);
 	}
-
-	color =  vec4(outcol, 1.0f);
-	return;
 	
 	for(int i = 0; i < pointlightcount; i++)
 	{
@@ -123,11 +124,36 @@ void main()
 			outcol += CalcSpotLight(spotlights[i], pos, norm, alb, spec, glo, hgt, dpth);
 		}
 	}
-
     color = vec4(outcol, 1.0f);
 }
 
-vec3 CalcDirLight(DirLight light, vec3 _pos, vec3 _norm, vec4 _alb, vec4 _spec, vec4 _glo, vec4 _hgt, float _dpth)
+float calcShadow(vec4 fragpos, vec3 norm)
+{
+	vec4 shit = ligmat*fragpos;
+	vec3 projcoords=shit.xyz/shit.w;
+	projcoords = projcoords*0.5+0.5;
+	float closed = texture(shadow, projcoords.xy).r;
+	float cdep = projcoords.z;
+	cdep = cdep;
+	float bias = max(0.005f*(1.0f-dot(norm, dirlights[0].lightdir)), 0.001f);
+	float shadf= 0;
+	vec2 texS = 1.0f/textureSize(shadow, 0);
+	for(int x=-3; x<=3;++x)
+	{
+		for(int y=-3; y<=3;++y)
+		{
+			float pd = texture(shadow, projcoords.xy+vec2(x,y)*texS).r;
+			shadf+=cdep-bias >pd?0.0:1.0;
+		}
+	}
+
+
+	shadf=shadf/36;
+	return shadf;
+}
+
+
+vec3 CalcDirLight(DirLight light, vec3 _pos, vec3 _norm, vec4 _alb, vec4 _spec, vec4 _glo, vec4 _hgt, float _dpth, float shadow)
 {
 	 // _ambient
     vec3 _ambient = 0.1f * _alb.rgb;
@@ -135,7 +161,7 @@ vec3 CalcDirLight(DirLight light, vec3 _pos, vec3 _norm, vec4 _alb, vec4 _spec, 
     // _diffuse 
     vec3 lightDir = normalize(-light.lightdir);  
     float diff = max(dot(_norm, lightDir), 0.0);
-    vec3 _diffuse = light.lightcol.rgb * diff * _alb.rgb;  
+    vec3 _diffuse = shadow*light.lightcol.rgb * diff * _alb.rgb;  
     
     // _specular
     vec3 viewDir = normalize(camerapos - _pos);

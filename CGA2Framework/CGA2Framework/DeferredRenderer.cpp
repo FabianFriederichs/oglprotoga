@@ -28,7 +28,7 @@ bool DeferredRenderer::init()
 	lpassshader->load("..\\..\\Assets\\Shader\\LPassShader.vert", "..\\..\\Assets\\Shader\\LPassShader.frag");
 
 	spassshader = new Shader();
-	spassshader->load("..\\..\\Assets\\Shader\\", "..\\..\\Assets\\Shader\\");
+	spassshader->load("..\\..\\Assets\\Shader\\ShadowShader.vert", "..\\..\\Assets\\Shader\\ShadowShader.frag");
 
 	//posteffect shader
 
@@ -105,6 +105,7 @@ bool DeferredRenderer::init()
 	{
 		return false;
 	}
+	sbuffer->updateGLViewport(0, 0, 4000, 4000);
 
 	if (!sbuffer->addColorBufferTex("junk", GL_RGBA16F, GL_RGBA, GL_FLOAT))
 	{
@@ -156,12 +157,8 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	}
 
 	gbuffer->updateGLViewport(0, 0, 800, 600);
-
-<<<<<<< HEAD
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); GLERR
-=======
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f); GLERR
->>>>>>> 8d088edbac913f2c273733a42b71752626b012ce
+
 	glEnable(GL_CULL_FACE); GLERR
 	glFrontFace(GL_CCW); GLERR
 	glCullFace(GL_BACK); GLERR
@@ -173,8 +170,8 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 
 	//per frame uniforms
 	gpassshader->setUniform("view", _scene->m_camera->GetCameraTransform(), false);
-	gpassshader->setUniform("projection", _scene->m_camera->getProjectionMatrix(), false);
-	gpassshader->setUniform("camerapos", _scene->m_camera->GetPosition());
+	gpassshader->setUniform("projection",  _scene->m_camera->getProjectionMatrix(), false);
+	gpassshader->setUniform("camerapos",  _scene->m_camera->GetPosition());
 
 	//draw opaque geometry
 	auto it = _scene->m_renderables.equal_range(OPAQUE);
@@ -198,12 +195,14 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 			m->drawMesh();
 		}
 	}
+	gbuffer->unbind();
+
 
 	if (!sbuffer->bind(FBO_BINDINGMODE::FREADWRITE))
 	{
 		return;
 	}
-	sbuffer->updateGLViewport(0, 0, 800, 600);
+	sbuffer->updateGLViewport(0, 0, 4000, 4000);
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); GLERR
 		glEnable(GL_CULL_FACE); GLERR
@@ -213,20 +212,23 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GLERR;
 	spassshader->Use();
 
-	spassshader->setUniform("ligmat", _scene->m_directionallights.front()->getProj(0.1f, 100.f)*_scene->m_directionallights.front()->getView(vec3(20,20,20)), false);
+	auto look = glm::lookAt(vec3(-30, 30, -10), vec3(0, 0, 0), vec3(0, 1, 0));// _scene->m_directionallights.front()->
+	auto ligmat = _scene->m_directionallights.front()->getProj(0.1f, 100.f)*look;
+	spassshader->setUniform("ligmat", ligmat, false);
 
-	auto it = _scene->m_renderables.equal_range(OPAQUE);
+	it = _scene->m_renderables.equal_range(OPAQUE);
 	for (auto k = it.first; k != it.second; k++)
 	{
 		RenderableGameObject* go = k->second;
 		//set per go uniforms
-		gpassshader->setUniform("model", go->getTransform().getTransformMat(), false);
+		spassshader->setUniform("model", go->getTransform().getTransformMat(), false);
 
 		//draw go meshes
 		for (auto m : go->getModel()->getMeshes())
 		{
 			//m->getMaterial()->setMaterialUniforms(gpassshader);
-
+			m->getMaterial()->getTextures().front()->bindToTextureUnit(0);
+			spassshader->setUniform("alph", 0);
 			if (!m->hasNormals())
 				m->generateNormals();
 			if (!m->hasTangents())
@@ -236,13 +238,7 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 			m->drawMesh();
 		}
 	}
-
-
-
-
-
-
-	
+	sbuffer->unbind();
 
 
 	//(render shadowmaps)
@@ -252,11 +248,12 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	//render skybox
 
 	//back to default framebuffer
-	gbuffer->unbind();
+	glDisable(GL_CULL_FACE); GLERR
+
 
 	glEnable(GL_DEPTH_TEST); GLERR
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GLERR
-
+	
 	glViewport(0, 0, 800, 600);
 
 	lpassshader->Use();
@@ -267,6 +264,7 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	gbuffer->getColorBufferTex("gloss")->bindToTextureUnit(4);
 	gbuffer->getColorBufferTex("height")->bindToTextureUnit(5);
 	gbuffer->getDepthBufferTex()->bindToTextureUnit(6);
+	sbuffer->getDepthBufferTex()->bindToTextureUnit(7);
 
 	lpassshader->setUniform("position", 0);
 	lpassshader->setUniform("normal", 1);
@@ -275,14 +273,16 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	lpassshader->setUniform("gloss", 4);
 	lpassshader->setUniform("height", 5);
 	lpassshader->setUniform("depth", 6);
+	lpassshader->setUniform("shadow", 7);
 
-	lpassshader->setUniform("camerapos", _scene->m_camera->GetPosition());
-
+	lpassshader->setUniform("camerapos", vec3(-2, 4, -2));// _scene->m_camera->GetPosition());
+	lpassshader->setUniform("ligmat", ligmat, false);
 	setLights(_scene->m_directionallights, _scene->m_pointlights, _scene->m_spotlights, lpassshader);
 	
+	glDisable(GL_DEPTH_TEST);
 	Primitives::drawNDCQuad();
 
-	glDisable(GL_DEPTH_TEST);
+	
 
 	//do lighting pass
 
