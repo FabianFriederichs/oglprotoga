@@ -78,10 +78,14 @@ void ForwardRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 			
 			//now draw it
 			currentshader->preRenderActions();
+			
 			m->drawMesh();
 			currentshader->postRenderActions();
-
-			
+			if (!m->hasBoundingBox())
+				m->generateBoundingBox();
+			m->setupBBVAOs();
+			m->drawBoundingBox();
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); GLERR
 		}
 
 

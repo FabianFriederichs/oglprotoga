@@ -40,6 +40,19 @@ Mesh::Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLuint>& _ind
 		generateBoundingBox();
 }
 
+Mesh::Mesh(PRIMITIVETYPE _type, Material* _material) :
+m_id(IDProvider::createID()),
+m_hasBoundingBox(false),
+m_vertices(Primitives::getVertices(_type)),
+m_boundingboxvertices(),
+m_indices(Primitives::getIndices(_type)),
+m_boundingboxindices(),
+m_material(_material),
+m_glinited(false)
+{
+}
+
+
 Mesh::~Mesh()
 {
 	freeGLData();
