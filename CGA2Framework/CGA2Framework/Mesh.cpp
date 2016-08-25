@@ -191,9 +191,12 @@ void Mesh::setupBBVAOs()
 		//glstuff
 		if (m_bbvao == 0)
 		{
-			glCreateVertexArrays(1, &m_bbvao); GLERR
+			glGenVertexArrays(1, &m_bbvao); GLERR
 		}
-		glBindVertexArray(m_bbvao); GLERR
+
+		if (m_bbvbo == 0)
+		{
+			glBindVertexArray(m_bbvao); GLERR
 
 			glGenBuffers(1, &m_bbvbo); GLERR
 			glGenBuffers(1, &m_bbibo); GLERR
@@ -214,6 +217,7 @@ void Mesh::setupBBVAOs()
 			glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, FLOATS_PER_VERTEX * sizeof(GLfloat), reinterpret_cast<void*>(8 * sizeof(GLfloat))); GLERR
 
 			glBindVertexArray(0); GLERR
+		}
 		
 	}
 }
