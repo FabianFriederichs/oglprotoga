@@ -580,7 +580,6 @@ void Scene::removeRenderable(GLint _id)
 		}
 		return false;
 	}), m_gameobjects.end());
-
 }
 
 void Scene::addShader(Shader* _shader)
@@ -641,14 +640,14 @@ void Scene::clear()
 	}
 	m_gameobjects.clear();
 
-	for (auto p : m_renderables)
+	/*for (auto p : m_renderables)
 	{
 		if (p.second != nullptr)
 		{
 			delete p.second;
 			p.second = nullptr;
 		}
-	}
+	}*/
 	m_renderables.clear();
 
 	for(DirectionalLight* l : m_directionallights)

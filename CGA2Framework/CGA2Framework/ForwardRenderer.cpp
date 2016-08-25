@@ -23,14 +23,17 @@ void ForwardRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 
 
 	glClearColor(0.15f, 0.15f, 0.18f, 1.0f); GLERR
-	glEnable(GL_CULL_FACE); GLERR
-	glFrontFace(GL_CCW); GLERR
-	glCullFace(GL_BACK); GLERR
-	glEnable(GL_DEPTH_TEST); GLERR
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GLERR
-	
-	for(RenderableGameObject* g : _scene->m_gameobjects)
+		glEnable(GL_CULL_FACE); GLERR
+		glFrontFace(GL_CCW); GLERR
+		glCullFace(GL_BACK); GLERR
+		glEnable(GL_DEPTH_TEST); GLERR
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GLERR
+
+		//find opaque thingies
+		auto it = _scene->m_renderables.equal_range(OPAQUE);
+	for (auto k = it.first; k != it.second; k++)
 	{
+		RenderableGameObject* g = k->second;
 		//prepare objects for rendering if the aren't yet
 		ForwardShader* currentshader = nullptr;
 		//GLint currentshaderid = -1;
@@ -138,8 +141,10 @@ void ForwardRenderer::render(Scene* _scene, RenderFinishedCallback* _callback, g
 	glEnable(GL_DEPTH_TEST); GLERR
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GLERR
 
-	for (RenderableGameObject* g : _scene->m_gameobjects)
+	auto it = _scene->m_renderables.equal_range(OPAQUE);
+	for (auto k = it.first; k != it.second; k++)
 	{
+		RenderableGameObject* g = k->second;
 		//prepare objects for rendering if the aren't yet
 		ForwardShader* currentshader = nullptr;
 		//GLint currentshaderid = -1;

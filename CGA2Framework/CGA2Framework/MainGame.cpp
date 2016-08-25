@@ -81,7 +81,7 @@ GLvoid MainGame::update(GLdouble time)
 			md.mtype += vec3(0, -1, 0);
 
 		if (md.mtype != vec3(0, 0, 0))
-			m_scene->m_gameobjects.front()->getTransform().translate(md.mtype*md.Multiplier);
+			m_scene->m_renderables.find(OPAQUE)->second->getTransform().translate(md.mtype*md.Multiplier);
 	}
 	if (keys[GLFW_KEY_ESCAPE]){
 		quit();
@@ -130,7 +130,7 @@ void MainGame::init()
 
 	b->setCamera(m_scene->m_camera);
 	b->setShader(m_scene->m_shaders.back());
-	b->setTarget(m_scene->m_gameobjects.front());
+	b->setTarget(m_scene->m_renderables.find(OPAQUE)->second);
 	m_scene->addBillboard(b);
 	m_scenerenderer = new ForwardRenderer();
 	//m_scenerenderer = new VRRenderer(new ForwardRenderer(), new Shader("..\\..\\Assets\\Shader\\quad.vert", "..\\..\\Assets\\Shader\\quad.frag"));
