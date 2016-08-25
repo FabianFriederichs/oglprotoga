@@ -23,5 +23,7 @@ private:
 
 	//framebuffers
 	FrameBuffer* gbuffer;
+
+	void setLights(const std::list<DirectionalLight*>& dirlights, const std::list<PointLight*>& pointlights, const std::list<SpotLight*>& spotlights, Shader* _shader);
 };
 

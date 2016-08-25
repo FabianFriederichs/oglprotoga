@@ -56,6 +56,7 @@ public:
 	Texture2D* getTexture(const int _id);
 
 	void setMaterialUniforms();
+	void setMaterialUniforms(Shader* _shader);
 
 private:
 	GLint m_id;							//each material has a unique id

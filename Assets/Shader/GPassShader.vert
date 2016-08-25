@@ -25,7 +25,7 @@ void main()
 	vertexdat.pos = worldpos.xyz;
 	vertexdat.uv = uv;
 	vertexdat.normal = mat3(transpose(inverse(model))) * normal; //transform normal to world space
-	vertexdat.pos = vec3(model * vec4(position, 1.0f));
+	//vertexdat.pos = vec3(model * vec4(position, 1.0f));
 	vertexdat.tangent = vec3(model * vec4(tangent, 1.0f));
 
 	//gram-schmidt tangent space matrix
