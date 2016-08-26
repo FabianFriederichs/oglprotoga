@@ -16,19 +16,19 @@ bool DeferredRenderer::init()
 {
 	//shaders
 	quadshader = new Shader();
-	quadshader->load("..\\..\\Assets\\Shader\\quad.vert", "..\\..\\Assets\\Shader\\quad.frag");
+	quadshader->load("Assets\\Shader\\quad.vert", "Assets\\Shader\\quad.frag");
 
 	gpassshader = new Shader();
-	gpassshader->load("..\\..\\Assets\\Shader\\GPassShader.vert", "..\\..\\Assets\\Shader\\GPassShader.frag");
+	gpassshader->load("Assets\\Shader\\GPassShader.vert", "Assets\\Shader\\GPassShader.frag");
 
 	skyboxshader = new Shader();
-	skyboxshader->load("..\\..\\Assets\\Shader\\SkyBox.vert", "..\\..\\Assets\\Shader\\SkyBox.frag");
+	skyboxshader->load("Assets\\Shader\\SkyBox.vert", "Assets\\Shader\\SkyBox.frag");
 
 	lpassshader = new Shader();
-	lpassshader->load("..\\..\\Assets\\Shader\\LPassShader.vert", "..\\..\\Assets\\Shader\\LPassShader.frag");
+	lpassshader->load("Assets\\Shader\\LPassShader.vert", "Assets\\Shader\\LPassShader.frag");
 
 	spassshader = new Shader();
-	spassshader->load("..\\..\\Assets\\Shader\\ShadowShader.vert", "..\\..\\Assets\\Shader\\ShadowShader.frag");
+	spassshader->load("Assets\\Shader\\ShadowShader.vert", "Assets\\Shader\\ShadowShader.frag");
 
 	//posteffect shader
 

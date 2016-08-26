@@ -17,7 +17,7 @@ void ForwardRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	if (!skyboxinited)
 	{
 		skyboxshader = new Shader();
-		skyboxshader->load("..\\..\\Assets\\Shader\\SkyBox.vert", "..\\..\\Assets\\Shader\\SkyBox.frag");
+		skyboxshader->load("Assets\\Shader\\SkyBox.vert", "Assets\\Shader\\SkyBox.frag");
 		skyboxinited = true;
 	}
 
@@ -126,7 +126,7 @@ void ForwardRenderer::render(Scene* _scene, RenderFinishedCallback* _callback, g
 	if (!skyboxinited)
 	{
 		skyboxshader = new Shader();
-		skyboxshader->load("..\\..\\Assets\\Shader\\SkyBox.vert", "..\\..\\Assets\\Shader\\SkyBox.frag");
+		skyboxshader->load("Assets\\Shader\\SkyBox.vert", "Assets\\Shader\\SkyBox.frag");
 
 		glGenVertexArrays(1, &skyboxvao);
 		glGenBuffers(1, &skyboxvbo);

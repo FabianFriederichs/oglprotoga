@@ -141,7 +141,7 @@ GLvoid MainGame::render(GLdouble time)
 void MainGame::init()
 {
 	m_scene = new Scene(m_sizex, m_sizey);
-	(m_scene)->load("..\\..\\Assets\\TestScene.txt");
+	(m_scene)->load("Assets\\TestScene.txt");
 	
 
 	Billboard* b = new Billboard();
