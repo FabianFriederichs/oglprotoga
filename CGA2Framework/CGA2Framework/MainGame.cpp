@@ -172,6 +172,19 @@ void MainGame::init()
 	m_scene->addBillboard(b);
 	m_scene->addRenderable(b);
 
+	b = new Billboard();
+	b->setTexture(m_scene->m_textures.back());
+	b->getTransform().setScale(vec3(1.f, 1.f, 1.f));
+	b->setCamera(m_scene->m_camera);
+	b->getTransform().setTranslate(vec3(3.f, 1.f, 0.f));
+	b->lockAxis(vec3(0.f,1.f,0.f));
+	b->setShader(m_scene->m_shaders.back());
+	b->setTarget(m_scene->m_camera);
+	b->getModel()->getMeshes().front()->setMaterial(m_scene->m_materials.back());
+
+	m_scene->addBillboard(b);
+	m_scene->addRenderable(b);
+
 	/*auto go = new RenderableGameObject(GOTYPE::OPAQUE);
 	auto model = new Model();
 	model->addMesh(new Mesh(PRIMITIVETYPE::QUAD, m_scene->m_materials.front()));

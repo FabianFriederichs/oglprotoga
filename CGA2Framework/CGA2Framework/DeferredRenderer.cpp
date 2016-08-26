@@ -207,7 +207,7 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); GLERR
 		glEnable(GL_CULL_FACE); GLERR
 		glFrontFace(GL_CCW); GLERR
-		glCullFace(GL_FRONT); GLERR
+		glCullFace(GL_BACK); GLERR
 	glEnable(GL_DEPTH_TEST); GLERR
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GLERR;
 	spassshader->Use();
