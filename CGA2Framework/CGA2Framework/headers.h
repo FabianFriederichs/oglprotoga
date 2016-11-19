@@ -1,7 +1,7 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
 #define GLDEBUG
-#include <GL\glew.h>
+#include <GL/glew.h>
 #include <glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
@@ -23,3 +23,5 @@
 #include <unordered_map>
 #include <memory>
 #include <cmath>
+#include <openvr.h>
+#include <exception>

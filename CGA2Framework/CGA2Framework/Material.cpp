@@ -162,3 +162,43 @@ void Material::setMaterialUniforms()
 
 	m_shader->setUniform("material.texcount", (GLint)(this->getTextures().size()));
 }
+
+void Material::setMaterialUniforms(Shader* _shader)
+{
+	_shader->setUniform("material.ambient", this->getAmbientColor());
+	_shader->setUniform("material.diffuse", this->getDiffuseColor());
+	_shader->setUniform("material.specular", this->getSpecularColor());
+	_shader->setUniform("material.shininess", this->getShininess());
+	_shader->setUniform("material.alpha", this->getAlpha());
+
+	//textures
+	for (GLint i = 0; i < this->getTextures().size(); i++)
+	{
+		/*if (!this->getTextures()[i]->isLoaded())
+		{
+		if (!this->getTextures()[i]->loadData())
+		{
+		std::cerr << "ERROR: Texture could not be loaded from file.\n";
+		}
+		}*/
+		if (!this->getTextures()[i]->isBuffered())
+		{
+			if (!this->getTextures()[i]->buffer(false))
+			{
+				std::cerr << "ERROR: Texture could not be loaded by OpenGL.\n";
+			}
+		}
+		/*if (!this->getTextures()[i]->isBound())
+		{*/
+		if (!this->getTextures()[i]->bindToTextureUnit(i))
+		{
+			std::cerr << "ERROR: Texture could not be bound to texture unit";
+		}
+		//}
+
+		_shader->setUniform("material.mtex[" + std::to_string(i) + "]", i);
+		//_material->getTextures()[i]->bindToTextureUnit(i);
+	}
+
+	_shader->setUniform("material.texcount", (GLint)(this->getTextures().size()));
+}

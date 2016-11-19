@@ -2,11 +2,13 @@
 #include "headers.h"
 #include "Mesh.h"
 #include "glerror.h"
+
 class Model
 {
 public:
 	Model();
 	Model(const Model& _other) = delete;
+	Model(PRIMITIVETYPE _type);
 	~Model();
 
 	void addMesh(Mesh* _mesh);

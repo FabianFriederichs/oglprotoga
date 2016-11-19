@@ -1,7 +1,9 @@
 #pragma once
 #include "GameWindow.h"
-#include "TestScene.h"
 #include "ForwardRenderer.h"
+#include "DeferredRenderer.h"
+#include "VRRenderercpp.h"
+#include "Billboard.h"
 #include "glerror.h"
 class MainGame : public GameWindow
 {
@@ -24,7 +26,8 @@ public:
 
 private:
 	Scene* m_scene;
-
+	SceneRenderer* forward;
+	SceneRenderer* def;
 	GLdouble m_curmousex;
 	GLdouble m_curmousey;
 };

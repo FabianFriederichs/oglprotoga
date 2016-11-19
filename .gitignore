@@ -6,8 +6,8 @@ CGA2Framework/CGA2Framework/libs/
 CGA2Framework/CGA2Framework/Release/CGA2Framework.tlog/CGA2Framework.lastbuildstate
 CGA2Framework/CGA2Framework/Release/CGA2Framework.tlog/cl.command.1.tlog
 *.tlog
-*.filters
-*.vcxproj
+TestGame/Debug/
+TestGame/Release/
 CGA2Framework/Debug/
 CGA2Framework/Release/
 CGA2Framework.zip
@@ -16,5 +16,7 @@ CGA2Framework.zip
 CGA2Framework/CGA2Framework/Release/
 CGA2Framework/ipch/
 CGA2Framework/CGA2Framework/glerrorlog.txt
-Release/
-CGA2Framework/TestGame/
+CGA2Framework/TestGame/glerrorlog.txt
+CGA2Framework/TestGame/Debug/TestGame.Build.CppClean.log
+CGA2Framework/TestGame/Release/
+CGA2Framework/TestGame/Debug/

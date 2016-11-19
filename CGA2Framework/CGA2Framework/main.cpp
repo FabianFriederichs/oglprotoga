@@ -1,20 +1,16 @@
-#include <GL\glew.h>
-#include <glfw3.h>
-#include <glm/glm.hpp>
 #include <stdio.h>
 #include <stdlib.h>
-#include "Shader.h"
 #include "MainGame.h"
-#include "GameObject.h"
-#include "OBJLoader.h"
-#include "util.h"
-#include "dds.h"
 using namespace std;
 
+typedef enum {
+	A,
+	B,
+	C
+} TEST;
 
 int main(void)
 {
-	//Texture dds = loadDDSTex("E:\\Benutzer\\Fabian\\Desktop\\TextureStuff\\Testtextures\\testdds.DDS");
 	MainGame mg(800, 600, 4, 3, "testgame", false, 4);
 	mg.setCursorVisble(false);
 	mg.run();

@@ -15,6 +15,8 @@
 #include "DDSLoader.h"
 #include "glerror.h"
 #include "Texture2D.h"
+#include "Billboard.h"
+#include "Primitives.h"
 #include "util.h"
 /*
 	Keep track of Entity-Shader relations (Map with shader ID as key?)
@@ -36,13 +38,14 @@ public:
 	Scene(GLint width, GLint height);
 	virtual ~Scene();
 
-	virtual void save() = 0;
-	virtual void load() = 0;
+	virtual void save(){};
+	virtual void load(){};
 	virtual void save(std::string _path);
 	virtual void load(std::string _path);
 	virtual void clear();
 	//void render();
 	//scene data
+	std::unordered_multimap<GOTYPE, RenderableGameObject*> m_renderables;
 	std::list<RenderableGameObject*> m_gameobjects;	
 	//RenderList m_renderList;
 
@@ -74,7 +77,10 @@ public:
 
 	std::list<Material*> m_materials;
 	void addMaterial(Material* _material);
-	
+
+	std::list<Billboard*> m_billboards;
+	void addBillboard(Billboard* _billboard);
+
 	Camera* m_camera;
 	
 

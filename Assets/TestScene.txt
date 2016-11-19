@@ -1,0 +1,86 @@
+/resources
+	/textures
+		<tex0>Materials\wooddiff_RGBA32UI.dds
+		<tex1>Materials\woodspec_RGBA32UI.dds
+		<tex2>Materials\woodgloss_RGBA32UI.dds
+		<tex3>Materials\woodnormal_RGBA32UI.dds
+		<tex4>Materials\woodheight_RGBA32UI.dds
+		<tex5>Materials\metaldiff_RGBA32UI.dds
+		<tex6>Materials\metalspec_RGBA32UI.dds
+		<tex7>Materials\metalgloss_RGBA32UI.dds
+		<tex8>Materials\metalnormal_RGBA32UI.dds
+		<tex9>Materials\metalheight_RGBA32UI.dds
+		<sbr>skybox\sbrightmipCoords.dds
+		<sbl>skybox\sbleftmipCoords.dds
+		<sbu>skybox\sbupmipCoords.dds
+		<sbd>skybox\sbdownmipCoords.dds
+		<sbb>skybox\sbbackmipCoords.dds
+		<sbf>skybox\sbfrontmipCoords.dds
+		<bill>Textures\TestBillboard.dds
+	/cubemaps
+		skybox<sbr><sbl><sbu><sbd><sbb><sbf>
+	/shaders
+		<0><Shader\BaseVertex.vert><Shader\BaseFrag.frag>
+		<1><Shader\Billboard.vert><Shader\Billboard.frag>
+	/models
+		<model0><0>Models\uglypot.obj
+/materials
+	woodshiny
+		0
+		/textures
+			tex0
+			tex1
+			tex2
+			tex3
+			tex4
+	metalshiny
+		0
+		/textures
+			tex5
+			tex6
+			tex7
+			tex8
+			tex9
+	billbs
+		0
+		/textures
+			bill
+
+/go
+	go1<model0><0.500000,0.500000,0.500000><0.000000,45.000000,45.000000><0.000000,0.000000,-2.000000>
+	go1<model0><1.000000,1.000000,1.000000><0.000000,0.000000,0.000000><2.000000,0.000000,-2.000000>
+	go1<model0><1.000000,1.000000,1.000000><0.000000,0.000000,0.000000><2.000000,0.000000,-4.000000>
+	go1<model0><1.000000,1.000000,1.000000><0.000000,0.000000,0.000000><2.000000,0.000000,-6.000000>
+	go1<model0><1.000000,1.000000,1.000000><0.000000,0.000000,0.000000><2.000000,0.000000,-8.000000>
+	go1<model0><1.000000,1.000000,1.000000><0.000000,0.000000,0.000000><2.000000,2.000000,-13.000000>
+	go1<model0><1.000000,1.000000,1.000000><0.000000,0.000000,0.000000><2.000000,2.000000,-15.000000>
+	go1<model0><1.000000,1.000000,1.000000><0.000000,0.000000,0.000000><2.000000,5.000000,-2.000000>
+	go1<model0><1.000000,1.000000,1.000000><0.000000,0.000000,0.000000><2.000000,8.000000,-2.000000>
+	go1<model0><1.000000,1.000000,1.000000><0.000000,0.000000,0.000000><2.000000,10.000000,2.000000>
+	go2<quad><10.0,30.0,1.0><-90,0.0,0.0><0.0,-1.0,0.0>
+	go3<quad><2.0,15.0,1.0><90.0,0.0,-109.0><10.0,0.6,15.0>
+	go4<quad><2.0,10.0,1.0><190.0,0.0,-90.0><0.0,1.0,30.0>
+	go5<model0><2.0,2.0,2.0><0.0,0.0,0.0><-40.0,40.0,-15.0>
+	
+/submesh-material
+	go1
+		<0>woodshiny
+		<1>metalshiny
+	go2
+		<0>woodshiny
+	go3
+		<0>woodshiny
+	go4
+		<0>woodshiny
+/dirlights
+	<1.000000,-1.000000,-1.000000><0.000000,0.000000,0.000000><0.000000,0.000000,0.000000><1.000000,1.000000,1.000000><1.000000,1.000000,0.800000,1.000000>
+/plights
+	<1.000000,1.000000,1.000000,1.000000><0.000000,0.000000,10.000000><0.000000,0.000000,0.000000><0.000000,0.000000,10.000000><1.000000><0.700000><1.800000><7.000000>
+/camera
+	 FPSCamera
+	<45.000000><800.000000><600.000000><0.100000><100.000000><0.000000,1.000000,0.000000><1.000000,0.000000,0.000000><0.000000,0.000000,-1.000000>
+	1
+/width
+	800
+/height
+	600

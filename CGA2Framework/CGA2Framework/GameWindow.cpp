@@ -73,7 +73,7 @@ GLboolean GameWindow::initialize()
 	glfwSetScrollCallback(m_window, GLFWHandler::mscr_dispatch);
 
 	setHandlerInstance();
-
+	glfwSwapInterval(0);
 	if (m_samples > 0)
 	{
 		glEnable(GL_MULTISAMPLE);
@@ -119,6 +119,7 @@ GLvoid GameWindow::run()
 	GLdouble timeAccumulator = 0;
 	GLdouble timeAccumulator2 = 0;
 	GLdouble startTime;
+	GLdouble frametime;
 	while (!glfwWindowShouldClose(this->m_window))
 	{
 		startTime = glfwGetTime();
@@ -133,7 +134,8 @@ GLvoid GameWindow::run()
 		render(glfwGetTime() - startTime);
 		if (timeAccumulator2 >= 1.f / 3.f)
 		{
-			std::cout << "Frame time: " << (glfwGetTime() - ta )<< "s\n";
+			frametime = (glfwGetTime() - ta);
+			std::cout << "Frame time: " << frametime<< "s FPS: "<<1.f/frametime<<"FPS\n";
 			timeAccumulator2 = 0;
 		}
 		

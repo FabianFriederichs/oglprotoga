@@ -24,9 +24,13 @@ private:
 	class Attachment
 	{
 	public:
+		Attachment()
+		{
+		}
+
 		Attachment(const GLint _aid, Texture* _tex) :
 			aid(_aid),
-			tex(tex),
+			tex(_tex),
 			renderbufferhandle(0)
 		{
 		}
@@ -38,13 +42,27 @@ private:
 		{
 		}
 
+		void destroy()
+		{
+			if (tex != nullptr)
+			{
+				delete tex;
+				tex = nullptr;
+			}
+			if (renderbufferhandle != 0)
+			{
+				glDeleteRenderbuffers(1, &renderbufferhandle); GLERR
+				renderbufferhandle = 0;
+			}
+		}
+
 		~Attachment()
 		{
-			//delete texture?
+			
 		}
 		GLint aid;
 		Texture* tex;
-		GLint renderbufferhandle;
+		GLuint renderbufferhandle;
 	};
 public:
 	FrameBuffer(const FBTYPE _type, const GLint _samples = 0);
@@ -57,7 +75,24 @@ public:
 	bool unbind();
 	bool updateGLViewport();
 	bool updateGLViewport(const GLint _vpxoff, const GLint _vpyoff, const GLint _vpwidth, const GLint _vpheight);
-	bool blit(FrameBuffer* _target);
+
+	//blit operations
+	static bool blit(FrameBuffer* _source,
+		FrameBuffer* _target,
+		bool _color,			//blit colorbuffer?
+		GLint _colorbufferindex,//what colorbuffer?
+		bool _depth,			//blit depthbuffer?
+		bool _stencil,			//blit stencilbuffer?
+		const GLint _srcx0 = -1,
+		const GLint _srcy0 = -1,
+		const GLint _srcx1 = -1,
+		const GLint _srcy1 = -1,
+		const GLint _dstx0 = -1,
+		const GLint _dsty0 = -1,
+		const GLint _dstx1 = -1,
+		const GLint _dsty1 = -1,
+		const GLenum _defaultfbcolorbuffer = GL_BACK	//color buffer alias when using a default framebuffer
+		);
 
 	//getters / setters
 	GLuint getGLFBO() { return m_fbo; }
@@ -73,28 +108,30 @@ public:
 
 	//creating buffers
 	bool addColorBufferTex(const std::string& _name, GLint _glinternalformat = GL_RGBA8, GLenum _glformat = GL_RGBA, GLenum _gltype = GL_UNSIGNED_BYTE);
-	bool setDepthBufferTex(GLint _glinternalformat = GL_DEPTH_COMPONENT24, GLenum _glformat = GL_DEPTH_COMPONENT, GLenum _gltype = GL_FLOAT);
+	bool setDepthBufferTex(GLint _glinternalformat = GL_DEPTH24_STENCIL8, GLenum _glformat = GL_DEPTH_STENCIL, GLenum _gltype = GL_UNSIGNED_INT_24_8);
 
 	//creating buffers
-	bool addColorRenderBuffer(const std::string& _name, GLint _glinternalformat = GL_RGBA8, GLenum _glformat = GL_RGBA, GLenum _gltype = GL_UNSIGNED_BYTE);
-	bool setDepthRenderBuffer(GLint _glinternalformat = GL_DEPTH_COMPONENT24, GLenum _glformat = GL_DEPTH_COMPONENT, GLenum _gltype = GL_FLOAT);
+	//bool addColorRenderBuffer(const std::string& _name, GLint _glinternalformat = GL_RGBA8, GLenum _glformat = GL_RGBA, GLenum _gltype = GL_UNSIGNED_BYTE);
+	//bool setDepthRenderBuffer(GLint _glinternalformat = GL_DEPTH_COMPONENT24, GLenum _glformat = GL_DEPTH_COMPONENT, GLenum _gltype = GL_FLOAT);
 
 	//optional msaa resolve stuff, in case of nullptr the current framebuffer will be blit into the default framebuffer
-	bool resolve(FrameBuffer* _resolvebuffer = nullptr);
+	bool resolve(FrameBuffer* _msbuffer, FrameBuffer* _resolvebuffer, bool _color, GLint _colorbufferindex, bool _depth, bool _stencil, GLenum _defaultfbcolorbuffer = GL_BACK);
 
-	bool complete(); //adds missing renderbuffers etc. and attaches the added images
+	bool complete(GLenum _depthinternalformat = GL_DEPTH24_STENCIL8, GLenum _colorinternalformat = GL_RGBA8); //adds missing renderbuffers etc. and attaches the added images
 
 	//some state queries
 	bool isComplete() { return checkfbostate(); }
 	bool isAllocated() { return m_isallocated; }
 	bool isBound() { return m_isbound; }
 
+	bool setDrawBuffers();
+
 private:
 	//the fbo handle
 	GLuint m_fbo;
 	//when not using a buffer for a texture, keep handles to the renderbuffers
-	std::unordered_map<std::string, Attachment> m_colorrenderbuffers;
-	Attachment m_depthrenderbuffer;	
+	//std::unordered_map<std::string, Attachment> m_colorrenderbuffers;
+	//Attachment m_depthrenderbuffer;	
 	//the actual textures
 	std::unordered_map<std::string, Attachment> m_colorbuffers;
 	Attachment m_depthbuffer;
@@ -115,6 +152,6 @@ private:
 
 	bool checkfbostate();
 
-	
+
 };
 

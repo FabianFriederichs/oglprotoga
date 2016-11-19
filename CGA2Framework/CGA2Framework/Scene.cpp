@@ -12,7 +12,8 @@ m_models(),
 //m_renderer(),
 //m_renderList(),
 m_textures(),
-m_shaders()
+m_shaders(),
+m_renderables()
 {
 	
 }
@@ -30,7 +31,8 @@ m_models(),
 m_textures(),
 m_height(height),
 m_width(width),
-m_shaders()
+m_shaders(),
+m_renderables()
 {
 
 }
@@ -205,7 +207,7 @@ void Scene::save(std::string _path)
 				auto r = t.getRotate();
 				auto s = t.getScale();
 				auto tl = t.getTranslate();
-				file << "\t<" << vec4ToString(cur->m_lightcolor) << "><" << vec3ToString(s) << "><" << vec3ToString(r) << "><" << vec3ToString(tl) << "><" << vec3ToString(cur->m_direction) << "><" << std::to_string(cur->m_constant) << "><" << std::to_string(cur->m_linear) << "><" << std::to_string(cur->m_quadratic) << "><" << std::to_string(cur->m_range) << ">\n";
+				file << "\t<" << vec4ToString(cur->m_lightcolor) << "><" << vec3ToString(s) << "><" << vec3ToString(r) << "><" << vec3ToString(tl) << "><" << vec3ToString(cur->getTransform().getForw()) << "><" << std::to_string(cur->m_constant) << "><" << std::to_string(cur->m_linear) << "><" << std::to_string(cur->m_quadratic) << "><" << std::to_string(cur->m_range) << ">\n";
 			});
 		}
 
@@ -236,6 +238,7 @@ void Scene::save(std::string _path)
 void Scene::load(std::string _path)
 {
 	clear();
+	std::string relPath = _path.substr(0,_path.find_last_of('\\')+1);
 	std::ifstream file(_path.c_str());
 	std::list<SNode> nodes;
 	if (file.is_open())
@@ -271,6 +274,7 @@ void Scene::load(std::string _path)
 	std::unordered_map <std::string, Shader* > shaderss;
 	std::unordered_map<std::string, Model*> modelss;
 	std::unordered_map<std::string, Material*> materialss;
+	std::unordered_map<std::string, RenderableGameObject*> gos;
 	for (SNode n : nodes)
 	{
 		if (n.Value() == "/resources")
@@ -282,7 +286,7 @@ void Scene::load(std::string _path)
 					std::string v = nt->Value();
 					int c = v.find_first_of('<') + 1;
 					int cc = v.find_first_of('>');
-					texturess[v.substr(c, cc - c)] = dynamic_cast<Texture2D*>(DDSLoader::loadDDSTex(v.substr(cc + 1)));
+					texturess[v.substr(c, cc - c)] = dynamic_cast<Texture2D*>(DDSLoader::loadDDSTex(relPath+v.substr(cc + 1)));
 					addTexture(texturess[v.substr(c, cc - c)]);
 				}
 			}
@@ -346,7 +350,7 @@ void Scene::load(std::string _path)
 					cc = v.find_first_of('>', c);
 					std::string fs = v.substr(c, cc - c);
 					ForwardShader* forward = new ForwardShader();
-					forward->load(vs.c_str(), fs.c_str());
+					forward->load((relPath + vs).c_str(), (relPath + fs).c_str());
 					shaderss[name] = forward;
 					addShader(shaderss[name]);
 				}
@@ -364,7 +368,7 @@ void Scene::load(std::string _path)
 					c = v.find_first_of('<', cc) + 1;
 					cc = v.find_first_of('>', c);
 					int index = std::stoi(v.substr(c, cc - c));
-					std::string p = v.substr(cc + 1);
+					std::string p = relPath + v.substr(cc + 1);
 					if (modelsloaded.find(p) == std::string::npos)
 					{
 						ms = OBJLoader::loadOBJ(p);
@@ -402,23 +406,6 @@ void Scene::load(std::string _path)
 				}
 			}
 		}
-		else if (n.Value() == "/submesh-material")
-		{
-			for (SNode* nt : n.Children())
-			{
-				auto meshes = modelss[nt->Value()]->getMeshes();
-				for (SNode* ntt : nt->Children())
-				{
-					std::string v = ntt->Value();
-					int c = v.find_first_of('<') + 1;
-					int cc = v.find_first_of('>');
-					int idx = std::stoi(v.substr(c, cc - c));
-
-					std::string matname = v.substr(cc + 1);
-					meshes[idx]->setMaterial(materialss[matname]);
-				}
-			}
-		}
 		else if (n.Value() == "/go")
 		{
 			for (SNode* nt : n.Children())
@@ -436,11 +423,36 @@ void Scene::load(std::string _path)
 				if (vals.size() > 3)
 				{
 					RenderableGameObject* go = new RenderableGameObject();
-					go->setModel(modelss[vals[0]]);
-					go->getTransform().setScale(vec3FromString(vals[1]));
-					go->getTransform().setRotate(vec3FromString(vals[2]));
-					go->getTransform().setTranslate(vec3FromString(vals[3]));
+					go->setName(vals[0]);
+					if (vals[1] == "quad")
+						go->setModel(new Model(PRIMITIVETYPE::QUAD));
+					else
+						go->setModel(modelss[vals[1]]);
+					go->getTransform().setScale(vec3FromString(vals[2]));
+					auto rot = vec3FromString(vals[3]);
+					rot = vec3(radians(rot.x), radians(rot.y), radians(rot.z));
+					go->getTransform().setRotate(rot);
+					go->getTransform().setTranslate(vec3FromString(vals[4]));
+					if (gos.count(vals[0])==0)
+						gos[vals[0]] = go;
 					addRenderable(go);
+				}
+			}
+		}
+		else if (n.Value() == "/submesh-material")
+		{
+			for (SNode* nt : n.Children())
+			{
+				auto meshes = gos[nt->Value()]->getModel()->getMeshes();
+				for (SNode* ntt : nt->Children())
+				{
+					std::string v = ntt->Value();
+					int c = v.find_first_of('<') + 1;
+					int cc = v.find_first_of('>');
+					int idx = std::stoi(v.substr(c, cc - c));
+
+					std::string matname = v.substr(cc + 1);
+					meshes[idx]->setMaterial(materialss[matname]);
 				}
 			}
 		}
@@ -538,6 +550,10 @@ void Scene::addRenderable(RenderableGameObject* _renderable)
 {
 	m_gameobjects.push_back(_renderable);
 
+	GOTYPE t = _renderable->getType();
+	std::pair<GOTYPE, RenderableGameObject*> p(t, _renderable);
+	m_renderables.insert(p);
+
 	/*for (std::vector<Mesh*>::iterator mit = _renderable->getModel()->getMeshes().begin(); mit != _renderable->getModel()->getMeshes().end(); mit = mit++)
 	{
 		RenderList::iterator insertpos = m_renderList.begin();
@@ -573,7 +589,6 @@ void Scene::removeRenderable(GLint _id)
 		}
 		return false;
 	}), m_gameobjects.end());
-
 }
 
 void Scene::addShader(Shader* _shader)
@@ -616,6 +631,10 @@ void Scene::addCubeMap(TextureCB* _texture)
 	m_cubemaps.push_back(_texture);
 }
 
+void Scene::addBillboard(Billboard* _billboard)
+{
+	m_billboards.push_back(_billboard);
+}
 
 void Scene::clear()
 {
@@ -629,6 +648,16 @@ void Scene::clear()
 		}
 	}
 	m_gameobjects.clear();
+
+	/*for (auto p : m_renderables)
+	{
+		if (p.second != nullptr)
+		{
+			delete p.second;
+			p.second = nullptr;
+		}
+	}*/
+	m_renderables.clear();
 
 	for(DirectionalLight* l : m_directionallights)
 	{

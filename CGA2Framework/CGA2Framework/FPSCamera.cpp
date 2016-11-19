@@ -6,8 +6,8 @@ FPSCamera::FPSCamera(GLfloat fov,GLint width,GLint height,GLfloat znear,GLfloat 
 	m_wy = worldup;
 	m_wx = worldright;
 	m_wz = worldforward;
-	m_position=vec3(0,0,10);
-	m_rot = quat(vec3(0.0f, 0.0f, 0.0f));
+	getTransform().setTranslate(vec3(0, 0, 10));
+	m_transform.setRotate(quat(vec3(0.0f, 0.0f, 0.0f)));
 	m_fov = fov;
 	m_height = height;
 	m_width = width;
@@ -21,15 +21,15 @@ FPSCamera::FPSCamera(GLfloat fov,GLint width,GLint height,GLfloat znear,GLfloat 
 
 void FPSCamera::SetPosition(vec3 pos)
 {
-	m_position = pos;
+	getTransform().setTranslate(pos);
 }
 
-glm::mat4 FPSCamera::Orientation() const
+glm::mat4 FPSCamera::Orientation()
 {
-	return mat4_cast(m_rot);
+	return mat4_cast(getTransform().getRotateQ());
 }
 
-glm::mat4 FPSCamera::GetViewMatrix() const
+glm::mat4 FPSCamera::GetViewMatrix() 
 {
 	return GetCameraTransform();
 }
@@ -41,27 +41,23 @@ void FPSCamera::Fly(bool trueorwhat)
 
 void FPSCamera::Move(const MoveData &movedata)
 {
-	auto ori = Orientation();
-	vec3 zaxis(ori[0][2], ori[1][2], ori[2][2]);
-	vec3 xaxis(ori[0][0], ori[1][0], ori[2][0]);
-	auto dir = -zaxis;
 
 	vec3 move(0,0,0);
 
 	if(flying)
-	move+=dir*movedata.mtype.x;
+		move += -m_transform.getForw()*movedata.mtype.x;
 	else
 	{
-		move+=normalize(cross(m_wy, xaxis))*movedata.mtype.x;
+		move += normalize(cross(m_wy, m_transform.getRight()))*movedata.mtype.x;
 	}
-	move+=-xaxis*movedata.mtype.z;
-	m_position+= move*movedata.Multiplier;
+	move += -m_transform.getRight()*movedata.mtype.z;
+	m_transform.translate(normalize(move)*movedata.Multiplier);
+	m_transform.getTransformMat();
 }
 
 void FPSCamera::Rotate(const vec3 &rotation)
 {
 	m_VA = degrees(rotation.y)+m_VA;
-	m_HA = degrees(rotation.x)+m_HA;
 
 	GLfloat pitch = rotation.y;
 	GLfloat yaw = rotation.x;
@@ -79,13 +75,13 @@ void FPSCamera::Rotate(const vec3 &rotation)
 
 	if(pitch!=0)
 	{
-		m_rot = quat(vec3(pitch, 0,0))*m_rot;
-		m_rot = normalize(m_rot);
+		m_transform.setRotate(normalize(quat(vec3(pitch, 0, 0))*m_transform.getRotateQ()));
 	}
 
 	if(yaw!=0)
 	{
-		m_rot = m_rot*quat(vec3(0,yaw,0));
-		m_rot = normalize(m_rot);
+		m_transform.setRotate(normalize(m_transform.getRotateQ()*normalize(quat(vec3(0, yaw, 0)))));
+
 	}
+	m_transform.getTransformMat();
 }
