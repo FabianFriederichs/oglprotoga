@@ -25,6 +25,7 @@ public:
 	void setWidth(const GLint _width) { m_width = _width; }
 	void setHeight(const GLint _height) { m_height = _height; }
 
+	bool ReAllocate();
 
 	GLint getGLInternalFormat() const { return m_glinternalformat; }
 	GLenum getGLFormat() const { return m_glformat; }

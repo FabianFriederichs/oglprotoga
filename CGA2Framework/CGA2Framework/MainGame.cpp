@@ -114,6 +114,19 @@ GLvoid MainGame::update(GLdouble time)
 				dynamic_cast<ForwardRenderer*>(forward)->setRef(0);
 			if (keys[GLFW_KEY_0])
 				dynamic_cast<ForwardRenderer*>(forward)->setRef(1);
+			if (keys[GLFW_KEY_LEFT_CONTROL] && keys[GLFW_KEY_V])
+			{
+				if (m_scenerenderer != vrR)
+				{
+					initVR();
+					vrR->setRenderer(m_scenerenderer);
+					m_scenerenderer = vrR;
+				}
+			}
+			if (keys[GLFW_KEY_LEFT_CONTROL] && keys[GLFW_KEY_C])
+			{
+				m_scenerenderer = vrR->getRenderer();
+			}
 		//m_scene->m_gameobjects.front()->getTransform().rotate(vec3(0, 0.025f, 0));
 	}
 	if (keys[GLFW_KEY_ESCAPE]){
@@ -194,7 +207,8 @@ void MainGame::init()
 		//m_scene->addRenderable(go);
 	forward = new ForwardRenderer();
 	def = new DeferredRenderer();
-	
+	glViewport(0, 0, m_sizex, m_sizey);
+	//vrR = new VRRenderer()
 	//m_scenerenderer = new VRRenderer(new ForwardRenderer(), new Shader("..\\..\\Assets\\Shader\\quad.vert", "..\\..\\Assets\\Shader\\quad.frag"));
 }
 

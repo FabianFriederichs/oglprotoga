@@ -32,6 +32,9 @@ bool DeferredRenderer::init()
 
 	//posteffect shader
 
+	GLint m_viewport[4];
+
+	glGetIntegerv(GL_VIEWPORT, m_viewport);
 	//framebuffers
 	gbuffer = new FrameBuffer(0, 0, 800, 600, FBTYPE::FBT_2D);
 	if (!gbuffer->allocate())
@@ -95,7 +98,7 @@ bool DeferredRenderer::init()
 	}
 
 	//framebuffers
-	sbuffer = new FrameBuffer(0, 0, 800, 600, FBTYPE::FBT_2D);
+	sbuffer = new FrameBuffer(0, 0, 4000, 4000, FBTYPE::FBT_2D);
 	if (!sbuffer->allocate())
 	{
 		return false;
@@ -105,7 +108,7 @@ bool DeferredRenderer::init()
 	{
 		return false;
 	}
-	sbuffer->updateGLViewport(0, 0, 4000, 4000);
+	sbuffer->updateGLViewport();// (0, 0, 800, 600);
 
 	if (!sbuffer->addColorBufferTex("junk", GL_RGBA16F, GL_RGBA, GL_FLOAT))
 	{
@@ -132,11 +135,19 @@ bool DeferredRenderer::init()
 		return false;
 	}
 
+	glViewport(m_viewport[0], m_viewport[1], m_viewport[2], m_viewport[3]);
+
 	inited = true;
+
 	return true;
 }
 
 void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
+{
+	render(_scene, _callback, &_scene->m_camera->GetViewMatrix(), &_scene->m_camera->getProjectionMatrix());
+}
+
+void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback, glm::mat4* _view, glm::mat4* _proj)
 {
 	//initial stuff setup
 	if (!inited)
@@ -147,7 +158,11 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 			return;
 		}
 	}
-
+	GLint targetBuffer;
+	glGetIntegerv(GL_FRAMEBUFFER_BINDING, &targetBuffer);
+	GLint m_viewport[4];
+	
+	glGetIntegerv(GL_VIEWPORT, m_viewport);
 	//iterate all renderable gameobjects and render them with the gpass shader
 
 	//bind gbuffer for drawing
@@ -155,23 +170,24 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	{
 		return;
 	}
-
-	gbuffer->updateGLViewport(0, 0, 800, 600);
+	
+	
+	gbuffer->updateGLViewport(m_viewport[0], m_viewport[1], m_viewport[2], m_viewport[3]);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); GLERR
 
-	glEnable(GL_CULL_FACE); GLERR
-	glFrontFace(GL_CCW); GLERR
-	glCullFace(GL_BACK); GLERR
-	glEnable(GL_DEPTH_TEST); GLERR
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GLERR
+		glEnable(GL_CULL_FACE); GLERR
+		glFrontFace(GL_CCW); GLERR
+		glCullFace(GL_BACK); GLERR
+		glEnable(GL_DEPTH_TEST); GLERR
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GLERR
 
-	//activate gpass shader
-	gpassshader->Use();
+		//activate gpass shader
+		gpassshader->Use();
 
 	//per frame uniforms
-	gpassshader->setUniform("view", _scene->m_camera->GetCameraTransform(), false);
-	gpassshader->setUniform("projection",  _scene->m_camera->getProjectionMatrix(), false);
-	gpassshader->setUniform("camerapos",  _scene->m_camera->GetPosition());
+	gpassshader->setUniform("view", *_view, false);
+	gpassshader->setUniform("projection", *_proj, false);
+	gpassshader->setUniform("camerapos", _scene->m_camera->GetPosition());
 
 	//draw opaque geometry
 	auto it = _scene->m_renderables.equal_range(OPAQUE);
@@ -185,7 +201,7 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 		for (auto m : go->getModel()->getMeshes())
 		{
 			m->getMaterial()->setMaterialUniforms(gpassshader);
-			
+
 			if (!m->hasNormals())
 				m->generateNormals();
 			if (!m->hasTangents())
@@ -202,14 +218,14 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	{
 		return;
 	}
-	sbuffer->updateGLViewport(0, 0, 4000, 4000);
+	sbuffer->updateGLViewport();
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); GLERR
 		glEnable(GL_CULL_FACE); GLERR
 		glFrontFace(GL_CCW); GLERR
 		glCullFace(GL_BACK); GLERR
-	glEnable(GL_DEPTH_TEST); GLERR
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GLERR;
+		glEnable(GL_DEPTH_TEST); GLERR
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GLERR;
 	spassshader->Use();
 
 	auto look = glm::lookAt(vec3(-30, 30, -10), vec3(0, 0, 0), vec3(0, 1, 0));// _scene->m_directionallights.front()->
@@ -238,8 +254,9 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 		}
 	}
 	sbuffer->unbind();
+	glBindFramebuffer(GL_FRAMEBUFFER, targetBuffer);
 
-
+	
 	//(render shadowmaps)
 
 	//render (non alpha blended) billboards
@@ -252,9 +269,7 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 
 	glEnable(GL_DEPTH_TEST); GLERR
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GLERR
-	
-	glViewport(0, 0, 800, 600);
-
+	glViewport(m_viewport[0], m_viewport[1], m_viewport[2], m_viewport[3]);
 	lpassshader->Use();
 	gbuffer->getColorBufferTex("position")->bindToTextureUnit(0);
 	gbuffer->getColorBufferTex("normals")->bindToTextureUnit(1);
@@ -279,11 +294,11 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	lpassshader->setUniform("pcf", pcf);
 	lpassshader->setUniform("isshad", isshad);
 	setLights(_scene->m_directionallights, _scene->m_pointlights, _scene->m_spotlights, lpassshader);
-	
+
 	glDisable(GL_DEPTH_TEST);
 	Primitives::drawNDCQuad();
 
-	
+
 
 	//do lighting pass
 
@@ -298,10 +313,28 @@ void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 		_callback->renderFinished();
 }
 
-void DeferredRenderer::render(Scene* _scene, RenderFinishedCallback* _callback, glm::mat4* _view, glm::mat4* _proj)
+void DeferredRenderer::AdjustViewport(int width, int height)
 {
-	if (_callback != nullptr)
-		_callback->renderFinished();
+	if (gbuffer->getViewportWidth() != width && gbuffer->getViewportHeight() != height)
+	{
+		auto bufs = gbuffer->getColorBufferTexs();
+		for (auto t : *bufs)
+		{
+			if (t.second.tex->getType() == TEXTYPE::TEX_2D)
+			{
+				auto t2d = dynamic_cast<Texture2D*>(t.second.tex);
+				t2d->setHeight(height);
+				t2d->setWidth(width);
+				t2d->ReAllocate();
+			}
+		}
+		auto depth = gbuffer->getDepthBufferTex();
+		auto d = dynamic_cast<Texture2D*>(depth);
+		d->setHeight(height);
+		d->setWidth(width);
+		d->ReAllocate();
+
+	}
 }
 
 void DeferredRenderer::setLights(

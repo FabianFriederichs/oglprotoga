@@ -38,6 +38,8 @@ void VRRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	vr::TrackedDevicePose_t pose[vr::k_unMaxTrackedDeviceCount];
 	vrcomp->WaitGetPoses(pose, vr::k_unMaxTrackedDeviceCount, NULL, 0);
 	glm::mat4 view = _scene->m_camera->GetViewMatrix();
+	
+	renderer->AdjustViewport(renderWidth, renderHeight);
 
 	//Left
 	glEnable(GL_MULTISAMPLE); GLERR;
@@ -92,3 +94,4 @@ void VRRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	Primitives::drawNDCQuad();
 	_callback->renderFinished();
 }
+

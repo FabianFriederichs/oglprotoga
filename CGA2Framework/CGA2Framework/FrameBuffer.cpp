@@ -238,6 +238,11 @@ Texture* FrameBuffer::getColorBufferTex(const std::string& _name)
 	}
 }
 
+std::unordered_map<std::string, FrameBuffer::Attachment>* FrameBuffer::getColorBufferTexs()
+{
+	return &m_colorbuffers;
+}
+
 Texture* FrameBuffer::getDepthBufferTex()
 {
 	return m_depthbuffer.tex;

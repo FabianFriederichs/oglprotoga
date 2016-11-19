@@ -18,7 +18,9 @@ public:
 	bool Init();
 	void render(Scene* _scene, RenderFinishedCallback* _callback) override;
 	void setRenderer(SceneRenderer* _renderer){ renderer = _renderer; }
+	SceneRenderer* getRenderer(){ return renderer; }
 	void setScreenShader(Shader* _shader){ screenShader = _shader; }
+	
 
 	//Replace with own FBO class later
 	struct FramebufferDesc

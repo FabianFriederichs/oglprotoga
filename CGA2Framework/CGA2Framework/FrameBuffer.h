@@ -101,6 +101,7 @@ public:
 
 	//access the textures
 	Texture* getColorBufferTex(const std::string& _name);
+	std::unordered_map<std::string, Attachment>* getColorBufferTexs();
 	Texture* getDepthBufferTex();
 
 	GLint getColorRenderBuffer(const std::string& _name);

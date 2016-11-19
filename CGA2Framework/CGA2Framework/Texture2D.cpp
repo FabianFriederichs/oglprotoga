@@ -268,6 +268,105 @@ bool Texture2D::buffer(bool _empty)
 	}
 }
 
+bool Texture2D::ReAllocate()
+{
+	if (!m_multisample)	//no multisampling
+	{
+		if (m_texture == 0)
+		{
+			std::cerr << "Can't reallocate texture that has not been created yet" << std::endl;
+			m_isbuffered = false;
+			m_texture = 0;
+			return false;
+		}
+
+		glBindTexture(GL_TEXTURE_2D, m_texture);
+		if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, m_wrapmodes);
+		if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, m_wrapmodet);
+		if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, m_minfilter);
+		if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, m_magfilter);
+		if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+		if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
+
+		if (m_glinternalformat == GL_COMPRESSED_RGBA_S3TC_DXT1_EXT || m_glinternalformat == GL_COMPRESSED_RGBA_S3TC_DXT3_EXT || m_glinternalformat == GL_COMPRESSED_RGBA_S3TC_DXT5_EXT)
+		{
+			std::cout << "TEXTURE BUFFERING ERROR: Compressed texture formats are not supported for empty/rendertextures." << std::endl;
+			m_isbuffered = false;
+			m_texture = 0;
+			return false;
+		}
+
+		glTexImage2D(GL_TEXTURE_2D,
+			0,
+			m_glinternalformat,
+			m_width,
+			m_height,
+			0,
+			m_glformat,
+			m_gltype,
+			NULL);
+
+		if (checkglerror())
+		{
+			std::cout << "TEXTURE BUFFERING ERROR: An error occured while buffering the texture." << std::endl;
+			m_isbuffered = false;
+			m_texture = 0;
+			return false;
+		}
+
+		unbind();
+
+		m_isbuffered = true;
+		return true;
+	}
+	else //multisampled texture
+	{
+		if (m_texture == 0 || checkglerror())
+		{
+			std::cerr << "Can't reallocate texture that has not been created yet" << std::endl;
+			m_isbuffered = false;
+			m_texture = 0;
+			return false;
+		}
+
+		glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, m_texture);
+		if (checkglerror()) { m_isbuffered = false;  glDeleteTextures(1, &m_texture); m_texture = 0; GLERR return false; }
+
+		if (m_glinternalformat == GL_COMPRESSED_RGBA_S3TC_DXT1_EXT || m_glinternalformat == GL_COMPRESSED_RGBA_S3TC_DXT3_EXT || m_glinternalformat == GL_COMPRESSED_RGBA_S3TC_DXT5_EXT)
+		{
+			std::cout << "TEXTURE BUFFERING ERROR: Compressed texture formats are not supported for empty/rendertextures." << std::endl;
+			m_isbuffered = false;
+			m_texture = 0;
+			return false;
+		}
+
+		glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE,
+			m_samples,
+			m_glinternalformat,
+			m_width,
+			m_height,
+			false);
+
+		if (checkglerror())
+		{
+			std::cout << "TEXTURE BUFFERING ERROR: An error occured while buffering the texture." << std::endl;
+			m_isbuffered = false;
+			m_texture = 0;
+			return false;
+		}
+
+		unbind();
+
+		m_isbuffered = true;
+		return true;
+	}
+}
+
 bool Texture2D::unbuffer()
 {
 	if (isBuffered())

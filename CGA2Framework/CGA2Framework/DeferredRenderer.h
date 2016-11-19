@@ -9,6 +9,7 @@ public:
 
 	void render(Scene* _scene, RenderFinishedCallback* _callback) override;
 	void render(Scene* _scene, RenderFinishedCallback* _callback, glm::mat4* _view, glm::mat4* _proj) override;
+	void AdjustViewport(int width, int height) override;
 	void setPCF(int i){ pcf = i; }
 	void setShad(int i){ isshad = i; }
 	GLint pcf = 0;
