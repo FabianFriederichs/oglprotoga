@@ -53,6 +53,11 @@ public:
 		return  Orientation()*translate(glm::mat4(1.0f), -GetPosition());
 	}
 
+	glm::mat4 getCameraTranslation()
+	{
+		return translate(glm::mat4(1.0f), -GetPosition());
+	}
+
 	glm::mat4 getProjectionMatrix() const
 	{
 		return proj;

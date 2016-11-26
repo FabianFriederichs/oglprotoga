@@ -41,7 +41,7 @@ private:
 
 	FramebufferDesc leftEyeDesc;
 	FramebufferDesc rightEyeDesc;
-
+	vr::TrackedDevicePose_t lastposes[vr::k_unMaxTrackedDeviceCount];
 	/*FrameBuffer leftEye;
 	FrameBuffer leftResolve;
 	FrameBuffer rightEye;

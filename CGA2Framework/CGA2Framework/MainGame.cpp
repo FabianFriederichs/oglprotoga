@@ -163,7 +163,7 @@ void MainGame::init()
 	m_scene->m_textures.back()->buffer(false);
 
 	b->setTexture(m_scene->m_textures.back());
-
+	m_scene->m_camera->SetPosition(vec3(0, 0, 0));
 	b->setCamera(m_scene->m_camera);
 	b->setShader(m_scene->m_shaders.back());
 	//b->getTransform().setRotate(radians(-45.f), radians(-90.f), 0);

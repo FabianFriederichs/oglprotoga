@@ -26,6 +26,8 @@ bool VRRenderer::Init()
 		vr::VR_GetGenericInterface(vr::IVRRenderModels_Version, &vrerr);
 		vrsys->GetRecommendedRenderTargetSize(&renderWidth, &renderHeight);
 
+		vrcomp->WaitGetPoses(lastposes, vr::k_unMaxTrackedDeviceCount, NULL, 0);
+
 		CreateFrameBuffer(renderWidth, renderHeight, leftEyeDesc);
 		CreateFrameBuffer(renderWidth, renderHeight, rightEyeDesc);
 
@@ -35,10 +37,21 @@ bool VRRenderer::Init()
 
 void VRRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 {
-	vr::TrackedDevicePose_t pose[vr::k_unMaxTrackedDeviceCount];
-	vrcomp->WaitGetPoses(pose, vr::k_unMaxTrackedDeviceCount, NULL, 0);
-	glm::mat4 view = _scene->m_camera->GetViewMatrix();
-	
+
+	if (!_scene->m_camera->getTransform().isKeptOverriden())
+		_scene->m_camera->getTransform().keepOverriden(true);
+
+	auto trans = _scene->m_camera->getTransform().getTranslate();
+	auto hmdView = mat4(convert(lastposes[3].mDeviceToAbsoluteTracking));
+
+	hmdView[3][0] += trans.x;
+	hmdView[3][1] += trans.y;
+	hmdView[3][2] += trans.z;
+
+	hmdView = inverse(hmdView);
+
+	_scene->m_camera->getTransform().setMatrix(hmdView);
+
 	renderer->AdjustViewport(renderWidth, renderHeight);
 
 	//Left
@@ -46,20 +59,20 @@ void VRRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	glBindFramebuffer(GL_FRAMEBUFFER, leftEyeDesc.m_nRenderFramebufferId); GLERR;
 	glViewport(0, 0, renderWidth, renderHeight);
 	auto proj = convert(vrsys->GetProjectionMatrix(vr::EVREye::Eye_Left, _scene->m_camera->getNear(), _scene->m_camera->getFar(), vr::EGraphicsAPIConvention::API_OpenGL));
-	view = view*inverse(mat4(convert(vrsys->GetEyeToHeadTransform(vr::EVREye::Eye_Left))));
-	renderer->render(_scene, nullptr, &view, &proj);
+	auto tview = hmdView*inverse(mat4(convert(vrsys->GetEyeToHeadTransform(vr::EVREye::Eye_Left))));
+	renderer->render(_scene, nullptr, &tview, &proj);
 
 	resolveFB(leftEyeDesc.m_nRenderFramebufferId, leftEyeDesc.m_nResolveFramebufferId, renderWidth, renderHeight);
 	
-	view = _scene->m_camera->GetViewMatrix();
+	//tview = _scene->m_camera->GetViewMatrix();
 
 	//Right
 	glEnable(GL_MULTISAMPLE); GLERR;
 	glBindFramebuffer(GL_FRAMEBUFFER, rightEyeDesc.m_nRenderFramebufferId); GLERR;
 	glViewport(0, 0, renderWidth, renderHeight);
 	proj = convert(vrsys->GetProjectionMatrix(vr::EVREye::Eye_Right, _scene->m_camera->getNear(), _scene->m_camera->getFar(), vr::EGraphicsAPIConvention::API_OpenGL));
-	view = view*inverse(mat4(convert(vrsys->GetEyeToHeadTransform(vr::EVREye::Eye_Right))));
-	renderer->render(_scene, nullptr, &view, &proj);
+	tview = hmdView*inverse(mat4(convert(vrsys->GetEyeToHeadTransform(vr::EVREye::Eye_Right))));
+	renderer->render(_scene, nullptr, &tview, &proj);
 
 	resolveFB(rightEyeDesc.m_nRenderFramebufferId, rightEyeDesc.m_nResolveFramebufferId, renderWidth, renderHeight);
 
@@ -70,8 +83,21 @@ void VRRenderer::render(Scene* _scene, RenderFinishedCallback* _callback)
 	vr::VRCompositor()->Submit(vr::Eye_Right, &rightEyeTexture);
 	//vrcomp->PostPresentHandoff();
 
+	vr::TrackedDevicePose_t pose[vr::k_unMaxTrackedDeviceCount];
+	vrcomp->WaitGetPoses(pose, vr::k_unMaxTrackedDeviceCount, NULL, 0);
 
+	float fSecondsSinceLastVsync;
+	vrsys->GetTimeSinceLastVsync(&fSecondsSinceLastVsync, NULL);
+
+	float fDisplayFrequency = vrsys->GetFloatTrackedDeviceProperty(vr::k_unTrackedDeviceIndex_Hmd, vr::Prop_DisplayFrequency_Float);
+	float fFrameDuration = 1.f / fDisplayFrequency;
+	float fVsyncToPhotons = vrsys->GetFloatTrackedDeviceProperty(vr::k_unTrackedDeviceIndex_Hmd, vr::Prop_SecondsFromVsyncToPhotons_Float);
+
+	float fPredictedSecondsFromNow = fFrameDuration - fSecondsSinceLastVsync + fVsyncToPhotons;
 	
+	vrsys->GetDeviceToAbsoluteTrackingPose(vr::ETrackingUniverseOrigin::TrackingUniverseStanding, fPredictedSecondsFromNow,lastposes, vr::k_unMaxTrackedDeviceCount);
+
+
 	glBindVertexArray(0); GLERR;
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); GLERR;

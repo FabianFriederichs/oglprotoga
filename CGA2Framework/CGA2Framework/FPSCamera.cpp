@@ -49,10 +49,13 @@ void FPSCamera::Move(const MoveData &movedata)
 	else
 	{
 		move += normalize(cross(m_wy, m_transform.getRight()))*movedata.mtype.x;
+		// move += normalize(cross(m_wy, m_wx))*movedata.mtype.x;
 	}
+	//move += -m_wx*movedata.mtype.z;
 	move += -m_transform.getRight()*movedata.mtype.z;
 	m_transform.translate(normalize(move)*movedata.Multiplier);
-	m_transform.getTransformMat();
+	if (!m_transform.isMatOverriden())
+		m_transform.getTransformMat();
 }
 
 void FPSCamera::Rotate(const vec3 &rotation)
@@ -83,5 +86,6 @@ void FPSCamera::Rotate(const vec3 &rotation)
 		m_transform.setRotate(normalize(m_transform.getRotateQ()*normalize(quat(vec3(0, yaw, 0)))));
 
 	}
-	m_transform.getTransformMat();
+	if (!m_transform.isMatOverriden())
+		m_transform.getTransformMat();
 }

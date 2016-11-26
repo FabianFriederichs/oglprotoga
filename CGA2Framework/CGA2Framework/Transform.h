@@ -25,10 +25,17 @@ public:
 	void setRotate(const GLfloat _pitch, const GLfloat _yaw, const GLfloat _roll) { m_rquat = glm::quat(glm::vec3(_pitch, _yaw, _roll)); m_matdirty = true; }
 	void setRotate(const glm::quat& _rquat){ m_rquat = _rquat; m_matdirty = true; }
 	void setScale(const glm::vec3& _scale) { m_scale = _scale; m_matdirty = true; }
-
+	void setMatrix(const glm::mat4& _mat){ m_transformMat = _mat; updateDirections(); m_matdirty = false; m_matoverride = true; }
 	const glm::vec3 getUp(){ return m_y; }
 	const glm::vec3 getRight(){ return m_x; }
-	const glm::vec3 getForw(){ return m_z; }
+	const glm::vec3 getForw(){
+		return m_z; }
+
+	const bool isMatOverriden(){ return m_matoverride; }
+
+	const bool isKeptOverriden(){ return m_stayOverriden; }
+	
+	void keepOverriden(bool b){ m_stayOverriden = b; }
 
 private:
 	glm::vec3 m_translate;
@@ -38,9 +45,11 @@ private:
 	glm::vec3 m_y;
 	glm::vec3 m_x;
 	glm::vec3 m_z;
+	bool m_matoverride;
 	bool m_matdirty;
 	glm::mat4 m_transformMat;
 	void updateTransformMat();
-
+	void updateDirections();
+	bool m_stayOverriden;
 };
 
